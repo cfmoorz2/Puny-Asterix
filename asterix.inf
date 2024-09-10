@@ -1,0 +1,67 @@
+!% -~S
+!% $OMIT_UNUSED_ROUTINES=1
+!% $ZCODE_LESS_DICT_DATA=1
+
+! The very first lines of the main source code file for a game can
+! contain compiler options, like the lines above. -~S disables
+! strict error checking. This is otherwise used in z5 and z8 games by
+! default. While useful for debugging, it adds ~10 KB to the story file
+! size and it makes the game slower.
+! $OMIT_UNUSED_ROUTINES=1 makes the compiler remove all routines which
+! aren't used. This can save some space.
+
+! ============================================================================ !
+!   Cloak of Darkness - a simple demonstration of Interactive Fiction
+!	   This version for INFORM written by Roger Firth on 17Sep99
+! ============================================================================ !
+
+! When compiling to z8, use the standard library instead
+#Iftrue (#version_number == 8);
+Constant USEINFORM;
+Constant MANUAL_PRONOUNS;
+#Endif;
+
+Constant Story	  "The Candy Striper of St. Asterix";
+Constant Headline   "^A basic IF demonstration.^";
+Constant MAX_SCORE  2;
+
+Release 3;
+Serial "221116";
+
+Constant STATUSLINE_SCORE; Statusline score;
+Constant INITIAL_LOCATION_VALUE = morgue;
+
+[ DeathMessage; print "You have lost"; ];
+
+[ Initialise;
+    "It's very snowy out and you may not survive the night. ";
+];
+
+#Ifndef USEINFORM;
+
+Include "globals.h";
+Include "puny.h";
+Include "rooms.h";
+
+
+#Endif;
+
+#Ifdef USEINFORM;
+
+Include "Parser";
+Include "VerbLib";
+
+#Endif;
+
+! ============================================================================ !
+
+
+
+
+#Ifdef USEINFORM;
+Include "Grammar";
+#Endif;
+
+Verb 'hang'	 * held 'on' noun	-> PutOn;
+
+! ============================================================================ !
