@@ -1,0 +1,104 @@
+
+> x volume
+You're not interested in reading.
+
+> get old book
+Leave the books to the people who care about them.
+
+> x paper
+The papers are all dusty.
+
+> push papers
+Leave them papers or walls alone!
+
+> x them
+The papers are all dusty.
+
+> x the big library
+It's truly glorious.
+
+> push the library
+The library is super-important. Better not mess with it.
+
+> x air
+The air is oh so thin here.
+
+> get air
+You need the air to breathe, that's all.
+
+> x atmosphere
+There's a really nice atmosphere to the place.
+
+> pull walls
+Leave them papers or walls alone!
+
+> x ceiling
+The ceiling is quite high up.
+
+> push ceiling
+There's no way you could reach it!
+
+> x it
+The ceiling is quite high up.
+
+> x pushpull button
+Just a pretty button.
+
+> x light
+You can't see any such thing.
+
+> push pushpull button
+There's a really nice atmosphere to the place.
+
+> pull pushpull button
+The papers are all dusty.
+
+> turn on switch
+You switch the switch on.
+
+> x light
+It's like real sunlight.
+
+> push pushpull button
+It's like real sunlight.
+
+> pull pushpull button
+The papers are all dusty.
+
+> e
+Reading Room
+This is the reading room. The air feels different here. There's a single book
+sitting on one of the tables. You can examine or try to take the tables, the
+reading room, the air, the atmosphere, the walls and the ceiling. The library
+lies west.
+
+> x it
+I don't know what "it" refers to.
+
+> x book
+It's the classic "Gone With the Wind" by Margaret Mitchell.
+
+> get the single book
+Leave the books to the people who care about them.
+
+> push table
+You decide it's better to leave the tables where they are.
+
+> x tables
+Quite sturdy.
+
+> x room
+It's a very peaceful place.
+
+> turn reading room
+Remember you're in a library. There's no need to touch everything.
+
+> x air
+The air is thicker here than in the library.
+
+> push air
+You need the air to breathe, that's all.
+
+> quit
+Are you sure you want to quit? yes
+

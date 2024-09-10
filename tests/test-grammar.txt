@@ -1,0 +1,10 @@
+
+> open apple
+You can't open that.
+
+> close apple
+I don't understand that sentence.
+
+> quit
+Are you sure you want to quit? yes
+

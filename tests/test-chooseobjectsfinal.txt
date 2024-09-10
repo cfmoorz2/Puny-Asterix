@@ -1,0 +1,24 @@
+
+> l
+The Pub
+You are in a pub.
+
+You can see a table (on which is a red ball) and a box (which contains a green
+ball) here.
+
+> take ball from box
+Removed.
+
+> i
+You're carrying a green ball and a pink ball.
+
+> look
+The Pub
+You are in a pub.
+
+You can see a table (on which is a red ball) and a box (which is open but empty)
+here.
+
+> quit
+Are you sure you want to quit? yes
+

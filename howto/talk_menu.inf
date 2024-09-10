@@ -1,0 +1,195 @@
+!% -~S
+!% $OMIT_UNUSED_ROUTINES=1
+!% $ZCODE_LESS_DICT_DATA=1
+
+! Compile as z8 to use Inform stdlib instead of puny (for debugging), like
+! inform6 -v8 +inform6lib,lib talk_menu.inf
+
+#Iftrue (#version_number == 8);
+Constant USEINFORM;
+#Endif;
+
+Constant Story      "Talk Menu";
+Constant Headline   "^A showcase for the ext_talk_menu extension.^";
+
+! Uncomment ONE of the two following lines, to show either time or score/turns
+! Leaving both commented out makes the library bigger.
+!Constant STATUSLINE_TIME; Statusline time;
+Constant STATUSLINE_SCORE; Statusline score; #Ifdef STATUSLINE_SCORE; #Endif;
+
+! Comment out to keep track of score
+! The value is what will be shown as the score on statusline in z3
+Constant NO_SCORE = 0;
+
+! Customize the statusline in z5+ (will have no effect in z3)
+!Constant OPTIONAL_SL_NO_SCORE;
+!Constant OPTIONAL_SL_NO_MOVES;
+
+! Uncomment to add optional features to PunyInform
+!Constant DEBUG;
+
+#Ifdef USEINFORM;
+Include "Parser";
+Include "Verblib";
+Include "Grammar";
+#Ifnot;
+
+Constant OPTIONAL_NO_DARKNESS;
+!Constant RUNTIME_ERRORS = 0; ! 0, 1 or 2. 0 = smallest file, 2 = most info
+
+! Define any library constants you need here, like MAX_SCORE, AMUSING_PROVIDED,
+! MAX_CARRIED, SACK_OBJECT,  etc.
+
+Constant INITIAL_LOCATION_VALUE = Library;
+Include "globals.h";
+#Endif;
+Property talk_array;
+
+Constant FLAG_COUNT 50;
+Include "ext_flags.h";
+
+Constant TM_FIRST_ID 300;
+
+! We can customize the messages printed by talk_menu, using either strings or routines.
+Constant TM_MSG_NO_TOPICS "Now? You have no idea what to talk about.";
+Constant TM_MSG_TALK_ABOUT_WHAT "What would you like to talk about?";
+Constant TM_MSG_TOPICS_DEPLETED "With that, the conversation comes to a natural end.";
+
+! The routine for TM_MSG_EXIT uses a global defined by ext_talk_menu, so it 
+! has to be defined *after* including the extension, but we need to define the
+! constant *before* including the extension. This is how we do it.
+Constant TM_MSG_EXIT = TM_MSG_EXIT_Routine;
+
+Constant TM_MSG_EXIT_OPTION "[ENTER] Bye for now";
+#Ifv5;
+Constant TM_MSG_PAGE_OPTION "[N] More topics";
+#Endif;
+[TMPrintLine p_actor p_talk_actor p_line;
+	! Routine to print a line, by the player or an NPC. Define your own version as needed.
+	if((p_talk_actor.talk_array)-->p_line == TM_NO_LINE) 
+		rfalse;
+	if(p_actor == player)
+		_TMPrintMsg(TM_MSG_YOU, true);
+	else
+		print (The) p_actor;
+	print ": ";
+	_TMCallOrPrint(p_talk_actor, p_line);
+];
+
+Include "ext_talk_menu.h"; ! Requires ext_flags.h *IF* you set flags
+
+[ TM_MSG_EXIT_Routine;
+	if(current_talker == Linda)
+		"~Excuse me Linda, I really need to go. I hope to catch up with you later!~";
+	"With a brief nod, you thank ", (the) current_talker, " for the conversation.";
+];
+
+#Ifndef USEINFORM;
+Include "puny.h";
+#Endif;
+
+! Note that flags used in talk_array must have id 32-299
+Constant F_LINDA_TALKED_ABOUT_PARIS 32;
+
+[ FunnyReply;
+	talk_menu_talking = false;
+	"NOOO!";
+];
+[ReActivateParis;
+	ReActivateTopic(Linda, 303);
+];
+
+Array talk_array_linda -->
+	30 "Monkeys" TM_ADD_BEFORE_AND_AFTER "Loudly, you clear your throat..." "What do you know about monkeys?" 
+			"You stare at her intensely, watching for any sign that she registered the question." TM_NO_LINE "She just looks at you, flabbergasted."
+	30 "Elephants" TM_ADD_AFTER TM_NO_LINE "You open your mouth, but Linda knows what you're about to ask and cuts you short." "Everyone loves elephants, right?"
+	30 "Dogs" TM_ADD_BEFORE "You bring out your wallet and show Linda a picure of your puppy." "What do you think about dogs?" "They make great companions!" "Linda snickers to herself."
+	0 300 "Bob's death" "What do you know about Bob's death?" "Oh not much. He was murdered I think." 301
+	0 301 "Murder" "Tell me more about the murder" "Sorry, I've told you everything I know."
+	30 303 "Paris" "How do you like Paris?" "I love it. Especially the Louvre! But it's sad that Bob died there." 1 2 3 300
+	0 "Paris" "I like Paris. Tell me more about Paris!" "It's the captial of Love, they say." 2 F_LINDA_TALKED_ABOUT_PARIS
+	0 "The Louvre" "What about the Louvre?" "Oh I just love the artsy atmosphere here in Paris you know."
+	0 "Paris trivia" "Do you even know Paris is the capital of France?" "Well of course I do!" ReActivateParis
+	0 350 "Plates" "What do you know about plates?" "They're usually flat I guess."
+	TM_END;
+	
+Array talk_array_josh -->
+	30 "Linda" "How do you know Linda?" "I don't really." 1
+	0 "Himself" "Are you a funny guy?" FunnyReply
+	30 "Nothing" FunnyReply "Yes!"
+	30 "Gorillas" "What do you know about gorillas?" "I think they live in misty locations."
+	30 "Darwin Awards" "Tell me about the Darwin Awards!" "You can get a prize for dying, I think."
+	30 "Polyplay" "Heard of Polyplay?" "Great little publisher, or so I'm told."
+	30 "Apples" "What can you tell me about apples?" "They're fruits."
+	30 "Bananas" "What can you tell me about bananas?" "They're fruits. No wait, they're berries!"
+	30 "Commodore" "What's Commodore?" "A good old company that made computers back in the 80s." 1 2
+	0 "C64" "What about the C64?" "A lovely machine, no doubt!"
+	0 "Plus/4" "And what about the Plus/4?" "Oh, it was misunderstood. A clever machine really."
+	30 "Spectrum" "Have you had a ZX Spectrum?" "No, I was more of a Commodore guy." 400
+	30 "PC" "What do you know about IBM PCs?" "Boring, they're just for work." 50
+	30 "BBC computers" "Tell me about BBC Computers!" "British, weren't they? And I think the name of the company was actually Acorn."
+	30 "Murder" "Where were you when Bob was killed?" "I was at home, watching TV. You don't think I had anything to do with his death, do you?"
+	TM_END;
+
+
+
+! Use the TalkRoom class for all rooms where some conversation topics should
+! be active based on location. Using it for all rooms is OK but slower.
+
+Class TalkRoom
+	with after [;
+		Go:
+			move Linda to self;
+			print "^Linda follows in your footsteps.^^";
+			Linda.activate_topics(self);
+			rfalse;
+		Going:
+			Linda.inactivate_topics(self);
+			rfalse;
+	];
+
+TalkRoom Kitchen "Kitchen"
+	with
+		description "A modern kitchen. The library lies north of here",
+		n_to Library;
+
+
+TalkRoom Library "The Library"
+	with
+		description "You are in a library. The kitchen lies to the south.",
+		s_to Kitchen;
+
+Object -> Linda "Linda"
+	with
+		name 'linda',
+		description [;
+			if(FlagIsSet(F_LINDA_TALKED_ABOUT_PARIS))
+				print "~I've already told you that Paris is the capital of Love~, she says.";
+			else
+				print "Linda looks like she has something to say.";
+			print " The status is ", GetTopicStatus(self, 303), ".";
+			"";
+		],
+		talk_array talk_array_linda,
+		activate_topics [ p_room;
+			if(p_room == Kitchen) ActivateTopic(self, 350);
+		],
+		inactivate_topics [ p_room;
+			if(p_room == Kitchen) InactivateTopic(self, 350);
+		],
+	has proper animate female;
+
+Object -> Josh "Josh"
+	with
+		name 'josh',
+		talk_array talk_array_josh,
+	has proper animate;
+
+[Initialise;
+#Ifdef light;
+	give player light;
+#Endif;
+	location = Library;
+	print "^^Try TALK TO (SOMEONE). Linda has an extra topic to talk about
+		when she's in the kitchen.^^";
+];

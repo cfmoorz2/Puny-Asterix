@@ -1,0 +1,125 @@
+!% -~S
+!% $OMIT_UNUSED_ROUTINES=1
+!% $ZCODE_LESS_DICT_DATA=1
+
+Constant Story      "Cheap Scenery Demo";
+Constant Headline   "^A sample game which uses PunyInform.^";
+
+Constant STATUSLINE_SCORE; Statusline score;
+Constant NO_SCORE = 0;
+
+!Constant DEBUG;
+Constant OPTIONAL_NO_DARKNESS;
+Constant OPTIONAL_EXTENDED_METAVERBS;
+!Constant RUNTIME_ERRORS = 0; ! 0, 1 or 2. 0 = smallest file, 2 = most info
+
+Constant INITIAL_LOCATION_VALUE = Library;
+
+Include "globals.h";
+
+! Cheap Scenery Parse Name constants. Use values 100-500.
+Constant CSP_LIBRARY 100;
+
+[ SceneryReply word1 word2 id_or_routine;
+	! We can check location, if we want different answers in different rooms
+	! We can also check action, and there's even an implicit switch on action,
+	! so we can do things like: Take: "You're crazy.";
+	switch(id_or_routine) {
+	PARSE_NAME_AIR:
+		! We don't use word2 for anything in this routine. We set it here, to avoid
+		! a warning that it's unused
+		word2 = 1;
+		"You need the air to breathe, that's all.";
+	CSP_LIBRARY:
+		"The library is super-important. Better not mess with it.";
+	}
+	if(CSHasNoun('book'))
+		"Leave the books to the people who care about them.";
+	if(location == Library && word1 == 'shelf')
+		"You're not supposed to touch the shelves.";
+	"Remember you're in a library. There's no need to touch everything.";
+];
+
+Include "ext_cheap_scenery.h";
+Include "puny.h";
+
+[ PARSE_NAME_AIR;
+	! There is no actual need for a parse_name routine here. It's just here for demonstration purposes
+	if(NextWord() == 'air') return 1;
+	rfalse;
+];
+
+[ WALL_DESC;
+	Examine:
+		"The walls are ",
+			(string) random("all white", "claustrophobia-inducing", "scary",
+				"shiny"), " here.";
+	default:
+		rfalse;
+];
+
+Constant BOOKDESC "You're not interested in reading.";
+
+[SCN_ATMOSPHERE;
+	Examine:
+		"There's a really nice atmosphere to the place.";
+	default:
+		! Since this is a named routine, it will return true by default. Thus we
+		! have to return false for all actions we don't care about
+		rfalse;
+];
+
+
+Object Library "Library"
+	with
+		description "You are in a big lovely library. You can examine or try to
+			take the old books, the shelves, the library, the air, the atmosphere,
+			the walls and the ceiling. The reading room lies east.",
+		e_to ReadingRoom,
+		cheap_scenery
+			14 'old' 'book' 'books//p' 'volume' 'volumes//p' BOOKDESC
+			'shelf' 'shelves//p' "They're full of books."
+			CSP_LIBRARY CS_PARSE_NAME [ _i _w;
+				_w = NextWord();
+				if(_w == 'big') { _i++; _w = NextWord();}
+				if(_w == 'lovely') { _i++; _w = NextWord();}
+				if(_w == 'library') { _i++; return _i;}
+				return 0;
+			] "It's truly glorious."
+			CS_ADD_LIST Library (inside_scenery),
+		inside_scenery
+			CS_PARSE_NAME PARSE_NAME_AIR "The air is oh so thin here."
+			1 'atmosphere' SCN_ATMOSPHERE
+			'wall' 'walls//p' WALL_DESC
+			1 'ceiling' [;
+				Examine: "The ceiling is quite high up.";
+				default: "There's no way you could reach it!";
+			];
+
+Object -> Box "box"
+	with
+		name 'box',
+		description "It's a fine box.",
+	has container open openable;
+
+Object ReadingRoom "Reading Room"
+	with
+		description "This is the reading room. The air feels different here.
+			There's a single book sitting on one of the tables.
+			You can examine or try to take the tables, the reading room,
+			the air, the atmosphere, the walls and the ceiling. The library lies west.",
+		w_to Library,
+		cheap_scenery
+			CS_PARSE_NAME PARSE_NAME_AIR "The air is thicker here than in the library."
+			'single' 'book' "It's the classic ~Gone With the Wind~ by Margaret Mitchell."
+			'table' 'tables' [;
+				Examine: "Quite sturdy.";
+				Take, Remove, Turn, Pull, Push: "You decide it's better to leave the tables where they are.";
+			]
+			'reading' 'room' "It's a very peaceful place."
+			CS_ADD_LIST Library (inside_scenery);
+
+[Initialise;
+	print "^^Let's do this...^^";
+	lookmode = 2;
+];
