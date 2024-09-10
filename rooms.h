@@ -9,13 +9,25 @@ Room morgue "Morgue"
                 "lies to the west.^^A body is lying on the steel table.";
             ],
         cheap_scenery  
-            12 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. "
-            11 'metal' 'table' [;
-				Examine: "It's a narrow steel or aluminum table. ";
-				Take, Remove, Turn, Pull, Push: "It's firmly bolted to the tile floor. ";
-			],
+            12 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. ",
         w_to morgue_door,
     has light;
+
+Object morgue_table "metal table" morgue
+    with name 'metal' 'table',
+        description "It's a narrow stainless steel table that stands about waist level. ",
+    has scenery supporter;
+
+Object body "body" morgue_table
+    with name 'sid' 'jorry' 'body' 'corpse',
+        description "It's the former Sid Jorry, the hospital CFO. He was quite corpulent with a large bushy mustache and a ring 
+        of hair encircling his otherwise bald head. His eyes are closed (thank goodness) and his complexion is sallow. There's an
+        IV placed in the back of his left hand. ",
+        before [;
+            take:
+            "He'd just be dead weight. ";
+        ],
+    has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 

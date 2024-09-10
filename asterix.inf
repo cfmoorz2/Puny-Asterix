@@ -55,7 +55,9 @@ Include "puny.h";
 Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
+Include "items.h";
 Include "npcs.h";
+Include "my_grammar.h";
 
 #Endif;
 

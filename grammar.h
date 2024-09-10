@@ -789,7 +789,7 @@ Array _PutOnMessages -->
 ];
 
 [ WearSub;
-	if (parent(noun) ~= player) return MSG_WEAR_NOT_HOLDING;
+	!if (parent(noun) ~= player) return MSG_WEAR_NOT_HOLDING;
 	if (noun has worn) return MSG_WEAR_ALREADY_WORN;
 	if (noun hasnt clothing) { PrintMsg(MSG_WEAR_NOT_CLOTHING, 'wear'); rtrue; }
 	give noun worn;
