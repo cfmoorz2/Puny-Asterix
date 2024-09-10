@@ -25,6 +25,8 @@ Constant Story	  "The Candy Striper of St. Asterix";
 Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 
+Attribute valuable;
+
 Release 3;
 Serial "221116";
 
@@ -41,6 +43,8 @@ Constant INITIAL_LOCATION_VALUE = morgue;
 
 Include "globals.h";
 Include "puny.h";
+Include "compass.h";
+Include "pathfinder.h";
 Include "rooms.h";
 
 
