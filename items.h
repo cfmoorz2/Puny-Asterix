@@ -298,7 +298,7 @@ Class Tape
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
             x = SIDE_END - x;
             self.current_track = x;
-            "now current track = ",self.current_track,"^";
+            print_ret"now current track = ",self.current_track,".";
         ],
     rewind [ i;
         walkman_playing = false;
@@ -345,7 +345,7 @@ Tape mixtape "casette tape with a yellow label" walkman
                 }
                 ".";
         ],
-        daemon [;
+        each_turn [;
             if(self in walkman && walkman_playing && walkman in player && headphones has worn && headphones_plugged == true) self.playback();
         ];
 
