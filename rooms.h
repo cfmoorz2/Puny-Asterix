@@ -18,6 +18,11 @@ Room morgue "Morgue"
             open_or_closed(self);
             ".";
         ],
+        npc_open [ npc;
+            if (TestScope(npc, player) && self hasnt open) print(The)npc," pushes open the door.^";
+            give self open;
+            give self ~locked;
+        ],
         door_to [;
             if (parent(self) == morgue) return basement_hallway_east; return morgue;
         ],

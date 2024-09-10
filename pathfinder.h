@@ -2,6 +2,7 @@ Attribute touched;
 Constant TARGET_PATH = 2;
 Constant WANDER_PATH = 1;
 
+
 Array queue --> 64;
 
 Class Room 
@@ -42,8 +43,8 @@ Class Room
 Class myDoor 
     with hop,
         hop_direction,
-        npc_open [;
-        ],
+        !npc_open [;
+        !],
     has door;
 
 Class Mover 
@@ -201,6 +202,7 @@ Class Mover
             !print"^[moving ",(name)self," to the ",(name)final,"]^";
             if (TestScope(self, player)) { narrate_move(self, final); self.hide = true; }
             move self to way;
+            scope_modified = true;
             if (TestScope(self, player)) print"^",(name)self," is here.^";
             if (way == self.target_room) 
             { 

@@ -27,6 +27,9 @@ Constant MAX_SCORE  2;
 
 Attribute valuable;
 Attribute stairs;
+Attribute encountered;
+
+Global following = false;
 
 Release 3;
 Serial "221116";
@@ -37,7 +40,11 @@ Constant INITIAL_LOCATION_VALUE = morgue;
 [ DeathMessage; print "You have lost"; ];
 
 [ Initialise;
-    "It's very snowy out and you may not survive the night. ";
+    print"It's very snowy out and you may not survive the night.^";
+    move oliver to morgue;
+    oliver.move_mode = TARGET_PATH;
+	oliver.target_room = environmental_services;
+    StartDaemon(oliver);
 ];
 
 #Ifndef USEINFORM;
@@ -47,6 +54,7 @@ Include "puny.h";
 Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
+Include "npcs.h";
 
 #Endif;
 
