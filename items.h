@@ -25,10 +25,6 @@ Object sheet "sheet" body
         ],
         mass 12;
 
-
-
-
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" morgue
     with name 'flashlight' 'light' 'torch' 'black' 'plastic',
@@ -55,7 +51,7 @@ Object walkman "walkman" morgue
             if(self has open) print"open, "; else print "closed, ";
             print"where the tape is inserted and several chunky black buttons protrude from the edge 
             including 'play', 'stop', 'fast fwd', 'rewind', 'eject'. ";
-            if(headphones in self) print"There's a pair of headphones currently plugged into the player. ";
+            if(headphones_plugged) print"There's a pair of headphones currently plugged into the player. ";
             if(self has open) 
             {
                 objectloop(obj in self)
@@ -125,10 +121,6 @@ Object play_button "play button" walkman
                 {
                     obj.press_play();
                 } 
-                else
-                {
-                    obj.play();
-                }
                 rtrue;
         ],
     has scenery;   
@@ -200,35 +192,21 @@ Object rewind_button "rewind button" walkman
     has scenery;              
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global headphones_plugged = true;
 Object headphones "headphones" walkman 
     with name 'headphones' 'headphone' 'phones',
         description [;
             print"They're comprised of a thin plastic curved band ending at two orange puffy ear pieces. ";
-            if (self in walkman) "They're currently plugged into the walkman. ";
-        ],
-        react_before [;
-            wear:
-            "THIS SHOLD BE CALLED";
-            if (noun == self) 
-            {
-                if(self in walkman)
-                {
-                    if(walkman notin player) 
-                    {
-                        move walkman to player;
-                        print"(first taking the walkman)^";
-                    }
-                }
-                move self to player;
-                "You place the band over your head and position the orange poofs over your ears. ";
-            }
+            if (headphones_plugged) "They're currently plugged into the walkman. "; else "";
         ],
         before  [;
-            drop:
-                headphones_plugged = false;
             take:
-                if(self in walkman) "You should unplug them from the walkman first.";                
+                if (self in walkman) 
+                {
+                    move self to real_location;
+                    <take walkman>;
+                }
+            drop:
+                if (headphones_plugged) "You need to unplug them from the walkman first. ";            
             plugin:
                 if(headphones_plugged) "They're already plugged in. ";
                 if(walkman in player) 
@@ -259,20 +237,10 @@ Object headphones "headphones" walkman
                     }
                 }
             unplug:
-                if(self in walkman && walkman in player) 
-                {
-                    print"(from the walkman)^";
-                    move self to player;
-                    headphones_plugged = false;
-                    "Taken.";
-                }
-                if (TestScope(walkman))
-                {
-                    print"(first taking the walkman)^";
-                    move self to player;
-                    headphones_plugged = false;
-                    "You unplug the headphones from the walkman. ";
-                }
+                if (~~headphones_plugged) "They're already unplugged. ";
+                headphones_plugged = false;
+                move self to parent(walkman);
+                "You unplug the headphones from the walkman. ";
         ],
         mass 2,
     has clothing pluralname;
@@ -280,10 +248,10 @@ Object headphones "headphones" walkman
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Constant SIDE_A = 0;
 Constant SIDE_B = 1;
-Constant FIRST_TRACK = 1;
-!Constant LAST_TRACK = 6;
-Constant SIDE_END = 7;
 Constant SIDE_START = 0;
+Constant FIRST_TRACK = 1;
+Constant LAST_TRACK = 6;
+Constant SIDE_END = 7;
 
 Class Tape 
     with
@@ -306,10 +274,16 @@ Class Tape
         release the button. ";
     ],
     press_play [;
-            if (self.current_track == SIDE_END) "You seem to be at the end of this side of the tape. ";
-            print"You press the 'play' button down with a ~click~ and with a hum the little rotors start to turn.^";
-            walkman_playing = true;
+        if (self.current_track == SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
+        if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
+        print"With a satisfying ~click~ the play button engages.^";
+        walkman_playing = true;
         ],
+    play [;
+        if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
+        if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
+        self.playback();
+    ],
     before [ x;
         flip:
             print"flipping ",(name)self,"^";
@@ -336,17 +310,14 @@ Class Tape
             backwards. With a ~click~ you reach the beginning of the side. "; 
         "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
         release the button. ";
-    ],
-    daemon [;
-            if(self in walkman && walkman_playing && walkman in player && headphones has worn && headphones_plugged == true) self.play();
-        ];
+    ];
 
 Tape mixtape "casette tape with a yellow label" walkman
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
-        play [;
+        playback [;
             print"^Through the headphones you hear ";
                 if (self.current_side == SIDE_A)
                 {
@@ -373,6 +344,9 @@ Tape mixtape "casette tape with a yellow label" walkman
                     }
                 }
                 ".";
+        ],
+        daemon [;
+            if(self in walkman && walkman_playing && walkman in player && headphones has worn && headphones_plugged == true) self.playback();
         ];
 
 Tape jorry_tape "cassette tape with a green label" morgue

@@ -30,6 +30,7 @@ Attribute stairs;
 Attribute encountered;
 
 Global following = false;
+Global headphones_plugged = true;
 
 Release 3;
 Serial "221116";
@@ -45,6 +46,8 @@ Constant INITIAL_LOCATION_VALUE = morgue;
     oliver.move_mode = TARGET_PATH;
 	oliver.target_room = environmental_services;
     StartDaemon(oliver);
+    StartDaemon(mixtape);
+    mixtape.current_track = FIRST_TRACK;
 ];
 
 #Ifndef USEINFORM;
