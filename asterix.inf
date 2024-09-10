@@ -26,6 +26,7 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 
 Attribute valuable;
+Attribute stairs;
 
 Release 3;
 Serial "221116";
@@ -47,7 +48,6 @@ Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
 
-
 #Endif;
 
 #Ifdef USEINFORM;
@@ -59,7 +59,9 @@ Include "VerbLib";
 
 ! ============================================================================ !
 
-
+[open_or_closed door;
+    if (door has open) print "open"; else print "closed";
+];
 
 
 #Ifdef USEINFORM;
