@@ -1,7 +1,0 @@
-
-transcript
-
-listen
-quit
-yes
-
