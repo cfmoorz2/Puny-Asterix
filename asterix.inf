@@ -50,6 +50,7 @@ Constant INITIAL_LOCATION_VALUE = morgue;
 #Ifndef USEINFORM;
 
 Include "globals.h";
+Include "ext_cheap_scenery.h";
 Include "puny.h";
 Include "compass.h";
 Include "pathfinder.h";

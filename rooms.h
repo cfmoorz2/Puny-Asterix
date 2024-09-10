@@ -4,9 +4,16 @@ Room morgue "Morgue"
                 print "This is the hospital's small morgue. The white tiled floor is scuffed and gently slopes toward a drain in the center of the
                 room. The walls are also clad in featureless tiling and a pair of flickering fluorescent tubes above you impart a sickly green 
                 ambiance. A stainless steel table sits in the center of the room and one wall is occupied by a bank of refrigerated
-                lockers. A door lies to the west.^^
-                A body is lying on the steel table.^";
+                lockers. A door, ";
+                open_or_closed(morgue_door);
+                "lies to the west.^^A body is lying on the steel table.";
             ],
+        cheap_scenery  
+            12 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. "
+            11 'metal' 'table' [;
+				Examine: "It's a narrow steel or aluminum table. ";
+				Take, Remove, Turn, Pull, Push: "It's firmly bolted to the tile floor. ";
+			],
         w_to morgue_door,
     has light;
 
