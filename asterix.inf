@@ -22,7 +22,8 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
-Constant PLAYER_CAPACITY = 30;
+Constant PLAYER_CAPACITY = 32;
+Constant OLIVER_STRETCHER = true;
 
 Attribute valuable;
 Attribute stairs;
@@ -32,7 +33,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = morgue;
+Constant INITIAL_LOCATION_VALUE = station_b;
 
 [ DeathMessage; print "You have lost"; ];
 
@@ -40,10 +41,6 @@ Constant INITIAL_LOCATION_VALUE = morgue;
     print"It's very snowy out and you may not survive the night.^";
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
-    move oliver to morgue;
-    oliver.move_mode = TARGET_PATH;
-	oliver.target_room = environmental_services;
-    StartDaemon(oliver);
     StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);

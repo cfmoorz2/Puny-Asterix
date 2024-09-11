@@ -54,8 +54,8 @@ Class Mover
         npc_avoid 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0,
         npc_wander_delay,
         npc_last_wander,
-        npc_arrived [;
-        ],
+        npc_arrived [;],
+        !npc_post_move [;],
         daemon [ x y i;
             if(self.move_mode == TARGET_PATH)
 			{
@@ -203,6 +203,7 @@ Class Mover
             if (TestScope(self, player)) { narrate_move(self, final); self.hide = true; }
             move self to way;
             scope_modified = true;
+            if (self provides npc_post_move) self.npc_post_move();
             if (TestScope(self, player)) print"^",(name)self," is here.^";
             if (way == self.target_room) 
             { 
@@ -291,7 +292,7 @@ Class Mover
 ];       
 
 [narrate_move npc direction;
-    if(direction == u_obj) print_ret(name)npc," ",(string)npc.npc_walk," upstairs.";
-    if(direction == d_obj) print_ret(name)npc," ",(string)npc.npc_walk," downstairs.";
-    print_ret(name)npc," ",(string)npc.npc_walk," off to the ",(name)direction,".";
+    if(direction == u_obj) { print(name)npc," "; npc.npc_walk(); " upstairs."; }
+    if(direction == d_obj) { print(name)npc," "; npc.npc_walk(); " downstairs."; }
+    print(name)npc," ";npc.npc_walk(); " off to the ",(name)direction,".";
 ];

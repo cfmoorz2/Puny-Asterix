@@ -35,7 +35,7 @@ Class MyNPC
 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object oliver "Oliver" morgue
+Object oliver "Oliver"
     with name 'oliver' 'mortuary' 'assistant',
         max_capacity 34,
         description "He's of average build, about 30, and wearing a dirty laboratory
@@ -45,6 +45,29 @@ Object oliver "Oliver" morgue
             if(self has encountered) "";
             give self encountered;
             "He's the morgue assistant in charge of your body before it can be picked up in the morning. ";
+        ],
+        npc_post_move [;
+            if (OLIVER_STRETCHER)
+            {
+                move stretcher to parent(self);
+                scope_modified = true;
+            }
+        ],
+        npc_walk [;
+            if (OLIVER_STRETCHER) 
+            {
+                print"pushes the stretcher";
+            }
+            else
+            {
+                "walks";
+            }
+        ],
+        npc_arrived [;
+            if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
+            self.move_mode = TARGET_PATH;
+            self.target_room = morgue;
+            StartDaemon(oliver);
         ],
     class Mover MyNPC
     has animate proper transparent;     

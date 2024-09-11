@@ -40,6 +40,11 @@ Object body "body" morgue_table
         ],
     has scenery supporter;
 
+Object stretcher "stretcher"
+    with name 'stretcher',
+        description "It's a wheeled metal stretcher. ",
+    has supporter;
+
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
     with name 'door',
@@ -95,7 +100,7 @@ Room stairwell_b "stairwell_b"
         "This is a dark stairwell just off the main hallway which lies to the south. A large ~B~ is painted on the wall. 
         Concrete stairs zig-zag upward to the floor above.",
         s_to elevator_lobby_b,
-        u_to 0,
+        u_to stairwell_m,
     has light stairs,
     ;
 
@@ -239,3 +244,123 @@ Room engineering "Engineering"
         ],
     e_to hallway_b2,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room stairwell_m "stairwell_m" 
+    with description 
+        "This is a dark stairwell just off the main hallway which lies to the south. The word ~Main~ is painter in large letters 
+        on the wall here. Concrete stairs zig-zag up and down to 
+        the floors above and below.",
+    d_to stairwell_b,
+    !s_to elevator_lobby_m,
+    u_to stairwell_2,
+    has light stairs,
+    ;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room stairwell_2 "stairwell_2"
+    with description "This is a dark stairwell just off the main hallway which lies to the south. 
+        A large number 2 is painted on the wall. Concrete stairs zig-zag up and down to the floors above and below. ",
+        d_to stairwell_m,
+        !s_to elevator_lobby_2,
+        u_to stairwell_3,
+    has light stairs;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room stairwell_3 "stairwell_3"
+    with description "This is a dark stairwell just off the main hallway which lies to the south. 
+        A large number 3 is painted on the wall. Concrete stairs zig-zag down to the floors below. ",
+        d_to stairwell_2,
+        s_to elevator_lobby_3,
+    has light stairs;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room elevator_lobby_3 "elevator_lobby_3" 
+    with description [;
+        print"This is the third-floor elevator lobby. The elevator doors lie to the south, the 'down' 
+        button is embedded in a small panel next to them. The elevator doors are currently ";
+        !open_or_closed(elevator_doors);
+        ". A stairwell lies to the north through an open doorway. The hallway leads east and west. On the wall here you 
+        see ~Ward B~ posted in large black letters above an arrow pointing west and a blue line on the floor starts here 
+        and leads in that direction as well. ";
+    ],
+    n_to stairwell_3,
+    !e_to hallway_3_3,
+    !s_to elevator_doors,
+    !in_to elevator_doors,
+    w_to hallway_3_1,
+    has light; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_3_1 "hallway_3_1"
+    with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
+        A blue line is painted down the middle of the floor. ", 
+        e_to elevator_lobby_3,
+        w_to hallway_3_2,
+        !n_to service_elevator_door,
+        !in_to service_elevator_door,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_3_2 "hallway_3_2" 
+    with description "This is the entrance to 'B' Ward which lies down the hallway to the west. The wallpaper here is blue, 
+        matching the blue line running down the middle of the floor. The hallway returns to the east and 
+        an old service dumbwaiter is here, embedded in the south wall. ",
+        e_to hallway_3_1,
+        w_to b_ward_1,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room b_ward_1 "Ward B - East"
+    with description "The hallway continues east and west. Here the walls are blue to match the line running 
+        down the middle of the floor. Patient rooms lie north and south through open doorways. A sign next to the former 
+        reads ~33~, one next to the latter reads ~34~.", 
+        e_to hallway_3_2,
+        w_to station_b,
+        !n_to room_33,
+        s_to room_34,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_34 "Room 34"
+    with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. ",
+        n_to b_ward_1,
+        after [;
+            go:
+            if (selected_direction == s_to && self hasnt visited)
+            {
+                move oliver to elevator_lobby_3;
+                move stretcher to elevator_lobby_3;
+                oliver.move_mode = TARGET_PATH;
+	            oliver.target_room = room_34;
+                StartDaemon(oliver);
+            }
+        ],
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room station_b "Ward B - Station"
+    with description [; print"This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
+    visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
+    middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
+    a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
+    allowing space for medical staff to chart and dictate. ";
+    if (self hasnt visited) 
+    {
+        give self visited;
+        "^^There seems to be some kind of commotion down the hall to the east. ";
+    } else 
+    {
+        "";
+    }
+    ],
+        e_to b_ward_1,
+        !n_to room_31,
+        !s_to room_32,
+    has light;
+
+Object ward_b_station "nurses' station" station_b
+    with name 'nurse' 'station' 'desk',
+        description "It's a tall standing desk, square and roughly waist high. It gives the nurses and physicians 
+        a surface to update notes and charting. ",
+        has supporter scenery;
