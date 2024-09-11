@@ -16,6 +16,40 @@ Class MyContainer
         ],
     has container;
 
+Class SwipeCard
+    with 
+        mass 1,
+        before [;
+            Swipe:
+                if (noun == self && real_location == hallway_b2) {
+                    print"(through the card reader)^";
+                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
+                    give central_supply_door open;
+                    give central_supply_door ~locked;
+                    give card_reader on;
+                    StopTimer(card_reader);
+                    StartTimer(card_reader ,3);
+                    rtrue;
+                }
+                if (noun == self && second == card_reader) {
+                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
+                    give central_supply_door open;
+                    give central_supply_door ~locked;
+                    give card_reader on;
+                    StopTimer(card_reader);
+                    StartTimer(card_reader ,3);
+                } 
+            Insert:
+                if (noun == self && second == card_reader) {
+                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
+                    give central_supply_door open;
+                    give central_supply_door ~locked;
+                    give card_reader on;
+                    StopTimer(card_reader);
+                    StartTimer(card_reader ,3);
+                }  
+        ];
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sheet "sheet" body
     with name 'sheet',
@@ -24,6 +58,13 @@ Object sheet "sheet" body
                  "It's an unremarkable white sheet.";
         ],
         mass 12;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+SwipeCard yellow_card "yellow security card" morgue
+    with name 'card' 'yellow' 'swipe' 'security',
+        description "It's a yellowish rectangular swipe card. ",
+        mass 1;
+        !initial "On the floor opposite the door you see a plastic swipe card. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" morgue
@@ -250,7 +291,6 @@ Constant SIDE_A = 0;
 Constant SIDE_B = 1;
 Constant SIDE_START = 0;
 Constant FIRST_TRACK = 1;
-Constant LAST_TRACK = 6;
 Constant SIDE_END = 7;
 
 Class Tape 

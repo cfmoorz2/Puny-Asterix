@@ -10,11 +10,6 @@
 ! $OMIT_UNUSED_ROUTINES=1 makes the compiler remove all routines which
 ! aren't used. This can save some space.
 
-! ============================================================================ !
-!   Cloak of Darkness - a simple demonstration of Interactive Fiction
-!	   This version for INFORM written by Roger Firth on 17Sep99
-! ============================================================================ !
-
 ! When compiling to z8, use the standard library instead
 #Iftrue (#version_number == 8);
 Constant USEINFORM;

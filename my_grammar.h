@@ -119,3 +119,15 @@ Verb meta 'capacity' * -> Capacity;
     }
     print_ret count," units. ";    
 ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   SWIPING CARDS
+Verb 'swipe' 'slide'
+    * held -> Swipe
+    * held 'through' noun -> Swipe;
+
+[ SwipeSub; 
+    if (noun ~= yellow_card) "That's not swipeable. ";
+    if (real_location ~= hallway_b2) "There's no place here to swipe ",(the)noun,".";
+    if (second ~= card_reader) "You can't swipe ",(the)noun," through that.";
+];
