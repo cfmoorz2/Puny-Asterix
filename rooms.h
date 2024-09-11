@@ -40,11 +40,6 @@ Object body "body" morgue_table
         ],
     has scenery supporter;
 
-Object stretcher "stretcher"
-    with name 'stretcher',
-        description "It's a wheeled metal stretcher. ",
-    has supporter;
-
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
     with name 'door',
@@ -325,18 +320,12 @@ Room b_ward_1 "Ward B - East"
 Room room_34 "Room 34"
     with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. ",
         n_to b_ward_1,
-        after [;
-            go:
-            if (selected_direction == s_to && self hasnt visited)
-            {
-                move oliver to elevator_lobby_3;
-                move stretcher to elevator_lobby_3;
-                oliver.move_mode = TARGET_PATH;
-	            oliver.target_room = room_34;
-                StartDaemon(oliver);
-            }
-        ],
     has light;
+
+Object stretcher "stretcher" room_34
+    with name 'stretcher',
+        description "It's a wheeled metal stretcher. ",
+    has supporter;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"

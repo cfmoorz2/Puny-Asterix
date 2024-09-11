@@ -35,7 +35,7 @@ Class MyNPC
 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object oliver "Oliver"
+Object oliver "Oliver" room_34
     with name 'oliver' 'mortuary' 'assistant',
         max_capacity 34,
         description "He's of average build, about 30, and wearing a dirty laboratory
@@ -44,7 +44,7 @@ Object oliver "Oliver"
             print"^Oliver is here. ";
             if(self has encountered) "";
             give self encountered;
-            "He's the morgue assistant in charge of your body before it can be picked up in the morning. ";
+            "He's the morgue assistant in charge of putting the deceased on ice until the morning. ";
         ],
         npc_post_move [;
             if (OLIVER_STRETCHER)
