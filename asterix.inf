@@ -27,6 +27,7 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
+Constant PLAYER_CAPACITY = 30;
 
 Attribute valuable;
 Attribute stairs;
