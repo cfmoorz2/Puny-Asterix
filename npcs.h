@@ -7,6 +7,7 @@ Class MyNPC
             }
             return counter;
         ],
+        npc_post_follow [; rfalse;],
         react_before [ x;
             take:
                 if (noun has scenery || noun has static) rfalse;
@@ -71,6 +72,9 @@ Object sid_jorry "Sid" room_32
                 importantly, he's glowing, transparent, and floating several inches off the floor. ";
             } 
             else rfalse;
+        ],
+        npc_post_follow [;
+            
         ],
     class Mover MyNPC
     has animate proper transparent; 

@@ -33,7 +33,9 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = morgue;
+
+
 
 [ DeathMessage; print "You have lost"; ];
 
@@ -44,16 +46,31 @@ Constant INITIAL_LOCATION_VALUE = station_b;
     StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
-    sid_jorry.move_mode = FOLLOW_PATH;
-    StartDaemon(sid_jorry);
-    oliver.move_mode = TARGET_PATH;
-    oliver.target_room = morgue;
-    StartDaemon(oliver);
+    !sid_jorry.move_mode = FOLLOW_PATH;
+    !StartDaemon(sid_jorry);
+    !oliver.move_mode = TARGET_PATH;
+    !oliver.target_room = morgue;
+    !StartDaemon(oliver);
 ];
 
 #Ifndef USEINFORM;
 
 Include "globals.h";
+
+[ChooseObjects obj code;
+    obj = obj;
+    if (code == 2)
+       if (obj in walkman) return 2; else return 0;
+    if(code == 0)   {
+        if(action == ##drop) if(obj notin actor) return 2;
+        if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
+        !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
+        !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
+        !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
+        
+    }
+];
+
 Global following = false;
 Global headphones_plugged = true;
 

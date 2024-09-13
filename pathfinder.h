@@ -318,5 +318,6 @@ Class Mover
         if(direction == u_obj) { print(name)npc,", following, enters from from downstairs.^"; }
         if(direction == d_obj) { print(name)npc,", following, enters from upstairs.^"; }
         print"^",(name)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
+        if(npc provides npc_post_follow) npc.npc_post_follow();
     }
 ];
