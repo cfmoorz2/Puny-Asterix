@@ -82,7 +82,7 @@ Object sid_jorry "Sid Jorry" room_32
         describe [;
             if(self hasnt encountered) 
             {
-                StartDaemon(jorry_narration);
+                !StartDaemon(jorry_narration);
                 give self encountered;
                 "Standing here you see Sid Jorry, the hospital CFO and the guy who's supposed to sign off on your
                 volunteer evaluation so that you get credit for your candy striping. He looks confused. But more 
@@ -90,3 +90,5 @@ Object sid_jorry "Sid Jorry" room_32
             } 
             else rfalse;
         ],
+    class Mover MyNPC
+    has animate proper transparent; 

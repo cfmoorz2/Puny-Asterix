@@ -49,29 +49,17 @@ Constant INITIAL_LOCATION_VALUE = station_b;
 #Ifndef USEINFORM;
 
 Include "globals.h";
-
 Global following = false;
 Global headphones_plugged = true;
 
-[ChooseObjects obj code;
-
-    obj = obj;
-    if (code == 2)
-       if (obj in walkman && action_to_be == ##Flip) return 9; else return 0;
-    if(code == 0)   {
-        if(action_to_be == ##drop) if(obj notin player) return 2;
-        if(action_to_be == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
-    }
-];
-
 Include "ext_cheap_scenery.h";
 Include "puny.h";
+Include "my_grammar.h";
 Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
 Include "items.h";
 Include "npcs.h";
-Include "my_grammar.h";
 
 Object master_timer
     with daemon [;
@@ -92,8 +80,6 @@ Include "VerbLib";
 [open_or_closed door;
     if (door has open) print "open"; else print "closed";
 ];
-
-
 
 #Ifdef USEINFORM;
 Include "Grammar";
