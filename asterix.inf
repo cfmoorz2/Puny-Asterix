@@ -23,7 +23,7 @@ Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
 Constant PLAYER_CAPACITY = 32;
-Constant OLIVER_STRETCHER = true;
+Constant MSG_WAIT_DEFAULT "Time passes.";
 
 Attribute valuable;
 Attribute stairs;
@@ -44,6 +44,11 @@ Constant INITIAL_LOCATION_VALUE = station_b;
     StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
+    sid_jorry.move_mode = FOLLOW_PATH;
+    StartDaemon(sid_jorry);
+    oliver.move_mode = TARGET_PATH;
+    oliver.target_room = morgue;
+    StartDaemon(oliver);
 ];
 
 #Ifndef USEINFORM;

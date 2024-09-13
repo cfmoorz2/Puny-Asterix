@@ -73,7 +73,6 @@ Verb 'follow'
 
 [FollowSub direction one_out; 
     !print"here noun = ",(name)noun,"^";
-    if (noun == player) "You're possessing ",(name)noun," right now.";
     if(noun in real_location) { print(The)noun," is already here.^"; rtrue; }
     objectloop (direction in compass)
     {
@@ -91,7 +90,7 @@ Verb 'follow'
                 print"You follow ",(the)noun,;
                 if (direction == u_obj) { print" upstairs.^"; <<go FAKE_U_OBJ>>;  }
                 if (direction == d_obj) { print" downstairs.^"; <<go FAKE_D_OBJ>>; }
-                print" to the ",(name)direction,".^"; 
+                print" to the ",(name)direction,".^^"; 
                 following = true;
 
                 switch(direction) 

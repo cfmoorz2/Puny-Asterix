@@ -46,39 +46,21 @@ Object oliver "Oliver" room_34
             give self encountered;
             "He's the morgue assistant in charge of putting the deceased on ice until the morning. ";
         ],
-        npc_post_move [;
-            if (OLIVER_STRETCHER)
-            {
-                move stretcher to parent(self);
-                scope_modified = true;
-            }
-        ],
-        npc_walk [;
-            if (OLIVER_STRETCHER) 
-            {
-                print"pushes the stretcher";
-            }
-            else
-            {
-                "walks";
-            }
-        ],
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
-            self.move_mode = TARGET_PATH;
-            self.target_room = morgue;
-            StartDaemon(oliver);
         ],
     class Mover MyNPC
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sid_jorry "Sid Jorry" room_32
+Object sid_jorry "Sid" room_32
     with name 'sid' 'jorry' 'ghost' 'spectre' 'spirit',
         description "He's a short and stocky middle-aged gentleman with slicked back brown hair. He's partially transparent and 
         glowing with a greenish light. He's floating several inches off the floor and girded with a hospital gown, 
         thankfully tied in the back. ",
         max_capacity 0,
+        npc_walk [; print"floats of";],
+        npc_follow [; print"floats in";],
         describe [;
             if(self hasnt encountered) 
             {

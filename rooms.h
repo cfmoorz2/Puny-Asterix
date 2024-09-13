@@ -322,11 +322,6 @@ Room room_34 "Room 34"
         n_to b_ward_1,
     has light;
 
-Object stretcher "stretcher" room_34
-    with name 'stretcher',
-        description "It's a wheeled metal stretcher. ",
-    has supporter;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
     with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.

@@ -1,6 +1,7 @@
 Attribute touched;
 Constant TARGET_PATH = 2;
 Constant WANDER_PATH = 1;
+Constant FOLLOW_PATH = 3;
 
 
 Array queue --> 64;
@@ -50,22 +51,23 @@ Class myDoor
 Class Mover 
     with move_mode, !0 = stationary, 1 = wander, 2 = path
         target_room,
-        npc_walk "heads",
+        npc_walk [; print"heads";],
+        npc_follow [; print"enters";],
         npc_avoid 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0,
         npc_wander_delay,
         npc_last_wander,
         npc_arrived [;],
-        !npc_post_move [;],
+        npc_post_move [; rfalse;],
         daemon [ x y i;
             if(self.move_mode == TARGET_PATH)
 			{
 				path_move(parent(self), self.target_room);
 			}
-            objectloop (i in parent(self))  {
-                if(i has valuable) {
-                    move i to self;
-                    if(TestScope(self)) print(The)self," picks up ",(a)i,".^";
-                }
+            if(self.move_mode == FOLLOW_PATH)
+            {
+                self.target_room = real_location;
+                !print"moving to ",(name)self.target_room,"^";
+                path_move(parent(self), self.target_room);
             }
             if(self.move_mode == WANDER_PATH)
             {
@@ -73,6 +75,12 @@ Class Mover
                 y = random(x);
                 if (x ~= y) rfalse;
                 wander_move();
+            }
+            objectloop (i in parent(self))  {
+                if(i has valuable) {
+                    move i to self;
+                    if(TestScope(self)) print(The)self," picks up ",(a)i,".^";
+                }
             }
             rfalse;
         ],
@@ -200,12 +208,17 @@ Class Mover
                 MoveFloatingObjects();
             }
             !print"^[moving ",(name)self," to the ",(name)final,"]^";
-            if (TestScope(self, player)) { narrate_move(self, final); self.hide = true; }
+            if (TestScope(self, player) && self.move_mode == TARGET_PATH) { narrate_move(self, final); self.hide = true; }
             move self to way;
             scope_modified = true;
+            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { narrate_move(self, final); self.hide = true; }
             if (self provides npc_post_move) self.npc_post_move();
-            if (TestScope(self, player)) print"^",(name)self," is here.^";
-            if (way == self.target_room) 
+            if (TestScope(self, player) && self.hide == false) 
+            {
+                print"^",(name)self," is here.^";
+            }
+            self.hide = false;
+            if (way == self.target_room && self.move_mode == TARGET_PATH) 
             { 
                 StopDaemon(self);
                 self.move_mode = 0;
@@ -288,11 +301,22 @@ Class Mover
         s_obj: return n_obj;
         e_obj: return w_obj;
         w_obj: return e_obj;
+        default: rfalse;
     }
 ];       
 
-[narrate_move npc direction;
-    if(direction == u_obj) { print(name)npc," "; npc.npc_walk(); " upstairs."; }
-    if(direction == d_obj) { print(name)npc," "; npc.npc_walk(); " downstairs."; }
-    print(name)npc," ";npc.npc_walk(); " off to the ",(name)direction,".";
+[narrate_move npc direction rev_dir;
+    if(npc.move_mode == TARGET_PATH)
+    {
+        if(direction == u_obj) { print(name)npc," "; npc.npc_walk(); " upstairs.^"; }
+        if(direction == d_obj) { print(name)npc," "; npc.npc_walk(); " downstairs.^"; }
+        print"^",(name)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
+    }
+    if(npc.move_mode == FOLLOW_PATH)
+    {
+        rev_dir = reverse_dir(direction);
+        if(direction == u_obj) { print(name)npc,", following, enters from from downstairs.^"; }
+        if(direction == d_obj) { print(name)npc,", following, enters from upstairs.^"; }
+        print"^",(name)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
+    }
 ];
