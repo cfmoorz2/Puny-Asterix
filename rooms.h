@@ -328,6 +328,13 @@ Object stretcher "stretcher" room_34
     has supporter;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_32 "Room 32"
+    with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.
+        The floor is scuffed linoleum and a steaming radiator hisses under a window. ",
+        n_to station_b,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"
     with description [; print"This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
     visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
@@ -337,7 +344,7 @@ Room station_b "Ward B - Station"
     if (self hasnt visited) 
     {
         give self visited;
-        "^^There seems to be some kind of commotion down the hall to the east. ";
+        "^^There seems to be some kind of odd glowing light coming from the room to the south. ";
     } else 
     {
         "";
@@ -345,7 +352,7 @@ Room station_b "Ward B - Station"
     ],
         e_to b_ward_1,
         !n_to room_31,
-        !s_to room_32,
+        s_to room_32,
     has light;
 
 Object ward_b_station "nurses' station" station_b

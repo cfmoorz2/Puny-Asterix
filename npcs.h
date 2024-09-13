@@ -70,4 +70,23 @@ Object oliver "Oliver" room_34
             StartDaemon(oliver);
         ],
     class Mover MyNPC
-    has animate proper transparent;     
+    has animate proper transparent;   
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object sid_jorry "Sid Jorry" room_32
+    with name 'sid' 'jorry' 'ghost' 'spectre' 'spirit',
+        description "He's a short and stocky middle-aged gentleman with slicked back brown hair. He's partially transparent and 
+        glowing with a greenish light. He's floating several inches off the floor and girded with a hospital gown, 
+        thankfully tied in the back. ",
+        max_capacity 0,
+        describe [;
+            if(self hasnt encountered) 
+            {
+                StartDaemon(jorry_narration);
+                give self encountered;
+                "Standing here you see Sid Jorry, the hospital CFO and the guy who's supposed to sign off on your
+                volunteer evaluation so that you get credit for your candy striping. He looks confused. But more 
+                importantly, he's glowing, transparent, and floating several inches off the floor. ";
+            } 
+            else rfalse;
+        ],
