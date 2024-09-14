@@ -347,12 +347,15 @@ Object ward_b_station "nurses' station" station_b
 Object book_cart "book cart" station_b
     with name 'cart' 'push' 'wooden' 'book' 'wheeled',
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
-        you've been pushing it from ward to ward for a month, offering patients a book or magazine. ",
+        you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
+        and old magazines currently on offer to any interested patients. ",
         before [ dirobj;
             take:
                 "It's far too heavy. ";
-            push, pull:
+            push:
                 "You should supply a direction. ";
+            pull:
+                "It would make more sense to push it. ";
             pushdir:
                 dirobj = DirPropToFakeObj(selected_direction);
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
