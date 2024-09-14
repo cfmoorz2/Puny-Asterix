@@ -244,7 +244,7 @@ Room stairwell_m "stairwell_m"
         on the wall here. Concrete stairs zig-zag up and down to 
         the floors above and below.",
     d_to stairwell_b,
-    !s_to elevator_lobby_m,
+    s_to elevator_lobby_m,
     u_to stairwell_2,
     has light stairs,
     ;
@@ -382,7 +382,7 @@ Object novels "novels" book_cart
 Object magazines "magazines" book_cart
     with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
         description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
-            and 'Newsweek' among the piles.",
+            and 'Newsweek' among the stacks.",
         before [;
             take: 
                 "You don't need an old magaine that's not 'Teen Beat' or 'Seventeen'.";
@@ -392,3 +392,162 @@ Object magazines "magazines" book_cart
                 rtrue;
         ],
     has scenery pluralname;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room elevator_lobby_m "Main Elevator Lobby"
+    with description [;
+        print"This is the main elevator lobby. The elevator doors, currently ";
+        !open_or_closed(elevator_doors); 
+        ", lie to the south, the 'up' and 'down' buttons 
+        are embedded in a small panel next to them. An open doorway leads into a stairwell to the north and an open double 
+        doorway leads to the east. A sign across the top reads ~Cafeteria~. A long corridor begins here and leads west. ";
+        ],
+        cheap_scenery
+            'cafeteria' 'sign' "It's a large sign over the doorway that reads ~Cafeteria~. ",
+        n_to stairwell_m,
+        e_to cafeteria,
+        !w_to hallway_m1,
+        !s_to elevator_doors,
+        !in_to elevator_doors,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room cafeteria "Cafeteria"
+    with description "This is the hospital cafeteria, dark and empty this time of night. Tables are arranged in rows, inverted chairs 
+        stacked on top of them. A long stainless steel buffet serving station lies against one wall, an abandoned cashier
+        station against the other. An open doorway leads north into the kitchen and the exit to the main hallway lies to the west. ",
+    w_to elevator_lobby_m,
+        cheap_scenery
+            'table' 'tables//p' [;
+                examine:
+                "They're standard cafeteria tables. Just like the ones you sit at in study hall. ";
+                Take:
+                "I don't think so. ";
+                Enter:
+                "You don't need to climb around on the tables. ";
+                Receive:
+                "The tables are already occupied by inverted chairs. ";
+            ]
+            'chair' 'chairs//p' [;
+                examine:
+                "They're just chairs. ";
+                Take:
+                "You don't need that. ";
+                Enter:
+                "You sit down for a moment but restlessly stand up again. ";
+            ]
+            23 'steam' 'serving' 'table' 'buffet' 'station' [;
+                take:
+                "Seems unrealistic. ";
+                examine: 
+                "It's a long aluminum industrial steam table. The wells are all empty. ";
+                search:
+                "There's nothing hidden in the buffet station. ";
+        ],
+    n_to kitchen,
+    has light;
+
+Object cashier_station "cashier station" cafeteria 
+    with name 'cashier' 'station',
+        description "It's a metal stand holding an old and very scratched metal cash register. ",
+    has scenery;
+
+Object cash_register "cash register" cafeteria 
+    with name 'cash' 'register', 
+        description [;
+            print"It's a very old and weathered metal cash register fixed to the cashier stand. 
+            There aren't very many buttons and the numbers on them have largely worn off. ";
+            if (cash_drawer has open) "The drawer is currently open. "; else "The drawer is currently closed. "; 
+        ],
+        describe [;
+                    rtrue;
+        ],
+        before [;
+            Take:
+                "It seems to be bolted down, likely with sticky-fingered people like yourself in mind. ";
+            Insert:
+                <<insert noun cash_drawer>>;
+            Open:
+                <<open cash_drawer>>;
+            Close:
+                <<close cash_drawer>>;
+        ],
+    has scenery container open;
+
+Object cash_drawer "cash drawer" cafeteria
+    with name 'cash' 'drawer' 'till',
+        description [;
+            if (self has open) "The till is currently open. "; else "The till is currently closed. ";
+        ],
+        before [;
+            push:
+            <<close self>>;
+        ],
+        after [;
+            close:
+            give self locked;
+        ],
+    has container open openable scenery;
+
+Object cash_buttons "buttons" cafeteria 
+    with name 'button' 'buttons//p',
+        description "They're large mechanical cash register buttons. Whatever labels they once had have largely worn away. ",
+        before [;
+            push:
+                "You randomly poke at the buttons, but nothing useful seems to happen. ";
+            take:
+                "They're attached to the register. ";
+        ],
+    has scenery pluralname;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room kitchen "Kitchen"
+    with description "Stainless steel prep tables occupy the center of this large room with ovens and stoves arranged along the walls.
+    The overhead fluorescent lights are off and it's nearly pitch dark in here, save for the faint green light coming from an 'exit' sign
+    over the door to the south. There's a garbage can sitting next to one of the prep tables. ",
+    cheap_scenery 
+        22 'steel' 'prep' 'tables//p' 'table' [;
+            Take:
+            "They seem to be bolted to the floor. ";
+            Enter:
+            "They've been sanitized and you would sully them. ";
+            Receive:
+            "The tables are very clean and only intended for food products. ";
+            examine:
+            "They're stainless steel tables occupying the center of the room. ";
+        ]
+        6 'oven' 'ovens//p' 'stove' 'stoves//p' 'appliance' 'appliances//p' [;
+            take:
+            "You would need a crew of movers. ";
+            enter:
+            "You don't need to crawl around in or on that. ";
+            receive:
+            "You can leave that to the cooks. ";
+            examine:
+            "They're old but clean industrial appliances arranged around the periphery of the kitchen. ";
+        ]
+        12 'fluorescent' 'light' 'lights//p' [;
+            take:
+            "You can't reach them and don't need them. ";
+            examine:
+            "They're bare fluorescent tubes. They're all off. ";
+        ]
+        12 'exit' 'light' 'sign' [;
+            take:
+            "You can't reach it and don't need it. ";
+            examine:
+            "It's a glowing green 'exit' sign. ";
+        ],
+    s_to cafeteria,
+    has light;
+
+Object garbage_can "garbage can" kitchen
+    with name 'garbage' 'rubbish' 'can' 'bin',
+        description "It's a large metal garbage can. ",
+        before [;
+            take:
+                "It's too heavy. ";
+            search:
+                !move shrimp to self;
+        ],
+    has container scenery open;
