@@ -427,6 +427,42 @@ Tape jorry_tape "cassette tape with a green label" morgue
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object shrimp_bowl "bowl" security_desk
+    with name 'blue' 'bowl',
+        description [;
+            print"It's a blue bowl, ";
+            if (children(self) == 0)    "currently empty. "; else print"currently holding ", (a)(child(self)),".^";
+        ],
+        mass 5,
+        describe [;
+            if (self in security_desk) rtrue;
+        ],
+        before [;
+            take:
+                if (buzz in security_chair) "Buzz, irritated, stops you. ~Can I help you?~";
+            receive:
+                if (buzz in security_chair) "Buzz, irritated, stops you. ~Can I help you?~";
+        ],
+        after [;
+                take:
+                    give self ~concealed;
+        ],
+    has container open concealed item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object cocktail_shrimp "bowlfull of shrimp" shrimp_bowl
+    with name 'cocktail' 'shrimp',
+        description "It's a bowlfull of cocktail shrimp. ",
+        mass 5,
+        before [;
+                take:
+                    if (self hasnt moved && buzz in security_chair && currently_possessed ~= buzz) "Buzz, stops you. 
+                    ~Excuse me. Would you mind keeping your paws out 
+                    of my lunch?~"; else "They're too slippery and messy to handle. ";
+        ],
+    has static;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp "rotten shrimp" 
     with name 'rotten' 'putrid' 'nasty' 'shrimp',
         description "It's a single boiled shrimp, left behind and well past its expiration date. ",

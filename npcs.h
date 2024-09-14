@@ -53,3 +53,26 @@ Object oliver "Oliver" room_34
     class Mover MyNPC
     has animate proper transparent;   
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object buzz "Buzz" security_chair
+    with name "Buzz",
+        take_shrimp false,
+        description "He's an obese middle-aged gentleman in his fifties. His hair is close-cropped and he's wearing a stained dark blue 
+        security uniform. ",
+        daemon [;
+            if (self.take_shrimp && TestScope(self)) {
+                self.take_shrimp = false;
+                print"^Buzz plucks another shrimp from the bowl and plops it into his mouth.^";
+                if(shrimp in shrimp_bowl)   {
+                    print"^Suddenly, he freezes and beads of sweat break out on his expansive forehead. A loud wet gurgling sound 
+                    emanates from his large stomach. Frantically, he bolts up and with shocking dexterity, dashes out of the room 
+                    and disappears.^";
+                    remove buzz;
+                    remove shrimp;
+                    StopDaemon(buzz);
+                }
+            } else {
+                self.take_shrimp = true;
+            }
+        ],
+    has animate proper transparent;

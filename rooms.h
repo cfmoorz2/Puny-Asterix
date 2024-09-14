@@ -1,3 +1,36 @@
+Class InChair
+    with 
+        before [ obj;
+            take:
+                objectloop(obj in self && obj has animate && obj ~= player) "The chair is currently occupied."; 
+            enter:
+                if (self == parent(player)) "But you're already sitting in it. ";
+                objectloop(obj in self && obj has animate && obj ~= player) "The chair is currently occupied by ", (the) obj, "."; 
+                if (child(self) ~= nothing) "The chair is already occupied.";  
+                move player to self;
+                if (verb_word == 'stand') "You stand on ", (the) self, "."; else "You settle into ", (the) self, ".";
+        ],
+    has supporter enterable;
+
+Class OnChair
+    with 
+        before [ obj;
+            take:
+                objectloop(obj in self && obj has animate && obj ~= player) "The chair is currently occupied."; 
+            enter:
+                if (self == parent(player)) "But you're already sitting on it. ";
+                objectloop(obj in self && obj has animate && obj ~= player) "The chair is currently occupied by ", (the) obj, "."; 
+                if (child(self) ~= nothing) "The chair is already occupied.";  
+                move player to self;
+                if (verb_word == 'stand') "You stand on ", (the) self, "."; else "You sit down on ", (the) self, ".";
+        ],
+        after [ obj;
+            examine:
+                objectloop(obj in self && obj has animate) print (The)obj, " is currently sitting in it.^";
+        ], 
+    has supporter enterable;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room morgue "Morgue"
     with name 'morgue',
         description [;
@@ -577,8 +610,75 @@ Room lobby_west "Lobby West"
             grateful bedridden patients. ";
         ],
     e_to main_lobby,
-    !w_to security_door,
+    w_to security_door,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room security_office "Security Office" 
+    with description [;
+            print"This cluttered office smells vaguely of old pizza and sour-cream potato chips. A bank of 
+            closed-circuit monitors lines one wall, although none of them are turned on or seem to be functional. A long desk
+            fronts the monitors. It's ringed with water stains and burger wrappers. The exit lies to the east.^";
+            if (shrimp_bowl in security_desk) print"^On the desk you see a bowl of cocktail shrimp.^";
+            if (buzz in security_chair) {
+                if (buzz hasnt encountered) {
+                    print"^Buzz, the head of security, is sitting at the desk. He's engrossed in the newspaper and 
+                        intermittently reaches over and blindly plucks a shrimp from the bowl and plops it into his mouth.^"; 
+                    give buzz encountered;
+                } else {
+                    "^Buzz is sitting here, reading the newspaper. ";
+                }
+            }
+        ],
+        cheap_scenery 
+            14 'water' 'rings//p' 'ring' 'stain' 'stains//p' "They're water stains, likely permanent. Use a coaster, people. "
+            13 'burger' 'wrapper' 'wrappers//p' 'garbage' [;
+                take:
+                "It's literally garbage. ";
+                examine:
+                "They're greasy wadded up paper wrappers. ";
+            ]
+            26 'closed' 'circuit' 'monitor' 'monitors//p' 'television' 'televisions//p' 'tv' 'tvs//p' [;
+                take:
+                "They're fixed in place and quite heavy. ";
+                examine:
+                "It's a low bank of closed-circuit monitors. None of them appear to work. ";
+            ],
+        before    [;
+            smell:
+                if (noun == 0) "It smells like onions, garlic, and old cheese. ";
+        ],
+        e_to security_door,
+    has light;
+
+Object security_desk "security desk" security_office
+    with name 'security' 'desk',
+        description "It's a long desk facing the bank of closed-circuit monitors.",
+    has supporter scenery;
+
+OnChair security_chair "metal chair" security_office
+    with name 'metal' 'chair',
+        description "It's a standard metal and plastic chair. ",
+        mass 25,
+        describe [;
+            if (self in security_office)
+                rtrue;
+        ];
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor security_door "security door"
+     with name 'metal' 'security' 'door',
+        description [;
+            print"It's an unassuming metal door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == lobby_west) return security_office; return lobby_west;
+        ],
+        door_dir [;
+            if (parent(self) == lobby_west) return w_to; return e_to;
+        ],
+        found_in lobby_west security_office,
+    has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room main_lobby "Main Lobby"
