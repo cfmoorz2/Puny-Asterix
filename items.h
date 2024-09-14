@@ -426,12 +426,19 @@ Tape jorry_tape "cassette tape with a green label" morgue
     rtrue;
 ];
 
-
-
-
-
-
-
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object shrimp "rotten shrimp" 
+    with name 'rotten' 'putrid' 'nasty' 'shrimp',
+        description "It's a single boiled shrimp, left behind and well past its expiration date. ",
+        mass 1,
+        before [;
+            smell:
+                "It's fairly rank. ";
+            eat:
+                "You try but just can't do it. ";
+        ],
+        describe [; if(self in garbage_can) rtrue;],
+        has edible item;
 
 
 

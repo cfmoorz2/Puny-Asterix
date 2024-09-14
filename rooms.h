@@ -406,7 +406,7 @@ Room elevator_lobby_m "Main Elevator Lobby"
             'cafeteria' 'sign' "It's a large sign over the doorway that reads ~Cafeteria~. ",
         n_to stairwell_m,
         e_to cafeteria,
-        !w_to hallway_m1,
+        w_to hallway_m1,
         !s_to elevator_doors,
         !in_to elevator_doors,
     has light;
@@ -548,6 +548,96 @@ Object garbage_can "garbage can" kitchen
             take:
                 "It's too heavy. ";
             search:
-                !move shrimp to self;
+                move shrimp to self;
         ],
     has container scenery open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_m1 "hallway_m1"
+    with description "This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
+        corridor begins here and leads south. ",
+        s_to lobby_west,
+        !w_to hallway_m2,
+        e_to elevator_lobby_m,
+        !n_to service_elevator_door,
+        !in_to service_elevator_door,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room lobby_west "Lobby West"
+    with description "This is the western extension of the main lobby which lies to the east. Decorative tile murals cover
+        the walls and a corridor begins here and extends to the north. A glass door to the west is labeled ~Security~. ",
+    n_to hallway_m1,
+    cheap_scenery
+        'mural' 'murals//p' [;
+            take:
+            "I think you would need to take the whole wall. ";
+            examine:
+            "They're made of tiny pieces of colored glass tiles. They depict scenes of doctors and nurses standing over 
+            grateful bedridden patients. ";
+        ],
+    e_to main_lobby,
+    !w_to security_door,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room main_lobby "Main Lobby"
+    with description [;
+            print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large double doors 
+            leading out. The windows are partially iced over and through them you can see gales of wind-driven snow blowing sideways. 
+            The lobby continues back to the west. An information desk occupies the north wall.^";
+            !if(mabel in main_lobby) "^^Mabel, a hospital volunteer, is currently staffing the information desk. "; "";
+        ],
+        after [;
+            go:
+                if (selected_direction == n_to) {
+                    give main_lobby_doors ~open;
+                    "You push through the doors and with a hiss they close behind you.^";
+                }
+        ],
+        cheap_scenery
+        11 'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
+        12 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
+            intermittently catch a glimpse of the blizzard outside. ",
+        w_to lobby_west,
+        s_to main_lobby_doors,
+    has light;
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor main_lobby_doors "lobby doors"
+     with name 'lobby' 'double' 'doors' 'door',
+        description "They're a pair of glass doors. ",
+        door_to [;
+            if (parent(self) == main_lobby) return outside; return main_lobby;
+        ],
+        door_dir [;
+            if (parent(self) == main_lobby) return s_to; return n_to;
+        ],
+        found_in main_lobby outside,
+    has scenery door openable ~open pluralname;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Global outside_timer = 0;
+Room outside "Outside"
+    with description "You're standing outside the main hospital entrance. The freezing wind bites into your skin and flecks of ice 
+        sand-blast your cheeks. You're having a difficult time catching a breath in the intensely cold air. ",
+        after [;
+            go:
+                if (selected_direction == s_to) {
+                    print"You push through the doors and with a hiss they close behind you.^";
+                    give main_lobby_doors ~open;
+                    outside_timer = 0;
+                }
+        ],
+        each_turn [;
+            switch(outside_timer)   {
+                1:  print"You're not sure how long you can stand the cold.^";
+                2:  print"You notice that your lips seem to be turning blue.^";
+                3:  print"Unable to stand the cold any longer, you collapse in a heap of snow. Unfortunately, you seem to have 
+                    died of hypothermia. "; deadflag = true;
+                }
+                outside_timer++;
+            ],
+
+    n_to main_lobby_doors,
+    has light; 
