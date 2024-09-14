@@ -51,19 +51,11 @@ Class SwipeCard
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sheet "sheet" body
-    with name 'sheet',
-        description [;
-            if (self in body)  "Apart from the fact that it's covering a dead body, it's an otherwise completely unremarkable white sheet.";
-                 "It's an unremarkable white sheet.";
-        ],
-        mass 12;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 SwipeCard yellow_card "yellow security card" morgue
     with name 'card' 'yellow' 'swipe' 'security',
         description "It's a yellowish rectangular swipe card. ",
-        mass 1;
+        mass 1,
+        has item;
         !initial "On the floor opposite the door you see a plastic swipe card. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,7 +72,7 @@ Object flashlight "flashlight" morgue
             switchoff:
                 give self ~ light;
         ],
-    has switchable valuable;
+    has switchable valuable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global walkman_playing = false;
@@ -126,7 +118,7 @@ Object walkman "walkman" morgue
             "^You see a walkman here.";
         ],
         mass 6, 
-    has container transparent openable;
+    has container transparent openable item;
 
 Object eject_button "eject button" walkman
     with name 'eject' 'button',
@@ -284,7 +276,7 @@ Object headphones "headphones" walkman
                 "You unplug the headphones from the walkman. ";
         ],
         mass 2,
-    has clothing pluralname;
+    has clothing pluralname item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Constant SIDE_A = 0;
@@ -387,7 +379,8 @@ Tape mixtape "casette tape with a yellow label" walkman
         ],
         each_turn [;
             if(self in walkman && walkman_playing && walkman in player && headphones has worn && headphones_plugged == true) self.playback();
-        ];
+        ],
+        has item;
 
 Tape jorry_tape "cassette tape with a green label" morgue
     with name 'tape' 'cassette' 'green',
@@ -412,7 +405,8 @@ Tape jorry_tape "cassette tape with a green label" morgue
                     }
                 }
                 ".";
-        ];
+        ],
+    has item;
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;

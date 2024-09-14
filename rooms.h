@@ -6,8 +6,7 @@ Room morgue "Morgue"
                 ambiance. A stainless steel table sits in the center of the room and one wall is occupied by a bank of refrigerated
                 lockers. A door, currently ";
                 open_or_closed(morgue_door);
-                print" lies to the west.^^A body is lying on the table";
-                if(sheet in body) ", currently covered by a sheet. "; else ".";
+                " lies to the west. ";
             ],
         cheap_scenery  
             12 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. "
@@ -33,12 +32,10 @@ Object body "body" morgue_table
         with a large bushy mustache and a ring of hair encircling his otherwise bald head. His eyes are closed (thank goodness) 
         and his complexion is sallow. There's an IV placed in the back of his left hand. ",
         before [;
-            examine:
-                if (sheet in self) "It's currently covered by a sheet. ";
             take:
             "He'd just be dead weight. ";
         ],
-    has scenery supporter;
+    has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
@@ -331,23 +328,14 @@ Room room_32 "Room 32"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"
-    with description [; print"This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
+    with description "This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
     visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
     middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
     a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
-    allowing space for medical staff to chart and dictate. ";
-    if (self hasnt visited) 
-    {
-        give self visited;
-        "^^There seems to be some kind of odd glowing light coming from the room to the south. ";
-    } else 
-    {
-        "";
-    }
-    ],
-        e_to b_ward_1,
-        !n_to room_31,
-        s_to room_32,
+    allowing space for medical staff to chart and dictate. ",
+    e_to b_ward_1,
+    !n_to room_31,
+    s_to room_32,
     has light;
 
 Object ward_b_station "nurses' station" station_b
@@ -355,3 +343,24 @@ Object ward_b_station "nurses' station" station_b
         description "It's a tall standing desk, square and roughly waist high. It gives the nurses and physicians 
         a surface to update notes and charting. ",
         has supporter scenery;
+
+Object book_cart "book cart" station_b
+    with name 'cart' 'push' 'wooden' 'book' 'wheeled',
+        description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
+        you've been pushing it from ward to ward for a month, offering patients a book or magazine. ",
+        before [ dirobj;
+            take:
+                "It's far too heavy. ";
+            push, pull:
+                "You should supply a direction. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you push the cart to the ";
+                print (string) direction_name_array-->selected_direction_index;
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;     
+        ],
+    has supporter;
