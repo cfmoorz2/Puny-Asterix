@@ -47,11 +47,6 @@ Constant INITIAL_LOCATION_VALUE = elevator_lobby_m;
     StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
-    !sid_jorry.move_mode = FOLLOW_PATH;
-    !StartDaemon(sid_jorry);
-    !oliver.move_mode = TARGET_PATH;
-    !oliver.target_room = morgue;
-    !StartDaemon(oliver);
 ];
 
 #Ifndef USEINFORM;

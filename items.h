@@ -51,12 +51,15 @@ Class SwipeCard
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-SwipeCard yellow_card "yellow security card" morgue
-    with name 'card' 'yellow' 'swipe' 'security',
-        description "It's a yellowish rectangular swipe card. ",
+SwipeCard swipe_card "security card" security_desk
+    with name 'card' 'swipe' 'security',
+        description "It's a white plastic rectangular swipe card. ",
         mass 1,
+        before [;
+            take:
+            if (self in security_desk && buzz in security_chair) "Buzz stops you. ~Hands off, little lady.~";
+        ],
         has item;
-        !initial "On the floor opposite the door you see a plastic swipe card. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" morgue
@@ -447,7 +450,7 @@ Object shrimp_bowl "bowl" security_desk
                 take:
                     give self ~concealed;
         ],
-    has container open concealed item;
+    has container open item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object cocktail_shrimp "bowlfull of shrimp" shrimp_bowl
@@ -456,7 +459,7 @@ Object cocktail_shrimp "bowlfull of shrimp" shrimp_bowl
         mass 5,
         before [;
                 take:
-                    if (self hasnt moved && buzz in security_chair && currently_possessed ~= buzz) "Buzz, stops you. 
+                    if (buzz in security_chair) "Buzz, stops you. 
                     ~Excuse me. Would you mind keeping your paws out 
                     of my lunch?~"; else "They're too slippery and messy to handle. ";
         ],

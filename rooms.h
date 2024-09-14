@@ -618,13 +618,15 @@ Room security_office "Security Office"
     with description [;
             print"This cluttered office smells vaguely of old pizza and sour-cream potato chips. A bank of 
             closed-circuit monitors lines one wall, although none of them are turned on or seem to be functional. A long desk
-            fronts the monitors. It's ringed with water stains and burger wrappers. The exit lies to the east.^";
-            if (shrimp_bowl in security_desk) print"^On the desk you see a bowl of cocktail shrimp.^";
+            fronts the monitors. It's ringed with water stains and burger wrappers. ";
+            if(PrintContents("On the desk you can see ", security_desk)) print". ";
+            print"The exit lies to the east.^";
             if (buzz in security_chair) {
                 if (buzz hasnt encountered) {
                     print"^Buzz, the head of security, is sitting at the desk. He's engrossed in the newspaper and 
                         intermittently reaches over and blindly plucks a shrimp from the bowl and plops it into his mouth.^"; 
                     give buzz encountered;
+                    StartDaemon(buzz);
                 } else {
                     "^Buzz is sitting here, reading the newspaper. ";
                 }
@@ -653,7 +655,7 @@ Room security_office "Security Office"
 
 Object security_desk "security desk" security_office
     with name 'security' 'desk',
-        description "It's a long desk facing the bank of closed-circuit monitors.",
+        description"It's a long desk facing the bank of closed-circuit monitors. ",
     has supporter scenery;
 
 OnChair security_chair "metal chair" security_office

@@ -62,7 +62,7 @@ Object buzz "Buzz" security_chair
         daemon [;
             if (self.take_shrimp && TestScope(self)) {
                 self.take_shrimp = false;
-                print"^Buzz plucks another shrimp from the bowl and plops it into his mouth.^";
+                print"^Buzz plucks a shrimp from the bowl and plops it into his mouth.^";
                 if(shrimp in shrimp_bowl)   {
                     print"^Suddenly, he freezes and beads of sweat break out on his expansive forehead. A loud wet gurgling sound 
                     emanates from his large stomach. Frantically, he bolts up and with shocking dexterity, dashes out of the room 
@@ -74,5 +74,16 @@ Object buzz "Buzz" security_chair
             } else {
                 self.take_shrimp = true;
             }
+        ],
+        life [;
+            give, show:
+            if (noun == shrimp) 
+            {
+                move shrimp to shrimp_bowl;
+                "Buzz's eyes widen at the sight of the shrimp.^
+                ~Ooh, thought you could get away, huh?~^
+                Before you can react, he plops the shrimp in the bowl with the others. ";
+            } 
+            "Buzz doesn't seem interested in the ",(name)noun,".";
         ],
     has animate proper transparent;
