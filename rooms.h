@@ -367,3 +367,28 @@ Object book_cart "book cart" station_b
                 rtrue;     
         ],
     has supporter;
+
+Object novels "novels" book_cart
+    with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
+        description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
+        before [;
+            read:
+                "You flip through one at random. There's a lot of swelling and heaving going on. ";
+            take:
+                "You have little interest in romance novels. ";
+        ],
+    has scenery pluralname;
+
+Object magazines "magazines" book_cart
+    with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
+        description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
+            and 'Newsweek' among the piles.",
+        before [;
+            take: 
+                "You don't need an old magaine that's not 'Teen Beat' or 'Seventeen'.";
+            read:
+                print"You flip through a random magazine. ";
+                read_news();
+                rtrue;
+        ],
+    has scenery pluralname;
