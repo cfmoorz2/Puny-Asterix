@@ -37,11 +37,13 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 
 #Ifndef USEINFORM;
 
 Include "globals.h";
+
+Global dial_setting = 0;
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
@@ -77,6 +79,9 @@ Include "puny.h";
     StartDaemon(master_timer);
     jorry_dial.set_to = random(30);
     move boombox to player;
+    oliver.move_mode = TARGET_PATH;
+	oliver.target_room = conference_room;
+    StartDaemon(oliver);
 ];
 
 Include "my_grammar.h";

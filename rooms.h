@@ -35,7 +35,7 @@ Class Bed
         before [ obj;
             enter:
                 objectloop(obj in self && obj has animate && obj ~= player) "There's already someone in the bed."; 
-                if (verb_word == 'sit' or 'lie')    {
+                if (verb_word == 'sit' or 'lie' or 'get')    {
                     if (self == parent(player) && self.sit_or_lie == verb_word)
                     "You're already on it. ";
                     move player to self;
@@ -339,7 +339,7 @@ Room elevator_lobby_3 "elevator_lobby_3"
         and leads in that direction as well. ";
     ],
     n_to stairwell_3,
-    !e_to hallway_3_3,
+    e_to hallway_3_3,
     !s_to elevator_doors,
     !in_to elevator_doors,
     w_to hallway_3_1,
@@ -1090,6 +1090,12 @@ Room elevator_lobby_2 "elevator_lobby_2"
     w_to hallway_2_1,
     has light;
 
+Object red_line "red line"
+    with name 'red' 'line',
+        description "It's a thick red line painted down the middle of the hallway. ",
+        found_in elevator_lobby_2 hallway_2_1 hallway_2_2 a_ward_1 station_a,
+    has scenery;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "hallway_2_3" 
     with description "This long dim hallway continues east towards the radiology suite and west toward the elevators.
@@ -1428,21 +1434,65 @@ Room hallway_2_2 "hallway_2_2"
 Room a_ward_1 "Ward A - East"
     with description "The hallway continues east and west. Here the walls are red to match the line running 
         down the middle of the floor. Patient rooms lie north and south through open doorways. A sign next to the former 
-        reads ~21E~, one next to the latter reads ~23~.", 
+        reads ~23-A~, one next to the latter reads ~24-A~.",
+        cheap_scenery
+        'south' 'sign' "It reads ~24-A~"
+        'north' 'sign' "It reads ~23-A~", 
         e_to hallway_2_2,
         w_to station_a,
-        !n_to room_21_east,
-        !s_to room_23,
+        n_to room_23,
+        s_to room_24,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_23 "Room 23"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads north back out to the hallway. ",
+        s_to a_ward_1,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_23_bed "patient bed" room_23
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_24 "Room 24"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads north back out to the hallway. ",
+        n_to a_ward_1,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_24_bed "patient bed" room_24
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_a "Ward A - Station"
     with description "This is the western end of a long red east-west corridor. Open doorways to the north and south 
-        lead to patient rooms, signs next to the former read ~21W~, the latter ~22~. The nurses' station is here. 
+        lead to patient rooms, signs next to the former read ~21-A~, the latter ~22-A~. The nurses' station is here. 
         It's a large square waist-high desk used for charting and note-taking. ",
+        cheap_scenery
+        'south' 'sign' "It reads ~22-A~"
+        'north' 'sign' "It reads ~21-A~",
         e_to a_ward_1,
-        !n_to room_21_west,
-        !s_to room_22,
+        n_to room_21,
+        s_to room_22,
     has light;
 
 Object ward_a_station "nurses' station" station_a
@@ -1451,3 +1501,249 @@ Object ward_a_station "nurses' station" station_a
         a surface to update notes and charting. ",
     has supporter scenery;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_21 "Room 21"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads south back out to the hallway. ",
+        s_to station_a,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_21_bed "patient bed" room_21
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_22 "Room 22"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads north back out to the hallway. ",
+        n_to station_a,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_22_bed "patient bed" room_22
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_3_3 "hallway_3_3"
+    with description "Here the hallway continues east and west. There's a door to the north. A sign next to it reads ~Conference~. 
+        A sign next to to an open doorway to the south reads ~Employees Only~. ",
+        w_to elevator_lobby_3,
+        n_to conference_door,
+        s_to break_room,
+        e_to hallway_3_4,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor conference_door "north door"
+     with name 'north' 'door',
+        description [;
+            print"It's an unassuming door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == hallway_3_3) return conference_room; return hallway_3_3;
+        ],
+        door_dir [;
+            if (parent(self) == hallway_3_3) return n_to; return s_to;
+        ],
+        found_in hallway_3_3 conference_room,
+    has scenery door openable ~open; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room conference_room "Conference Object"
+    with description "This is a quiet carpeted room, typically used for family conferences or for delivering bad news. 
+        An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
+        soothing. ",
+        s_to conference_door,
+    has light;
+
+InChair conference_chair "overstuffed chair" conference_room
+    with name 'overstuffed' 'chair',
+        description "It's a beige overstuffed chair. ",
+    before [;
+        take:
+            "It's way too heavy. ";
+    ],
+    has scenery;
+
+Object fish_tank "fish tank" conference_room 
+    with name 'tank' 'aquarium',
+        description "It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
+        goldfish. ",
+    has scenery;
+
+Object pedestal "pedestal" conference_room 
+    with name 'wooden' 'pedestal',
+        description "It's a substantial wooden pedestal holding up the fish tank. ",
+        before [;
+            take:
+                "It's far too heavy. ";
+        ],
+    has scenery;
+
+Object goldfish "goldfish" conference_room
+    with name 'goldfish' 'fish',
+        description "You see a half-dozen goldfish slowly swimming in the tank. ",
+        before [;
+            take:
+                "Entirely unnecessary. ";
+        ],
+    has scenery pluralname;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_3_4 "hallway_3_4"
+    with description "This is the east end of a long east-west corridor. The door to the female locker room 
+        lies to the north, the door to the male counterpart is to the south. ",
+        w_to hallway_3_3,
+        !n_to female_locker_door,
+        s_to "You can't go in the mens' locker room. ",
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room break_room "Break Room"
+    with description "This is an employee break room. There's a white plastic table here with matching chairs and a 
+        refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
+    n_to hallway_3_3,
+    pn_to hallway_3_3,
+    has light;
+
+Object break_room_table "table" break_room
+    with name 'white' 'plastic' 'table',
+        description "It's a white plastic table. ",
+        before [;
+            take:
+                "You don't need the cheaply-made plastic table. ";
+        ],
+    has supporter scenery;
+
+Object break_room_chairs "chairs" break_room
+    with name 'white' 'plastic' 'chairs//p' 'chair',
+        description "You see a number of cheaply-made white plastic chairs. ",
+        before [;
+            take:
+                "You don't need one of those. ";
+            enter:
+                "You notice the food stains and decide to remain standing. ";
+        ],
+        has scenery;
+
+Object counter "counter" break_room 
+    with name 'counter',
+        description "It's a standard formica counter. It's adorned with years of stains and scorch marks. ",
+        before [;
+            take:
+                "Nope. ";
+        ],
+        has scenery supporter;
+
+Object refrigerator "refrigerator" break_room 
+    with name 'refrigerator' 'fridge',
+        description "It's an old off-white refrigerator. A helpful handwritten sign taped to the front helpfully reminds the reader 
+            that their mother doesn't work here and that one should only eat ones own food. ",
+        before [;
+            take:
+                "You don't possess the power of levitation. You do seem to possess the power of delusion. ";
+        ],
+    has scenery container openable ~open;
+
+Object fridge_sign "refrigerator sign" break_room
+    with name 'sign' 'handwritten' 'note',
+        description "It's a handwritten note outlining standard breakroom etiquette. ",
+        before [;
+            read:
+                "~Your mother doesn't work here so CLEAN UP AFTER YOURSELF! Label your food and ONLY EAT WHAT YOU BRING!!~ The 
+                abundance of exclamation marks and upper-case letters nearly give you a headache. ";
+            take:
+                "Then how would people know that their mother doesn't work here?";
+        ],
+    has scenery;
+
+Object fridge_stuff "smelly collection of tupperware and condiments" refrigerator
+    with name 'smelly' 'collection' 'tupperware' 'condiments',
+        description "It's an assortment of plastic containers each one labelled with the owner's name. You can also see various bottles and 
+            containers of out-of-date condiments. ",
+        before [;
+            take:
+                    "None of it is yours. Didn't you read the sign?";
+            smell:
+                    "You smell a complex melange of old food and baking soda. ";
+        ],
+    has static;
+
+Object microwave "microwave oven" break_room
+    with name 'microwave' 'oven',
+        description [;
+                print "It's a small underpowered microwave oven, ";
+                if (self.oven_running == true) print "currently running. "; else print"currently off. ";
+                "The only control is a dial on the front pointing to 1-minute intervals up to 10 minutes. ";
+        ],
+        before [;
+            take: 
+                "It's not a large microwave but it's still not portable. "; 
+            open:
+                self.oven_running = false;
+                StopTimer(microwave_dial);    
+        ],
+        after [;
+            close:
+                if (dial_setting == 0) { "You close the microwave. ";
+                }   else {
+                    StartTimer(microwave_dial, dial_setting);
+                    self.oven_running = true;
+                    "The microwave starts up again. ";
+                }
+        ],
+        oven_running false,
+    has openable container scenery ~open;
+
+Object microwave_dial "dial" break_room
+    with name 'dial' 'control',
+        description [;
+                print"It's a dial that turns in 1-minute increments up to 10 minutes. It's currently pointing to "; 
+                if (microwave.oven_running == true) print self.time_left; else print dial_setting;
+                ".";
+        ],
+        before [;
+            turnto:
+                if(microwave has open) "You should close the microwave first. ";
+                if (microwave.oven_running && second == 0) {
+                    StopTimer(self);
+                    microwave.oven_running = false;
+                    dial_setting = 0;
+                    "With a 'ding' the microwave shuts off. ";
+                }   else {
+                    if (second < 0 || second > 10) "It only turns in 1-minute increments up to 10. ";
+                    dial_setting = second;
+                    StartTimer(self, second);
+                    microwave.oven_running = true;
+                    "You turn the dial to ", second, ". The microwave turns on with a mechanical hum. ";
+                }
+        ],
+        time_left,
+        time_out [;
+            microwave.oven_running = false;
+            dial_setting = 0;
+            "With a 'ding' the microwave shuts off. ";
+        ],
+        react_before [;
+            open:
+                if (noun == microwave) {
+                    dial_setting = self.time_left;
+                }
+        ]
+    has scenery;

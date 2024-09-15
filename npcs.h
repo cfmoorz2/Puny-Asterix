@@ -10,9 +10,9 @@ Class MyNPC
         npc_post_follow [; rfalse;],
         react_before [ x;
             take:
-                if (noun has scenery || noun has static) rfalse;
-                x = self.holding();
-                !if (x + noun.mass > self.max_capacity) "That's more than ",(name)self," can hold.";
+            if (noun has scenery || noun has static) rfalse;
+            x = self.holding();
+            !if (x + noun.mass > self.max_capacity) "That's more than ",(name)self," can hold.";
             go:
             if (following) { following = false; rfalse; }
             if(player == self && real_location provides noun.door_dir && real_location.(noun.door_dir) ofclass Room)
@@ -36,7 +36,7 @@ Class MyNPC
 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object oliver "Oliver" room_34
+Object oliver "Oliver" morgue
     with name 'oliver' 'mortuary' 'assistant',
         max_capacity 34,
         description "He's of average build, about 30, and wearing a dirty laboratory

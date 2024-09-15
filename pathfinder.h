@@ -208,16 +208,16 @@ Class Mover
                 MoveFloatingObjects();
             }
             !print"^[moving ",(name)self," to the ",(name)final,"]^";
-            if (TestScope(self, player) && self.move_mode == TARGET_PATH) { narrate_move(self, final); self.hide = true; }
+            if (TestScope(self, player) && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
             move self to way;
             scope_modified = true;
-            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { narrate_move(self, final); self.hide = true; }
+            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
             if (self provides npc_post_move) self.npc_post_move();
             if (TestScope(self, player) && self.hide == false) 
             {
                 print"^",(name)self," is here.^";
             }
-            self.hide = false;
+            !self.hide = false;
             if (way == self.target_room && self.move_mode == TARGET_PATH) 
             { 
                 StopDaemon(self);
@@ -274,7 +274,7 @@ Class Mover
         i++;
         if (i == x) 
         { 
-            if (TestScope(self, player)) { narrate_move(self, direction); self.hide = true; }
+            if (TestScope(self, player)) { self.hide = true; narrate_move(self, direction); }
             move self to test_room;
             self.npc_last_wander = reverse_dir(direction);
             !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
