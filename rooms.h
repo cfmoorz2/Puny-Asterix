@@ -1087,7 +1087,7 @@ Room elevator_lobby_2 "elevator_lobby_2"
     e_to hallway_2_3,
     !s_to elevator_doors,
     !in_to elevator_doors,
-    !w_to hallway_2_1,
+    w_to hallway_2_1,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1404,4 +1404,50 @@ Object box_switch "switch" x_ray
                 "It's fixed to the viewing boxes. ";
         ],
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_2_1 "hallway_2_1"
+    with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
+        A red line is painted down the middle of the floor. ",
+        e_to elevator_lobby_2,
+        w_to hallway_2_2,
+        !n_to service_elevator_door,
+        !in_to service_elevator_door,
+    has light;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_2_2 "hallway_2_2" 
+    with description "This is the entrance to 'A' Ward which lies down the hallway to the west. The wallpaper here is red, 
+        matching the red line running down the middle of the floor. The hallway returns to the east and 
+        an old service dumbwaiter is here, embedded in the south wall. ",
+        e_to hallway_2_1,
+        w_to a_ward_1,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room a_ward_1 "Ward A - East"
+    with description "The hallway continues east and west. Here the walls are red to match the line running 
+        down the middle of the floor. Patient rooms lie north and south through open doorways. A sign next to the former 
+        reads ~21E~, one next to the latter reads ~23~.", 
+        e_to hallway_2_2,
+        w_to station_a,
+        !n_to room_21_east,
+        !s_to room_23,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room station_a "Ward A - Station"
+    with description "This is the western end of a long red east-west corridor. Open doorways to the north and south 
+        lead to patient rooms, signs next to the former read ~21W~, the latter ~22~. The nurses' station is here. 
+        It's a large square waist-high desk used for charting and note-taking. ",
+        e_to a_ward_1,
+        !n_to room_21_west,
+        !s_to room_22,
+    has light;
+
+Object ward_a_station "nurses' station" station_a
+    with name 'nurse' 'station' 'desk',
+        description "It's a tall standing desk, square and roughly waist high. It gives the nurses and physicians 
+        a surface to update notes and charting. ",
+    has supporter scenery;
 
