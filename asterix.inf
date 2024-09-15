@@ -15,6 +15,7 @@
 Constant USEINFORM;
 Constant MANUAL_PRONOUNS;
 
+
 #Endif;
 
 Constant Story	  "The Candy Striper of St. Asterix";
@@ -23,6 +24,7 @@ Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
 Constant PLAYER_CAPACITY = 32;
+Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 
 Attribute valuable;
@@ -42,6 +44,7 @@ Constant INITIAL_LOCATION_VALUE = elevator_lobby_m;
 
 [ Initialise r;
     print"It's very snowy out and you may not survive the night.^";
+    LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
     StartDaemon(mixtape);

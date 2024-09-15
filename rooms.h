@@ -590,10 +590,17 @@ Room hallway_m1 "hallway_m1"
     with description "This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
         corridor begins here and leads south. ",
         s_to lobby_west,
-        !w_to hallway_m2,
+        w_to hallway_m2,
         e_to elevator_lobby_m,
         !n_to service_elevator_door,
         !in_to service_elevator_door,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_m2 "hallway_m2"
+    with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. ",
+    e_to hallway_m1,
+    w_to admin_hallway,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -694,7 +701,7 @@ Room main_lobby "Main Lobby"
             go:
                 if (selected_direction == n_to) {
                     give main_lobby_doors ~open;
-                    "You push through the doors and with a hiss they close behind you.^";
+                    print"You push through the doors and with a hiss they close behind you.^";
                 }
         ],
         cheap_scenery
@@ -740,6 +747,128 @@ Room outside "Outside"
                 }
                 outside_timer++;
             ],
-
     n_to main_lobby_doors,
     has light; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room admin_hallway "Administration"
+    with description "This is the western end of a long east-west hallway. It's a bit better maintained than the others and warmer 
+        colors accentuate the walls. The overhead fluorescent tubes are replaced here by round light fixtures and the floor is covered with blue 
+        carpet. There's a plain wooden door to the north with a small placard mounted next to it and a set of french glass doors lie to the west. ",
+    cheap_scenery
+    12 'brass' 'placard' 'sign' [;
+        take:
+        "If you want one, you should get an MBA. ";
+        read:
+        "~Sid Jorry, VP/CFO~";
+        examine:
+        "It's a small brass placard mounted next to the door. It reads ~Sid Jorry, VP/CFO~.";
+    ]
+    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
+    before [;
+        examine:
+        if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
+        if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
+    ],
+    e_to hallway_m2,
+    n_to jorry_door,
+    !w_to french_doors,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor jorry_door "office door" 
+    with name 'door' 'wooden' 'office',
+        description [;
+            print"It's a plain wooden office door, currently ";
+            open_or_closed(self);
+            print ".";
+        ],
+        door_to [;
+            if (parent(self) == admin_hallway) return jorry_office; return admin_hallway;
+        ],
+        door_dir [;
+            if (parent(self) == admin_hallway) return n_to; return s_to;
+        ],
+        found_in admin_hallway jorry_office,
+    has scenery door openable ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room jorry_office "Office" 
+    with description [;
+        print"This is a typical office befitting a less-than-top-level executive. A desk stands here";
+        if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
+        print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. In one corner you 
+        see a thick squat safe, currently ";
+        open_or_closed(safe);
+        ".";
+    ],
+    s_to jorry_door,
+    ps_to admin_hallway,
+    has light;
+
+InChair jorry_chair "office chair" jorry_office
+    with name 'chair' 'seat' 'rolling' 'leather',
+        description "It's a faux-leather rolling executive chair. ",
+        mass 24,
+        describe [;
+            if (self in jorry_office) rtrue;
+        ],
+        before [dirobj ;
+            take:
+                "It's too heavy and awkward to carry around. ";
+            pushdir:
+                if (player in self) {
+                    print"(first getting off of the chair)^";
+                    move player to location;
+                }
+                dirobj = DirPropToFakeObj(selected_direction);
+                if(dirobj == FAKE_D_OBJ or FAKE_U_OBJ) "You can't roll it up or down the stairs. ";
+                print"^You push the rolling chair to ",(the)second,".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;
+        ],
+    has supporter enterable static;
+
+Object safe "safe" jorry_office 
+    with name 'safe',
+        description [;
+            print"It's a squat black metal safe, currently ";
+            open_or_closed(self);
+            ". It opens with a key instead of a combination. ";
+        ],
+        before [;
+            take:
+                "It's far too heavy. ";
+        ],
+    has container scenery openable open;
+
+Object jorry_desk "office desk" jorry_office
+    with name 'desk' 'office',
+        description "It's a standard executive desk, wooden with a glass top. A single drawer runs across the knee well. ",
+        before [;
+            open:
+                <<open jorry_drawer>>;
+            close:
+                <<close jorry_drawer>>;
+        ],
+    has supporter scenery;
+
+Object jorry_drawer "desk drawer" jorry_office  
+    with name 'drawer',
+        description [;
+            print"It's a long narrow drawer, currently "; 
+            open_or_closed(self);
+            ".";
+        ],
+        describe [; rtrue; ],
+    has scenery container openable ~open;
+
+Object  jorry_paintings "paintings" jorry_office
+    with name 'painting' 'paintings' 'picture' 'pictures',
+        description"They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ",
+        before [;
+            take:
+                "You have no need for bad art. ";
+        ],
+    has scenery pluralname;
