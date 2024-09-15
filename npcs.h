@@ -87,3 +87,30 @@ Object buzz "Buzz" security_chair
             "Buzz doesn't seem interested in the ",(name)noun,".";
         ],
     has animate proper transparent;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object sid_jorry "Sid Jorry" jorry_chair
+    with name 'sid' 'jorry',
+        description "He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
+        his otherwise bald head. He always reminded you of your uncle Pete except he's wearing a gray business 
+        suit and Uncle Pete only wears black socks and cargo shorts. He's seated at his desk and slumped
+        forward across it. Luckily, his eyes are closed because that would be too creepy otherwise. ",
+        before [;
+            push, pull:
+            "You're too creeped out to mess with him. ";
+            search:
+            "You force yourself to go through his pockets but find nothing of interest. ";
+            wakeother:
+            "He's dead, not sleeping. ";
+            take:
+            "He would just be dead weight. ";
+        ],
+        life [;
+            give, show:
+            "Unsurprisingly, he doesn't seem interested in ",(the)noun,".";
+            ask:
+            "I wouldn't wait around for an answer. ";
+            tell:
+            "I don't think he's going to respond. ";
+        ],
+    has scenery animate;

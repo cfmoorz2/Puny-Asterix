@@ -797,13 +797,18 @@ Room jorry_office "Office"
     with description [;
         print"This is a typical office befitting a less-than-top-level executive. A desk stands here";
         if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
-        print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. In one corner you 
-        see a thick squat safe, currently ";
-        open_or_closed(safe);
-        ".";
+        ". Non-threatening paintings of flowers and bowls of fruit adorn the walls. In one corner you 
+        see a thick squat safe, currently closed.^^The former Sid Jorry is sitting in the chair and slumped over the desk.
+        His eyes, thankfully, are closed. ";
+    ],
+    cheap_scenery
+    4 'painting' 'paintings//p' 'picture' 'pictures//p' [;
+        examine:
+        "They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ";
+        take:
+        "You have no need for mediocre art. ";
     ],
     s_to jorry_door,
-    ps_to admin_hallway,
     has light;
 
 InChair jorry_chair "office chair" jorry_office
@@ -813,35 +818,43 @@ InChair jorry_chair "office chair" jorry_office
         describe [;
             if (self in jorry_office) rtrue;
         ],
-        before [dirobj ;
+        before [;
             take:
-                "It's too heavy and awkward to carry around. ";
+                "It's too heavy what with the dead body in it. ";
             pushdir:
-                if (player in self) {
-                    print"(first getting off of the chair)^";
-                    move player to location;
-                }
-                dirobj = DirPropToFakeObj(selected_direction);
-                if(dirobj == FAKE_D_OBJ or FAKE_U_OBJ) "You can't roll it up or down the stairs. ";
-                print"^You push the rolling chair to ",(the)second,".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue;
+                "Between the carpet and the dead body you're not rolling the chair anywhere. ";
         ],
     has supporter enterable static;
 
-Object safe "safe" jorry_office 
+Object jorry_safe "safe" jorry_office 
     with name 'safe',
-        description [;
-            print"It's a squat black metal safe, currently ";
-            open_or_closed(self);
-            ". It opens with a key instead of a combination. ";
-        ],
+        description "It's a squat black metal safe, currently closed. A dial is embedded in the door. ",
         before [;
             take:
                 "It's far too heavy. ";
         ],
-    has container scenery openable open;
+    has container scenery openable ~open transparent;
+
+Object jorry_dial "dial" jorry_safe
+    with name 'dial' 'combination',
+        description [;
+            print"It's a dial embedded in the safe door. Numbers around the outside range from 1 to 30. 
+            It's currently set to ",self.set_to,".^";
+        ],
+        set_to,
+        before [;
+            turn:
+                "You can turn it 'clockwise' or 'counterclockwise' to a number. ";
+            turnclockwiseto:
+                if (second < 1 || second > 30) "The numbers only go from 1 to 30. ";
+                self.set_to = second;
+                "You turn the dial clockwise to ",second,".";
+            turncounterclockwiseto:
+                if (second < 1 || second > 30) "The numbers only go from 1 to 30. ";
+                self.set_to = second;
+                "You turn the dial counterclockwise to ",second,".";
+        ],
+    has scenery;
 
 Object jorry_desk "office desk" jorry_office
     with name 'desk' 'office',
@@ -864,11 +877,3 @@ Object jorry_drawer "desk drawer" jorry_office
         describe [; rtrue; ],
     has scenery container openable ~open;
 
-Object  jorry_paintings "paintings" jorry_office
-    with name 'painting' 'paintings' 'picture' 'pictures',
-        description"They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ",
-        before [;
-            take:
-                "You have no need for bad art. ";
-        ],
-    has scenery pluralname;

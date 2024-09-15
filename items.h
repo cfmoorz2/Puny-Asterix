@@ -80,28 +80,42 @@ Object flashlight "flashlight" morgue
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global walkman_playing = false;
 Object walkman "walkman" morgue
-    with name 'walkman' 'player' 'compartment',
+    with name 'walkman' 'player' 'compartment' 'headphones' 'phones', ! 0 = walkman, 1 = headphones
+        parse_id,
         description [ obj;
-            print"It's a silver plastic and metal tape player. It's slightly smaller than a thick 
-            paperback book. There's a compartment in the side, currently ";
-            if(self has open) print"open, "; else print "closed, ";
-            print"where the tape is inserted and several chunky black buttons protrude from the edge 
-            including 'play', 'stop', 'fast fwd', 'rewind', 'eject'. ";
-            if(headphones_plugged) print"There's a pair of headphones currently plugged into the player. ";
-            if(self has open) 
+            if (self.parse_id == 0)
             {
+                print"It's a silver plastic and metal tape player. It's slightly smaller than a thick 
+                paperback book. There's a compartment in the side, currently ";
+                if(self has open) print"open, "; else print "closed, ";
+                print"where the tape is inserted and several chunky black buttons protrude from the edge 
+                including 'play', 'stop', 'fast fwd', 'rewind', 'eject'. ";
+                if(headphones_plugged) print"There's a pair of headphones currently plugged into the player. ";
+                if(self has open) 
+                {
+                    objectloop(obj in self)
+                    {
+                        if (obj ofclass Tape) "A cassette tape sits in the open compartment. "; 
+                    }
+                    "The open compartment is empty. ";
+                }
                 objectloop(obj in self)
                 {
-                    if (obj ofclass Tape) "A cassette tape sits in the open compartment. "; 
+                    if (obj ofclass Tape) print"Through the little window you can see a cassette tape inside ";      
                 }
-                "The open compartment is empty. ";
+                if(walkman_playing) "and that the little rotors are turning. "; else "and that the little 
+                rotors are motionless. ";
             }
-            objectloop(obj in self)
-            {
-                if (obj ofclass Tape) print"Through the little window you can see a cassette tape inside ";      
+        ],
+        parse_name [ wd num;
+            wd = NextWord();
+            while (WordInProperty(wd, self, name)) {
+            if (wd == 'walkman' or 'player' or 'compartment') self.parse_id = 0;
+            if (wd == 'headphones' or 'phones') self.parse_id = 1;
+            num++;
+            wd = NextWord();
             }
-            if(walkman_playing) "and that the little rotors are turning. "; else "and that the little 
-            rotors are motionless. ";
+            return num;
         ],
         before [;
             open:
@@ -236,6 +250,7 @@ Object headphones "headphones" walkman
         ],
         before  [;
             take:
+                if (self in walkman && walkman in player) rtrue;
                 if (self in walkman) 
                 {
                     move self to real_location;
@@ -385,7 +400,7 @@ Tape mixtape "casette tape with a yellow label" walkman
         ],
         has item;
 
-Tape jorry_tape "cassette tape with a green label" morgue
+Tape jorry_tape "cassette tape with a green label" jorry_drawer
     with name 'tape' 'cassette' 'green',
         description"It's a cassette tape with a greenlabel. Written on the label you see ~S.J.~",
         current_side SIDE_A,

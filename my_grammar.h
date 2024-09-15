@@ -15,8 +15,14 @@ Verb 'spin' = 'turn';
 !   TURNING DIALS 
 Extend 'turn' first
     * noun 'to' number -> TurnTo;
+Extend 'turn' first
+    * noun 'clockwise'/'right' 'to' number -> TurnClockwiseTo;
+Extend 'turn' first
+    * noun 'counterclockwise'/'left' 'to' number -> TurnCounterclockwiseTo;
 
-[TurnToSub; "You can't seem to turn ", (the)noun, ".";];
+[TurnClockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
+[TurnCounterclockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
+[TurnToSub; "You should specify 'clockwise' or 'counterclockwise'.";];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   PLUG/UNPLUG

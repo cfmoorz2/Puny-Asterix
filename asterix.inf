@@ -25,6 +25,7 @@ Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
 Constant PLAYER_CAPACITY = 32;
 Constant OPTIONAL_EXTENDED_METAVERBS;
+Constant OPTIONAL_EXTENDED_VERBSET;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 
 Attribute valuable;
@@ -36,7 +37,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_m;
+Constant INITIAL_LOCATION_VALUE = jorry_office;
 
 
 
@@ -50,6 +51,7 @@ Constant INITIAL_LOCATION_VALUE = elevator_lobby_m;
     StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
+    jorry_dial.set_to = random(30);
 ];
 
 #Ifndef USEINFORM;
