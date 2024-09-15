@@ -43,17 +43,6 @@ Constant INITIAL_LOCATION_VALUE = jorry_office;
 
 [ DeathMessage; print "You have lost"; ];
 
-[ Initialise r;
-    print"It's very snowy out and you may not survive the night.^";
-    LookModeLongSub();
-    r = random(10);
-    SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
-    StartDaemon(mixtape);
-    mixtape.current_track = FIRST_TRACK;
-    StartDaemon(master_timer);
-    jorry_dial.set_to = random(30);
-];
-
 #Ifndef USEINFORM;
 
 Include "globals.h";
@@ -67,8 +56,7 @@ Include "globals.h";
         if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
-        !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
-        
+        !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;  
     }
 ];
 
@@ -77,6 +65,19 @@ Global headphones_plugged = true;
 
 Include "ext_cheap_scenery.h";
 Include "puny.h";
+
+[ Initialise r;
+    print"It's very snowy out and you may not survive the night.^";
+    LookModeLongSub();
+    r = random(10);
+    SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
+    StartDaemon(mixtape);
+    mixtape.current_track = FIRST_TRACK;
+    StartDaemon(master_timer);
+    jorry_dial.set_to = random(30);
+    move walkman to player;
+];
+
 Include "my_grammar.h";
 Include "compass.h";
 Include "pathfinder.h";

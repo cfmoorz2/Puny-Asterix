@@ -136,3 +136,18 @@ Verb 'swipe' 'slide'
     if (second ~= card_reader) "You can't swipe ",(the)noun," through that.";
     "That's not swipeable. ";
 ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   My Wear
+
+Extend 'wear' replace
+    * held -> MyWear; 
+
+[MyWearSub;
+    print"IN MY WEARSUB^";
+	if (parent(noun) ~= player) return MSG_WEAR_NOT_HOLDING;
+	if (noun has worn) return MSG_WEAR_ALREADY_WORN;
+	if (noun hasnt clothing) { PrintMsg(MSG_WEAR_NOT_CLOTHING, 'wear'); rtrue; }
+	give noun worn;
+	run_after_routines_msg = MSG_WEAR_DEFAULT;
+];
