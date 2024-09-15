@@ -78,16 +78,14 @@ Object flashlight "flashlight" morgue
     has switchable valuable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global walkman_playing = false;
-Object walkman "walkman" 
-    with name 'walkman' 'player' 'compartment', ! 0 = walkman, 1 = headphones
+Global boombox_playing = false;
+Object boombox "boombox" 
+    with name 'boombox' 'box' 'player' 'compartment',
         description [ obj;
-            print"It's a silver plastic and metal tape player. It's slightly smaller than a thick 
-            paperback book. There's a compartment in the side, currently ";
-            if(self has open) print"open, "; else print "closed, ";
-            print"where the tape is inserted and several chunky black buttons protrude from the edge 
-            including 'play', 'stop', 'fast fwd', 'rewind', 'eject'. ";
-            if(headphones_plugged) print"There's a pair of headphones currently plugged into the player. ";
+            print"It's a boxy silver plastic and metal boombox with a black carrying handle. The tape compartment in 
+            the side is currently ";
+            if(self has open) print"open. "; else print "closed. ";
+            print"Several chunky black buttons protrude from the top including 'play', 'stop', 'fast fwd', 'rewind', 'eject'. ";
             if(self has open) 
             {
                 objectloop(obj in self)
@@ -100,7 +98,7 @@ Object walkman "walkman"
             {
                 if (obj ofclass Tape) print"Through the little window you can see a cassette tape inside ";      
             }
-            if(walkman_playing) "and that the little rotors are turning. "; else "and that the little 
+            if(boombox_playing) "and that the little rotors are turning. "; else "and that the little 
             rotors are motionless. ";
         ],
         before [;
@@ -118,41 +116,41 @@ Object walkman "walkman"
                 rfalse;
         ],
         describe [;
-            "^You see a walkman here.";
+            "^You see a boombox here.";
         ],
         mass 6, 
     has container transparent openable item;
 
-Object eject_button "eject button" walkman
+Object eject_button "eject button" boombox
     with name 'eject' 'button',
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
             push:
-                if(walkman notin player) 
+                if(boombox notin player) 
                 {
-                    move walkman to player;
-                    print"(first taking the walkman)^";
+                    move boombox to player;
+                    print"(first taking the boombox)^";
                 }
-                if(walkman has open) "The walkman is already open. ";
-                walkman_playing = false;
-                give walkman open;
+                if(boombox has open) "The boombox is already open. ";
+                boombox_playing = false;
+                give boombox open;
                 "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
         ],
     has scenery;
 
-Object play_button "play button" walkman
+Object play_button "play button" boombox
     with name 'play' 'button',
         description"It's a chunky black button with a 'play' arrow on the top. ",
         before [ obj;
             push:
-                if(walkman notin player) 
+                if(boombox notin player) 
                 {
-                    move walkman to player;
-                    print"(first taking the walkman)^";
+                    move boombox to player;
+                    print"(first taking the boombox)^";
                 }
-                if(walkman has open) "You should close the tape compartment first. ";
-                if(walkman_playing) "The walkman is already playing. ";
-                obj = walkman.tape_is_loaded();
+                if(boombox has open) "You should close the tape compartment first. ";
+                if(boombox_playing) "The boombox is already playing. ";
+                obj = boombox.tape_is_loaded();
                 if(obj)
                 {
                     obj.press_play();
@@ -161,40 +159,40 @@ Object play_button "play button" walkman
         ],
     has scenery;   
 
-Object stop_button "stop button" walkman
+Object stop_button "stop button" boombox
     with name 'stop' 'button',
         description"It's a chunky black button with the 'stop' square on the top. ",
         before [;
             push:
-                if(walkman notin player) 
+                if(boombox notin player) 
                 {
-                    move walkman to player;
-                    print"(first taking the walkman)^";
+                    move boombox to player;
+                    print"(first taking the boombox)^";
                 }
-                if(~~walkman_playing) "It's already stopped. ";
-                walkman_playing = false;
+                if(~~boombox_playing) "It's already stopped. ";
+                boombox_playing = false;
                 "You press the button and the 'play' button disengages with a ~clunk~. ";
         ],
     has scenery;   
 
-Object fast_forward_button "fast forward button" walkman
+Object fast_forward_button "fast forward button" boombox
     with name 'fast' 'forward' 'button',
         description"It's a chunky black button with two 'FF' arrows on the top. ",
         before [ obj;
             push:
-                if(walkman notin player) 
+                if(boombox notin player) 
                 {
-                    move walkman to player;
-                    print"(first taking the walkman)^";
+                    move boombox to player;
+                    print"(first taking the boombox)^";
                 }
-                obj = walkman.tape_is_loaded();
+                obj = boombox.tape_is_loaded();
                 if(obj)
                 {
                     obj.fast_forward();
                 } 
                 else
                 {
-                    walkman_playing = false;
+                    boombox_playing = false;
                     "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
                     release the button.";
                 }
@@ -202,82 +200,30 @@ Object fast_forward_button "fast forward button" walkman
         ],
     has scenery;  
 
-Object rewind_button "rewind button" walkman
+Object rewind_button "rewind button" boombox
     with name 'rewind' 'button',
         description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
         before [ obj;
             push:
-                if(walkman notin player) 
+                if(boombox notin player) 
                 {
-                    move walkman to player;
-                    print"(first taking the walkman)^";
+                    move boombox to player;
+                    print"(first taking the boombox)^";
                 }
-                obj = walkman.tape_is_loaded();
+                obj = boombox.tape_is_loaded();
                 if(obj)
                 {
                     obj.rewind();
                 } 
                 else
                 {
-                    walkman_playing = false;
+                    boombox_playing = false;
                     "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
                     release the button.";
                 }
                 rtrue;    
         ],
     has scenery;              
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object headphones "headphones" walkman 
-    with name 'headphones' 'headphone' 'phones',
-        description [;
-            print"They're comprised of a thin plastic curved band ending at two orange puffy ear pieces. ";
-            if (self in walkman) "They're currently plugged into the walkman. "; else "";
-        ],
-        before  [;
-            !take:
-            !    if (headphones_plugged) 
-            !    {
-            !        move self to real_location;
-            !        <take walkman>;
-            !    }
-            !drop:
-            !    if (headphones_plugged) "You need to unplug them from the walkman first. ";            
-            plugin:
-                !if(headphones_plugged) "They're already plugged in. ";
-                if(walkman in player) "They're already plugged in. ";
-                print"(into the walkman)^";
-                move self to walkman;
-                !headphones_plugged = true;
-                "You plug the headphones into the walkman. ";
-                !"You should specify what you want to plug them into. ";
-            pluginto:
-                if(self in walkman) "They're already plugged in. ";
-                if(second == walkman) 
-                {
-                    if(walkman in self) 
-                    {
-                        print"(into the walkman)^";
-                        move self to walkman;
-                        !headphones_plugged = true;
-                        "You plug the headphones into the walkman. ";
-                    }
-                    else
-                    {
-                        print"(first taking the walkman)^";
-                        move self to walkman;
-                        !headphones_plugged = true;
-                        "You plug the headphones into the walkman. ";
-                    }
-                }
-            unplug:
-                if (self notin walkman) "They're already unplugged. ";
-                !headphones_plugged = false;
-                move self to parent(walkman);
-                "You unplug the headphones from the walkman. ";
-        ],
-        mass 2,
-    has clothing pluralname item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Constant SIDE_A = 0;
@@ -289,13 +235,13 @@ Constant SIDE_END = 7;
 Class Tape 
     with
         is_in_player [obj;
-        if(obj in walkman) rtrue; rfalse;
+        if(obj in boombox) rtrue; rfalse;
     ],
     mass 2,
     current_side,
     current_track,
     fast_forward [ i;
-        walkman_playing = false;
+        boombox_playing = false;
         if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
         i = self.current_track;
         i++;
@@ -310,7 +256,7 @@ Class Tape
         if (self.current_track == SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
         if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
         print"With a satisfying ~click~ the play button engages.^";
-        walkman_playing = true;
+        boombox_playing = true;
         ],
     play [;
         if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
@@ -320,12 +266,12 @@ Class Tape
     before [ x;
         flip:
             print"flipping ",(name)self,"^";
-            walkman_playing = false;
+            boombox_playing = false;
             if (self.current_side == SIDE_A) self.current_side = SIDE_B; else self.current_side = SIDE_A;
             print"now side = ",self.current_side,"^";
             x = self.current_track;
             print"current track = ",x,"^";
-            give walkman ~open;
+            give boombox ~open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
             if (x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
@@ -334,7 +280,7 @@ Class Tape
             print_ret"now current track = ",self.current_track,".";
         ],
     rewind [ i;
-        walkman_playing = false;
+        boombox_playing = false;
         if (self.current_track == SIDE_START) { self.current_track = FIRST_TRACK; "The tape seems to already be rewound to the beginning. "; }
         i = self.current_track;
         i--;
@@ -345,13 +291,13 @@ Class Tape
         release the button. ";
     ];
 
-Tape mixtape "casette tape with a yellow label" walkman
+Tape mixtape "casette tape with a yellow label" boombox
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [;
-            print"^Through the headphones you hear ";
+            print"^From the boombox you hear ";
                 if (self.current_side == SIDE_A)
                 {
                     switch (self.current_track) 
@@ -379,7 +325,7 @@ Tape mixtape "casette tape with a yellow label" walkman
                 ".";
         ],
         each_turn [;
-            if(self in walkman && walkman_playing && walkman in player && headphones has worn && headphones_plugged == true) self.playback();
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
         ],
         has item;
 
@@ -388,13 +334,14 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
         description"It's a cassette tape with a greenlabel. Written on the label you see ~S.J.~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
-        play [;
-            print"^Through the headphones you hear ";
+        playback [;
+            print"^From the boombox you hear ";
                 if (self.current_side == SIDE_A)
                 {
+                    print"SIDEA^";
                     switch (self.current_track) 
                     {
-                    1: jorry_confession();
+                    1: print"TRACK1^"; jorry_confession();
                     2, 3, 4, 5, 6:  print"empty tape hissing";
                     }
                 }
@@ -406,6 +353,9 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
                     }
                 }
                 ".";
+        ],
+        each_turn [;
+        if(self in boombox && boombox_playing && TestScope(self)) self.playback();
         ],
     has item;
 

@@ -50,7 +50,7 @@ Include "globals.h";
 [ChooseObjects obj code;
     obj = obj;
     if (code == 2)
-       if (obj in walkman) return 2; else return 0;
+       if (obj in boombox) return 2; else return 0;
     if(code == 0)   {
         if(action == ##drop) if(obj notin actor) return 2;
         if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
@@ -61,7 +61,6 @@ Include "globals.h";
 ];
 
 Global following = false;
-Global headphones_plugged = true;
 
 Include "ext_cheap_scenery.h";
 Include "puny.h";
@@ -71,11 +70,10 @@ Include "puny.h";
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
-    StartDaemon(mixtape);
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
     jorry_dial.set_to = random(30);
-    move walkman to player;
+    move boombox to player;
 ];
 
 Include "my_grammar.h";
