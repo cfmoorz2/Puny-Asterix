@@ -1241,12 +1241,26 @@ Object green_button "green button" mri_anteroom
                 screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
                 it's back to a mechanical ~chirping~ sound. ";
             }
+            if (location == hallway_2_3)
+            {
+                if (metal_cart in mri_scanner)
+               {
+                    print"^^Suddenly, you hear a dull loud ~clunk~ from within the walls to the north and the muted mechanical whining from the MRI
+                    scanner becomes a loud whirring screech. After a moment, you hear what sounds like projectiles smashing into glass and metal and 
+                    the noise from the other side of the wall winds down and stops.^";
+                    deadflag = 5;
+                    rtrue;
+               }
+               "^^Suddenly, you hear a loud ~clunk~ from the north and the mechanical whining from the MRI scanner becomes a loud whirring
+                screech from the other side of the door. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
+                quiet returns. ";
+            }
         ],
     has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor scanner_door "door"
-     with name 'glass' 'metal' 'door',
+ myDoor scanner_door "safety door"
+     with name 'glass' 'metal' 'safety' 'door',
         description [;
             print"It's a complicated non-magnetic metal and glass door, currently ";open_or_closed(self);".";
         ],
@@ -1269,8 +1283,21 @@ Room mri_scanner "MRI Suite"
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
         A thick window in the east wall allows a view into the control room.",
+        cheap_scenery
+        11 'warning' 'sign' [;
+            examine:
+            "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
+            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
+            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
+            injury or property damage may result~. ";
+            read:
+            "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
+            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
+            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
+            injury or property damage may result~. ";
+        ],
         e_to scanner_door,
-        !s_to mri_dressing_door,
+        s_to mri_exit_door,
     has light;
 
 Object mri_machine "MRI machine" mri_scanner
@@ -1288,6 +1315,26 @@ Bed mri_table "exam table" mri_scanner
     with name 'exam' 'table' 'white',
         description "It's a white exam table that would typically slide into the MRI tube. ",
     has scenery; 
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor mri_exit_door "south exit door"
+     with name 'south' 'exit' 'metal' 'door',
+        description [;
+            print"It's an unassuming metal door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == hallway_2_3) return mri_scanner; return hallway_2_3;
+        ],
+        door_dir [;
+            if (self in hallway_2_3) return n_to; return s_to;
+        ],
+        found_in hallway_2_3 mri_scanner,
+        react_after [;
+            go:
+                if (selected_direction == n_to or s_to)  { give self ~open; print"^As you pass through the door it shuts behind you with 
+                    a ~click~.^^"; }
+        ],
+    has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
