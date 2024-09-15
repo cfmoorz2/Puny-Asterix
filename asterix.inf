@@ -37,20 +37,22 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = northrup_office;
-
-
-
-[ DeathMessage; print "You have lost"; ];
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
 
 #Ifndef USEINFORM;
 
 Include "globals.h";
 
+[ DeathMessage; 
+     if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
+     if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
+    print "You have lost"; 
+];
+
 [ChooseObjects obj code;
     obj = obj;
     if (code == 2)
-       if (obj in boombox) return 2; else return 0;
+       if (obj in boombox && obj ofclass tape) return 2; else return 0;
     if(code == 0)   {
         if(action == ##drop) if(obj notin actor) return 2;
         if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;

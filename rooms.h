@@ -30,6 +30,35 @@ Class OnChair
         ], 
     has supporter enterable;
 
+Class Bed
+    with sit_or_lie,
+        before [ obj;
+            enter:
+                objectloop(obj in self && obj has animate && obj ~= player) "There's already someone in the bed."; 
+                if (verb_word == 'sit' or 'lie')    {
+                    if (self == parent(player) && self.sit_or_lie == verb_word)
+                    "You're already on it. ";
+                    move player to self;
+                    self.sit_or_lie = verb_word;
+                    if (AfterRoutines() || keep_silent) rtrue;
+                    if (verb_word == 'sit')
+                        "You sit on ", (the) self, ".";
+                    else    
+                        "You lie on ", (the) self, ".";
+                }   else    {
+                    if (self == parent(player) && self.sit_or_lie == false)
+                        "You're already on it. ";
+                        move player to self;
+                        self.sit_or_lie = false;
+                        if (AfterRoutines() || keep_silent) rtrue;
+                        "You stand on ", (the) self, ".";
+                }
+
+            take:
+                "It's quite heavy and you would likely tear something internally. ";
+        ],
+    has supporter enterable scenery;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room morgue "Morgue"
     with name 'morgue',
@@ -287,7 +316,7 @@ Room stairwell_2 "stairwell_2"
     with description "This is a dark stairwell just off the main hallway which lies to the south. 
         A large number 2 is painted on the wall. Concrete stairs zig-zag up and down to the floors above and below. ",
         d_to stairwell_m,
-        !s_to elevator_lobby_2,
+        s_to elevator_lobby_2,
         u_to stairwell_3,
     has light stairs;
 
@@ -1009,7 +1038,7 @@ Object file_cabinet "file cabinet" northrup_office
             take:
             "It's far too heavy. ";
         ],
-    has supporter scenery;
+    has supporter scenery enterable;
 
 Object northrup_desk "desk" northrup_office
     with name 'mahogany' 'desk',
@@ -1043,4 +1072,289 @@ Object northrup_lamp "floor lamp" northrup_office
                 "It's not a battered trusty portable light source. ";   
         ],
     has scenery switchable;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room elevator_lobby_2 "elevator_lobby_2" 
+    with description [;
+        print"This is the second-floor elevator lobby. The elevator doors lie to the south, the 'up' and 'down' 
+        buttons embedded in a small panel next to them. The elevator doors are currently ";
+        !open_or_closed(elevator_doors); 
+        ". A stairwell lies to the north through an open doorway. On the wall 
+        here you see ~Radiology~ posted in large black letters above an arrow pointing east. Above an arrow 
+        pointing west you see a large red 'A' and a red line on the floor starts here and leads in that direction as well. ";
+    ],
+    n_to stairwell_2,
+    e_to hallway_2_3,
+    !s_to elevator_doors,
+    !in_to elevator_doors,
+    !w_to hallway_2_1,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room hallway_2_3 "hallway_2_3" 
+    with description "This long dim hallway continues east towards the radiology suite and west toward the elevators.
+        It's otherwise empty here except for a plain unmarked door to the north. ",
+    w_to elevator_lobby_2,
+    e_to radiology,
+    n_to "The door doesn't seem to open from this side. ",
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room radiology "Radiology"
+    with description "This is the eastern end of a long east-west hallway. There's an open archway to the south with a large sign 
+        above reading ~Imaging~. An open doorwary leads north as well. A sign posted above to it reads ~M.R.I.~. ",
+    w_to hallway_2_3,
+    n_to mri_anteroom,
+    s_to x_ray,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_anteroom "MRI Anteroom"
+    with description "This small room serves as the prep area and control room for the hospital's MRI scanner. 
+        The west wall contains a window of thick safety glass. Beneath the window squats a large control desk and monitor. 
+        A red warning sign is fixed to the wall. A metal and reinforced-glass door leads west into the MRI suite itself. ",
+        cheap_scenery
+        11 'warning' 'sign' [;
+            examine:
+            "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
+            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
+            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
+            injury or property damage may result~. ";
+            read:
+            "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
+            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
+            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
+            injury or property damage may result~. ";
+        ],
+        s_to radiology,
+        w_to scanner_door,
+        has light;
+
+Object control_desk "control desk" mri_anteroom
+    with name 'control' 'desk' 'panel',
+        description"A CRT terminal with attached keyboard sits on the desk next to a bank of buttons and switches. 
+        The important ones seem to be a green one labeled ~Scan~ and a red one labeled ~Stop~. ",
+        describe [;
+            rtrue;
+        ],
+    has supporter scenery transparent;
+
+Object crt_terminal "terminal" control_desk
+    with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor' 'screen',
+        description [;
+            print"It's a standard amber CRT monitor. You don't understand anything that's currently displayed on the screen";
+            if (green_button.time_left > 0) " but you do see what appears to be a countdown with the number ",green_button.time_left," displayed. ";
+                else ".";
+        ],
+        before [;
+            read:
+                <<examine self>>;
+        ],
+    has static concealed;
+
+Object red_button "red button" mri_anteroom
+    with name 'red' 'button',
+        description"It's a large red button. It's labelled ~Arm~. ",
+        before [;
+            push:
+            "The mechanical whining seems to intensify. ";
+        ],
+    has scenery;
+
+Object metal_cart "cart" mri_anteroom
+    with name 'metal' 'cart',
+        description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
+        large metal oxygen cannisters. ",
+            before [ dirobj;
+            take:
+                "Love the optimism but no. ";
+            push:
+                "You should supply a direction. ";
+            pull:
+                "It would make more sense to push it. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you shove the heavy cart to the ";
+                print (string) direction_name_array-->selected_direction_index;
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;   
+            receive:
+            "The cart is already full. ";  
+        ],
+    has supporter;
+
+Object oxygen "oxygen cannisters" metal_cart
+    with name 'oxygen' 'cannister' 'cannisters//p',
+        article "a bunch of",
+        description "You see a collection of maybe 20 large metal oxygen cannisters. ",
+        before [;
+            take:
+                "Each cannister on its own is too heavy and awkward. ";
+        ],
+    has scenery;
+
+Object green_button "green button" mri_anteroom
+    with name 'green' 'button',
+        description"It's a large green button. It's labelled ~Scan~. ",
+        time_left,
+        before [;
+            push:
+            if (self.time_left > 0) "Nothing seems to happen. ";
+            StartTimer(self, 5);
+            "The mechanical whining becomes louder and the banging more insistent. The CRT monitor blooms to life and a countdown appears 
+            with the number 5 displayed. ";
+        ],
+        time_out [;
+            if (location == mri_anteroom) 
+            {
+               if (metal_cart in mri_scanner)
+               {
+                    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+                    screech. Through the window you see the metal cart and the oxygen cannisters on it start to shake violently. As the 
+                    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+                    missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
+                    winds down and stops and the room is eerily silent.^";
+                    deadflag = 3;
+                    rtrue;
+               }
+                "^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+                screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
+                it's back to a mechanical ~chirping~ sound. ";
+            }
+            if (location == mri_scanner)
+            {
+                if (metal_cart in mri_scanner)
+               {
+                    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+                    screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
+                    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+                    missile bashing into the white tube and smashing the safety glass of the door and window. With a scream, you try to shield yourself 
+                    but you are pummeled as well by the flying debris, knocking you unconscious. With a pained moan, the scanner
+                    winds down and stops and the room is eerily silent.^";
+                    deadflag = 4;
+                    rtrue;
+               }
+               "^^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI scanner becomes a loud whirring
+                screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
+                it's back to a mechanical ~chirping~ sound. ";
+            }
+        ],
+    has scenery;
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor scanner_door "door"
+     with name 'glass' 'metal' 'door',
+        description [;
+            print"It's a complicated non-magnetic metal and glass door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == mri_anteroom) return mri_scanner; return mri_anteroom;
+        ],
+        door_dir [;
+            if (parent(self) == mri_anteroom) return w_to; return e_to;
+        ],
+        react_after [;
+            go:
+                if (noun == e_obj || noun == w_obj)  { give self ~open; print"As you pass through the door it swings closed behind you.^"; }
+        ],
+        found_in mri_scanner mri_anteroom,
+    has scenery door openable ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_scanner "MRI Suite"
+    with description "This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
+        white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
+        a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
+        A thick window in the east wall allows a view into the control room.",
+        e_to scanner_door,
+        !s_to mri_dressing_door,
+    has light;
+
+Object mri_machine "MRI machine" mri_scanner
+    with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner',
+        description "It's a large white box with a large white tube attached. The bore of the tube is about two feet across. ",
+        before [;
+            enter:
+                "You enter the narrow dark tube, immediately start to hyperventilate, and then quickly climb out. ";
+            take:
+                "You're really quite the comedian. ";
+        ],
+    has scenery container enterable open;
+
+Bed mri_table "exam table" mri_scanner 
+    with name 'exam' 'table' 'white',
+        description "It's a white exam table that would typically slide into the MRI tube. ",
+    has scenery; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room x_ray "X-Ray Suite" 
+    with description"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
+        hanging down from rails in the ceiling. White translucent viewing boxes are mounted to one wall; these
+        are currently turned off. The exit lies through an 
+        open arch to the north. ",
+        n_to radiology,
+        has light;
+
+Bed x_ray_table "x-ray table" x_ray 
+    with name 'metal' 'exam' 'table',
+        description"It's a very uncomfortable looking metal exam table. ",
+        before [;
+            take:
+                "It's securely bolted to the floor. ";
+        ];
+
+Object x_ray_camera "camera" x_ray
+    with name 'x-ray' 'xray' 'xr' 'camera',
+        description"It's bulky metal and glass x-ray camera, fixed to rails in the ceiling for easier positioning above the patient. ",
+        before [;
+            take:
+                "It's attached to the rails in the ceiling. ";
+            push, pull:
+                "You push and pull the camera back and forth along the rails. Wheee! ";
+        ],
+    has scenery;
+
+Object rails "rails" x_ray 
+    with name 'rail' 'rails//p',
+        description"They're metal rails embedded in the ceiling. They allow for easy positioning of the xray camera. ",
+        before [;
+            take:
+                "You can't reach them and don't need them. ";
+        ],
+    has scenery;
+
+Object viewing_boxes "viewing boxes" x_ray 
+    with name 'viewing' 'box' 'boxes//p',
+        description [;
+                print"It's a row of light boxes used to view x-rays. They're currently ";
+                if (self has on) {
+                    print"on and flickering with a dull white light. ";
+                }   else {
+                    print"turned off. ";
+                }
+                "There's a switch on the side. ";
+        ],
+        before [;
+            switchon:
+                give self on;
+                "You flick the switch and the viewing boxes flicker alight.";
+            switchoff:
+                give self ~on;
+                "You flick the switch and the viewing boxes flicker off. ";
+        ],
+    has scenery switchable;
+
+Object box_switch "switch" x_ray
+    with name 'switch' 'toggle',
+        description"It's a metal toggle switch. ",
+        before [;
+            flick:
+                if (viewing_boxes has on)   <<switchoff viewing_boxes>>; else <<switchon viewing_boxes>>;
+            take:
+                "It's fixed to the viewing boxes. ";
+        ],
+    has scenery;
 

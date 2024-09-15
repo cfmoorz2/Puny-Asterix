@@ -122,7 +122,8 @@ Object boombox "boombox"
     has container transparent openable item;
 
 Object eject_button "eject button" boombox
-    with name 'eject' 'button',
+    with name 'eject' 'button', 
+        article "an",
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
             push:
