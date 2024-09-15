@@ -772,8 +772,25 @@ Room admin_hallway "Administration"
     ],
     e_to hallway_m2,
     n_to jorry_door,
-    !w_to french_doors,
+    w_to french_doors,
     has light;
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor french_doors "french doors" 
+    with name 'french' 'double' 'door' 'doors//p',
+        description [;
+            print"They're a pair of glass french doors, currently ";
+            open_or_closed(self);
+            print ".";
+        ],
+        door_to [;
+            if (parent(self) == admin_hallway) return northrup_anteroom; return admin_hallway;
+        ],
+        door_dir [;
+            if (parent(self) == admin_hallway) return w_to; return e_to;
+        ],
+        found_in admin_hallway northrup_anteroom,
+    has scenery door openable ~open pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor jorry_door "office door" 
@@ -876,4 +893,154 @@ Object jorry_drawer "desk drawer" jorry_office
         ],
         describe [; rtrue; ],
     has scenery container openable ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room northrup_anteroom "Anteroom"
+    with description [;
+        print"This is a small secretarial space off of the main office to the south. A small desk ";
+        if (secretary_chair in self) print"and chair are here"; else print "is here";
+        print". Glass french doors lead back east to the hallway and a standard wooden door, currently ";
+        open_or_closed(northrup_door);
+        print", leads south. There's a brass placard next to the door.^"; 
+        !(if)(northrup in self && northrup_door has ~open) "and light coming from under it. "; else ".";
+        ],
+        cheap_scenery
+        12 'brass' 'placard' 'sign' [;
+            examine:
+            "It's a brass placard. It reads ~Walter Northrup, M.D., President/CEO~.";
+            take:
+            "It's firmly fixed to the wall. ";
+            read:
+            "~Walt Northrup, M.D., President/CEO~";
+        ],
+        e_to french_doors,
+        s_to northrup_door,
+    has light;
+
+Object secretary_desk "office desk" northrup_anteroom
+    with name 'wooden' 'secretary' 'desk',
+        description"It's an unassuming wooden desk. ",
+    has supporter scenery;
+
+OnChair secretary_chair "secretary chair" northrup_anteroom
+    with name 'office' 'chair',
+        description "It's a standard office chair.",
+        mass 20,
+        describe [;
+            if (self in northrup_anteroom) rtrue;
+        ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor northrup_door "office door" 
+    with name 'door' 'dark' 'wooden' 'office',
+        description [;
+            print"It's a thick dark wooden door, currently  ";
+            open_or_closed(self);
+            print ".";
+        ],
+        door_to [;
+            if (parent(self) == northrup_anteroom) return northrup_office; return northrup_anteroom;
+        ],
+        door_dir [;
+            if (parent(self) == northrup_anteroom) return s_to; return n_to;
+        ],
+        found_in northrup_anteroom northrup_office,
+    has scenery door openable ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room northrup_office "Northrup's Office"
+    with description[;
+        print"This is a large office belonging to Dr. Walter Northrup, the president and CEO of the hospital. 
+        An imposing mahogany desk dominates the room and large wooden bookshelves line the walls. A heavy brass floor lamp 
+        stands in one corner. The walls are adorned with the requisite paintings and the floor is covered in thick beige carpet.
+        A black safe squats in one corner and a file cabinet in another. The room smells vaguely of pipe smoke";
+        if (northrup_chair in self) " and a plush leather executive chair is here next to the desk. "; else ".";
+        ],
+        cheap_scenery
+        6 'bookcase' 'bookshelf' 'shelves//p' 'shelf' 'bookcases//p' 'bookshelves//p' [;
+            examine:
+            "They're dark wooden shelves, seemingly hand-made to match the desk. They're full of 
+            numerous books which you don't need. ";
+            take:
+            "Seems unlikely. ";
+        ]
+        14 'medical' 'book' 'books' 'journal' 'journals' [;
+            examine:
+            "You see numerous books and medical journals. Nothing that appeals to you. ";
+            take:
+            "While you could stand to be a bit more well read, you don't need these particular books. ";
+            read:
+            "You already know everything you need to know about the pineal gland. ";
+        ]
+        'painting' 'paintings' [;
+            examine:
+            "They're boring pictures of landscapes and seascapes. ";
+            take:
+            "They're lovely but you don't need them. ";
+        ]
+        21 'thick' 'beige' 'carpet' "It's a standard low pile beige carpet. ",
+        before [;
+            smell:
+                if (noun == 0) "It smells like an attic full of old books and expensive pipe tobacco. ";
+        ],
+    n_to northrup_door,
+    has light;
+
+Object file_cabinet "file cabinet" northrup_office
+    with name 'metal' 'gray' 'file' 'cabinet' 'drawer' 'drawers//p',
+        description"It's a standard gray metal file cabinet with three large drawers. ",
+        react_before [;
+            go, search:
+            if (player in self && noun notin player) "You would need to get down from the file cabinet first. ";
+            switchon, switchoff:
+            if (noun notin player && player in self) "You would need to get down from the file cabinet first. ";
+            examine:
+            if(noun ~= self && player in self) "You would need to get down from the file cabinet first. ";
+        ],
+        before [;
+            enter, climb:
+            move player to self;
+            "With some difficulty, you awkwardly clamber onto the file cabinet. ";
+            exit, getoff:
+            move player to location;
+            "You lower yourself from the file cabinet. ";
+            open:
+            "The drawers are all securely locked. ";
+            take:
+            "It's far too heavy. ";
+        ],
+    has supporter scenery;
+
+Object northrup_desk "desk" northrup_office
+    with name 'mahogany' 'desk',
+        description"It's carved from mahogany and looks very old and very expensive. ",
+        before [;
+            take:
+                "You're just begging for a hernia. ";
+        ],
+    has supporter scenery;
+
+InChair northrup_chair "leather chair" northrup_office
+    with name 'plush' 'leather' 'executive' 'chair',
+        description"It's a large plush executive leather chair. ",
+        before [;
+            take:
+                "It's too heavy. ";
+        ],
+        describe [;
+            if (self in northrup_office) rtrue;
+        ],
+    has scenery;
+
+Object northrup_lamp "floor lamp" northrup_office
+    with name 'lamp' 'floor',
+        description [;
+            print"It's a hefty floor lamp, currently ";
+            if (self has on) "on."; else "off.";
+        ],
+        before [;
+            take:
+                "It's not a battered trusty portable light source. ";   
+        ],
+    has scenery switchable;
 
