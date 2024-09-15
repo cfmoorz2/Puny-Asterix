@@ -175,7 +175,7 @@ Class Mover
     }
 ];
 
-[path_move prev final way temp; 
+[path_move prev final way temp dir; 
     find_path(parent(self), self.target_room);
     prev = self.target_room;
     while (prev)
@@ -207,7 +207,12 @@ Class Mover
                 remove temp;
                 MoveFloatingObjects();
             }
-            !print"^[moving ",(name)self," to the ",(name)final,"]^";
+            print"^[moving ",(name)self," to the ",(name)final,"]^";
+            if(dir == one_away(self))
+            {
+                print"DIR = ",(name)dir,"^";
+                narrate_distant_move(self, dir, final);
+            }
             if (TestScope(self, player) && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
             move self to way;
             scope_modified = true;
@@ -229,6 +234,20 @@ Class Mover
         }
 		prev = prev.hop;
     }
+];
+
+[one_away npc direction k;
+    objectloop(direction in compass) 
+    {
+        k = location.(direction.door_dir);
+        print"direction = ",(name)direction,"^";
+        print"k = ",(name)k,"^";
+        if (npc in k) { print"MATCH^"; return direction; }
+    }
+];
+
+[narrate_distant_move npc dir final;
+    print_ret(The)npc," is off to the ",(name)dir," heading to the ",(name)final,"^";
 ];
 
 [wander_move npc_at test_room direction i x;
