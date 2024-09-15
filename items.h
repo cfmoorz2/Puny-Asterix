@@ -80,7 +80,7 @@ Object flashlight "flashlight" morgue
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global walkman_playing = false;
 Object walkman "walkman" 
-    with name 'walkman' 'player' 'compartment' 'headphones' 'phones', ! 0 = walkman, 1 = headphones
+    with name 'walkman' 'player' 'compartment', ! 0 = walkman, 1 = headphones
         description [ obj;
             print"It's a silver plastic and metal tape player. It's slightly smaller than a thick 
             paperback book. There's a compartment in the side, currently ";
@@ -232,27 +232,25 @@ Object headphones "headphones" walkman
     with name 'headphones' 'headphone' 'phones',
         description [;
             print"They're comprised of a thin plastic curved band ending at two orange puffy ear pieces. ";
-            if (headphones_plugged) "They're currently plugged into the walkman. "; else "";
+            if (self in walkman) "They're currently plugged into the walkman. "; else "";
         ],
         before  [;
-            take:
-                if (headphones_plugged) 
-                {
-                    move self to real_location;
-                    <take walkman>;
-                }
-            drop:
-                if (headphones_plugged) "You need to unplug them from the walkman first. ";            
+            !take:
+            !    if (headphones_plugged) 
+            !    {
+            !        move self to real_location;
+            !        <take walkman>;
+            !    }
+            !drop:
+            !    if (headphones_plugged) "You need to unplug them from the walkman first. ";            
             plugin:
-                if(headphones_plugged) "They're already plugged in. ";
-                if(walkman in player) 
-                {
-                    print"(into the walkman)^";
-                    move self to walkman;
-                    headphones_plugged = true;
-                    "You plug the headphones into the walkman. ";
-                }
-                "You should specify what you want to plug them into. ";
+                !if(headphones_plugged) "They're already plugged in. ";
+                if(walkman in player) "They're already plugged in. ";
+                print"(into the walkman)^";
+                move self to walkman;
+                !headphones_plugged = true;
+                "You plug the headphones into the walkman. ";
+                !"You should specify what you want to plug them into. ";
             pluginto:
                 if(self in walkman) "They're already plugged in. ";
                 if(second == walkman) 
@@ -261,20 +259,20 @@ Object headphones "headphones" walkman
                     {
                         print"(into the walkman)^";
                         move self to walkman;
-                        headphones_plugged = true;
+                        !headphones_plugged = true;
                         "You plug the headphones into the walkman. ";
                     }
                     else
                     {
                         print"(first taking the walkman)^";
                         move self to walkman;
-                        headphones_plugged = true;
+                        !headphones_plugged = true;
                         "You plug the headphones into the walkman. ";
                     }
                 }
             unplug:
-                if (~~headphones_plugged) "They're already unplugged. ";
-                headphones_plugged = false;
+                if (self notin walkman) "They're already unplugged. ";
+                !headphones_plugged = false;
                 move self to parent(walkman);
                 "You unplug the headphones from the walkman. ";
         ],

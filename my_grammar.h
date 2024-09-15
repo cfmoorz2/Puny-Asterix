@@ -141,13 +141,13 @@ Verb 'swipe' 'slide'
 !   My Wear
 
 Extend 'wear' replace
-    * held -> MyWear; 
+    * noun -> MyWear; 
 
 [MyWearSub;
-    print"IN MY WEARSUB^";
-	if (parent(noun) ~= player) return MSG_WEAR_NOT_HOLDING;
+	if (parent(noun) ~= player && noun ~= headphones) return MSG_WEAR_NOT_HOLDING;
 	if (noun has worn) return MSG_WEAR_ALREADY_WORN;
 	if (noun hasnt clothing) { PrintMsg(MSG_WEAR_NOT_CLOTHING, 'wear'); rtrue; }
 	give noun worn;
+    move noun to player;
 	run_after_routines_msg = MSG_WEAR_DEFAULT;
 ];
