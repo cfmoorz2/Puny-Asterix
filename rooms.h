@@ -1569,6 +1569,17 @@ Room conference_room "Conference Object"
     with description "This is a quiet carpeted room, typically used for family conferences or for delivering bad news. 
         An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
         soothing. ",
+        cheap_scenery
+        12 'fish' 'tank' 'aquarium' "It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
+        goldfish. "
+        'wooden' 'pedestal' "It's a substantial wooden pedestal holding up the fish tank. "
+        'goldfish' 'fish' [;
+            examine:
+            "You see a half-dozen goldfish slowly swimming in the tank. ";
+            take:
+            "You once had a goldfish named Petey but you overfed him and found him floating belly-up
+            after school one day. So, maybe leave the fish alone. ";
+        ],
         s_to conference_door,
     has light;
 
@@ -1580,30 +1591,6 @@ InChair conference_chair "overstuffed chair" conference_room
             "It's way too heavy. ";
     ],
     has scenery;
-
-Object fish_tank "fish tank" conference_room 
-    with name 'tank' 'aquarium',
-        description "It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
-        goldfish. ",
-    has scenery;
-
-Object pedestal "pedestal" conference_room 
-    with name 'wooden' 'pedestal',
-        description "It's a substantial wooden pedestal holding up the fish tank. ",
-        before [;
-            take:
-                "It's far too heavy. ";
-        ],
-    has scenery;
-
-Object goldfish "goldfish" conference_room
-    with name 'goldfish' 'fish',
-        description "You see a half-dozen goldfish slowly swimming in the tank. ",
-        before [;
-            take:
-                "Entirely unnecessary. ";
-        ],
-    has scenery pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_4 "hallway_3_4"
