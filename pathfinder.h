@@ -263,7 +263,7 @@ Class Mover
 
 [wander_move npc_at test_room direction i x;
     npc_at = parent(self);
-    !print"avoid direction = ",(name)self.npc_last_wander,"^";
+    print"avoid direction = ",(name)self.npc_last_wander,"^";
     objectloop (direction in compass)
     {
         !if (direction == self.npc_last_wander) continue;
@@ -306,6 +306,7 @@ Class Mover
         { 
             if (TestScope(self, player)) { self.hide = true; narrate_move(self, direction); }
             move self to test_room;
+            print"[moving ",(name)self," to ",(name)test_room,"]^";
             self.npc_last_wander = reverse_dir(direction);
             !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
             if (TestScope(self, player)) print"^",(name)self," is here.^";

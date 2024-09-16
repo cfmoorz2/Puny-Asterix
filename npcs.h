@@ -137,3 +137,20 @@ Object sid_jorry "Sid Jorry" jorry_chair
             "I don't think he's going to respond. ";
         ],
     has scenery animate transparent;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object eugene "Eugene" environmental_services
+    with name 'eugene' 'gene' 'custodian' 'janitor',
+        description "He's a short squat balding gentleman wearing gray custodian overalls.
+        He's wearing a walkman and whistling while he pushes a mop in a mop bucket.",
+        npc_wander_delay 1,
+        describe [;  
+            !print"^Euhene is here. ";
+            !if(self has encountered) "";
+            if (self hasnt encountered);
+            give self encountered;
+            "He's the overnight custodian. ";
+        ],
+    class Mover MyNPC
+    has animate proper transparent;  
+

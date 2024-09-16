@@ -381,7 +381,7 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
     rtrue;
 ];
 
-Tape air_supply_tape "cassette tape with a blue label" environmental_desk
+Tape air_supply_tape "cassette tape with a blue label" !environmental_desk
     with name 'air' 'supply' 'tape' 'cassette' 'blue',
         description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
         current_side SIDE_A,
@@ -412,7 +412,14 @@ Tape air_supply_tape "cassette tape with a blue label" environmental_desk
                     6:  print"~Making Love out of Nothing at All~";
                     }
                 }
-                ".";
+                print".^";
+                if (FREDDY_ASLEEP == false) 
+                {
+                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
+                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
+                    begins to snore.^";
+                    FREDDY_ASLEEP = true;
+                }
         ],
         each_turn [;
             if(self in boombox && boombox_playing && TestScope(self)) self.playback();

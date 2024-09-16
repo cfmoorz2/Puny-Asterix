@@ -825,6 +825,8 @@ Room admin_hallway "Administration"
     ]
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
     before [;
+        go:
+        if (selected_direction == n_to && FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa, dude. Nobody goes in until the cops get here. ";
         examine:
         if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
         if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
@@ -870,6 +872,10 @@ OnChair folding_chair "metal folding chair" admin_hallway
         ],
         door_dir [;
             if (parent(self) == admin_hallway) return n_to; return s_to;
+        ],
+        before [;
+            open:
+            if (FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa dude. Nobody goes in until the cops get here. ";
         ],
         found_in admin_hallway jorry_office,
     has scenery door openable ~open;
