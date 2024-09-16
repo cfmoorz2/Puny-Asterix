@@ -290,7 +290,8 @@ Class Tape
             backwards. With a ~click~ you reach the beginning of the side. "; 
         "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
         release the button. ";
-    ];
+    ],
+    has item;
 
 Tape mixtape "casette tape with a yellow label" boombox
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
@@ -377,6 +378,44 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
     of course.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
     rtrue;
 ];
+
+Tape air_supply_tape "cassette tape with a blue label" environmental_desk
+    with name 'air' 'supply' 'tape' 'cassette' 'blue',
+        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
+        current_side SIDE_A,
+        current_track FIRST_TRACK,
+        playback [;
+            print"^From the boombox you hear ";
+                if (self.current_side == SIDE_A)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Love and Other Bruises~";
+                    2:  print"~Bring put the Magic~";
+                    3:  print"~The One That You Love~";
+                    4:  print"~Here I Am~";
+                    5:  print"~Sweet Dreams~";
+                    6:  print"~Lost in Love~";
+                    }
+                }
+                if (self.current_side == SIDE_B)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Chances~";
+                    2:  print"~Every Woman in the World~";
+                    3:  print"~All Out of Love~";
+                    4:  print"~Even the Nights Are Better~";
+                    5:  print"~Two Less Lonely People in the World~";
+                    6:  print"~Making Love out of Nothing at All~";
+                    }
+                }
+                ".";
+        ],
+        each_turn [;
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
+        ],
+        has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp_bowl "bowl" security_desk

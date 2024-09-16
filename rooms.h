@@ -282,10 +282,19 @@ Room environmental_services "Environmental Services"
         !if (mop_bucket in self) print "a mop bucket, ";
         print"and brooms. ";
         print"A small wooden desk is shoved into one corner. ";
+         if(PrintContents("On the desk you can see ", environmental_desk)) print". ";
         "The exit is to the south. ";
     ],
     s_to hallway_b2,
     has light;
+
+Object environmental_desk "desk" environmental_services
+    with name 'desk' 'wooden',
+        description [;
+        print "It's a small wooden desk, quite stained. ";
+        if(PrintContents("On the desk you can see ", self)) "."; else "";
+        ],
+    has supporter scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room engineering "Engineering"
