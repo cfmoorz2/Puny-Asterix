@@ -879,9 +879,13 @@ Room jorry_office "Office"
     with description [;
         print"This is a typical office befitting a less-than-top-level executive. A desk stands here";
         if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
-        ". Non-threatening paintings of flowers and bowls of fruit adorn the walls. In one corner you 
-        see a thick squat safe, currently closed.^^The former Sid Jorry is sitting in the chair and slumped over the desk.
-        His eyes, thankfully, are closed. ";
+        ". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
+        a stand directly behind the desk. Sand covers the bottom and a snake is coiled around a bleached twisted 
+        branch at one end. A decorative rock sits in the sand in the other end.
+        ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
+        His eyes, thankfully, are closed.^^
+        The safe is ajar and it appears that the lock has been drilled out. Any papers or documents that were once 
+        here are gone. ";
     ],
     cheap_scenery
     4 'painting' 'paintings//p' 'picture' 'pictures//p' [;
