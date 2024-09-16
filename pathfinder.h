@@ -256,14 +256,14 @@ Class Mover
             print"^",(The)npc," is off to the ",(name)direction;
             if (final == d_obj) " heading downstairs. ";
             if (final == u_obj) " heading upstairs. ";
-            " heading to the ",(name)final,".^";
+            " heading to the ",(name)final,".";
         }
     }
 ];
 
 [wander_move npc_at test_room direction i x;
     npc_at = parent(self);
-    print"avoid direction = ",(name)self.npc_last_wander,"^";
+    !print"avoid direction = ",(name)self.npc_last_wander,"^";
     objectloop (direction in compass)
     {
         !if (direction == self.npc_last_wander) continue;
@@ -304,9 +304,12 @@ Class Mover
         i++;
         if (i == x) 
         { 
+            !print"[moving ",(name)self," to ",(name)test_room,"]^";
+            eval_one_away(self, direction);
             if (TestScope(self, player)) { self.hide = true; narrate_move(self, direction); }
             move self to test_room;
-            print"[moving ",(name)self," to ",(name)test_room,"]^";
+            scope_modified = true;
+            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, direction); }
             self.npc_last_wander = reverse_dir(direction);
             !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
             if (TestScope(self, player)) print"^",(name)self," is here.^";
@@ -337,7 +340,7 @@ Class Mover
 ];       
 
 [narrate_move npc direction rev_dir;
-    if(npc.move_mode == TARGET_PATH)
+    if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
         if(direction == u_obj) { print"^",(name)npc," "; npc.npc_walk(); " upstairs."; }
         if(direction == d_obj) { print"^",(name)npc," "; npc.npc_walk(); " downstairs."; }
