@@ -132,12 +132,6 @@ Include "VerbLib";
     }
 ];  
 
-[ ShowOpenLocker obj;
-    new_line;
-    objectloop(obj ofclass Locker) 
-        if (obj has open) print"Locker number ", obj.locker_number, " seems to be open.^";
-];
-
 #Ifdef USEINFORM;
 Include "Grammar";
 #Endif;
