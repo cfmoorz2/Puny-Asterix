@@ -175,7 +175,7 @@ Class Mover
     }
 ];
 
-[path_move prev final way temp dir; 
+[path_move prev final way temp; 
     find_path(parent(self), self.target_room);
     prev = self.target_room;
     while (prev)
@@ -207,12 +207,8 @@ Class Mover
                 remove temp;
                 MoveFloatingObjects();
             }
-            print"^[moving ",(name)self," to the ",(name)final,"]^";
-            if(dir == one_away(self))
-            {
-                print"DIR = ",(name)dir,"^";
-                narrate_distant_move(self, dir, final);
-            }
+            !print"^[moving ",(name)self," to the ",(name)final,"]^";
+            eval_one_away(self, final);
             if (TestScope(self, player) && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
             move self to way;
             scope_modified = true;
@@ -236,18 +232,30 @@ Class Mover
     }
 ];
 
-[one_away npc direction k;
+[eval_one_away npc final direction k;
     objectloop(direction in compass) 
     {
         k = location.(direction.door_dir);
-        print"direction = ",(name)direction,"^";
-        print"k = ",(name)k,"^";
-        if (npc in k) { print"MATCH^"; return direction; }
+        if (npc in k) 
+        {
+            if (direction == d_obj) 
+            {
+                print"^",(The)npc," is down below heading ";
+                if (final == d_obj) "downstairs. ";
+                if (final == u_obj) "upstairs. ";
+                "to the ",(name)final,".";
+            }
+            if (direction == u_obj) 
+            {
+                print"^",(The)npc," is up above heading ";
+                if (final == d_obj) "downstairs. ";
+                if (final == u_obj) "upstairs. ";
+                "to the ",(name)final,".";
+            }
+            
+            print"^",(The)npc," is off to the ",(name)direction," heading to the ",(name)final,".^";
+        }
     }
-];
-
-[narrate_distant_move npc dir final;
-    print_ret(The)npc," is off to the ",(name)dir," heading to the ",(name)final,"^";
 ];
 
 [wander_move npc_at test_room direction i x;
@@ -327,15 +335,15 @@ Class Mover
 [narrate_move npc direction rev_dir;
     if(npc.move_mode == TARGET_PATH)
     {
-        if(direction == u_obj) { print(name)npc," "; npc.npc_walk(); " upstairs.^"; }
-        if(direction == d_obj) { print(name)npc," "; npc.npc_walk(); " downstairs.^"; }
+        if(direction == u_obj) { print"^",(name)npc," "; npc.npc_walk(); " upstairs."; }
+        if(direction == d_obj) { print"^",(name)npc," "; npc.npc_walk(); " downstairs."; }
         print"^",(name)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
     }
     if(npc.move_mode == FOLLOW_PATH)
     {
         rev_dir = reverse_dir(direction);
-        if(direction == u_obj) { print(name)npc,", following, enters from from downstairs.^"; }
-        if(direction == d_obj) { print(name)npc,", following, enters from upstairs.^"; }
+        if(direction == u_obj) { print"^",(name)npc,", following, enters from from downstairs.^"; }
+        if(direction == d_obj) { print"^",(name)npc,", following, enters from upstairs.^"; }
         print"^",(name)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
         if(npc provides npc_post_follow) npc.npc_post_follow();
     }
