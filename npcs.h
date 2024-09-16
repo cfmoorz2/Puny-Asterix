@@ -53,7 +53,6 @@ Object oliver "Oliver" morgue
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global FREDDY_ASLEEP = false;
 Object freddy "Freddy" folding_chair
     with name 'freddy' 'security' 'guard',
         description [;

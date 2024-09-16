@@ -78,8 +78,8 @@ Object flashlight "flashlight" morgue
     has switchable valuable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global boombox_playing = false;
-Object boombox "boombox" 
+Global boombox_playing = true;
+Object boombox "boombox" admin_hallway
     with name 'boombox' 'box' 'player' 'compartment',
         description [ obj;
             print"It's a boxy silver plastic and metal boombox with a black carrying handle. The tape compartment in 
@@ -104,6 +104,9 @@ Object boombox "boombox"
         before [;
             open:
                 <<push eject_button>>;
+            take:
+            if (self in admin_hallway && freddy in folding_chair && FREDDY_ASLEEP == false) 
+                "Freddy stirs himself. ~Hey, hands off my tunes, man.~";
         ],
         invent [;
             if (inventory_stage == 2) rtrue;
@@ -115,9 +118,7 @@ Object boombox "boombox"
             }
                 rfalse;
         ],
-        describe [;
-            "^You see a boombox here.";
-        ],
+        describe [; if (self in admin_hallway) rtrue;],
         mass 6, 
     has container transparent openable item;
 
