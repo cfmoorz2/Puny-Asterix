@@ -120,6 +120,22 @@ Object boombox "boombox" admin_hallway
         ],
         describe [; if (self in admin_hallway) rtrue;],
         mass 6, 
+        each_turn [ obj;
+            obj = boombox.tape_is_loaded();
+                print"OBJ = ",(name)obj,"^";
+                print"TAPE_ADVANCE = ",obj.tape_advance,"^";
+                if(obj && boombox_playing == true)
+                {
+                    if (obj.tape_advance == 2)
+                    {
+                        print"IN ADVANCE^";
+                        obj.advance();
+                        obj.tape_advance = 0;
+                        rtrue;
+                    }
+                    obj.tape_advance++;
+                }   
+        ],
     has container transparent openable item;
 
 Object eject_button "eject button" boombox
@@ -128,12 +144,7 @@ Object eject_button "eject button" boombox
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
             push:
-                if(boombox notin player) 
-                {
-                    move boombox to player;
-                    print"(first taking the boombox)^";
-                }
-                if(boombox has open) "The boombox is already open. ";
+                if (boombox has open) "The boombox is already open. ";
                 boombox_playing = false;
                 give boombox open;
                 "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
@@ -145,11 +156,6 @@ Object play_button "play button" boombox
         description"It's a chunky black button with a 'play' arrow on the top. ",
         before [ obj;
             push:
-                if(boombox notin player) 
-                {
-                    move boombox to player;
-                    print"(first taking the boombox)^";
-                }
                 if(boombox has open) "You should close the tape compartment first. ";
                 if(boombox_playing) "The boombox is already playing. ";
                 obj = boombox.tape_is_loaded();
@@ -166,11 +172,6 @@ Object stop_button "stop button" boombox
         description"It's a chunky black button with the 'stop' square on the top. ",
         before [;
             push:
-                if(boombox notin player) 
-                {
-                    move boombox to player;
-                    print"(first taking the boombox)^";
-                }
                 if(~~boombox_playing) "It's already stopped. ";
                 boombox_playing = false;
                 "You press the button and the 'play' button disengages with a ~clunk~. ";
@@ -182,11 +183,6 @@ Object fast_forward_button "fast forward button" boombox
         description"It's a chunky black button with two 'FF' arrows on the top. ",
         before [ obj;
             push:
-                if(boombox notin player) 
-                {
-                    move boombox to player;
-                    print"(first taking the boombox)^";
-                }
                 obj = boombox.tape_is_loaded();
                 if(obj)
                 {
@@ -207,11 +203,6 @@ Object rewind_button "rewind button" boombox
         description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
         before [ obj;
             push:
-                if(boombox notin player) 
-                {
-                    move boombox to player;
-                    print"(first taking the boombox)^";
-                }
                 obj = boombox.tape_is_loaded();
                 if(obj)
                 {
@@ -242,8 +233,10 @@ Class Tape
     mass 2,
     current_side,
     current_track,
+    tape_advance 0,
     fast_forward [ i;
         boombox_playing = false;
+        self.tape_advance = 0;
         if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
         i = self.current_track;
         i++;
@@ -265,6 +258,14 @@ Class Tape
         if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
         self.playback();
     ],
+    advance [;
+        self.current_track++;
+        if (self.current_track == SIDE_END) 
+        {
+            boombox_playing = false;
+            "With a ~click~ the tape comes to the end of the side and the play button disengages. ";
+        }   
+    ],
     before [ x;
         flip:
             !print"flipping ",(name)self,"^";
@@ -275,6 +276,7 @@ Class Tape
             !print"current track = ",x,"^";
             give boombox ~open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
+            self.tape_advance = 0;
             if (x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
             x = SIDE_END - x;
@@ -283,6 +285,7 @@ Class Tape
         ],
     rewind [ i;
         boombox_playing = false;
+        self.tape_advance = 0;
         if (self.current_track == SIDE_START) { self.current_track = FIRST_TRACK; "The tape seems to already be rewound to the beginning. "; }
         i = self.current_track;
         i--;
