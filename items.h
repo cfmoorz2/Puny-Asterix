@@ -122,13 +122,10 @@ Object boombox "boombox" admin_hallway
         mass 6, 
         each_turn [ obj;
             obj = boombox.tape_is_loaded();
-                print"OBJ = ",(name)obj,"^";
-                print"TAPE_ADVANCE = ",obj.tape_advance,"^";
                 if(obj && boombox_playing == true)
                 {
-                    if (obj.tape_advance == 2)
+                    if (obj.tape_advance == ADVANCE_TIMER)
                     {
-                        print"IN ADVANCE^";
                         obj.advance();
                         obj.tape_advance = 0;
                         rtrue;
@@ -224,6 +221,7 @@ Constant SIDE_B = 1;
 Constant SIDE_START = 0;
 Constant FIRST_TRACK = 1;
 Constant SIDE_END = 7;
+Constant ADVANCE_TIMER = 4;
 
 Class Tape 
     with
