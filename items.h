@@ -247,7 +247,7 @@ Class Tape
         i = self.current_track;
         i++;
         self.current_track = i;
-        print"in FF new track = ",i,"^";
+        !print"in FF new track = ",i,"^";
         if (self.current_track == SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
             With a ~click~ you reach the end of the side. "; 
         "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
@@ -266,19 +266,19 @@ Class Tape
     ],
     before [ x;
         flip:
-            print"flipping ",(name)self,"^";
+            !print"flipping ",(name)self,"^";
             boombox_playing = false;
             if (self.current_side == SIDE_A) self.current_side = SIDE_B; else self.current_side = SIDE_A;
-            print"now side = ",self.current_side,"^";
+            !print"now side = ",self.current_side,"^";
             x = self.current_track;
-            print"current track = ",x,"^";
+            !print"current track = ",x,"^";
             give boombox ~open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
             if (x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
             x = SIDE_END - x;
             self.current_track = x;
-            print_ret"now current track = ",self.current_track,".";
+            !print_ret"now current track = ",self.current_track,".";
         ],
     rewind [ i;
         boombox_playing = false;
@@ -391,7 +391,7 @@ Tape air_supply_tape "cassette tape with a blue label" environmental_desk
                     switch (self.current_track) 
                     {
                     1:  print"~Love and Other Bruises~";
-                    2:  print"~Bring put the Magic~";
+                    2:  print"~Bring out the Magic~";
                     3:  print"~The One That You Love~";
                     4:  print"~Here I Am~";
                     5:  print"~Sweet Dreams~";
@@ -492,3 +492,5 @@ Object puncture_mark "puncture mark"
     with name 'puncture' 'wound' 'mark',
         description "It's a tiny puncture wound in his neck. ",
     has scenery;
+
+

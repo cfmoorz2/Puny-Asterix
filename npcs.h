@@ -34,7 +34,6 @@ Class MyNPC
             rfalse;
         ];
 
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object oliver "Oliver" morgue
     with name 'oliver' 'mortuary' 'assistant',
@@ -49,6 +48,27 @@ Object oliver "Oliver" morgue
         ],
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
+        ],
+    class Mover MyNPC
+    has animate proper transparent;   
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Global FREDDY_ASLEEP = false;
+Object freddy "Freddy" folding_chair
+    with name 'freddy' 'security' 'guard',
+        description [;
+            print"He's in his early 20s. He wears a blue uniform shirt, partially untucked, and dark blue 
+            pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
+            if (FREDDY_ASLEEP == true) "He's leaning back in a folding chair snoring. "; else 
+                "He's leaning back in a metal folding chair trying hard to stay awake. He's listening to a boombox sitting 
+                next to him on the floor. ";
+        ],
+        describe [;
+            print"Freddy is here. ";
+            if (self has encountered) rtrue;
+            give self encountered;
+            "He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
+            make it here through the blizzard. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   

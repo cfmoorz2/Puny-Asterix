@@ -253,7 +253,10 @@ Class Mover
                 "to the ",(name)final,".";
             }
             
-            print"^",(The)npc," is off to the ",(name)direction," heading to the ",(name)final,".^";
+            print"^",(The)npc," is off to the ",(name)direction;
+            if (final == d_obj) " heading downstairs. ";
+            if (final == u_obj) " heading upstairs. ";
+            " heading to the ",(name)final,".^";
         }
     }
 ];

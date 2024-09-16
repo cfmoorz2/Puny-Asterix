@@ -819,6 +819,11 @@ Room admin_hallway "Administration"
     w_to french_doors,
     has light;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+OnChair folding_chair "metal folding chair" admin_hallway
+    with name 'metal' 'folding' 'chair',
+        description "It's a standard metal folding chair. ";
+
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor french_doors "french doors" 
     with name 'french' 'double' 'door' 'doors//p',
