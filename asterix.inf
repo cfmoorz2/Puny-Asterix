@@ -88,8 +88,9 @@ Include "my_grammar.h";
 Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
-Include "items.h";
 Include "npcs.h";
+Include "items.h";
+
 
 Object master_timer
     with daemon [;
@@ -129,7 +130,13 @@ Include "VerbLib";
         11: "You see a blurb about ~Thriller~ selling yet another million copies. ";
         12: "There's a mention of a game called ~Deadline~. Sounds boring; you hate mysteries. ";
     }
-];    
+];  
+
+[ ShowOpenLocker obj;
+    new_line;
+    objectloop(obj ofclass Locker) 
+        if (obj has open) print"Locker number ", obj.locker_number, " seems to be open.^";
+];
 
 #Ifdef USEINFORM;
 Include "Grammar";

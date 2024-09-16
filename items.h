@@ -428,5 +428,28 @@ Object shrimp "rotten shrimp"
         describe [; if(self in garbage_can) rtrue;],
         has edible item;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object band_aid "band-aid" sid_jorry
+    with name 'band-aid' 'bandaid' 'bandage',
+        description [;
+            print"It's a standard band-aid";
+            if (self in sid_jorry) ", currently stuck to Sid Jorry's neck. "; else ".";
+        ],
+        before [;
+            take:
+            if (self in sid_jorry) 
+            { 
+                move self to player; 
+                move puncture_mark to sid_jorry;
+                "You steel yourself and peel the band-aid off. Eww! Underneath you see a tiny puncture mark. ";
+            }
+            puton:
+            "Putting a band-aid back on never works. ";
+        ],
+        mass 0,
+    has item;
 
-
+Object puncture_mark "puncture mark" 
+    with name 'puncture' 'wound' 'mark',
+        description "It's a tiny puncture wound in his neck. ",
+    has scenery;

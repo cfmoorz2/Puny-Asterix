@@ -345,6 +345,12 @@ Room elevator_lobby_3 "elevator_lobby_3"
     w_to hallway_3_1,
     has light; 
 
+Object blue_line "blue line"
+    with name 'blue' 'line',
+        description "It's a thick blue line painted down the middle of the hallway. ",
+        found_in elevator_lobby_3 hallway_3_1 hallway_3_2 b_ward_1 station_b,
+    has scenery;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_1 "hallway_3_1"
     with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
@@ -1597,9 +1603,175 @@ Room hallway_3_4 "hallway_3_4"
     with description "This is the east end of a long east-west corridor. The door to the female locker room 
         lies to the north, the door to the male counterpart is to the south. ",
         w_to hallway_3_3,
-        !n_to female_locker_door,
+        n_to female_locker_door,
         s_to "You can't go in the mens' locker room. ",
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+myDoor female_locker_door "north door"
+     with name 'north' 'door',
+        description [;
+            print"It's an unassuming door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == hallway_3_4) return womens_locker; return hallway_3_4;
+        ],
+        door_dir [;
+            if (parent(self) == hallway_3_4) return n_to; return s_to;
+        ],
+        found_in hallway_3_4 womens_locker,
+    has scenery door openable ~open; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room womens_locker "Women's Locker Object"
+    with description "This is the women's locker room. Worn green carpet covers the floor and a bank of 
+        ten full-length lockers lines the wall. A long wooden bench runs down the center of the room. 
+        A door leads south back to the hallway. ",
+        s_to female_locker_door,
+    has light;
+
+OnChair d_locker_bench "bench" womens_locker
+    with name 'bench' 'seat',
+        description "It's a bench running down the middle of the room. ",
+    has scenery;    
+
+Object female_lockers "lockers" womens_locker
+    with name 'lockers' 'bank',
+        description [;
+                print"It's a bank of 10 lockers. Each of them secured with a combination lock built into the door. ";
+                if(ShowOpenLocker()) ""; else "None are open at the moment. ";
+        ],
+    has scenery pluralname;
+
+Class Locker 
+    with found_in womens_locker,
+    has proper scenery container openable locked lockable;
+
+Locker locker_f10 "locker ten" womens_locker
+    with name 'locker' 'ten' '10//',
+        locker_number 10,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f9 "locker nine" womens_locker
+    with name 'locker' 'nine' '9//',
+        locker_number 9,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f8 "locker eight" womens_locker
+    with name 'locker' 'eight' '8//',
+        locker_number 8,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f7 "locker seven" womens_locker
+    with name 'locker' 'seven' '7//',
+        locker_number 7,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f6 "locker six" womens_locker
+    with name 'locker' 'six' '6//',
+        locker_number 6,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f5 "locker five" womens_locker
+    with name 'locker' 'five' '5//',
+        locker_number 5,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f4 "locker four" womens_locker
+    with name 'locker' 'four' '4//',
+        locker_number 4,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f3 "locker three" womens_locker
+    with name 'locker' 'three' '3//',
+        locker_number 3,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f2 "locker two" womens_locker
+    with name 'locker' 'two' '2//',
+        locker_number 2,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Locker locker_f1 "locker one" womens_locker
+    with name 'locker' 'one' '1//',
+        locker_number 1,
+        description [;
+            print "It's a full-length metal locker, secured by a combination lock. It's currently ";
+            open_or_closed(self);
+            ".";
+        ];
+
+Object f_locker_dial "dial" womens_locker
+    with name 'dial' 'dials' 'locker' 'combination' 'one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight' 'nine' 'ten'
+        '1//' '2//' '3//' '4//' '5//' '6//' '7//' '8//' '9//' '10',
+        description "It's a combination lock. You see dial surrounded by the numbers 1 to 30. ",
+        referring 0,
+        parse_name [ wd num;
+            wd = NextWord();
+            while (WordInProperty(wd, self, name)) {
+                num++;
+                switch (wd) {
+                'one', '1//': self.referring = 1;
+                'two', '2//': self.referring = 2;
+                'three', '3//': self.referring = 3;
+                'four', '4//': self.referring = 3;
+                'five', '4//': self.referring = 3;
+                'six', '6//': self.referring = 3;
+                'seven', '7//': self.referring = 3;
+                'eight', '8//': self.referring = 3;
+                'nine', '9//': self.referring = 3;
+                'ten', '10//': self.referring = 3;
+                default: self.referring = 0;
+                }
+                wd = NextWord();
+            }
+            return num;
+        ],
+        before [;
+            if (self.referring == 0) "You should specify which dial you mean. ";
+            examine:
+                "It's the dial of a combination lock. You see the numbers 1 through 30 around the outside. ";
+            turnto:
+                if (second < 1 || second > 30) "The numbers only go from 1 to 30. ";
+                "You turn the dial to ",second,".";
+        ],
+        has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"

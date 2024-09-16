@@ -91,10 +91,14 @@ Object buzz "Buzz" security_chair
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sid_jorry "Sid Jorry" jorry_chair
     with name 'sid' 'jorry',
-        description "He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
-        his otherwise bald head. He always reminded you of your uncle Pete except he's wearing a gray business 
-        suit and Uncle Pete only wears black socks and cargo shorts. He's seated at his desk and slumped
-        forward across it. Luckily, his eyes are closed because that would be too creepy otherwise. ",
+        description [;
+            print"He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
+            his otherwise bald head. He always reminded you of your uncle Pete except he's wearing a gray business 
+            suit and Uncle Pete only wears black socks and cargo shorts. Jorry is seated at his desk and slumped
+            forward across it. Luckily, his eyes are closed because that would be too creepy otherwise. ";
+            if (band_aid in self) "You notice a band_aid stuck to the right side of his neck. "; 
+                else "You notice a tiny puncure wound on the right side of his neck. ";
+        ],
         before [;
             push, pull:
             "You're too creeped out to mess with him. ";
@@ -113,4 +117,4 @@ Object sid_jorry "Sid Jorry" jorry_chair
             tell:
             "I don't think he's going to respond. ";
         ],
-    has scenery animate;
+    has scenery animate transparent;
