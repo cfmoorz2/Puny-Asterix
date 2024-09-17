@@ -37,7 +37,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = jorry_office;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 
 #Ifndef USEINFORM;
 

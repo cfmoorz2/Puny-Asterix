@@ -875,7 +875,7 @@ OnChair folding_chair "metal folding chair" admin_hallway
         ],
         before [;
             open:
-            if (FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa dude. Nobody goes in until the cops get here. ";
+            if (FREDDY_ASLEEP == false && IndirectlyContains(location, freddy)) "Freddy stops you. ~Whoa dude. Nobody goes in until the cops get here. ";
         ],
         found_in admin_hallway jorry_office,
     has scenery door openable ~open;
