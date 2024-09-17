@@ -905,9 +905,38 @@ Room jorry_office "Office"
             rendering it useless. ";
         turn:
             "It's broken and won't turn. ";
+    ]
+    21 'wrought' 'iron' 'stand' "It's a wrought iron stand holding up the aquarium. "
+    12 'reticulated' 'python' 'snake' [;
+        examine:
+        "This is 'Louanne' a two-foot long reticulated python although you have no way of knowing that, having no 
+        particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ";
+        take:
+        "Nope. Just no. ";
+    ]
+    12 'bleached' 'branch' 'stick' [;
+        examine:
+        "It's a tortuous piece of bleached wood. There's currently a snake wrapped around and sleeping on it. ";
+        take:
+        "Not with the snake there, nosirree. ";
     ],
     s_to jorry_door,
     has light;
+
+Object aquarium "aquarium" jorry_office
+    with name 'aquarium',
+        description [;
+            print"It's a large aquarium with a plastic cover over the top. A thick layer of sand lines the bottom.
+            A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
+            if (rock in self) "A decorative rock sits in the sand in the other end. "; "";
+        ],
+    has container openable transparent;
+
+Object rock "rock" aquarium 
+    with name 'decorative' 'rock',
+        description "It's a decorative chunk of rock, about twice as large as one of your fists. ",
+        mass 5,
+    has item;
 
 InChair jorry_chair "office chair" jorry_office
     with name 'chair' 'seat' 'rolling' 'leather',
