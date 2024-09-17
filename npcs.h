@@ -143,14 +143,54 @@ Object eugene "Eugene" environmental_services
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "He's a short squat balding gentleman wearing gray custodian overalls.
         He's wearing a walkman and whistling while he pushes a mop in a mop bucket.",
-        npc_wander_delay 1,
+        npc_wander_delay 5,
+        npc_avoid stairwell_b,
+        npc_walk [; print"pushes the mop bucket";],
         describe [;  
-            !print"^Euhene is here. ";
-            !if(self has encountered) "";
-            if (self hasnt encountered);
-            give self encountered;
-            "He's the overnight custodian. ";
+            if (self hasnt encountered)
+            {
+                give self encountered;
+                "^Eugene, the night-shift custodian, is here pushing a mop bucket. ";
+            }
+            "^Eugene is here, pushing a mop bucket. ";   
         ],
     class Mover MyNPC
     has animate proper transparent;  
 
+Object mop "mop" eugene
+    with name 'wet' 'mop',
+        description "It's a standard wet mop. It's sitting in the mop bucket. ",
+        before [;
+            take:
+            "You reconsider. Ew, that mop water is SO gross. ";
+        ],
+    has scenery;
+
+Object bucket "bucket" eugene 
+    with name 'bucket',
+        description "It's a wheeled metal bucket full of brownish water with one of those wringer thingies on the side. ",
+        before [;
+            take:
+            "Ooh. No. It's heavy and full of smelly water. ";
+            receive:
+            "The bucket is already full of brackish smelly water. ";
+        ],
+    has scenery container open;
+
+Object water "brown water" bucket
+    with name 'brown' 'smelly' 'water',
+        description "It's a bucketfull of smelly brown water. Yuck. ",
+        before [;
+            take:
+            "Oh, no way. ";
+            drink:
+            "As if...";
+            smell:
+            "Oh my god, it smells like barf. ";
+        ],
+    has scenery;
+
+Object wringer "wringer" bucket 
+    with name 'wringer',
+        description "It's a metal squeezy-thing with a handle hanging on the side of the bucket. ",
+    has scenery;

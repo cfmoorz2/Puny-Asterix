@@ -37,7 +37,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = hallway_b1;
+Constant INITIAL_LOCATION_VALUE = jorry_office;
 
 #Ifndef USEINFORM;
 
@@ -80,13 +80,11 @@ Include "puny.h";
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
-    jorry_dial.set_to = random(30);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
     oliver.move_mode = TARGET_PATH;
 	oliver.target_room = conference_room;
     StartDaemon(oliver);
-    move air_supply_tape to player;
 ];
 
 Include "my_grammar.h";

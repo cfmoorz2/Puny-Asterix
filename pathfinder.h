@@ -216,7 +216,8 @@ Class Mover
             if (self provides npc_post_move) self.npc_post_move();
             if (TestScope(self, player) && self.hide == false) 
             {
-                print"^",(name)self," is here.^";
+                !print"^",(name)self," is here.^";
+                self.describe();
             }
             !self.hide = false;
             if (way == self.target_room && self.move_mode == TARGET_PATH) 
@@ -312,7 +313,7 @@ Class Mover
             if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, direction); }
             self.npc_last_wander = reverse_dir(direction);
             !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
-            if (TestScope(self, player)) print"^",(name)self," is here.^";
+            if (TestScope(self, player)) self.describe();!print"^",(name)self," is here.^";
            rtrue;
         }
     }

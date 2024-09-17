@@ -885,13 +885,13 @@ Room jorry_office "Office"
     with description [;
         print"This is a typical office befitting a less-than-top-level executive. A desk stands here";
         if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
-        ". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
+        print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
         a stand directly behind the desk. Sand covers the bottom and a snake is coiled around a bleached twisted 
-        branch at one end. A decorative rock sits in the sand in the other end.
+        branch at one end. A decorative rock sits in the sand in the other end. A squat black safe sits in one corner.
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
-        His eyes, thankfully, are closed.^^
-        The safe is ajar and it appears that the lock has been drilled out. Any papers or documents that were once 
-        here are gone. ";
+        His eyes, thankfully, are closed.^^";
+        if (self hasnt visited) "It appears that somone has been in here already and cleaned out the room. 
+            There's no trace of any papers or documents. ";
     ],
     cheap_scenery
     4 'painting' 'paintings//p' 'picture' 'pictures//p' [;
@@ -899,6 +899,12 @@ Room jorry_office "Office"
         "They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ";
         take:
         "You have no need for mediocre art. ";
+    ]
+    3 'combination' 'lock' 'dial' [;
+        examine:"It's a dial with the numbers 1 through 35 around the periphery. A large hole has been drilled in it
+            rendering it useless. ";
+        turn:
+            "It's broken and won't turn. ";
     ],
     s_to jorry_door,
     has light;
@@ -920,33 +926,20 @@ InChair jorry_chair "office chair" jorry_office
 
 Object jorry_safe "safe" jorry_office 
     with name 'safe',
-        description "It's a squat black metal safe, currently closed. A dial is embedded in the door. ",
+        description [ ;
+            print"It's a squat black metal safe, about two feet on each side. It's currently ";
+            open_or_closed(self); print" and there's a large hole drilled through the combination lock. ";
+            if (self has open)
+            {
+                if(PrintContents("In the safe you can see ", self)) ".";
+                else "The safe is empty.";
+            } else "";
+        ],
         before [;
             take:
                 "It's far too heavy. ";
         ],
-    has container scenery openable ~open transparent;
-
-Object jorry_dial "dial" jorry_safe
-    with name 'dial' 'combination',
-        description [;
-            print"It's a dial embedded in the safe door. Numbers around the outside range from 1 to 30. 
-            It's currently set to ",self.set_to,".^";
-        ],
-        set_to,
-        before [;
-            turn:
-                "You can turn it 'clockwise' or 'counterclockwise' to a number. ";
-            turnclockwiseto:
-                if (second < 1 || second > 30) "The numbers only go from 1 to 30. ";
-                self.set_to = second;
-                "You turn the dial clockwise to ",second,".";
-            turncounterclockwiseto:
-                if (second < 1 || second > 30) "The numbers only go from 1 to 30. ";
-                self.set_to = second;
-                "You turn the dial counterclockwise to ",second,".";
-        ],
-    has scenery;
+    has container openable scenery open;
 
 Object jorry_desk "office desk" jorry_office
     with name 'desk' 'office',
