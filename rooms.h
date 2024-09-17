@@ -909,7 +909,7 @@ Room jorry_office "Office"
     21 'wrought' 'iron' 'stand' "It's a wrought iron stand holding up the aquarium. "
     12 'reticulated' 'python' 'snake' [;
         examine:
-        "This is 'Louanne' a two-foot long reticulated python although you have no way of knowing that, having no 
+        "'Louanne' is a two-foot long reticulated python although you have no way of knowing that, having no 
         particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ";
         take:
         "Nope. Just no. ";
@@ -924,7 +924,7 @@ Room jorry_office "Office"
     has light;
 
 Object aquarium "aquarium" jorry_office
-    with name 'aquarium',
+    with name 'aquarium' 'tank',
         description [;
             print"It's a large aquarium with a plastic cover over the top. A thick layer of sand lines the bottom.
             A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
@@ -934,8 +934,27 @@ Object aquarium "aquarium" jorry_office
 
 Object rock "rock" aquarium 
     with name 'decorative' 'rock',
-        description "It's a decorative chunk of rock, about twice as large as one of your fists. ",
+        description [;
+            print"It's a decorative chunk of rock, about twice as large as one of your fists. ";
+            if (jorry_note in self && self notin aquarium) "Stuck to the bottom of the rock you see a piece of paper. "; "";
+        ],
         mass 5,
+    has item transparent;
+
+Object jorry_note "note" rock
+    with name 'note' 'paper' 'letter',
+        description "It appears to be a hastily scrawled note. ",
+        before [;
+            read:
+            "~I have evidence that Walter Northrup and others have been embezzling funds from St. Asterix for
+            years. Since powerful people are involved and I cannot be completely confident of my safety, I have hidden 
+            a ledger containing the receipts in my safe. However, knowing that my own safe would be immediately searched, 
+            I have swapped my safe with the one in Northrup's office. The combination is 23-12-18.~^At the 
+            bottom of the note you see the initials ~S.J.~";
+            take:
+            if (self in rock) move self to location;
+        ],
+    mass 1,
     has item;
 
 InChair jorry_chair "office chair" jorry_office
