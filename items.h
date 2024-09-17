@@ -79,7 +79,7 @@ Object flashlight "flashlight" morgue
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global boombox_playing = true;
-Object boombox "boombox" admin_hallway
+Object boombox "boombox" hallway_m1
     with name 'boombox' 'box' 'player' 'compartment',
         description [ obj;
             print"It's a boxy silver plastic and metal boombox with a black carrying handle. The tape compartment in 
