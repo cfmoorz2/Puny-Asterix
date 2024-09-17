@@ -1683,77 +1683,60 @@ InChair conference_chair "overstuffed chair" conference_room
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_4 "hallway_3_4"
-    with description "This is the east end of a long east-west corridor. The door to the female locker room 
-        lies to the north, the door to the male counterpart is to the south. ",
+    with description "This is the east end of a long east-west corridor. The linoleum-
+    lined hallway returns west under yellow fluorescent light and there's an open doorway to the north. ",
         w_to hallway_3_3,
-        n_to female_locker_door,
-        s_to "You can't go in the mens' locker room. ",
+        n_to storage,
     has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-myDoor female_locker_door "north door"
-     with name 'north' 'door',
-        description [;
-            print"It's an unassuming door, currently ";open_or_closed(self);".";
-        ],
-        door_to [;
-            if (parent(self) == hallway_3_4) return womens_locker; return hallway_3_4;
-        ],
-        door_dir [;
-            if (parent(self) == hallway_3_4) return n_to; return s_to;
-        ],
-        found_in hallway_3_4 womens_locker,
-    has scenery door openable ~open; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room womens_locker "Women's Locker Object"
-    with description "This is the women's locker room. Worn green carpet covers the floor and there are 
-        two short banks of three lockers on each side of the room. A wooden bench runs down the center of the room. 
-        A door leads south back to the hallway. ",
-        s_to female_locker_door,
+Room storage "Storage"
+    with description "This is a storage room, cluttered with all manner of medical devices and supplies. 
+        Shelves stocked with lots of stuff you don't need line the walls and an autoclave sits on a counter.
+        A dented full-length metal locker sits in the shadows in one corner. ",
+        s_to hallway_3_4,
+        cheap_scenery
+        11 'locker' 'door' [;
+            open:
+            <<open locker>>;
+            close:
+            <<close locker>>;
+            examine:
+            print"The locker door is currently ";
+            open_or_closed(self);
+            ".";
+        ],
     has light;
 
-OnChair d_locker_bench "bench" womens_locker
-    with name 'bench' 'seat',
-        description "It's a bench running down the middle of the room. ",
-    has scenery;    
-
-Object female_lockers "lockers" womens_locker
-    with name 'lockers' 'bank',
-        article "two rows of",
-        description "It's two banks of lockers, three on each side of the room. All of them are closed 
-                and locked with padlocks except for locker number three which appears to be broken and won't 
-                completely close all the way. ",
-    has scenery pluralname;
-
-Class Locker 
-    with found_in womens_locker,
-        description "It's a full-length metal locker, clossed and secured by a padlock. ",
-    has proper scenery container lockable locked;
-
-Locker locker_f6 "locker six" womens_locker
-    with name 'locker' 'six' '6//';
-
-Locker locker_f5 "locker five" womens_locker
-    with name 'locker' 'five' '5//';
-
-Locker locker_f4 "locker four" womens_locker
-    with name 'locker' 'four' '4//';
-
-Locker locker_f2 "locker two" womens_locker
-    with name 'locker' 'two' '2//';
-
-Locker locker_f1 "locker one" womens_locker
-    with name 'locker' 'one' '1//';
-
-Object locker_f3 "locker three" womens_locker
-    with name 'locker' 'three' '3//',
-        description "It's a full-length metal locker. It's ajar and seems to be broken as it won't completely close. ",
-        before [;
-            close:
-            "You can close it almost all the way. ";
+Object autoclave "autoclave" storage
+    with name 'autoclave',
+        description [;
+            print"It's a large metal box with a heavy hinged door (currently ";
+            open_or_closed(self); print"). ";
+            if (self has on) "It's currently turned on and is humming loudly. ";
+                "It's currently turned off. ";
         ],
-    has scenery container enterable open proper;
+        describe [; rtrue;],
+        before [;
+            switchon:
+            if (self has open) { give self ~open; "(first closing the autoclave)"; }
+        ],
+    has container openable switchable ~open;
+
+Object locker "locker" storage
+    with name 'locker' 'metal',
+        description [;
+            print"It's a full-length dented metal locker. The door is currently ";
+            open_or_closed(self);".";
+        ],
+        inside_description [;
+            if (self has open) "You're couched in a dark metal locker. Through the open door you can
+            see out at the storage room. ";
+            "You're crouched inside the locker. You can peek out at the storage room 
+            through metal slots in the door. ";
+        ],
+        describe [;rtrue;],
+    has light container enterable openable open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"
