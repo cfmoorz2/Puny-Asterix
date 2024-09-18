@@ -70,6 +70,16 @@ Global dial_setting = 0;
 
 Global following = false;
 
+[ InScope p_actor obj;
+    if(player in locker && locker hasnt open)
+        objectloop(obj in storage) 
+        {
+            PlaceInScope(obj);
+        }
+    p_actor = 0;
+    rfalse;
+];
+
 Include "ext_cheap_scenery.h";
 Include "puny.h";
 
