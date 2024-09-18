@@ -194,14 +194,14 @@ Room hallway_b2 "hallway_b2"
 Room central_supply "Central Supply" 
     with description "This is a large basement filled with dusty crates and defunct antique equipment. There are scattered low-wattage lamps 
     hanging from the ceiling but most of these have long ago burned out, leaving the room quite dark with grotesque shadows 
-    projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. A black phone is mounted
-    to the wall here. ",
+    projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
+    north.",
     n_to central_supply_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor central_supply_door "central supply door" 
-    with name 'central' 'supply' 'door',
+ myDoor central_supply_door "door" 
+    with name 'metal' 'door',
         description [;
             print"It's a thick metal door, currently ";
             open_or_closed(self);
@@ -214,7 +214,7 @@ Room central_supply "Central Supply"
             if (parent(self) == hallway_b2) return s_to; return n_to;
         ],
         found_in central_supply hallway_b2,
-    has scenery door openable ~open locked;
+    has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room environmental_services "Environmental Services"
@@ -1243,7 +1243,7 @@ Object red_button "red button" mri_anteroom
         ],
     has scenery;
 
-Object metal_cart "cart" mri_anteroom
+Object metal_cart "cart" central_supply
     with name 'metal' 'cart',
         description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
         large metal oxygen cannisters. ",
