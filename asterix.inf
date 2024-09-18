@@ -70,14 +70,12 @@ Global dial_setting = 0;
 
 Global following = false;
 
-[ InScope p_actor obj;
+[ InScope obj p_actor;
     if(player in locker && locker hasnt open)
         objectloop(obj in storage) 
         {
             PlaceInScope(obj);
-        }
-    if(obj ofclass Mover && one_away(obj))
-        PlaceInScope(obj);
+        } 
     p_actor = 0;
     rfalse;
 ];
