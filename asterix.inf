@@ -70,12 +70,20 @@ Global dial_setting = 0;
 
 Global following = false;
 
-[ InScope p_actor obj;
+[ InScope p_actor obj direction npc k;
     if(player in locker && locker hasnt open)
         objectloop(obj in storage) 
         {
             PlaceInScope(obj);
         } 
+    objectloop(direction in compass)
+    {
+        k = real_location.(direction.door_dir);
+        objectloop (npc in k)
+        {
+            if (npc ofclass Mover) PlaceInScope(npc);
+        }
+    }
     p_actor = 0;
     rfalse;
 ];
