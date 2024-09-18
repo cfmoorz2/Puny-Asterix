@@ -618,28 +618,8 @@ Object garbage_can "garbage can" kitchen
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m1 "hallway_m1"
-    with description [;
-        print"This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
-        corridor begins here and leads south. ";
-        if (freddy hasnt encountered) 
-        {
-            give freddy encountered;
-            print "^^Freddy, the third-shift security guard is posted here, tasked with guarding Sid Jorry's office down the hall 
-            until the police can make it in through the blizzard. He's leading back against the wall in a metal folding chair. His lids are heavy and
-            he's having a tough time staying awake. ";
-            if (boombox in self) "A boombox sits next to him on the floor. ";
-        }   else
-        {
-            if (FREDDY_ASLEEP) print"^^Freddy is here, deeply asleep leaning back in a metal folding chair. ";
-                else print"^^Freddy is here, leaning back in a metal folding chair and struggling to stay awake. ";
-                if (boombox in self) "A boombox sits next to him on the floor. "; else rtrue;
-        }
-    ],
-        before [;
-            go:
-            if (selected_direction == w_to && FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa, dude. Nobody goes down there until the cops get here. 
-            Northrup's orders.~";
-        ],
+    with description "This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
+        corridor begins here and leads south. ",
         s_to lobby_west,
         w_to hallway_m2,
         e_to elevator_lobby_m,
@@ -813,7 +793,19 @@ Room admin_hallway "Administration"
         print"This is the western end of a long east-west hallway. It's a bit better maintained than the others and warmer 
         colors accentuate the walls. The overhead fluorescent tubes are replaced here by round light fixtures and the floor is covered with blue 
         carpet. There's a plain wooden door to the north with a small placard mounted next to it and a set of french glass doors lie to the west. ";
-        
+        if (freddy hasnt encountered) 
+        {
+            give freddy encountered;
+            print "^^Freddy, the third-shift security guard is posted here, tasked with guarding Sid Jorry's office down the hall 
+            until the police can make it in through the blizzard. He's leading back against the wall in a metal folding chair. His lids are heavy and
+            he's having a tough time staying awake. ";
+            if (boombox in self) "A boombox sits next to him on the floor. ";
+        }   else
+        {
+            if (FREDDY_ASLEEP) print"^^Freddy is here, deeply asleep leaning back in a metal folding chair. ";
+                else print"^^Freddy is here, leaning back in a metal folding chair and struggling to stay awake. ";
+                if (boombox in self) "A boombox sits next to him on the floor. "; else rtrue;
+        }  
     ],
     cheap_scenery
     12 'brass' 'placard' 'sign' [;
@@ -829,6 +821,9 @@ Room admin_hallway "Administration"
         examine:
         if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
         if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
+        go:
+        if (selected_direction == n_to && FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
+        Northrup's orders.~";
     ],
     e_to hallway_m2,
     n_to jorry_door,
@@ -859,6 +854,11 @@ Room admin_hallway "Administration"
             print"It's a plain wooden office door, currently ";
             open_or_closed(self);
             print ".";
+        ],
+        before [;
+            open:
+            if (real_location == admin_hallway && FREDDY_ASLEEP == false) 
+            "Freddy stops you. ~Sorry, dude. Nobody goes in until the cops get here. ";
         ],
         door_to [;
             if (parent(self) == admin_hallway) return jorry_office; return admin_hallway;
