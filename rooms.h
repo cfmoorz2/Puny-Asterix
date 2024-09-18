@@ -137,13 +137,13 @@ Room elevator_lobby_b "elevator_lobby_b"
         print"This is a spartan fluorescent-lit hallway that continues to the east and west.  A stairwell lies to the north through an 
         open doorway. Opposite the stairwall in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue~ above an arrow 
         pointing east and one reading ~Central Supply~ above one pointing west. The elevator doors are currently ";
-        !open_or_closed(elevator_doors);
+        open_or_closed(elevator_doors);
         ". The call button is embedded in a small panel next to the door.";
         ],
         e_to basement_hallway_east,
         n_to stairwell_b,
-        !s_to elevator_doors,
-        !in_to elevator_doors,
+        s_to elevator_doors,
+        in_to elevator_doors,
         w_to basement_hallway_west,
     has light,
     ;
@@ -283,15 +283,15 @@ Room elevator_lobby_3 "elevator_lobby_3"
     with description [;
         print"This is the third-floor elevator lobby. The elevator doors lie to the south, the 'down' 
         button is embedded in a small panel next to them. The elevator doors are currently ";
-        !open_or_closed(elevator_doors);
+        open_or_closed(elevator_doors);
         ". A stairwell lies to the north through an open doorway. The hallway leads east and west. On the wall here you 
         see ~Ward B~ posted in large black letters above an arrow pointing west and a blue line on the floor starts here 
         and leads in that direction as well. ";
     ],
     n_to stairwell_3,
     e_to hallway_3_3,
-    !s_to elevator_doors,
-    !in_to elevator_doors,
+    s_to elevator_doors,
+    in_to elevator_doors,
     w_to hallway_3_1,
     has light; 
 
@@ -461,7 +461,7 @@ Bed room_31_bed "patient bed" room_31
 Room elevator_lobby_m "Main Elevator Lobby"
     with description [;
         print"This is the main elevator lobby. The elevator doors, currently ";
-        !open_or_closed(elevator_doors); 
+        open_or_closed(elevator_doors); 
         ", lie to the south, the 'up' and 'down' buttons 
         are embedded in a small panel next to them. An open doorway leads into a stairwell to the north and an open double 
         doorway leads to the east. A sign across the top reads ~Cafeteria~. A long corridor begins here and leads west. ";
@@ -471,8 +471,8 @@ Room elevator_lobby_m "Main Elevator Lobby"
         n_to stairwell_m,
         e_to cafeteria,
         w_to hallway_m1,
-        !s_to elevator_doors,
-        !in_to elevator_doors,
+        s_to elevator_doors,
+        in_to elevator_doors,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1154,15 +1154,15 @@ Room elevator_lobby_2 "elevator_lobby_2"
     with description [;
         print"This is the second-floor elevator lobby. The elevator doors lie to the south, the 'up' and 'down' 
         buttons embedded in a small panel next to them. The elevator doors are currently ";
-        !open_or_closed(elevator_doors); 
+        open_or_closed(elevator_doors); 
         ". A stairwell lies to the north through an open doorway. On the wall 
         here you see ~Radiology~ posted in large black letters above an arrow pointing east. Above an arrow 
         pointing west you see a large red 'A' and a red line on the floor starts here and leads in that direction as well. ";
     ],
     n_to stairwell_2,
     e_to hallway_2_3,
-    !s_to elevator_doors,
-    !in_to elevator_doors,
+    s_to elevator_doors,
+    in_to elevator_doors,
     w_to hallway_2_1,
     has light;
 

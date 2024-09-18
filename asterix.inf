@@ -44,6 +44,9 @@ Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 Include "globals.h";
 Global FREDDY_ASLEEP = false;
 Global dial_setting = 0;
+Global elevator_level = 0;
+Global elevator_call_level;
+Global elevator_active = false;
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
@@ -114,6 +117,7 @@ Include "pathfinder.h";
 Include "rooms.h";
 Include "npcs.h";
 Include "items.h";
+Include "elevator.h";
 
 
 Object master_timer
