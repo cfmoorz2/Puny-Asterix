@@ -70,13 +70,20 @@ Global dial_setting = 0;
 
 Global following = false;
 
-[ InScope obj p_actor;
+[ InScope p_actor obj;
     if(player in locker && locker hasnt open)
         objectloop(obj in storage) 
         {
             PlaceInScope(obj);
         } 
     p_actor = 0;
+    rfalse;
+];
+
+[GamePreRoutine; 
+    if(action == ##examine)
+    print"HERE noun = ",(name)noun,"^";
+    !if(one_away(noun)) PlaceInScope(noun);
     rfalse;
 ];
 
