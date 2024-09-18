@@ -78,14 +78,14 @@ Global following = false;
         } 
     objectloop(direction in compass)
     {
-        if (k = location.(direction.door_dir))
+        !if (k = location.(direction.door_dir))
+        k = real_location.(direction.door_dir);
+        if (k == 0) continue;
+        if (k has door) final = DoorTo(k); else final = k;
+        objectloop (npc in final)
         {
-            if (k has door) final = DoorTo(k); else final = k;
-            objectloop (npc in final)
-            {
-            if (npc ofclass Mover) PlaceInScope(npc);
-            }
-        }
+        if (npc ofclass Mover) PlaceInScope(npc);
+        } 
     }
     p_actor = 0;
     rfalse;

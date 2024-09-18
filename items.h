@@ -16,42 +16,8 @@ Class MyContainer
         ],
     has container;
 
-Class SwipeCard
-    with 
-        mass 1,
-        before [;
-            Swipe:
-                if (noun == self && real_location == hallway_b2) {
-                    print"(through the card reader)^";
-                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
-                    give central_supply_door open;
-                    give central_supply_door ~locked;
-                    give card_reader on;
-                    StopTimer(card_reader);
-                    StartTimer(card_reader ,3);
-                    rtrue;
-                }
-                if (noun == self && second == card_reader) {
-                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
-                    give central_supply_door open;
-                    give central_supply_door ~locked;
-                    give card_reader on;
-                    StopTimer(card_reader);
-                    StartTimer(card_reader ,3);
-                } 
-            Insert:
-                if (noun == self && second == card_reader) {
-                    print"You hear a 'click' from the door and the light on the reader changes to green.^";
-                    give central_supply_door open;
-                    give central_supply_door ~locked;
-                    give card_reader on;
-                    StopTimer(card_reader);
-                    StartTimer(card_reader ,3);
-                }  
-        ];
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-SwipeCard swipe_card "security card" security_desk
+Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',
         description "It's a white plastic rectangular swipe card. ",
         mass 1,

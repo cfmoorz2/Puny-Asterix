@@ -180,47 +180,14 @@ Room hallway_b1 "hallway_b1"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_b2 "hallway_b2"
-    with description [;
-        print"This is the western end of a long corridor that stretches to the east under flickering fluorescent lights. 
+    with description "This is the western end of a long corridor that stretches to the east under flickering fluorescent lights. 
         There's an open doorway to the north, a sign next to it reads ~Environmental Services~.
         A second doorway lies to the west. A sign next to it reads ~Engineering~. Finally, a substantial metal door lies to the 
-        south, a placard on it reads ~Central Supply.~ There's a magnetic key card swipe next to it, a small light on it is ";
-        if (card_reader has on) "green."; else "red.";
-        ],
-        after [;
-            Go:
-                if (selected_direction == n_to) {
-                    give central_supply_door ~open;
-                    give central_supply_door locked;
-                    give card_reader ~on;
-                    "As you pass through the door, it closes behind you with a 'click'. The light on the card reader turns red. ";
-                }
-        ],
+        south, a placard on it reads ~Central Supply~.",
         e_to hallway_b1,
         n_to environmental_services,
         s_to central_supply_door,
         w_to engineering,
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room central_supply_anteroom "Anteroom" 
-    with description "This is a dark utility basement. The floor and walls are cement and pipes run along the ceiling. 
-        This is a small anteroom just off of the larger space. A metal door lies to the north and a passage turns to the west, 
-        deeper into the darkness.",
-        n_to central_supply_door,
-        after [;
-            Go:
-                if (selected_direction == s_to) {
-                    give central_supply_door ~open;
-                    give central_supply_door ~locked;
-                    "As you pass through the door, it closes behind you with a 'click'.";
-                }
-        ],
-        before [;
-            Go:
-                if (selected_direction == n_to) give central_supply_door open;
-        ],
-        w_to central_supply,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -229,7 +196,7 @@ Room central_supply "Central Supply"
     hanging from the ceiling but most of these have long ago burned out, leaving the room quite dark with grotesque shadows 
     projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. A black phone is mounted
     to the wall here. ",
-    e_to central_supply_anteroom,
+    n_to central_supply_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,41 +206,15 @@ Room central_supply "Central Supply"
             print"It's a thick metal door, currently ";
             open_or_closed(self);
             print ".";
-            if (real_location == hallway_b2) {
-                print "There's a magnetic swipe card reader next to it. The little light on it is ";
-                if (card_reader has on) "green."; else "red.";
-            }
         ],
         door_to [;
-            if (parent(self) == hallway_b2) return central_supply_anteroom; return hallway_b2;
-        ],
-        npc_open [npc;
-            give self ~locked;
-            give self open;
-            if (real_location == hallway_b2) print_ret(The)npc," swipes a card through the reader and passes through 
-            the security door. ";
-            if (real_location == central_supply_anteroom) print_ret(The)npc," opens the security door and passess through. ";
+            if (parent(self) == hallway_b2) return central_supply; return hallway_b2;
         ],
         door_dir [;
             if (parent(self) == hallway_b2) return s_to; return n_to;
         ],
-        found_in central_supply_anteroom hallway_b2,
+        found_in central_supply hallway_b2,
     has scenery door openable ~open locked;
-
-Object card_reader "card reader" hallway_b2
-    with name 'reader' 'card',
-        description [;
-            print "It's a magnetic swipe card reader built into the side of the door. The little light is ";
-            if (self has on) "green. "; else "red. ";
-        ],
-        time_left,
-        time_out [;
-            give card_reader ~on;
-            give central_supply_door ~open;
-            if(real_location ~= central_supply or central_supply_anteroom) give central_supply_door locked;
-            if (TestScope (card_reader, player)) "You hear a 'click' from the door and the light on the card reader turns red. ";
-        ],
-    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room environmental_services "Environmental Services"
