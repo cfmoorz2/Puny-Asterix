@@ -386,20 +386,47 @@ Room b_ward_1 "Ward B - East"
         reads ~33~, one next to the latter reads ~34~.", 
         e_to hallway_3_2,
         w_to station_b,
-        !n_to room_33,
+        n_to room_33,
         s_to room_34,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_33 "Room 33"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads south back out to the hallway. ",
+        s_to b_ward_1,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_33_bed "patient bed" room_33
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_34 "Room 34"
-    with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. ",
+    with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. 
+        There's a doorway leading out to the north. ",
         n_to b_ward_1,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
     with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.
-        The floor is scuffed linoleum and a steaming radiator hisses under a window. ",
+        The floor is scuffed linoleum and a steaming radiator hisses under a window. The way out is to the north. ",
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
         n_to station_b,
     has light;
 
@@ -411,7 +438,7 @@ Room station_b "Ward B - Station"
     a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
     allowing space for medical staff to chart and dictate. ",
     e_to b_ward_1,
-    !n_to room_31,
+    n_to room_31,
     s_to room_32,
     has light;
 
@@ -469,6 +496,25 @@ Object magazines "magazines" book_cart
                 rtrue;
         ],
     has scenery pluralname;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room room_31 "Room 31"
+    with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
+        head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
+        leads south back out to the hallway. ",
+        s_to station_b,
+        cheap_scenery
+        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+            examine:
+            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            take, touch, pull, push:
+            "I guess third-degree burns are your thing?";
+        ],
+    has light;
+
+Bed room_31_bed "patient bed" room_31
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_m "Main Elevator Lobby"
@@ -1654,7 +1700,7 @@ Room hallway_3_3 "hallway_3_3"
     has scenery door openable ~open; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room conference_room "Conference Object"
+Room conference_room "Conference Room"
     with description "This is a quiet carpeted room, typically used for family conferences or for delivering bad news. 
         An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
         soothing. ",

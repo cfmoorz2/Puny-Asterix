@@ -76,6 +76,8 @@ Global following = false;
         {
             PlaceInScope(obj);
         }
+    if(obj ofclass Mover && one_away(obj))
+        PlaceInScope(obj);
     p_actor = 0;
     rfalse;
 ];
