@@ -70,7 +70,7 @@ Global dial_setting = 0;
 
 Global following = false;
 
-[ InScope p_actor obj direction npc k;
+[ InScope p_actor obj direction npc k final;
     if(player in locker && locker hasnt open)
         objectloop(obj in storage) 
         {
@@ -78,20 +78,16 @@ Global following = false;
         } 
     objectloop(direction in compass)
     {
-        k = real_location.(direction.door_dir);
-        objectloop (npc in k)
+        if (k = location.(direction.door_dir))
         {
+            if (k has door) final = DoorTo(k); else final = k;
+            objectloop (npc in final)
+            {
             if (npc ofclass Mover) PlaceInScope(npc);
+            }
         }
     }
     p_actor = 0;
-    rfalse;
-];
-
-[GamePreRoutine; 
-    if(action == ##examine)
-    print"HERE noun = ",(name)noun,"^";
-    !if(one_away(noun)) PlaceInScope(noun);
     rfalse;
 ];
 

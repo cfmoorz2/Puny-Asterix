@@ -79,7 +79,7 @@ Class Mover
             objectloop (i in parent(self))  {
                 if(i has valuable) {
                     move i to self;
-                    if(TestScope(self)) print(The)self," picks up ",(a)i,".^";
+                    if(self in real_location) print(The)self," picks up ",(a)i,".^";
                 }
             }
             rfalse;
@@ -194,7 +194,7 @@ Class Mover
                 }
                 else
                 {
-                if (TestScope(self, player) && way hasnt open) print(The)self," pushes open the door.^";
+                if (self in real_location && way hasnt open) print(The)self," pushes open the door.^";
                 give way open;
                 give way ~locked;
                 }
@@ -209,12 +209,12 @@ Class Mover
             }
             !print"^[moving ",(name)self," to the ",(name)final,"]^";
             eval_one_away(self, final);
-            if (TestScope(self, player) && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
+            if (self in real_location && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
             move self to way;
             scope_modified = true;
-            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
+            if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
             if (self provides npc_post_move) self.npc_post_move();
-            if (TestScope(self, player) && self.hide == false) 
+            if (self in real_location && self.hide == false) 
             {
                 !print"^",(name)self," is here.^";
                 self.describe();
@@ -307,13 +307,13 @@ Class Mover
         { 
             !print"[moving ",(name)self," to ",(name)test_room,"]^";
             eval_one_away(self, direction);
-            if (TestScope(self, player)) { self.hide = true; narrate_move(self, direction); }
+            if (self in real_location) { self.hide = true; narrate_move(self, direction); }
             move self to test_room;
             scope_modified = true;
-            if (TestScope(self, player) && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, direction); }
+            if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, direction); }
             self.npc_last_wander = reverse_dir(direction);
             !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
-            if (TestScope(self, player)) self.describe();!print"^",(name)self," is here.^";
+            if (self in real_location) self.describe();!print"^",(name)self," is here.^";
            rtrue;
         }
     }
