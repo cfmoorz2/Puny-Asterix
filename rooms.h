@@ -1858,3 +1858,10 @@ Object microwave_dial "dial" break_room
                 }
         ]
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room sub_basement_02 "Sub-Basement"
+    with description "This is a dark sub-basement. ",
+    n_to service_elevator_door,
+    in_to service_elevator_door,
+    has light;

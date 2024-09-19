@@ -10,7 +10,7 @@ Class ServiceButton
                 if (self has on) "Pressing it again won't speed things up. "; 
                 if (service_elevator_active) "Nothing seems to happen. ";
                 switch(real_location)   {
-                    !sub_basement_02: self.call_level = -1;
+                    sub_basement_02: self.call_level = -1;
                     basement_hallway_west: self.call_level = 0;
                     hallway_m1: self.call_level = 1;
                     hallway_2_1: self.call_level = 2;
@@ -69,7 +69,7 @@ Object service_elevator_door "service elevator door"
         door_to [;
             if (self in service_elevator) {
                 switch(service_elevator_level)  {
-                    !-1: return sub_basement_02;
+                    -1: return sub_basement_02;
                     0:  return basement_hallway_west;
                     1:  return hallway_m1;
                     2:  return hallway_2_1;
@@ -79,7 +79,7 @@ Object service_elevator_door "service elevator door"
                     return service_elevator;
             }
         ],
-    found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1, !sub_basement_02,
+    found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
     has scenery door ~open; 
 
 Object service_elevator_ext "service elevator"
@@ -89,7 +89,7 @@ Object service_elevator_ext "service elevator"
             open_or_closed(service_elevator_door);
             " There's a small panel embedded in the wall next to it. ";
         ],
-        found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1, !sub_basement_02,
+        found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
     has scenery;
 
 Object service_interior_panel "panel" service_elevator
@@ -145,10 +145,10 @@ ServiceButton  service_interior_b_button
 ServiceButton  service_interior_sb_button 
     with name 'sb' 'sub-basement' 'button' 'subbasement',
         call_level -1,
-        !short_name "sub-basement button",
+        short_name "sub-basement button",
         found_in service_interior_panel;     
 
-Object sub_basement_exterior_panel "panel" !sub_basement_02
+Object sub_basement_exterior_panel "panel" sub_basement_02
     with name 'panel' 'buttons',
         description"It's a small panel embedded in the wall next to the elevator door. It contains a single button. ",
     has scenery;
@@ -183,8 +183,6 @@ ServiceButton  sb_service_exterior_up_button
     with name 'up' 'button',
         short_name "up button",
         found_in sub_basement_exterior_panel;
-
-
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object service_elevator_daemon 
