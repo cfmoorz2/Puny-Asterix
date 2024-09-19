@@ -165,8 +165,8 @@ Room basement_hallway_west "basement_hallway_west"
         reads ~Employees Only~.",
         e_to elevator_lobby_b,
         w_to hallway_b1,
-        !n_to service_elevator_door,
-        !in_to service_elevator_door,
+        n_to service_elevator_door,
+        in_to service_elevator_door,
         has light,
         ;
 
@@ -307,8 +307,8 @@ Room hallway_3_1 "hallway_3_1"
         A blue line is painted down the middle of the floor. ", 
         e_to elevator_lobby_3,
         w_to hallway_3_2,
-        !n_to service_elevator_door,
-        !in_to service_elevator_door,
+        n_to service_elevator_door,
+        in_to service_elevator_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -623,8 +623,8 @@ Room hallway_m1 "hallway_m1"
         s_to lobby_west,
         w_to hallway_m2,
         e_to elevator_lobby_m,
-        !n_to service_elevator_door,
-        !in_to service_elevator_door,
+        n_to service_elevator_door,
+        in_to service_elevator_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1493,8 +1493,8 @@ Room hallway_2_1 "hallway_2_1"
         A red line is painted down the middle of the floor. ",
         e_to elevator_lobby_2,
         w_to hallway_2_2,
-        !n_to service_elevator_door,
-        !in_to service_elevator_door,
+        n_to service_elevator_door,
+        in_to service_elevator_door,
     has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

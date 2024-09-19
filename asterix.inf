@@ -26,6 +26,7 @@ Constant DEATH_MENTION_UNDO;
 Constant PLAYER_CAPACITY = 32;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
+Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 
 Attribute valuable;
@@ -48,6 +49,10 @@ Global elevator_level = 0;
 Global elevator_call_level;
 Global elevator_active = false;
 Global dumbwaiter_level = 0;
+Global service_elevator_level = 0;
+Global service_elevator_call_level;
+Global service_elevator_active = false;
+
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
@@ -120,6 +125,7 @@ Include "npcs.h";
 Include "items.h";
 Include "elevator.h";
 Include "dumbwaiter.h";
+Include "service_elevator.h";
 
 
 Object master_timer
