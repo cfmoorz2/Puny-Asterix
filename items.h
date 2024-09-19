@@ -1,21 +1,3 @@
-Class MyContainer
-    with max_capacity,
-        holding [counter i;
-            objectloop(i in self)   {
-                counter = counter + i.mass;
-                print"counter = ",counter,".^";
-                print"added ",i.mass," to counter.^";
-            }
-            print"final counter = ",counter,"^";
-            return counter;
-        ],
-        before [ x;
-            receive:
-                x = self.holding();
-                if (x + noun.mass > self.max_capacity) "There's not enough room in ",(the)self,".";
-        ],
-    has container;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',

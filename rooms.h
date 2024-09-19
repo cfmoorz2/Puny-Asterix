@@ -71,11 +71,11 @@ Room morgue "Morgue"
                 " lies to the west. ";
             ],
         cheap_scenery  
-            12 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. "
+            3 'white' 'tile' 'tiles//p' "The tiles are cracked and there's some greenish gunk growing in the spaces between them. "
             1 'drain' "It's a standard drain in the floor about three inches across. "
-            21 'flickering' 'fluorescent' 'tubes//p' "They're standard fluorescent lights. They emit a sickly green light that 
+            3 'flickering' 'fluorescent' 'tubes//p' "They're standard fluorescent lights. They emit a sickly green light that 
                 makes everyone look corpse-like. "
-            12 'refrigerated' 'locker' 'lockers//p' [;
+            3 'refrigerated' 'locker' 'lockers//p' [;
 				examine: "You see a bank of six metal doors with metal handles. ";
                 open: "You hesitantly open one a crack and peek inside. Luckily, it's empty. ";
 				Take, Remove, Turn, Pull, Push: "You decide you don't really need morgue refrigerators. ";
@@ -338,7 +338,7 @@ Room room_33 "Room 33"
         leads south back out to the hallway. ",
         s_to b_ward_1,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -362,7 +362,7 @@ Room room_32 "Room 32"
     with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.
         The floor is scuffed linoleum and a steaming radiator hisses under a window. The way out is to the north. ",
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -445,7 +445,7 @@ Room room_31 "Room 31"
         leads south back out to the hallway. ",
         s_to station_b,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -500,7 +500,7 @@ Room cafeteria "Cafeteria"
                 Enter:
                 "You sit down for a moment but restlessly stand up again. ";
             ]
-            23 'steam' 'serving' 'table' 'buffet' 'station' [;
+            5 'steam' 'serving' 'table' 'buffet' 'station' [;
                 take:
                 "Seems unrealistic. ";
                 examine: 
@@ -570,7 +570,7 @@ Room kitchen "Kitchen"
     The overhead fluorescent lights are off and it's nearly pitch dark in here, save for the faint green light coming from an 'exit' sign
     over the door to the south. There's a garbage can sitting next to one of the prep tables. ",
     cheap_scenery 
-        22 'steel' 'prep' 'tables//p' 'table' [;
+        4 'steel' 'prep' 'tables//p' 'table' [;
             Take:
             "They seem to be bolted to the floor. ";
             Enter:
@@ -590,13 +590,13 @@ Room kitchen "Kitchen"
             examine:
             "They're old but clean industrial appliances arranged around the periphery of the kitchen. ";
         ]
-        12 'fluorescent' 'light' 'lights//p' [;
+        3 'fluorescent' 'light' 'lights//p' [;
             take:
             "You can't reach them and don't need them. ";
             examine:
             "They're bare fluorescent tubes. They're all off. ";
         ]
-        12 'exit' 'light' 'sign' [;
+        3 'exit' 'light' 'sign' [;
             take:
             "You can't reach it and don't need it. ";
             examine:
@@ -677,14 +677,14 @@ Room security_office "Security Office"
             }
         ],
         cheap_scenery 
-            14 'water' 'rings//p' 'ring' 'stain' 'stains//p' "They're water stains, likely permanent. Use a coaster, people. "
-            13 'burger' 'wrapper' 'wrappers//p' 'garbage' [;
+            5 'water' 'rings//p' 'ring' 'stain' 'stains//p' "They're water stains, likely permanent. Use a coaster, people. "
+            4 'burger' 'wrapper' 'wrappers//p' 'garbage' [;
                 take:
                 "It's literally garbage. ";
                 examine:
                 "They're greasy wadded up paper wrappers. ";
             ]
-            26 'closed' 'circuit' 'monitor' 'monitors//p' 'television' 'televisions//p' 'tv' 'tvs//p' [;
+            8 'closed' 'circuit' 'monitor' 'monitors//p' 'television' 'televisions//p' 'tv' 'tvs//p' [;
                 take:
                 "They're fixed in place and quite heavy. ";
                 examine:
@@ -742,8 +742,8 @@ Room main_lobby "Main Lobby"
                 }
         ],
         cheap_scenery
-        11 'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
-        12 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
+        'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
+        3 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
             intermittently catch a glimpse of the blizzard outside. ",
         w_to lobby_west,
         s_to main_lobby_doors,
@@ -808,7 +808,7 @@ Room admin_hallway "Administration"
         }  
     ],
     cheap_scenery
-    12 'brass' 'placard' 'sign' [;
+    3 'brass' 'placard' 'sign' [;
         take:
         "If you want one, you should get an MBA. ";
         read:
@@ -895,15 +895,15 @@ Room jorry_office "Office"
         turn:
             "It's broken and won't turn. ";
     ]
-    21 'wrought' 'iron' 'stand' "It's a wrought iron stand holding up the aquarium. "
-    12 'reticulated' 'python' 'snake' [;
+    3 'wrought' 'iron' 'stand' "It's a wrought iron stand holding up the aquarium. "
+    3 'reticulated' 'python' 'snake' [;
         examine:
         "'Louanne' is a two-foot long reticulated python although you have no way of knowing that, having no 
         particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ";
         take:
         "Nope. Just no. ";
     ]
-    12 'bleached' 'branch' 'stick' [;
+    3 'bleached' 'branch' 'stick' [;
         examine:
         "It's a tortuous piece of bleached wood. There's currently a snake wrapped around and sleeping on it. ";
         take:
@@ -1010,7 +1010,7 @@ Room northrup_anteroom "Anteroom"
         !(if)(northrup in self && northrup_door has ~open) "and light coming from under it. "; else ".";
         ],
         cheap_scenery
-        12 'brass' 'placard' 'sign' [;
+        3 'brass' 'placard' 'sign' [;
             examine:
             "It's a brass placard. It reads ~Walter Northrup, M.D., President/CEO~.";
             take:
@@ -1069,7 +1069,7 @@ Room northrup_office "Northrup's Office"
             take:
             "Seems unlikely. ";
         ]
-        14 'medical' 'book' 'books' 'journal' 'journals' [;
+        5 'medical' 'book' 'books' 'journal' 'journals' [;
             examine:
             "You see numerous books and medical journals. Nothing that appeals to you. ";
             take:
@@ -1083,7 +1083,7 @@ Room northrup_office "Northrup's Office"
             take:
             "They're lovely but you don't need them. ";
         ]
-        21 'thick' 'beige' 'carpet' "It's a standard low pile beige carpet. ",
+        3 'thick' 'beige' 'carpet' "It's a standard low pile beige carpet. ",
         before [;
             smell:
                 if (noun == 0) "It smells like an attic full of old books and expensive pipe tobacco. ";
@@ -1161,6 +1161,7 @@ Room elevator_lobby_2 "elevator_lobby_2"
     ],
     n_to stairwell_2,
     e_to hallway_2_3,
+    !e_to radiology,
     s_to elevator_doors,
     in_to elevator_doors,
     w_to hallway_2_1,
@@ -1178,7 +1179,7 @@ Room hallway_2_3 "hallway_2_3"
         It's otherwise empty here except for a plain unmarked door to the north. ",
     w_to elevator_lobby_2,
     e_to radiology,
-    n_to "The door doesn't seem to open from this side. ",
+    n_to mri_exit_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1196,7 +1197,7 @@ Room mri_anteroom "MRI Anteroom"
         The west wall contains a window of thick safety glass. Beneath the window squats a large control desk and monitor. 
         A red warning sign is fixed to the wall. A metal and reinforced-glass door leads west into the MRI suite itself. ",
         cheap_scenery
-        11 'warning' 'sign' [;
+        'warning' 'sign' [;
             examine:
             "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
@@ -1341,8 +1342,8 @@ Object green_button "green button" mri_anteroom
     has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor scanner_door "safety door"
-     with name 'glass' 'metal' 'safety' 'door',
+ myDoor scanner_door "thick glass door"
+     with name 'glass' 'thick' 'door',
         description [;
             print"It's a complicated non-magnetic metal and glass door, currently ";open_or_closed(self);".";
         ],
@@ -1364,9 +1365,10 @@ Room mri_scanner "MRI Suite"
     with description "This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
-        A thick window in the east wall allows a view into the control room.",
+        A thick window in the east wall allows a view into the control room. You can go east to the control room and 
+        a non-descript metal door leads south.",
         cheap_scenery
-        11 'warning' 'sign' [;
+         'warning' 'sign' [;
             examine:
             "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
@@ -1399,21 +1401,25 @@ Bed mri_table "exam table" mri_scanner
     has scenery; 
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor mri_exit_door "south exit door"
-     with name 'south' 'exit' 'metal' 'door',
+ myDoor mri_exit_door "metal exit door"
+     with name 'exit' 'metal' 'door',
         description [;
             print"It's an unassuming metal door, currently ";open_or_closed(self);".";
         ],
         door_to [;
-            if (parent(self) == hallway_2_3) return mri_scanner; return hallway_2_3;
+            if (parent(self) == mri_scanner) return hallway_2_3; return mri_scanner;
         ],
         door_dir [;
             if (self in hallway_2_3) return n_to; return s_to;
         ],
         found_in hallway_2_3 mri_scanner,
+        before [;
+            open:
+            if (real_location == hallway_2_3) "It seems to be locked from the other side. ";
+        ],
         react_after [;
             go:
-                if (selected_direction == n_to or s_to)  { give self ~open; print"^As you pass through the door it shuts behind you with 
+                if (selected_direction == s_to)  { give self ~open; print"^As you pass through the door it shuts behind you with 
                     a ~click~.^^"; }
         ],
     has scenery door openable ~open;
@@ -1527,7 +1533,7 @@ Room room_23 "Room 23"
         leads north back out to the hallway. ",
         s_to a_ward_1,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -1546,7 +1552,7 @@ Room room_24 "Room 24"
         leads north back out to the hallway. ",
         n_to a_ward_1,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -1584,7 +1590,7 @@ Room room_21 "Room 21"
         leads south back out to the hallway. ",
         s_to station_a,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -1603,7 +1609,7 @@ Room room_22 "Room 22"
         leads north back out to the hallway. ",
         n_to station_a,
         cheap_scenery
-        31 'cast' 'iron' 'cast-iron' 'radiator' [;
+        4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
@@ -1626,7 +1632,7 @@ Room hallway_3_3 "hallway_3_3"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor conference_door "north door"
+ myDoor conference_door "door"
      with name 'north' 'door',
         description [;
             print"It's an unassuming door, currently ";open_or_closed(self);".";
@@ -1645,22 +1651,39 @@ Room conference_room "Conference Room"
     with description "This is a quiet carpeted room, typically used for family conferences or for delivering bad news. 
         An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
         soothing. ",
-        cheap_scenery
-        12 'fish' 'tank' 'aquarium' "It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
-        goldfish. "
-        'wooden' 'pedestal' "It's a substantial wooden pedestal holding up the fish tank. "
-        'goldfish' 'fish' [;
-            examine:
-            "You see a half-dozen goldfish slowly swimming in the tank. ";
-            take:
-            "You once had a goldfish named Petey but you overfed him and found him floating belly-up
-            after school one day. So, maybe leave the fish alone. ";
-        ],
         s_to conference_door,
     has light;
 
+Object fish_tank "aquarium" conference_room
+    with article "an",
+        description"It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
+        goldfish. ",
+        before [;
+            receive:
+            "The fish kindly request that you refrain from trashing their tank. ";
+        ],
+    parse_name [w1 w2;
+        w1 = NextWord();
+        w2 = NextWord();
+        if ((w1 == 'fish' or 'goldfish') && w2 == 'tank') return 2;
+        if (w1 == 'tank' or 'aquarium') return 1;
+    ],
+    has scenery container transparent open;
+
+Object goldfish "goldfish" fish_tank
+    with name 'fish' 'goldfish' 'fishes',
+    description "You see a half-dozen goldfish slowly swimming in the tank. ",
+    article "a half-dozen",
+    before [;
+        take:
+        "You once had a goldfish named Petey but you overfed him and found him floating belly-up
+        after school one day. So, maybe leave the fish alone. ";
+        ],
+    has scenery;
+
 InChair conference_chair "overstuffed chair" conference_room
     with name 'overstuffed' 'chair',
+        article "an",
         description "It's a beige overstuffed chair. ",
     before [;
         take:
@@ -1683,7 +1706,7 @@ Room storage "Storage"
         A dented full-length metal locker sits in the shadows in one corner. ",
         s_to hallway_3_4,
         cheap_scenery
-        11 'locker' 'door' [;
+        'locker' 'door' [;
             open:
             <<open locker>>;
             close:
