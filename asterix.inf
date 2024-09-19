@@ -23,9 +23,11 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
-Constant PLAYER_CAPACITY = 32;
+Constant PLAYER_CAPACITY 32;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
+Constant OPTIONAL_GUESS_MISSING_NOUN;
+Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 
@@ -38,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = conference_room;
+Constant INITIAL_LOCATION_VALUE = boiler_room;
 
 #Ifndef USEINFORM;
 

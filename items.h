@@ -1,3 +1,21 @@
+Class MyContainer
+    with max_capacity,
+        holding [counter i;
+            objectloop(i in self)   {
+                counter = counter + i.mass;
+                print"counter = ",counter,".^";
+                print"added ",i.mass," to counter.^";
+            }
+            print"final counter = ",counter,"^";
+            return counter;
+        ],
+        before [ x;
+            receive:
+                x = self.holding();
+                if (x + noun.mass > self.max_capacity) "There's not enough room in ",(the)self,".";
+        ],
+    has container;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',
@@ -329,51 +347,6 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
     rtrue;
 ];
 
-Tape air_supply_tape "cassette tape with a blue label" environmental_desk
-    with name 'air' 'supply' 'tape' 'cassette' 'blue',
-        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
-        current_side SIDE_A,
-        current_track FIRST_TRACK,
-        playback [;
-            print"^From the boombox you hear ";
-                if (self.current_side == SIDE_A)
-                {
-                    switch (self.current_track) 
-                    {
-                    1:  print"~Love and Other Bruises~";
-                    2:  print"~Bring out the Magic~";
-                    3:  print"~The One That You Love~";
-                    4:  print"~Here I Am~";
-                    5:  print"~Sweet Dreams~";
-                    6:  print"~Lost in Love~";
-                    }
-                }
-                if (self.current_side == SIDE_B)
-                {
-                    switch (self.current_track) 
-                    {
-                    1:  print"~Chances~";
-                    2:  print"~Every Woman in the World~";
-                    3:  print"~All Out of Love~";
-                    4:  print"~Even the Nights Are Better~";
-                    5:  print"~Two Less Lonely People in the World~";
-                    6:  print"~Making Love out of Nothing at All~";
-                    }
-                }
-                print".^";
-                if (FREDDY_ASLEEP == false) 
-                {
-                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
-                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
-                    begins to snore.^";
-                    FREDDY_ASLEEP = true;
-                }
-        ],
-        each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
-        ],
-        has item;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp_bowl "bowl" security_desk
     with name 'blue' 'bowl',
@@ -450,4 +423,74 @@ Object puncture_mark "puncture mark"
         description "It's a tiny puncture wound in his neck. ",
     has scenery;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object denim_jacket "denim jacket" boiler_room
+    with name 'denim' 'jacket',
+        mass 12,
+        description "It's a large men's acid-washed denim jacket with a single pocket. ",
+        before [;
+            search:
+                <<search jacket_pocket>>;
+        ],
+    has clothing item transparent;
 
+MyContainer jacket_pocket "jacket pocket" denim_jacket
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'jacket' && w2 == 'pocket') return 2;
+            if (w1 == 'pocket' && w2 == 0)  return 1;
+        ],
+        max_capacity 4,
+        before [;
+            examine:
+            <<search self>>;
+        ],
+        has container open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tape air_supply_tape "cassette tape with a blue label" jacket_pocket !environmental_desk
+    with name 'air' 'supply' 'tape' 'cassette' 'blue',
+        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
+        current_side SIDE_A,
+        current_track FIRST_TRACK,
+        playback [;
+            print"^From the boombox you hear ";
+                if (self.current_side == SIDE_A)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Love and Other Bruises~";
+                    2:  print"~Bring out the Magic~";
+                    3:  print"~The One That You Love~";
+                    4:  print"~Here I Am~";
+                    5:  print"~Sweet Dreams~";
+                    6:  print"~Lost in Love~";
+                    }
+                }
+                if (self.current_side == SIDE_B)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Chances~";
+                    2:  print"~Every Woman in the World~";
+                    3:  print"~All Out of Love~";
+                    4:  print"~Even the Nights Are Better~";
+                    5:  print"~Two Less Lonely People in the World~";
+                    6:  print"~Making Love out of Nothing at All~";
+                    }
+                }
+                print".^";
+                if (FREDDY_ASLEEP == false) 
+                {
+                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
+                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
+                    begins to snore.^";
+                    FREDDY_ASLEEP = true;
+                }
+        ],
+        each_turn [;
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
+        ],
+        has item;

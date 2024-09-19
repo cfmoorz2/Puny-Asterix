@@ -223,7 +223,6 @@ Room environmental_services "Environmental Services"
         !if (mop_bucket in self) print "a mop bucket, ";
         print"and brooms. ";
         print"A small wooden desk is shoved into one corner. ";
-         if(PrintContents("On the desk you can see ", environmental_desk)) print". ";
         "The exit is to the south. ";
     ],
     s_to hallway_b2,
@@ -663,12 +662,11 @@ Room security_office "Security Office"
             print"This cluttered office smells vaguely of old pizza and sour-cream potato chips. A bank of 
             closed-circuit monitors lines one wall, although none of them are turned on or seem to be functional. A long desk
             fronts the monitors. It's ringed with water stains and burger wrappers. ";
-            if(PrintContents("On the desk you can see ", security_desk)) print". ";
             print"The exit lies to the east.^";
             if (buzz in security_chair) {
                 if (buzz hasnt encountered) {
                     print"^Buzz, the head of security, is sitting at the desk. He's engrossed in the newspaper and 
-                        intermittently reaches over and blindly plucks a shrimp from the bowl and plops it into his mouth.^"; 
+                        intermittently reaches over and blindly plucks a shrimp from a bowl and plops it into his mouth.^"; 
                     give buzz encountered;
                     StartDaemon(buzz);
                 } else {
@@ -966,11 +964,11 @@ Object jorry_safe "safe" jorry_office
         description [ ;
             print"It's a squat black metal safe, about two feet on each side. It's currently ";
             open_or_closed(self); print" and there's a large hole drilled through the combination lock. ";
-            if (self has open)
-            {
-                if(PrintContents("In the safe you can see ", self)) ".";
-                else "The safe is empty.";
-            } else "";
+            !if (self has open)
+            !{
+            !    if(PrintContents("In the safe you can see ", self)) ".";
+            !    else "The safe is empty.";
+            !} else "";
         ],
         before [;
             take:
@@ -1879,12 +1877,49 @@ Object microwave_dial "dial" break_room
                 if (noun == microwave) {
                     dial_setting = self.time_left;
                 }
-        ]
+        ],
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room sub_basement_02 "Sub-Basement"
-    with description "This is a dark sub-basement. ",
+Object sub_basement_02 "Sub-Basement"
+    with description "This is the eastern end of a short dimly lit hallway that continues to the west.  
+        Deep within the bowels of the building, the floor and walls here are dark gray cement and fluorescent
+        tubes flicker and buzz annoyingly from above. A service elevator lies to the north.",
     n_to service_elevator_door,
     in_to service_elevator_door,
+    w_to sub_basement_01,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object sub_basement_01 "Hallway" 
+    with description "This is the western end of a depressingly dim gray hallway. It continues to the east and a
+        battered metal door lies to the west. There's a red sign on the door, nearly rusted past 
+        legibility. It reads ~Caution: Steam~. An old dumbwaiter is embedded in the wall to the south. ",
+    e_to sub_basement_02,
+    w_to boiler_door,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor boiler_door "thick metal door"
+     with name 'heavy' 'thick' 'metal' 'door',
+        description [;
+            print"It's a heavy thick metal door, currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == sub_basement_01) return boiler_room; return sub_basement_01;
+        ],
+        door_dir [;
+            if (parent(self) == sub_basement_01) return w_to; return e_to;
+        ],
+        found_in sub_basement_01 boiler_room,
+    has scenery door openable ~open; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object boiler_room "Boiler Room" 
+    with description "You're standing in a high arched stone and cement-lined space populated buy massive black 
+    boilers, squatting against the walls like sleeping dinosaurs. They're all closed and covered with thick coats of dust. 
+    A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
+    A dented thick metal door leads east. ",
+    e_to boiler_door,
+    has light;  
+
