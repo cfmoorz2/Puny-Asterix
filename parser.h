@@ -471,8 +471,7 @@ Constant _PARSENP_CHOOSEOBJ_WEIGHT = 1000;
 	! return -n if more n matches found (n > 1)
 	! else return object number
 	! side effects:
-	! - uses parser_check_multiple (>0 if considering multiple nouns)
-	! - uses parser_two (== max entries when matching multiple nouns)
+	! - uses parser_check_multiple
 	! - which_object
 	!	 - stores number of objects in -> 0
 	!	 - stores number of words consumed in -> 1
@@ -617,7 +616,7 @@ Constant _PARSENP_CHOOSEOBJ_WEIGHT = 1000;
 				_j = _j + _PARSENP_CHOOSEOBJ_WEIGHT * ChooseObjects(_obj, 2);
 #Endif;
 
-				if(_j == _best_score && _result == _best_word_count && _matches < parser_two) {
+				if(_j == _best_score && _result == _best_word_count) {
 					_matches++;
 					which_object-->_matches = _obj;
 #IfDef DEBUG_PARSENOUNPHRASE;
@@ -794,21 +793,7 @@ Constant _PARSENP_CHOOSEOBJ_WEIGHT = 1000;
 	print "Calling _ParseNounPhrase(",p_parse_pointer,");^";
 	if(p_parse_pointer-->0 > 2000) print (address) p_parse_pointer-->0, " ", _pluralword, "^";
 #Endif;
-    ! try normal parsing of noun phrase
-	_k = TryNumber(wn);
-	parser_two = MAX_MULTIPLE_OBJECTS;
 	_noun = _ParseNounPhrase(p_parse_pointer, p_expecting_single_noun);
-	if(_k > 0 && (_noun == 0 || which_object -> 1 == 1)) { ! only number parsed
-		! now we try <number> <noun> instead, skipping the <number> first
-		wn = wn + 1;
-		parser_two = _k;
-		! assume that it is plural if there is a number > 1 at first
-		_k = parser_action;
-		if(parser_two > 1) parser_action = ##PluralFound;
-		_noun = _ParseNounPhrase(p_parse_pointer + 4, p_expecting_single_noun);
-		! restore parser_action if no words matched (perhaps out of scope)
-		if(which_object -> 1 == 0) parser_action = _k;
-	}
 	_num_words_in_nounphrase = which_object -> 1;
 
 	! check if the noun phrase contains a plural word
@@ -1659,25 +1644,6 @@ Array guess_object-->5;
 		_current_wn = wn;
 		_old_dir_index = selected_direction_index;
 		_noun = _ParseToken(pattern_pointer, _parse_pointer);
-
-		! reparse if prompted by _ParseToken
-		switch(_noun) {
-		GPR_NOUN:
-			_noun = _ParseToken(TT_OBJECT, NOUN_OBJECT, -1);
-		GPR_HELD:
-			_noun = _ParseToken(TT_OBJECT, HELD_OBJECT, -1);
-		GPR_MULTI:
-			_noun = _ParseToken(TT_OBJECT, MULTI_OBJECT, -1);
-		GPR_MULTIHELD:
-			_noun = _ParseToken(TT_OBJECT, MULTIHELD_OBJECT, -1);
-		GPR_MULTIEXCEPT:
-			_noun = _ParseToken(TT_OBJECT, MULTIEXCEPT_OBJECT, -1);
-		GPR_MULTIINSIDE:
-			_noun = _ParseToken(TT_OBJECT, MULTIINSIDE_OBJECT, -1);
-		GPR_CREATURE:
-			_noun = _ParseToken(TT_OBJECT, CREATURE_OBJECT, -1);
-        }
-
 		! the parse routine can change wn, so update _parse_pointer
 		_parse_pointer = parse + 2 + 4 * (wn - 1);
 
