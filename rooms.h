@@ -1895,6 +1895,10 @@ Object sub_basement_01 "Hallway"
     with description "This is the western end of a depressingly dim gray hallway. It continues to the east and a
         battered metal door lies to the west. There's a red sign on the door, nearly rusted past 
         legibility. It reads ~Caution: Steam~. An old dumbwaiter is embedded in the wall to the south. ",
+        after [;
+            go:
+            if (selected_direction == e_to && vic notin sub_basement_02) move vic to sub_basement_02;
+        ],
     e_to sub_basement_02,
     w_to boiler_door,
     has light;
@@ -1920,6 +1924,8 @@ Object boiler_room "Boiler Room"
     boilers, squatting against the walls like sleeping dinosaurs. They're all closed and covered with thick coats of dust. 
     A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
     A dented thick metal door leads east. ",
+    cheap_scenery
+    'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. ",
     e_to boiler_door,
     has light;  
 

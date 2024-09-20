@@ -194,3 +194,28 @@ Object wringer "wringer" bucket
     with name 'wringer',
         description "It's a metal squeezy-thing with a handle hanging on the side of the bucket. ",
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object vic "Vic"
+    with name 'vic',
+        describe [;  
+            if(self has encountered) "Vic is here. ";
+            give self encountered;
+            "^Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
+            maintenance uniform that doesn't appear to be his. ";
+        ],
+        description "He's a tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
+            clean-shaven and sunken. ",  
+        each_turn [;
+            if(real_location == sub_basement_02)
+            {
+                if (syringe in player || denim_jacket in player) print"^Vic eyes you over suspiciously. ~Hey there, 
+            little lady. Whatcha got there now?~^";
+                if (syringe in player && denim_jacket notin player) { print "He plucks the syringe from you.^"; remove syringe; }
+                if (denim_jacket in player && syringe notin player) { print "He plucks the jacket from you.^"; remove denim_jacket; }
+                if (syringe in player && denim_jacket in player) { print "He plucks the jacket and syringe from you.^"; remove denim_jacket;
+                    remove syringe; }  
+            }          
+        ],        
+    class Mover MyNPC
+    has animate proper;

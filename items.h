@@ -348,6 +348,52 @@ Tape jorry_tape "cassette tape with a green label" jorry_drawer
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tape air_supply_tape "cassette tape with a blue label" environmental_desk
+    with name 'air' 'supply' 'tape' 'cassette' 'blue',
+        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
+        current_side SIDE_A,
+        current_track FIRST_TRACK,
+        playback [;
+            print"^From the boombox you hear ";
+                if (self.current_side == SIDE_A)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Love and Other Bruises~";
+                    2:  print"~Bring out the Magic~";
+                    3:  print"~The One That You Love~";
+                    4:  print"~Here I Am~";
+                    5:  print"~Sweet Dreams~";
+                    6:  print"~Lost in Love~";
+                    }
+                }
+                if (self.current_side == SIDE_B)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Chances~";
+                    2:  print"~Every Woman in the World~";
+                    3:  print"~All Out of Love~";
+                    4:  print"~Even the Nights Are Better~";
+                    5:  print"~Two Less Lonely People in the World~";
+                    6:  print"~Making Love out of Nothing at All~";
+                    }
+                }
+                print".^";
+                if (FREDDY_ASLEEP == false) 
+                {
+                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
+                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
+                    begins to snore.^";
+                    FREDDY_ASLEEP = true;
+                }
+        ],
+        each_turn [;
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
+        ],
+        has item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp_bowl "bowl" security_desk
     with name 'blue' 'bowl',
         description [;
@@ -427,7 +473,7 @@ Object puncture_mark "puncture mark"
 Object denim_jacket "denim jacket" boiler_room
     with name 'denim' 'jacket',
         mass 12,
-        description "It's a large men's acid-washed denim jacket with a single pocket. ",
+        description "It's a large men's denim jacket with a single pocket. ",
         before [;
             search:
                 <<search jacket_pocket>>;
@@ -447,50 +493,15 @@ MyContainer jacket_pocket "jacket pocket" denim_jacket
             examine:
             <<search self>>;
         ],
-        has container open;
+        has open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Tape air_supply_tape "cassette tape with a blue label" jacket_pocket !environmental_desk
-    with name 'air' 'supply' 'tape' 'cassette' 'blue',
-        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
-        current_side SIDE_A,
-        current_track FIRST_TRACK,
-        playback [;
-            print"^From the boombox you hear ";
-                if (self.current_side == SIDE_A)
-                {
-                    switch (self.current_track) 
-                    {
-                    1:  print"~Love and Other Bruises~";
-                    2:  print"~Bring out the Magic~";
-                    3:  print"~The One That You Love~";
-                    4:  print"~Here I Am~";
-                    5:  print"~Sweet Dreams~";
-                    6:  print"~Lost in Love~";
-                    }
-                }
-                if (self.current_side == SIDE_B)
-                {
-                    switch (self.current_track) 
-                    {
-                    1:  print"~Chances~";
-                    2:  print"~Every Woman in the World~";
-                    3:  print"~All Out of Love~";
-                    4:  print"~Even the Nights Are Better~";
-                    5:  print"~Two Less Lonely People in the World~";
-                    6:  print"~Making Love out of Nothing at All~";
-                    }
-                }
-                print".^";
-                if (FREDDY_ASLEEP == false) 
-                {
-                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
-                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
-                    begins to snore.^";
-                    FREDDY_ASLEEP = true;
-                }
-        ],
-        each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
-        ],
-        has item;
+Object syringe "syringe" jacket_pocket
+    with name 'syringe' 'needle',
+        description"It's an empty syringe with a needle and cap on it. ",
+        mass 1,
+    before [;
+        take:
+            if (self in jacket_pocket) move self to real_location;
+    ],
+    has item;
