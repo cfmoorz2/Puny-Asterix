@@ -219,3 +219,16 @@ Object vic "Vic"
         ],        
     class Mover MyNPC
     has animate proper;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object northrup "Dr. Northrup" northrup_office
+    with name 'northrup' 'doctor' 'walt' 'walter',  
+        describe [;  
+            if(self has encountered) "^Dr. Northrup is here. ";
+            give self encountered;
+            print"^Dr. Walter Northrup is here, sitting at his desk.^";
+        ],
+        description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
+        white lab coat over a crisp shirt and tie. ",
+    class Mover MyNPC
+    has animate proper;

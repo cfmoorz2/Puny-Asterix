@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
+Constant INITIAL_LOCATION_VALUE = hallway_m2;
 
 #Ifndef USEINFORM;
 
@@ -60,6 +60,8 @@ Global service_elevator_active = false;
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
      if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
      if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
+     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
+        summer school. ";
     print "You have lost"; 
 ];
 
@@ -81,10 +83,15 @@ Global service_elevator_active = false;
 
 [GamePreRoutine k;
     !print"action = ",action,", noun = ",(name)noun,", second = ",(name)second,"^";
-    if (action == ##give or ##show or ##ask) 
+    if ((action == ##give or ##show or ##ask or ##tell or ##yes or ##no or ##answer or ##order) && second ~= 0) 
     {
         k = parent(second);
         if (k ~= real_location) print_ret (The)second," isn't here. ";
+    }
+    if ((action == ##kiss or ##wakeother or ##attack) && noun ~= 0)
+    {
+        k = parent(noun);
+        if (k ~= real_location) print_ret (The)noun," isn't here. ";
     }
     rfalse;
 ];

@@ -14,7 +14,7 @@ Class Room
             {
                 one_out = real_location.(direction.door_dir);
                 !print"one_out start = ",(name)one_out,"^";
-                if (one_out ofclass myDoor)
+                if (one_out ofclass myDoor && one_out has open)
                 {
                     one_out = one_out.door_to(direction.door_dir);
                     !print"one_out DOOR = ",(name)one_out,"^";

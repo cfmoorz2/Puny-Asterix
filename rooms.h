@@ -1119,7 +1119,7 @@ Object file_cabinet "file cabinet" northrup_office
             if(player in self) 
             {
                 PlayerTo(northrup_office, 1);
-                print"(first getting down from the file cabint)^";
+                print"(first getting down from the file cabinet)^";
             }
         ],
         before [;
@@ -2010,14 +2010,23 @@ Object ceiling_05 "In The Ceiling"
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
         lower yourself down onto.^";
+        if (northrup in northrup_office) "^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
         ],
         before [;
             go:
             if (selected_direction == d_to) 
             {
                 print"Grunting and dust-covered, you lower yourself from the pipes through the drop ceiling, 
-                stepping down onto a tall metal file cabint standing in the corner of the room.^^";
-                PlayerTo(file_cabinet);
+                stepping down onto a tall metal file cabinet standing in the corner of the room.^^";
+                PlayerTo(file_cabinet, 1);
+                if (northrup in northrup_office) 
+                {
+                    print"A seething Dr. Walter Northrup is here to meet you, furious in equal parts at the cloud of dust you've
+                    brought down onto his carpet as well as your ill-conceived invasion of his office. Unsurprisingly, 
+                    your time as a candy-striper is at an end.^";
+                    deadflag = 6;
+                    rtrue;
+                }
                 rtrue;
             }
             examine:
