@@ -1108,19 +1108,26 @@ Object file_cabinet "file cabinet" northrup_office
     with name 'metal' 'gray' 'file' 'cabinet' 'drawer' 'drawers//p',
         description"It's a standard gray metal file cabinet with three large drawers. ",
         react_before [;
-            go, search:
-            if (player in self && noun notin player) "You would need to get down from the file cabinet first. ";
-            switchon, switchoff:
-            if (noun notin player && player in self) "You would need to get down from the file cabinet first. ";
-            examine:
-            if(noun ~= self && player in self) "You would need to get down from the file cabinet first. ";
+            go:
+            if(selected_direction == u_to && player in self)
+            {
+                print"Tiptoeing carefully on the file cabin, you are able to reach up through the gap in the ceiling
+                tiles. Grabbing hold of a sturdy pipe, you pull yourself up and into the dark space above the office,^^";
+                PlayerTo(ceiling_05);
+                rtrue;
+            }
+            if(player in self) 
+            {
+                PlayerTo(northrup_office, 1);
+                print"(first getting down from the file cabint)^";
+            }
         ],
         before [;
             enter, climb:
-            move player to self;
+            PlayerTo(self, 1);
             "With some difficulty, you awkwardly clamber onto the file cabinet. ";
             exit, getoff:
-            move player to location;
+            PlayerTo(northrup_office, 1);
             "You lower yourself from the file cabinet. ";
             open:
             "The drawers are all securely locked. ";
@@ -1948,10 +1955,11 @@ Object boiler_room "Boiler Room"
 Object ceiling_01 "In The Ceiling"
     with description [;
         print"You are perched in the dark service space within the ceiling. Your flashlight reflects off 
-        dust motes as you support yourself on thick pipes and brackets suspended from higher up. Here 
+        dust motes as you support yourself on thick pipes and brackets suspended from higher up. Large 
+        air ducts block any movement to the east but the way to the west is open. Here 
         there is a gap in the drop-ceiling tiles below you and you can see a ladder down below.^";
-    ],
-     before [;
+        ],
+        before [;
             go:
             if (selected_direction == d_to && ladder in hallway_m2) 
                 if (ladder hasnt open) { "The ladder is folded up. "; }
@@ -1967,6 +1975,57 @@ Object ceiling_01 "In The Ceiling"
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see the hallway and a ladder below. ";
         ],
-    !d_to hallway_m2,
+        w_to ceiling_02,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ceiling_02 "In The Ceiling"
+    with description "You are crouched in the ceiling, separated from the hallway below by tiling. It's dark, dusty, and 
+        claustrophic up here. You can crawl east or west along thick pipes and conduits. ",
+        e_to ceiling_01,
+        w_to ceiling_03,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ceiling_03 "In The Ceiling"
+    with description "You are perched in the service space above the hallway and drop ceiling. Here, it makes a nintey-degree 
+        turn and continues to the east and south. ",
+        e_to ceiling_02,
+        s_to ceiling_04,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ceiling_04 "In The Ceiling"
+    with description "You are crawling in the close and dusty crawl space above the drop ceiling. The piping and 
+    brackets supporting you continue to the north and south. ",
+        n_to ceiling_03,
+        s_to ceiling_05,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ceiling_05 "In The Ceiling"
+    with description [;
+        print"You are perched in the dark service space within the ceiling. The passage dead-ends here, 
+        and movement to the south is blocked by a large duct. You can crawl north along a network of 
+        pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
+        down into an office below. Directly underneath you lies a tall file cabinet that you could probably
+        lower yourself down onto.^";
+        ],
+        before [;
+            go:
+            if (selected_direction == d_to) 
+            {
+                print"Grunting and dust-covered, you lower yourself from the pipes through the drop ceiling, 
+                stepping down onto a tall metal file cabint standing in the corner of the room.^^";
+                PlayerTo(file_cabinet);
+                rtrue;
+            }
+            examine:
+            if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
+                Through the gap you can see an office and a cile cabint below. ";
+        ],
+        n_to ceiling_04,
+    has light;
+
+
 
