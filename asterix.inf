@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = boiler_room;
+Constant INITIAL_LOCATION_VALUE = hallway_3_1;
 
 #Ifndef USEINFORM;
 
@@ -117,6 +117,7 @@ Include "puny.h";
     oliver.move_mode = TARGET_PATH;
 	oliver.target_room = conference_room;
     StartDaemon(oliver);
+    move swipe_card to player;
 ];
 
 Include "my_grammar.h";

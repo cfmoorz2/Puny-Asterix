@@ -95,12 +95,29 @@ Object service_elevator_ext "service elevator"
 Object service_interior_panel "panel" service_elevator
     with name 'panel' 'buttons',
         description [; 
-            print"It's a panel next to the door. You see six buttons. One is labeled with two horizontal arrows pointing away from each other. 
-                The others are labeled: ~SB~ ~B~,  ~M~,  ~2~, and ~3~. ";
-            if (service_elevator_active == false)    "None of the buttons are lit. ";
+            print"It's a panel next to the door. You see five buttons. One is labeled with two horizontal arrows pointing away from each other. 
+                The others are labeled: ~B~,  ~M~,  ~2~, and ~3~. ";
+            if (service_elevator_active == false) print"None of the buttons are lit. ";
+            print"Below the buttons there's a magnetic swipe card reader. Next to this it reads 'Sub-Basement'.^";
             ShowServiceButtons();
         ],
     has container transparent scenery;
+
+Object card_reader "card reader" service_elevator
+    with
+        parse_name [w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'card' && w2 == 'reader') return 2;
+            if (w1 == 'reader' && w2 == 0) return 1;
+            if (w1 == 'slot' && w2 == 0) return 1;
+        ],
+        description [;
+            print "It's a magnetic swipe card reader built into the interior panel of the elevator. There's a little light 
+            on it which is ";
+            if (self has on) "green. "; else "red. ";
+        ],
+    has scenery;
 
 Object service_interior_open_button "open button"
     with name 'open' 'button',

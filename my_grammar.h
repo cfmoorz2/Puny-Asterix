@@ -138,10 +138,12 @@ Verb meta 'capacity' * -> Capacity;
 !   SWIPING CARDS
 Verb 'swipe' 'slide'
     * held -> Swipe
-    * held 'through' noun -> Swipe;
+    * held 'through' noun -> SwipeThrough;
 
-[ SwipeSub; 
-    if (real_location ~= hallway_b2) "There's no place here to swipe ",(the)noun,".";
-    !if (second ~= card_reader) "You can't swipe ",(the)noun," through that.";
-    "That's not swipeable. ";
+[ SwipeThroughSub; 
+    "You can't swipe ",(the)noun," through ",(the)second,".";
+];
+
+[ SwipeSub;
+    "You can't do that with ",(the)noun,".";
 ];

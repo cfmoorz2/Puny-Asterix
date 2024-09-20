@@ -17,14 +17,38 @@ Class MyContainer
     has container;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object swipe_card "security card" security_desk
+Object swipe_card "security card" !security_desk
     with name 'card' 'swipe' 'security',
         description "It's a white plastic rectangular swipe card. ",
         mass 1,
         before [;
             take:
             if (self in security_desk && buzz in security_chair) "Buzz stops you. ~Hands off, little lady.~";
+            swipe:
+            if (real_location == service_elevator) 
+            {
+                print"(through the card reader)^";
+                service_elevator_call_level = -1;
+                StartDaemon(service_elevator_daemon);
+                service_elevator_active = true;
+                give card_reader on;
+                StopTimer(service_close_door_timer);
+                if (service_elevator_door has open) print"The elevator door slides closed. ";
+                "The little light on the card reader turns green and you feel the elevator moving beneath you. ";
+            }
+            swipethrough:
+            if (second == card_reader) 
+            {
+                service_elevator_call_level = -1;
+                StartDaemon(service_elevator_daemon);
+                service_elevator_active = true;
+                give card_reader on;
+                StopTimer(service_close_door_timer);
+                if (service_elevator_door has open) print"The elevator door slides closed. ";
+                "The little light on the card reader turns green and you feel the elevator moving beneath you. ";
+            }
         ],
+
         has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
