@@ -199,7 +199,7 @@ Object wringer "wringer" bucket
 Object vic "Vic"
     with name 'vic',
         describe [;  
-            if(self has encountered) "Vic is here. ";
+            if(self has encountered) "^Vic is here. ";
             give self encountered;
             "^Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
             maintenance uniform that doesn't appear to be his. ";

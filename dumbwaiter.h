@@ -107,6 +107,20 @@ Object third_floor_dumbwaiter_door "metal door" hallway_3_2
         ],
     has scenery;
 
+DumbwaiterShaft sub_basement_dumbwaiter sub_basement_01;
+Object sub_basement_dumbwaiter_door "metal door" sub_basement_01
+    with name 'metal' 'sliding' 'door',
+        description [;
+            print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
+            open_or_closed(self);
+            ".";
+        ],
+        before [;
+            open:
+                <<open sub_basement_dumbwaiter>>;
+        ],
+    has scenery;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
     with name 'cab',
@@ -119,6 +133,16 @@ Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
 
 [DumbwaiterCabUp;
     switch(dumbwaiter_level)    {
+        -1: if (TestScope(dumbwaiter_cab, player))  {
+                print "You pull the chain and the dumbwaiter cab rises out of view.^";
+                move dumbwaiter_cab to basement_dumbwaiter; 
+                scope_modified = true;
+                dumbwaiter_level++;
+                rtrue;
+            }
+            move dumbwaiter_cab to basement_dumbwaiter; 
+            scope_modified = true;
+            dumbwaiter_level++;
         0:  if (TestScope(dumbwaiter_cab, player))  {
                 print "You pull the chain and the dumbwaiter cab rises out of view.^";
                 move dumbwaiter_cab to main_dumbwaiter; 
@@ -161,7 +185,19 @@ Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
 
 [DumbwaiterCabDown;
     switch(dumbwaiter_level)    {
-        0:  "There's no more give in the chain. ";
+        -1:  "There's no more give in the chain. ";
+        0:  if (TestScope(dumbwaiter_cab, player))  {
+                print "You pull the chain and the dumbwaiter cab descends out of view.^";
+                move dumbwaiter_cab to sub_basement_dumbwaiter; 
+                scope_modified = true;
+                dumbwaiter_level--;
+                rtrue;
+            }
+            move dumbwaiter_cab to sub_basement_dumbwaiter; 
+            scope_modified = true;
+            dumbwaiter_level--;
+            if(TestScope(dumbwaiter_cab, player)) "You pull the chain and the dumbwaiter descends into view. ";
+            "You hear metallic grinding from within the dumbwaiter shaft. ";
         1:  if (TestScope(dumbwaiter_cab, player))  {
                 print "You pull the chain and the dumbwaiter cab descends out of view.^";
                 move dumbwaiter_cab to basement_dumbwaiter; 
@@ -210,7 +246,7 @@ Object left_chain "left chain"
                 DumbwaiterCabUp();
                 rtrue;
         ],
-        found_in basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
+        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
     has scenery;
 
 Object right_chain "right chain"
@@ -221,7 +257,7 @@ Object right_chain "right chain"
                 DumbwaiterCabDown();
                 rtrue;
         ],
-        found_in basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
+        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
     has scenery;
 
 
