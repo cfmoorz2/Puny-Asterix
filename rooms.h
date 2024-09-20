@@ -624,6 +624,7 @@ Room hallway_m1 "hallway_m1"
         e_to elevator_lobby_m,
         n_to service_elevator_door,
         in_to service_elevator_door,
+
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -635,6 +636,23 @@ OnChair folding_chair "metal folding chair" hallway_m1
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "hallway_m2"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. ",
+        before [;
+            go:
+            if (selected_direction == u_to && ladder in self) 
+                if (ladder hasnt open) { "The ladder is folded up. "; }
+                else
+                {
+                print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
+                grab onto some sturdy pipes that you see through the gap in the askew tiling and pull yourself into the ceiling above. 
+                Victorious, you think back to P.E. class freshman year when you couldn't climb a knotted rope in gym class and 
+                Becky Harris laughed at you. Eat it Becky!^^";
+                PlayerTo(ceiling_01);
+                rtrue;
+                }
+            examine:
+            if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
+            if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
+        ],
     e_to hallway_m1,
     w_to admin_hallway,
     has light;
@@ -816,9 +834,6 @@ Room admin_hallway "Administration"
     ]
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
     before [;
-        examine:
-        if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
-        if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
         go:
         if (selected_direction == n_to && FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
         Northrup's orders.~";
@@ -1928,4 +1943,30 @@ Object boiler_room "Boiler Room"
     'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. ",
     e_to boiler_door,
     has light;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ceiling_01 "In The Ceiling"
+    with description [;
+        print"You are perched in the dark service space within the ceiling. Your flashlight reflects off 
+        dust motes as you support yourself on thick pipes and brackets suspended from higher up. Here 
+        there is a gap in the drop-ceiling tiles below you and you can see a ladder down below.^";
+    ],
+     before [;
+            go:
+            if (selected_direction == d_to && ladder in hallway_m2) 
+                if (ladder hasnt open) { "The ladder is folded up. "; }
+                else
+                {
+                print"You gingerly lower yourself through the gap in the drop ceiling, holding onto 
+                piping in the ceiling for support until you feel your feet land on the top of the aluminum 
+                ladder. Balancing carefully, you finally climb down, relieved to be back on solid ground.^^";
+                PlayerTo(hallway_m2);
+                rtrue;
+                }
+            examine:
+            if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
+                Through the gap you can see the hallway and a ladder below. ";
+        ],
+    !d_to hallway_m2,
+    has light;
 

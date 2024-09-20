@@ -529,3 +529,20 @@ Object syringe "syringe" jacket_pocket
             if (self in jacket_pocket) move self to real_location;
     ],
     has item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ladder "ladder" hallway_m2
+    with name 'ladder' 'metal' 'folding',
+    mass 26,
+        description [;
+            print"It's a six-foot aluminum folding ladder, it's currently ";
+            if (self has open) "unfolded. "; "collapsed. ";
+        ],
+        before [;
+            climb, enter:
+            if (parent(self) == player) "You can't climb it if you're carrying it. ";
+            if (self hasnt open) "You need to unfold the ladder first. ";
+            PlayerTo(self, 1);
+            "You climb up onto the aluminum ladder. ";
+        ]
+    has openable supporter enterable item;
