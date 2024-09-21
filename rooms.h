@@ -388,55 +388,6 @@ Object ward_b_station "nurses' station" station_b
         a surface to update notes and charting. ",
         has supporter scenery;
 
-Object book_cart "book cart" station_b
-    with name 'cart' 'push' 'wooden' 'book' 'wheeled',
-        description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
-        you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
-        and old magazines currently on offer to any interested patients. ",
-        before [ dirobj;
-            take:
-                "It's far too heavy. ";
-            push:
-                "You should supply a direction. ";
-            pull:
-                "It would make more sense to push it. ";
-            pushdir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you push the cart to the ";
-                print (string) direction_name_array-->selected_direction_index;
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue;     
-        ],
-    has supporter;
-
-Object novels "novels" book_cart
-    with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
-        description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
-        before [;
-            read:
-                "You flip through one at random. There's a lot of swelling and heaving going on. ";
-            take:
-                "You have little interest in romance novels. ";
-        ],
-    has scenery pluralname;
-
-Object magazines "magazines" book_cart
-    with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
-        description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
-            and 'Newsweek' among the stacks.",
-        before [;
-            take: 
-                "You don't need an old magaine that's not 'Teen Beat' or 'Seventeen'.";
-            read:
-                print"You flip through a random magazine. ";
-                read_news();
-                rtrue;
-        ],
-    has scenery pluralname;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_31 "Room 31"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
@@ -627,6 +578,55 @@ Room hallway_m1 "hallway_m1"
 
     has light;
 
+Object book_cart "book cart" hallway_m1
+    with name 'cart' 'push' 'wooden' 'book' 'wheeled',
+        description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
+        you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
+        and old magazines currently on offer to any interested patients. ",
+        before [ dirobj;
+            take:
+                "It's far too heavy. ";
+            push:
+                "You should supply a direction. ";
+            pull:
+                "It would make more sense to push it. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you push the cart to the ";
+                print (string) direction_name_array-->selected_direction_index;
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;     
+        ],
+    has supporter;
+
+Object novels "novels" book_cart
+    with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
+        description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
+        before [;
+            read:
+                "You flip through one at random. There's a lot of swelling and heaving going on. ";
+            take:
+                "You have little interest in romance novels. ";
+        ],
+    has scenery pluralname;
+
+Object magazines "magazines" book_cart
+    with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
+        description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
+            and 'Newsweek' among the stacks.",
+        before [;
+            take: 
+                "You don't need an old magaine that's not 'Teen Beat' or 'Seventeen'.";
+            read:
+                print"You flip through a random magazine. ";
+                read_news();
+                rtrue;
+        ],
+    has scenery pluralname;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 OnChair folding_chair "metal folding chair" hallway_m1
     with name 'metal' 'folding' 'chair',
@@ -763,6 +763,19 @@ Room main_lobby "Main Lobby"
             intermittently catch a glimpse of the blizzard outside. ",
         w_to lobby_west,
         s_to main_lobby_doors,
+        each_turn [;
+            if (book_cart in self && FlagIsClear(F_HAVE_FLASHLIGHT)) 
+            {
+                SetFlag(F_HAVE_FLASHLIGHT);
+                print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
+                I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
+                She picks up a book titled 'Heaving Waves of Passion'.^^
+                ~Ooh, I almost forgot. Take this.~^
+                She pulls a flashlight from the folds of her layers and hands it to you.^^
+                ~You may need this tonight if the blizzard causes a brown-out. I sure do wish I'd gotten myself 
+                out of here and home before they closed the roads.~^";
+            }
+        ]
     has light;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1983,24 +1996,21 @@ Object ceiling_02 "In The Ceiling"
     with description "You are crouched in the ceiling, separated from the hallway below by tiling. It's dark, dusty, and 
         claustrophic up here. You can crawl east or west along thick pipes and conduits. ",
         e_to ceiling_01,
-        w_to ceiling_03,
-    has light;
+        w_to ceiling_03;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_03 "In The Ceiling"
     with description "You are perched in the service space above the hallway and drop ceiling. Here, it makes a nintey-degree 
         turn and continues to the east and south. ",
         e_to ceiling_02,
-        s_to ceiling_04,
-    has light;
+        s_to ceiling_04;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_04 "In The Ceiling"
     with description "You are crawling in the close and dusty crawl space above the drop ceiling. The piping and 
     brackets supporting you continue to the north and south. ",
         n_to ceiling_03,
-        s_to ceiling_05,
-    has light;
+        s_to ceiling_05;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_05 "In The Ceiling"

@@ -232,3 +232,18 @@ Object northrup "Dr. Northrup" northrup_office
         white lab coat over a crisp shirt and tie. ",
     class Mover MyNPC
     has animate proper;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object mabel "Mabel" main_lobby
+    with name 'mabel',
+        description "She's an elderly African American lady. From previous conversations with her you know that she's 82,
+        but her unlined face and white shock of curly hair make her look much younger. She wears a floral print dress with numerous 
+        layers over it and wire bifocals on a chain. ",
+        describe [;  
+            if(self has encountered) "^Mabel is here behind the information desk. ";
+            give self encountered;
+            print_ret"^Mabel is here behind the information desk. She sees you and waves. ~Hey there Candy girl. 
+            Got any new books for me?~";
+        ],
+    class Mover MyNPC
+    has animate female proper;

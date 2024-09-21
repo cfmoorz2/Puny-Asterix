@@ -52,7 +52,7 @@ Object swipe_card "security card" !security_desk
         has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object flashlight "flashlight" morgue
+Object flashlight "flashlight" mabel
     with name 'flashlight' 'light' 'torch' 'black' 'plastic',
         description [;
             print"It's a standard black plastic flashlight, ";
