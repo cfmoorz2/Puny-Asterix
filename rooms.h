@@ -767,6 +767,7 @@ Room main_lobby "Main Lobby"
             if (book_cart in self && FlagIsClear(F_HAVE_FLASHLIGHT)) 
             {
                 SetFlag(F_HAVE_FLASHLIGHT);
+                move flashlight to player; 
                 print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
                 She picks up a book titled 'Heaving Waves of Passion'.^^
