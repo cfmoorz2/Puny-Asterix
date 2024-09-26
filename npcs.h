@@ -300,6 +300,6 @@ Object retch_timer_2
         time_left,
         time_out [;
             nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = northrup_anteroom;
+	        nurse_retch.target_room = northrup_office;
             StartDaemon(nurse_retch);
         ];
