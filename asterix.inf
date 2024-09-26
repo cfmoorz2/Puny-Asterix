@@ -40,7 +40,8 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = hallway_m1;
+!Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = northrup_office;
 
 #Ifndef USEINFORM;
 
@@ -55,8 +56,13 @@ Global dumbwaiter_level = 0;
 Global service_elevator_level = 0;
 Global service_elevator_call_level;
 Global service_elevator_active = false;
+Global SAFE_1;
+Global SAFE_2;
+Global SAFE_3;
+Global SAFE_CURRENT;
+Global SAFE_CYCLE 0;
 
-Constant F_HAVE_FLASHLIGHT 1; ! Has the parrot been fed?
+Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 
 
 [ DeathMessage; 
@@ -85,17 +91,15 @@ Constant F_HAVE_FLASHLIGHT 1; ! Has the parrot been fed?
 ];
 
 ! allows followed NPC to be examined but nothing else
-[GamePreRoutine k;
-    !print"action = ",action,", noun = ",(name)noun,", second = ",(name)second,"^";
-    if ((action == ##give or ##show or ##ask or ##tell or ##yes or ##no or ##answer or ##order) && second ~= 0) 
+[GamePreRoutine;
+    !print"action = ",action,", noun = ",(name)noun,", second = ",(name)second,", inp1 = ",inp1,", inp2 = ",inp2,"^";
+    if (action == ##show or ##give or ##yes or ##no or ##order)
     {
-        k = parent(second);
-        if (k ~= real_location) print_ret (The)second," isn't here. ";
+        if (IndirectlyContains(real_location, second) == false) print_ret (The)second," isn't here. ";
     }
-    if ((action == ##kiss or ##wakeother or ##attack) && noun ~= 0)
+    if (action == ##kiss or ##tell or ##ask or ##answer or ##wakeother or ##attack)
     {
-        k = parent(noun);
-        if (k ~= real_location) print_ret (The)noun," isn't here. ";
+        if (IndirectlyContains(real_location, noun) == false) print_ret (The)noun," isn't here. ";
     }
     rfalse;
 ];
@@ -141,6 +145,7 @@ Include "puny.h";
 	oliver.target_room = conference_room;
     StartDaemon(oliver);
     move swipe_card to player;
+    init_safe();
 ];
 
 Include "my_grammar.h";
@@ -194,6 +199,14 @@ Include "VerbLib";
         12: "There's a mention of a game called ~Deadline~. Sounds boring; you hate mysteries. ";
     }
 ];  
+
+[ init_safe ;
+    SAFE_1 = random(35);
+    SAFE_2 = random(35);
+    SAFE_3 = random(35);
+    SAFE_CURRENT = random(35);
+    "combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".";
+];
 
 #Ifdef USEINFORM;
 Include "Grammar";

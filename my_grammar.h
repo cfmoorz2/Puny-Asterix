@@ -35,7 +35,7 @@ Extend 'turn' first
 
 [TurnClockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
 [TurnCounterclockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
-[TurnToSub; "You should specify 'clockwise' or 'counterclockwise'.";];
+[TurnToSub; "You should specify 'clockwise/right' or 'counterclockwise/left' to a number.";];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   PLUG/UNPLUG

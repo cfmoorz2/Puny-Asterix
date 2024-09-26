@@ -578,7 +578,7 @@ Room hallway_m1 "hallway_m1"
 
     has light;
 
-Object book_cart "book cart" hallway_m1
+Object book_cart "book cart" station_b
     with name 'cart' 'push' 'wooden' 'book' 'wheeled',
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
         you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
@@ -1114,6 +1114,11 @@ Room northrup_office "Northrup's Office"
         before [;
             smell:
                 if (noun == 0) "It smells like an attic full of old books and expensive pipe tobacco. ";
+            go:
+            if (selected_direction == u_to)
+            {
+                if (player notin file_cabinet) "You can't reach the ceiling from down here. ";
+            }
         ],
     n_to northrup_door,
     has light;
@@ -1182,6 +1187,38 @@ Object northrup_lamp "floor lamp" northrup_office
                 "It's not a battered trusty portable light source. ";   
         ],
     has scenery switchable;
+
+Object northrup_safe "safe" northrup_office 
+    with name 'safe',
+        description [ ;
+            print"It's a squat black metal safe, about two feet on each side. It's currently ";
+            open_or_closed(self);
+            ". A dial is embedded in the safe door. The numbers 1 through 35 circle it. The dial 
+            is currently set to ",SAFE_CURRENT,".";
+        ],
+        before [;
+            take:
+                "It's far too heavy. ";
+        ],
+    has container locked openable scenery ~open;
+
+Object combo_dial "dial" northrup_office
+    with
+        name 'dial' 'combination',
+        description [;
+            print"It's the dial to a combination lock. The numbers 1 through 35 circle the outer
+            diameter and it's currently set to ",SAFE_CURRENT,".^";
+        ],
+        before [;
+            TurnClockwiseTo:
+            "You turn the dial clockwise to ",second,". ";
+            TurnCounterclockwiseTo:
+            "You turn the dial counterclockwise to ",second,". ";
+            TurnTo:
+            "You turn the ",noun," to ",second,".";
+
+        ],
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_2 "elevator_lobby_2" 

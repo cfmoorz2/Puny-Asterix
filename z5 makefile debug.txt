@@ -1,4 +1,4 @@
 cd Documents
 cd GitHub
-cd Puny*
+cd Puny-Asterix
 ./inform -v5 -D asterix.inf 
