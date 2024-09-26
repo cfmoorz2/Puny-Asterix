@@ -188,7 +188,7 @@ Class Mover
             way = parent(self).(final.door_dir);
             if (way has door)
             {
-                if (way provides npc_open) 
+                if (self in real_location && way provides npc_open) 
                 {
                     way.npc_open(self);
                 }

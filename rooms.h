@@ -1822,6 +1822,17 @@ Room storage "Storage"
             open_or_closed(self);
             ".";
         ],
+        after [;
+            go:
+            if (selected_direction == n_to && nurse_retch in self) 
+            {
+                print"^As you enter the dark cluttered storage room, you spot Nurse Retch standing near the autoclave. 
+                Seeing you enter, she releases an annoyed sigh and hurriedly stuffs something in her hand back into a pocket. 
+                You have the distinct impression that you've interupted something.^^";
+                move kcl_bottle to nurse_retch;
+                retch_timer_2.time_out();
+            }
+        ]
     has light;
 
 Object autoclave "autoclave" storage
