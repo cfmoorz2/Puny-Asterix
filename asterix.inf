@@ -84,6 +84,7 @@ Constant F_HAVE_FLASHLIGHT 1; ! Has the parrot been fed?
     }
 ];
 
+! allows followed NPC to be examined but nothing else
 [GamePreRoutine k;
     !print"action = ",action,", noun = ",(name)noun,", second = ",(name)second,"^";
     if ((action == ##give or ##show or ##ask or ##tell or ##yes or ##no or ##answer or ##order) && second ~= 0) 
@@ -121,6 +122,8 @@ Global following = false;
     p_actor = 0;
     rfalse;
 ];
+
+
 
 Include "ext_cheap_scenery.h";
 Include "puny.h";
