@@ -41,12 +41,11 @@ Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
 !Constant INITIAL_LOCATION_VALUE = station_b;
-Constant INITIAL_LOCATION_VALUE = northrup_office;
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 
 #Ifndef USEINFORM;
 
 Include "globals.h";
-Constant FLAG_COUNT 1;
 Global FREDDY_ASLEEP = false;
 Global dial_setting = 0;
 Global elevator_level = 0;
@@ -62,8 +61,9 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
+Constant FLAG_COUNT 2;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
-
+Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";

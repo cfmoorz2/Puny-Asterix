@@ -247,3 +247,59 @@ Object mabel "Mabel" main_lobby
         ],
     class Mover MyNPC
     has animate female proper;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object nurse_retch "Nurse Retch" station_b
+    with name 'nurse' 'retch',
+        description "She's an austere-looking woman in her 40s. Her jet black hair is pulled back into a 
+            tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
+            nurse uniform with a white nurse cap pinned to her hair. ",
+        describe [;
+            print"^Nurse Retch is here. ";
+            if(FlagIsSet(F_RETCH_TRIGGERED)) print"She keeps glancing at you side-ways.^";
+            if (self has encountered) rtrue;
+            give self encountered;
+            "She's standing at the nurses' station doing some paperwork. She's the senior nurse on duty this evening. 
+            She's never been particularly nice to you or even acknowledged your existence that you can recall. ";
+        ],
+        life [;
+            give, show:
+            if (noun == syringe) 
+            {
+                move syringe to self;
+                SetFlag(F_RETCH_TRIGGERED);
+                StartTimer(retch_timer, 3);
+                "For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
+                relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
+                have you sticking yourself now, can we?~";
+            }
+        ],
+        npc_arrived [;
+            if(parent(self)== storage) { StopDaemon(self); self.move_mode = 0; StartTimer(retch_timer_2, 3); rtrue; }
+        ],
+        each_turn [;
+            if (self in storage)
+            {
+
+            }
+        ],
+    class Mover MyNPC
+    has animate proper transparent;  
+
+Object retch_timer
+    with 
+        time_left,
+        time_out [;
+            nurse_retch.move_mode = TARGET_PATH;
+	        nurse_retch.target_room = storage;
+            StartDaemon(nurse_retch);
+        ];
+
+Object retch_timer_2
+    with 
+        time_left,
+        time_out [;
+            nurse_retch.move_mode = TARGET_PATH;
+	        nurse_retch.target_room = northrup_anteroom;
+            StartDaemon(nurse_retch);
+        ];

@@ -1213,16 +1213,25 @@ Object combo_dial "dial" northrup_office
             TurnClockwiseTo:
             if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
             print"You turn the dial clockwise to ",second,".^";
+            SAFE_CURRENT = second;
             if (SAFE_CYCLE == 0 && second == SAFE_1) 
                 {
                     SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    if (SAFE_CYCLE == 3)
+                    {
+                        give northrup_safe ~locked;
+                        "You hear a faint ~click~ from within the safe door. ";
+                    } 
                     rtrue;                  
                 }
             if (SAFE_CYCLE == 2 && second == SAFE_3) 
                 {
                     SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    if (SAFE_CYCLE == 3)
+                    {
+                        give northrup_safe ~locked;
+                        "You hear a faint ~click~ from within the safe door. ";
+                    } 
                     rtrue;
                 }
             SAFE_CYCLE = 0;
@@ -1230,10 +1239,15 @@ Object combo_dial "dial" northrup_office
             TurnCounterclockwiseTo:
             if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
             print"You turn the dial counterclockwise to ",second,".^";
+            SAFE_CURRENT = second;
             if (SAFE_CYCLE == 1 && second == SAFE_2) 
                 {
                     SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    if (SAFE_CYCLE == 3)
+                    {
+                        give northrup_safe ~locked;
+                        "You hear a faint ~click~ from within the safe door. ";
+                    } 
                     rtrue; 
                 }
             SAFE_CYCLE = 0;
