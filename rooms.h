@@ -1211,12 +1211,33 @@ Object combo_dial "dial" northrup_office
         ],
         before [;
             TurnClockwiseTo:
-            "You turn the dial clockwise to ",second,". ";
+            if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
+            print"You turn the dial clockwise to ",second,".^";
+            if (SAFE_CYCLE == 0 && second == SAFE_1) 
+                {
+                    SAFE_CYCLE++;
+                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    rtrue;                  
+                }
+            if (SAFE_CYCLE == 2 && second == SAFE_3) 
+                {
+                    SAFE_CYCLE++;
+                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    rtrue;
+                }
+            SAFE_CYCLE = 0;
+            rtrue;
             TurnCounterclockwiseTo:
-            "You turn the dial counterclockwise to ",second,". ";
-            TurnTo:
-            "You turn the ",noun," to ",second,".";
-
+            if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
+            print"You turn the dial counterclockwise to ",second,".^";
+            if (SAFE_CYCLE == 1 && second == SAFE_2) 
+                {
+                    SAFE_CYCLE++;
+                    if (SAFE_CYCLE == 3) "SAFE OPENS";
+                    rtrue; 
+                }
+            SAFE_CYCLE = 0;
+            rtrue;
         ],
     has scenery;
 
