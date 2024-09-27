@@ -1846,7 +1846,7 @@ Object fake_lockers "lockers" female_locker_room
             while (wd = NextWord()) 
             {
                 if (wd == 'locker') num++;
-                x = TryNumber(wn);print"wn = ",wn,", x = ",x,"^";
+                x = TryNumber(wn);!print"wn = ",wn,", x = ",x,"^";
                 if (x == CORRECT_LOCKER) return 0;
                 if(x > 0 && x < 25 && x ~= CORRECT_LOCKER) { num++; gotit = true; }
             }
@@ -1860,8 +1860,7 @@ Object fake_lockers "lockers" female_locker_room
             "It's closed and locked. ";
             examine: 
             self.describe();
-            xlocker:
-            "It's a standard metal locker. It's locked and closed. ";
+            
         ],
     has scenery;
 
@@ -1885,26 +1884,24 @@ Object locker_cabinet "cabinet" female_locker_room
 Object correct_fake_locker "locker" female_locker_room
     with
         parse_name [ wd num x gotit;
-            print"IN PARSE_NAME^";
+            !print"IN PARSE_NAME^";
             while (wd = NextWord()) 
             {
                 if (wd == 'locker') num++;
-                x = TryNumber(wn);print"in CORRECT wn = ",wn,", x = ",x,"^";
+                x = TryNumber(wn);!print"in CORRECT wn = ",wn,", x = ",x,"^";
                 if(x > 0 && x < 25 && x == CORRECT_LOCKER) { num++; gotit = true; }
             }
             if (gotit == false) return 0;
-            print"in correct num = ",num,"^";
+            !print"in correct num = ",num,"^";
             return num;
         ],
         description [;
             print"It's a metal locker, currently ";
             if (self has open) "currently open. "; "currently closed. ";
         ],
-        react_before [;
-            !openlocker:
-            !<<open self>>;
-            !xlocker:
-            !<<examine self>>;
+        before [;
+            open:
+            if(FlagIsClear(F_KCL_TRANSFERRED)) "It's closed and locked. ";
         ],
     has container openable ~open scenery;
 
