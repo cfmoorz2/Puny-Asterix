@@ -256,7 +256,7 @@ Object nurse_retch "Nurse Retch" station_b
             nurse uniform with a white nurse cap pinned to her hair. ",
         describe [;
             print"^Nurse Retch is here. ";
-            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == female_locker_room) print"She keeps glancing at you side-ways.^";
+            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == storage) print"She keeps glancing at you side-ways.^";
             if (self has encountered) rtrue;
             give self encountered;
             "She's standing at the nurses' station doing some paperwork. She's the senior nurse on duty this evening. 
@@ -275,7 +275,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         npc_arrived [;
-            if(parent(self)== female_locker_room) 
+            if(parent(self)== storage) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
@@ -283,7 +283,7 @@ Object nurse_retch "Nurse Retch" station_b
                 rtrue; }
         ],
         each_turn [;
-            if (self in female_locker_room)
+            if (self in storage)
             {
             
             }
@@ -296,7 +296,7 @@ Object retch_timer
         time_left,
         time_out [;
             nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = female_locker_room;
+	        nurse_retch.target_room = storage;
             StartDaemon(nurse_retch);
         ];
 

@@ -1808,37 +1808,90 @@ Room hallway_3_4 "hallway_3_4"
             if (selected_direction == n_to) print"You push through the door and it swings closed behind you.^^";
         ],
         w_to hallway_3_3,
-        n_to female_locker_door,
+        n_to storage_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor female_locker_door "door"
+ myDoor storage_door "door"
      with name 'swinging' 'metal' 'door',
         description [;
-            print"It's a swinging metal door. ";
+            "It's a swinging metal door. ";
+        ],
+        parse_name [ wd num gotit;
+            while(wd = NextWord())
+            {
+                if (wd == 'swinging')
+                gotit = true;
+                num++;
+            }
+            if (~~gotit)
+                return 0;
+            return num;
         ],
         door_to [;
-            if (parent(self) == hallway_3_4) return female_locker_room; return hallway_3_4;
+            if (parent(self) == hallway_3_4) return storage; return hallway_3_4;
         ],
         door_dir [;
             if (parent(self) == hallway_3_4) return n_to; return s_to;
         ],
-        found_in hallway_3_4 female_locker_room,
+        found_in hallway_3_4 storage,
     has scenery door openable open; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room female_locker_room "Womens' Locker Room"
-    with 
-        description "This is a locker room. Banks of square metal lockers line the walls and a wooden 
-        bench runs down the center of the room. The lockers are numbered and there seem to be 24 of them in all. 
-        Each one has a lock and keyhole. In one corner of the room stands a battered metal cabinet with metal
-        doors. ",
-        before [;
-            go:
-            if(selected_direction == s_to) print"You push through the door and it swings closed behind you.^^";
-        ],
-        s_to female_locker_door,
+Room storage "Storage"
+    with description "This is a cluttered storage room. The walls are lined with shelves stocked with 
+        medical supplies and miscellaneous items that you don't need to concern yourself with. 
+        A tall but narrow brown metal cabinet stands in one corner. A battered full-length metal locker faces it on the 
+        other side of the room. The exit lies through a metal door to the south. ",
+        s_to hallway_3_4,
     has light;
+
+Object storage_cabinet "cabinet" storage
+    with 
+        name 'cabinet' 'brown' 'metal' 'tall' 'narrow',
+        description [ ;
+            print"It's a tall brown metal cabinet, currently ";
+            if(self has open) print"open. "; else print"closed. ";
+            "A scratched metal handle is embedded in the door. ";
+        ],
+        before [;
+            open:
+            if (FlagIsClear(F_HANDLE_UNLOCKED)) "The cabinet door won't open. The handle seems to be jammed. ";
+        ],
+    has scenery container openable locked ~open;
+
+Object cabinet_door "cabinet door" storage
+    with
+        description"It's a metal door with a handle. ", 
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if((w1 == 'cabinet' or 'metal') && w2 == 'door') return 2;
+            if (w1 == 'door' && w2 == 0) return 1;
+        ],
+        before [;
+            open: 
+            <<open storage_cabinet>>;
+            close:
+            <<close storage_cabinet>>;
+        ],
+    has scenery;
+
+Object storage_handle "handle" storage 
+    with 
+        name 'handle',
+        description "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
+        pushed. It looks old and cantenkerous. ",
+        before [;
+            pull:
+            "You pull it and it rotates upward. ";
+            push:
+            "You push it and it rotates downward. ";
+        ],
+    has scenery;
+
+
+
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"

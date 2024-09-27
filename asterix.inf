@@ -61,10 +61,10 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
-Constant FLAG_COUNT 2;
+Constant FLAG_COUNT 3;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
-!Constant F_KCL_TRANSFERRED 3; ! has KCL bottle been transferred?
+Constant F_HANDLE_UNLOCKED 3; ! has the cabinet handle been unlocked?
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
