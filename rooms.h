@@ -1834,10 +1834,23 @@ Room hallway_3_4 "hallway_3_4"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room storage "Storage"
-    with description "This is a cluttered storage room. The walls are lined with shelves stocked with 
+    with description [; 
+        print"This is a cluttered storage room. The walls are lined with shelves stocked with 
         medical supplies and miscellaneous items that you don't need to concern yourself with. 
-        A tall but narrow brown metal cabinet stands in one corner. A battered full-length metal locker faces it on the 
-        other side of the room. The exit lies through a metal door to the south. ",
+        A tall but narrow brown metal cabinet stands in one corner. ";
+        if (player notin storage_locker) print"A battered full-length metal locker faces it on the 
+        other side of the room. ";
+        "The exit lies through a metal door to the south. ";
+    ],
+        before [;
+            go:
+            if (selected_direction == s_to && player in storage_locker)
+            {
+                print"(first leaving the locker)^";
+                PlayerTo(storage, 1);
+                <<go FAKE_S_OBJ>>;
+            }
+        ],
         s_to hallway_3_4,
     has light;
 
@@ -1892,6 +1905,18 @@ Object storage_handle "handle" storage
             if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
         ],
     has scenery locked;
+
+Object storage_locker "locker" storage
+    with
+        name 'locker' 'metal',
+        description"It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ",
+        inside_description"You're crouched in a battered metal locker peering out through a crack in the door. ",
+        after [;
+            enter:
+            "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
+            the storage room. ";
+        ],
+    has container open enterable scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"

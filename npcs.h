@@ -256,7 +256,8 @@ Object nurse_retch "Nurse Retch" station_b
             nurse uniform with a white nurse cap pinned to her hair. ",
         describe [;
             print"^Nurse Retch is here. ";
-            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == storage) print"She keeps glancing at you side-ways.^";
+            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == storage && player notin storage_locker) 
+                print"She keeps glancing at you side-ways.^";
             if (self has encountered) rtrue;
             give self encountered;
             "She's standing at the nurses' station doing some paperwork. She's the senior nurse on duty this evening. 
@@ -283,9 +284,17 @@ Object nurse_retch "Nurse Retch" station_b
                 rtrue; }
         ],
         each_turn [;
-            if (self in storage)
+            if (self in storage && player in storage_locker)
             {
-            
+                print"Through the crack in the locker door you see Nurse Retch move to the metal cabinet in the corner. 
+                She nervously looks around then pulls on the door handle. She grunts angrily then pauses and balls up a fist. 
+                She bangs on the door in a specific spot and it pops open.^^
+                You see her take something from a pocket and put it in the cabinet. Looking around, she closes the cabinet door.^^
+                Looking around one last time, she leaves the room to the south. ";
+                move self to hallway_3_4;
+                move kcl_bottle to storage_cabinet;
+                SetFlag(F_SAW_KNOCK_SPOT);
+                retch_timer_2.time_out();
             }
         ],
     class Mover MyNPC
