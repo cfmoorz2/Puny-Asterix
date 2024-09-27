@@ -581,15 +581,9 @@ Object ladder "ladder" hallway_m2
 Object kcl_bottle "plastic vial" nurse_retch
     with 
         name 'kcl' 'potassium' 'plastic' 'bottle' 'vial',
-        description "It's a small plastic vial labelled ~Potassium Chloride~. The seal 
+        description "It's a small plastic bottle labelled ~Potassium Chloride~. The seal 
         on top has been broken and the vial is half-empty. ",
     has item;
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object melted_kcl_bottle "melted lump of plastic" 
-    with 
-        name 'melted' 'plastic' 'bottle' 'vial',
-        description "It's a melted blob of plastic, charred beyond recognition. ",
-    has item;
 
 

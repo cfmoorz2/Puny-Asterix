@@ -223,10 +223,13 @@ Object vic "Vic"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
     with name 'northrup' 'doctor' 'walt' 'walter',  
-        describe [;  
-            if(self has encountered) "^Dr. Northrup is here.^";
-            give self encountered;
-            print"^Dr. Walter Northrup is here, sitting at his desk.^";
+        describe [;
+            if (self hasnt encountered)
+            {
+                give self encountered;
+                "^Dr. Northrup is here, standing next to his desk. ";
+            }
+            "^Nurse Retch is here.";
         ],
         description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ",
@@ -268,12 +271,24 @@ Object nurse_retch "Nurse Retch" station_b
             give, show:
             if (noun == syringe) 
             {
-                move syringe to self;
+                remove syringe;
                 SetFlag(F_RETCH_TRIGGERED);
                 StartTimer(retch_timer, 4);
                 "^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
                 relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
                 have you sticking yourself now, can we?~";
+            }
+            if (noun == kcl_bottle)
+            {
+                print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
+                ~You are quite the persistent little thing, aren't you?~ She angrily swipes the vial from you.^^
+                ~You'd best be careful, candystriper, or you may not finish out your time here.~^";
+                remove kcl_bottle;
+                SetFlag(F_RETCH_KCL);
+                nurse_retch.move_mode = TARGET_PATH;
+	            nurse_retch.target_room = northrup_office;
+                StartDaemon(nurse_retch);
+                rtrue;
             }
         ],
         npc_arrived [;

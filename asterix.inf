@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_m;
+Constant INITIAL_LOCATION_VALUE = station_b;
 !Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 
 #Ifndef USEINFORM;
@@ -61,11 +61,13 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
-Constant FLAG_COUNT 4;
+Constant FLAG_COUNT 6;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
 Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
+Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
+Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
