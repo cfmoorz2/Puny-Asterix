@@ -323,7 +323,37 @@ Tape mixtape "casette tape with a yellow label" boombox
         ],
         has item;
 
-Tape jorry_tape "cassette tape with a green label" jorry_drawer
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object rock "rock" aquarium 
+    with 
+        name 'decorative' 'rock',
+        description "It's a decorative chunk of rock, about twice as large as one of your fists. ",
+        before [;
+            take:
+            if (self in aquarium)
+            {
+                give aquarium container;
+                give aquarium open;
+                move self to player;
+                move jorry_tape to aquarium;
+                "You steel yourself to reach into the tank. Lifting up the rock, you find a casette tape lying under
+                it. ";
+
+            } 
+            lookunder:
+            if (jorry_tape in self)
+            {
+                give aquarium container;
+                give aquarium open;
+                move jorry_tape to aquarium;
+                "You lift the rock and find a casette tape under it. ";
+            }
+        ],
+        mass 5,
+    has item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tape jorry_tape "cassette tape with a green label" rock
     with name 'tape' 'cassette' 'green',
         description"It's a cassette tape with a greenlabel. Written on the label you see ~S.J.~",
         current_side SIDE_A,
@@ -561,4 +591,5 @@ Object melted_kcl_bottle "melted lump of plastic"
         name 'melted' 'plastic' 'bottle' 'vial',
         description "It's a melted blob of plastic, charred beyond recognition. ",
     has item;
+
 

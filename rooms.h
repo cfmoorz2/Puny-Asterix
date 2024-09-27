@@ -903,10 +903,10 @@ Room jorry_office "Office"
         if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
         print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
         a stand directly behind the desk. Sand covers the bottom and a snake is coiled around a bleached twisted 
-        branch at one end. A decorative rock sits in the sand in the other end. A squat black safe sits in one corner.
+        branch at one end. A squat black safe sits in one corner.
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
-        His eyes, thankfully, are closed.^^";
-        if (self hasnt visited) "It appears that somone has been in here already and cleaned out the room. 
+        His eyes, thankfully, are closed.^";
+        if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
             There's no trace of any papers or documents. ";
     ],
     cheap_scenery
@@ -936,6 +936,10 @@ Room jorry_office "Office"
         take:
         "Not with the snake there, nosirree. ";
     ],
+    each_turn [;
+        print (string) random("^Louanne, curious, flicks her forked tongue at you.^",
+            "^Louanne stares at you through yellow reptillian eyes.^", "", "");
+    ],
     s_to jorry_door,
     has light;
 
@@ -946,16 +950,7 @@ Object aquarium "aquarium" jorry_office
             A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
             if (rock in self) "A large decorative rock sits in the sand in the other end. "; "";
         ],
-    has container openable transparent;
-
-Object rock "rock" aquarium 
-    with name 'decorative' 'rock',
-        description [;
-            print"It's a decorative chunk of rock, about twice as large as one of your fists. ";
-            !if (jorry_tape in self && self notin aquarium) "Stuck to the bottom of the rock you see a piece of paper. "; "";
-        ],
-        mass 5,
-    has item transparent;
+    has scenery transparent container open;
 
 Object jorry_note "note"
     with name 'note' 'paper' 'letter',
@@ -992,12 +987,7 @@ Object jorry_safe "safe" jorry_office
     with name 'safe',
         description [ ;
             print"It's a squat black metal safe, about two feet on each side. It's currently ";
-            open_or_closed(self); print" and there's a large hole drilled through the combination lock. ";
-            !if (self has open)
-            !{
-            !    if(PrintContents("In the safe you can see ", self)) ".";
-            !    else "The safe is empty.";
-            !} else "";
+            open_or_closed(self); " and there's a large hole drilled through the combination lock. ";
         ],
         before [;
             take:

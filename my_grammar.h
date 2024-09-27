@@ -8,6 +8,15 @@ Extend 'read' replace
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   LOOK UNDER 
+Extend 'look' first 
+    * 'under' noun ->LookUnder;
+
+[ LookUnderSub;
+    "There's nothing under ",(the)noun,".";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   KNOCKING ON THINGS
 Verb 'knock' 
     * noun -> Knock
