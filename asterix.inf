@@ -30,9 +30,6 @@ Constant OPTIONAL_GUESS_MISSING_NOUN;
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
-Constant HANDLE_UP 1;
-Constant HANDLE_DOWN 0;
-
 
 Attribute valuable;
 Attribute stairs;
@@ -64,10 +61,11 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
-Constant FLAG_COUNT 3;
+Constant FLAG_COUNT 4;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
-Constant F_HANDLE_UNLOCKED 3; ! has the cabinet handle been unlocked?
+Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
+Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
@@ -135,6 +133,7 @@ Include "puny.h";
     move swipe_card to player;
     move syringe to player;
     init_safe();
+    !SetFlag(F_SAW_KNOCK_SPOT);
 ];
 
 Include "my_grammar.h";

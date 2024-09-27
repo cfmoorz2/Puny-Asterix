@@ -8,6 +8,20 @@ Extend 'read' replace
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   KNOCKING ON THINGS
+Verb 'knock' 
+    * noun -> Knock
+    * 'on' noun -> Knock;
+
+Extend only 'thump' 'hit' 'punch' replace
+    * 'on' noun -> Knock
+    * noun -> Knock;
+
+[ KnockSub ;
+    "Nothing seems to happen. ";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   SPINNING THINGS
 Verb 'spin' = 'turn';
 

@@ -1812,18 +1812,17 @@ Room hallway_3_4 "hallway_3_4"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor storage_door "door"
+ myDoor storage_door "swinging door"
      with name 'swinging' 'metal' 'door',
         description [;
             "It's a swinging metal door. ";
         ],
-        parse_name [ w1 w2 ;
-            w1 = NextWord();
-            if (w1 == 'swinging') return 1;
-            if (w1 == 'swinging' && w2 == 'metal') return 2;
-            if (w1 == 'swinging' && w2 == 'door') return 2;
-            if (w1 == 'door' && real_location == hallway_3_4) return 1;
-        ],
+        !parse_name [ w1 w2 ;
+        !    w1 = NextWord();
+        !    if (w1 == 'swinging') return 1;
+        !    if (w1 == 'swinging' or 'metal' && w2 == 'door') return 2;
+        !    if (w1 == 'swinging' && w2 == 'door') return 2;
+        !],
         door_to [;
             if (parent(self) == hallway_3_4) return storage; return hallway_3_4;
         ],
@@ -1852,13 +1851,16 @@ Object storage_cabinet "cabinet" storage
         ],
         before [;
             open:
-            if (FlagIsClear(F_HANDLE_UNLOCKED)) "The cabinet door won't open. The handle seems to be jammed. ";
+            if (self has open) "It's already open. ";
+            "The cabinet door won't open. It seems to be jammed. ";
+            knock:
+            <<knock cabinet_door>>;
         ],
     has scenery container openable locked ~open;
 
 Object cabinet_door "cabinet door" storage
     with
-        description"It's the cabinet's metal door with a handle. ", 
+        description"It's a metal door with a handle. ", 
         parse_name [ w1 w2 ;
             w1 = NextWord();
             w2 = NextWord();
@@ -1870,6 +1872,13 @@ Object cabinet_door "cabinet door" storage
             <<open storage_cabinet>>;
             close:
             <<close storage_cabinet>>;
+            knock:
+            if (FlagIsSet(F_SAW_KNOCK_SPOT)) 
+            {
+                give storage_cabinet open;
+                "With a fist you hit the spot that you saw Nurse Retch hit. The cabinet door pops open. ";
+            }
+            "You thump on the door but nothing seems to happen. ";
         ],
     has scenery;
 
@@ -1880,14 +1889,9 @@ Object storage_handle "handle" storage
         pushed. It looks old and cantenkerous. ",
         before [;
             pull:
-            "You pull it and it rotates upward. ";
-            push:
-            "You push it and it rotates downward. ";
+            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
         ],
     has scenery locked;
-
-
-
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"
