@@ -627,12 +627,6 @@ Object magazines "magazines" book_cart
         ],
     has scenery pluralname;
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-OnChair folding_chair "metal folding chair" hallway_m1
-    with name 'metal' 'folding' 'chair',
-        description "It's a standard metal folding chair. ",
-    has scenery;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "hallway_m2"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. ",
@@ -856,6 +850,12 @@ Room admin_hallway "Administration"
     n_to jorry_door,
     w_to french_doors,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+OnChair folding_chair "metal folding chair" admin_hallway
+    with name 'metal' 'folding' 'chair',
+        description "It's a standard metal folding chair. ",
+    has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor french_doors "french doors" 

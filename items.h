@@ -97,6 +97,8 @@ Object boombox "boombox" admin_hallway
             take:
             if (self in admin_hallway && freddy in folding_chair && FREDDY_ASLEEP == false) 
                 "Freddy stirs himself. ~Hey, hands off my tunes, man.~";
+            receive:
+            if (children(self) > 5 ) "There's already a tape in the boombox. ";
         ],
         invent [;
             if (inventory_stage == 2) rtrue;
@@ -362,10 +364,9 @@ Tape jorry_tape "cassette tape with a green label" rock
             print"^From the boombox you hear ";
                 if (self.current_side == SIDE_A)
                 {
-                    print"SIDEA^";
                     switch (self.current_track) 
                     {
-                    1: print"TRACK1^"; jorry_confession();
+                    1: jorry_confession();
                     2, 3, 4, 5, 6:  print"empty tape hissing";
                     }
                 }
@@ -394,11 +395,10 @@ Tape jorry_tape "cassette tape with a green label" rock
     the same time, Dr. Northrup has become a shadow investor in the company that owns the hospital building and grounds.~^^
     He pauses and you hear what sounds like drinking from a glass.^^
     ~The hospital is likely worth much more as real estate than as a hospital. I have records of all of this in a
-    ledger locked in the safe in my office. The combination is 23 right, 18 left, 7 right.~^^
-    You hear a heavy ~thump~ and a cough.^^
-    ~Now, I'm not feeling well and I think I need my nitroglycerin tablets. I certainly won't be seeking care under Northrup's nose,
-    of course.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
-    rtrue;
+    ledger locked in the safe in my office. The combination is ";
+    print SAFE_1,", ",SAFE_2,", ",SAFE_3,".^^";
+    "You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
+    information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
