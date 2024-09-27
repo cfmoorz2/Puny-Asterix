@@ -60,12 +60,11 @@ Global SAFE_2;
 Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
-Global CORRECT_LOCKER;
 
-Constant FLAG_COUNT 3;
+Constant FLAG_COUNT 2;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
-Constant F_KCL_TRANSFERRED 3; ! has KCL bottle been transferred?
+!Constant F_KCL_TRANSFERRED 3; ! has KCL bottle been transferred?
 
 [ DeathMessage; 
      if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
@@ -94,12 +93,12 @@ Constant F_KCL_TRANSFERRED 3; ! has KCL bottle been transferred?
 
 Global following = false;
 
-[ InScope p_actor obj direction npc k final;
-    if(player in locker_cabinet)
-        objectloop(obj in female_locker_room) 
-        {
-            PlaceInScope(obj);
-        } 
+[ InScope p_actor direction npc k final;
+    !if(player in locker_cabinet)
+    !    objectloop(obj in female_locker_room) 
+    !    {
+    !        PlaceInScope(obj);
+    !    } 
     objectloop(direction in compass)
     {
         !if (k = location.(direction.door_dir))
@@ -133,8 +132,6 @@ Include "puny.h";
     move swipe_card to player;
     move syringe to player;
     init_safe();
-    CORRECT_LOCKER = random(24);
-    "CORRECT_LOCKER = ",CORRECT_LOCKER;
 ];
 
 Include "my_grammar.h";

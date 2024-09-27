@@ -8,27 +8,6 @@ Extend 'read' replace
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-!   LOCKERS
-Extend 'open' first
-    * number -> OpenNumber;
-Extend 'close' first
-    * number -> CloseNumber;
-
-[OpenNumberSub ;
-    if (real_location == female_locker_room && noun == CORRECT_LOCKER) <<open correct_fake_locker>>;
-    if (real_location == female_locker_room && noun ~= CORRECT_LOCKER) <<open fake_lockers>>;
-    "That doesn't seem to apply here. ";
-];
-
-[CloseNumberSub ;
-    if (real_location == female_locker_room && noun == CORRECT_LOCKER) <<close correct_fake_locker>>;
-    "That doesn't seem to apply here. ";
-];
-
-Extend 'examine' first
-    * number -> Examine;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   SPINNING THINGS
 Verb 'spin' = 'turn';
 
