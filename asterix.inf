@@ -92,20 +92,6 @@ Constant F_KCL_TRANSFERRED 3; ! has KCL bottle been transferred?
     }
 ];
 
-! allows followed NPC to be examined but nothing else
-[GamePreRoutine;
-    !print"action = ",action,", noun = ",(name)noun,", second = ",(name)second,", inp1 = ",inp1,", inp2 = ",inp2,"^";
-    if (action == ##show or ##give or ##yes or ##no or ##order)
-    {
-        if (IndirectlyContains(real_location, second) == false) print_ret (The)second," isn't here. ";
-    }
-    if (action == ##kiss or ##tell or ##ask or ##answer or ##wakeother or ##attack)
-    {
-        if (IndirectlyContains(real_location, noun) == false) print_ret (The)noun," isn't here. ";
-    }
-    rfalse;
-];
-
 Global following = false;
 
 [ InScope p_actor obj direction npc k final;
