@@ -41,7 +41,7 @@ Object oliver "Oliver" morgue
         description "He's of average build, about 30, and wearing a dirty laboratory
         coat over jeans and a flannel shirt. He wears thick glasses and a mop of brown hair that hasn't seen a comb today.",
         describe [;  
-            print"^Oliver is here. ";
+            print"^Oliver is here.^";
             if(self has encountered) "";
             give self encountered;
             "He's the morgue assistant in charge of putting the deceased on ice until the morning. ";
@@ -63,7 +63,7 @@ Object freddy "Freddy" folding_chair
                 next to him on the floor. ";
         ],
         describe [;
-            print"Freddy is here. ";
+            print"^Freddy is here.^";
             if (self has encountered) rtrue;
             give self encountered;
             "He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
@@ -150,9 +150,9 @@ Object eugene "Eugene" environmental_services
             if (self hasnt encountered)
             {
                 give self encountered;
-                "^Eugene, the night-shift custodian, is here pushing a mop bucket. ";
+                "^Eugene, the night-shift custodian, is here pushing a mop bucket.^";
             }
-            "^Eugene is here, pushing a mop bucket. ";   
+            "^Eugene is here, pushing a mop bucket.^";   
         ],
     class Mover MyNPC
     has animate proper transparent;  
@@ -199,7 +199,7 @@ Object wringer "wringer" bucket
 Object vic "Vic"
     with name 'vic',
         describe [;  
-            if(self has encountered) "^Vic is here. ";
+            if(self has encountered) "^Vic is here.^";
             give self encountered;
             "^Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
             maintenance uniform that doesn't appear to be his. ";
@@ -224,7 +224,7 @@ Object vic "Vic"
 Object northrup "Dr. Northrup" northrup_office
     with name 'northrup' 'doctor' 'walt' 'walter',  
         describe [;  
-            if(self has encountered) "^Dr. Northrup is here. ";
+            if(self has encountered) "^Dr. Northrup is here.^";
             give self encountered;
             print"^Dr. Walter Northrup is here, sitting at his desk.^";
         ],
@@ -240,7 +240,7 @@ Object mabel "Mabel" main_lobby
         but her unlined face and white shock of curly hair make her look much younger. She wears a floral print dress with numerous 
         layers over it and wire bifocals on a chain. ",
         describe [;  
-            if(self has encountered) "^Mabel is here behind the information desk. ";
+            if(self has encountered) "^Mabel is here behind the information desk.^";
             give self encountered;
             print_ret"^Mabel is here behind the information desk. She sees you and waves. ~Hey there Candy girl. 
             Got any new books for me?~";
@@ -255,13 +255,14 @@ Object nurse_retch "Nurse Retch" station_b
             tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
             nurse uniform with a white nurse cap pinned to her hair. ",
         describe [;
-            print"^Nurse Retch is here. ";
-            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == storage && player notin storage_locker) 
-                print"She keeps glancing at you side-ways.^";
-            if (self has encountered) rtrue;
-            give self encountered;
-            "She's standing at the nurses' station doing some paperwork. She's the senior nurse on duty this evening. 
-            She's never been particularly nice to you or even acknowledged your existence that you can recall. ";
+            if (self hasnt encountered)
+            {
+                give self encountered;
+                "^Nurse Retch is here. She's standing at the nurses' station doing some paperwork. She's the senior nurse
+                on duty this evening. She's never been particularly nice to you or even acknowledged your existence 
+                that you can recall. ";
+            }
+            "^Nurse Retch is here.";
         ],
         life [;
             give, show:
@@ -269,8 +270,8 @@ Object nurse_retch "Nurse Retch" station_b
             {
                 move syringe to self;
                 SetFlag(F_RETCH_TRIGGERED);
-                StartTimer(retch_timer, 3);
-                "For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
+                StartTimer(retch_timer, 4);
+                "^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
                 relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
                 have you sticking yourself now, can we?~";
             }
@@ -286,14 +287,15 @@ Object nurse_retch "Nurse Retch" station_b
         each_turn [;
             if (self in storage && player in storage_locker)
             {
-                print"Through the crack in the locker door you see Nurse Retch move to the metal cabinet in the corner. 
+                print"^Through the crack in the locker door you see her move to the metal cabinet in the corner. 
                 She nervously looks around then pulls on the door handle. She grunts angrily then pauses and balls up a fist. 
                 She bangs on the door in a specific spot and it pops open.^^
-                You see her take something from a pocket and put it in the cabinet. Looking around, she closes the cabinet door.^^
-                Looking around one last time, she leaves the room to the south. ";
+                You see her take something from a pocket, put it in the cabinet, and close the cabinet door.^^
+                Looking around one last time, she leaves the room to the south.^";
                 move self to hallway_3_4;
                 move kcl_bottle to storage_cabinet;
                 SetFlag(F_SAW_KNOCK_SPOT);
+                nurse_retch.hide = 1;
                 retch_timer_2.time_out();
             }
         ],

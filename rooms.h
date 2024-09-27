@@ -944,7 +944,7 @@ Object aquarium "aquarium" jorry_office
         description [;
             print"It's a large aquarium with a plastic cover over the top. A thick layer of sand lines the bottom.
             A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
-            if (rock in self) "A decorative rock sits in the sand in the other end. "; "";
+            if (rock in self) "A large decorative rock sits in the sand in the other end. "; "";
         ],
     has container openable transparent;
 
@@ -952,12 +952,12 @@ Object rock "rock" aquarium
     with name 'decorative' 'rock',
         description [;
             print"It's a decorative chunk of rock, about twice as large as one of your fists. ";
-            if (jorry_note in self && self notin aquarium) "Stuck to the bottom of the rock you see a piece of paper. "; "";
+            !if (jorry_tape in self && self notin aquarium) "Stuck to the bottom of the rock you see a piece of paper. "; "";
         ],
         mass 5,
     has item transparent;
 
-Object jorry_note "note" rock
+Object jorry_note "note"
     with name 'note' 'paper' 'letter',
         description "It appears to be a hastily scrawled note. ",
         before [;
