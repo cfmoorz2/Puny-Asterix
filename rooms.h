@@ -1817,16 +1817,12 @@ Room hallway_3_4 "hallway_3_4"
         description [;
             "It's a swinging metal door. ";
         ],
-        parse_name [ wd num gotit;
-            while(wd = NextWord())
-            {
-                if (wd == 'swinging')
-                gotit = true;
-                num++;
-            }
-            if (~~gotit)
-                return 0;
-            return num;
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            if (w1 == 'swinging') return 1;
+            if (w1 == 'swinging' && w2 == 'metal') return 2;
+            if (w1 == 'swinging' && w2 == 'door') return 2;
+            if (w1 == 'door' && real_location == hallway_3_4) return 1;
         ],
         door_to [;
             if (parent(self) == hallway_3_4) return storage; return hallway_3_4;
@@ -1862,7 +1858,7 @@ Object storage_cabinet "cabinet" storage
 
 Object cabinet_door "cabinet door" storage
     with
-        description"It's a metal door with a handle. ", 
+        description"It's the cabinet's metal door with a handle. ", 
         parse_name [ w1 w2 ;
             w1 = NextWord();
             w2 = NextWord();
@@ -1888,7 +1884,7 @@ Object storage_handle "handle" storage
             push:
             "You push it and it rotates downward. ";
         ],
-    has scenery;
+    has scenery locked;
 
 
 

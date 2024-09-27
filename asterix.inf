@@ -30,6 +30,9 @@ Constant OPTIONAL_GUESS_MISSING_NOUN;
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
+Constant HANDLE_UP 1;
+Constant HANDLE_DOWN 0;
+
 
 Attribute valuable;
 Attribute stairs;
