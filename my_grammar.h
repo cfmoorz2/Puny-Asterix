@@ -8,6 +8,25 @@ Extend 'read' replace
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   LOCKERS
+Extend 'open' first
+    * number -> OpenNumber;
+Extend 'examine' first
+    * number -> XLocker;
+
+[OpenNumberSub; 
+    if (noun < 1) "There's no locker zero. ";
+    if (noun > 24) "There are only 24 lockers. ";
+    "That doesn't seem to apply here. ";
+];
+
+[XLockerSub; 
+    if (noun < 1) "There's no locker zero. ";
+    if (noun > 24) "There are only 24 lockers. ";
+    "That doesn't seem to apply here. ";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   SPINNING THINGS
 Verb 'spin' = 'turn';
 

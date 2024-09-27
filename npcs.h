@@ -256,7 +256,7 @@ Object nurse_retch "Nurse Retch" station_b
             nurse uniform with a white nurse cap pinned to her hair. ",
         describe [;
             print"^Nurse Retch is here. ";
-            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == storage) print"She keeps glancing at you side-ways.^";
+            if(FlagIsSet(F_RETCH_TRIGGERED) && real_location == female_locker_room) print"She keeps glancing at you side-ways.^";
             if (self has encountered) rtrue;
             give self encountered;
             "She's standing at the nurses' station doing some paperwork. She's the senior nurse on duty this evening. 
@@ -275,16 +275,15 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         npc_arrived [;
-            if(parent(self)== storage) 
+            if(parent(self)== female_locker_room) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
-                StartTimer(retch_timer_2, 3); 
-                if (real_location ~= storage) move kcl_bottle to autoclave;
+                StartTimer(retch_timer_2, 3);
                 rtrue; }
         ],
         each_turn [;
-            if (self in storage)
+            if (self in female_locker_room)
             {
             
             }
@@ -297,7 +296,7 @@ Object retch_timer
         time_left,
         time_out [;
             nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = storage;
+	        nurse_retch.target_room = female_locker_room;
             StartDaemon(nurse_retch);
         ];
 
@@ -305,8 +304,6 @@ Object retch_timer_2
     with 
         time_left,
         time_out [;
-            if (player in locker) move kcl_bottle to autoclave;
-                else move melted_kcl_bottle to autoclave; 
             nurse_retch.move_mode = TARGET_PATH;
             nurse_retch.target_room = station_b;
             StartDaemon(nurse_retch);

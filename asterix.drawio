@@ -730,6 +730,9 @@
         <mxCell id="Jl3BJ8tSFotL6OoS965q-39" value="northrup_office" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="840" y="498" width="100" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="9zYE6To8k06LG8xaKJ0f-1" value="Mens&#39; Locker Room" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="855" y="1618" width="130" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

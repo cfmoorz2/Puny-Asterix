@@ -1800,77 +1800,120 @@ InChair conference_chair "overstuffed chair" conference_room
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_4 "hallway_3_4"
     with description "This is the east end of a long east-west corridor. The linoleum-
-    lined hallway returns west under yellow fluorescent light and there's an open doorway to the north. ",
+    lined hallway returns west under yellow fluorescent light. Doors leads north and south. A sign on the 
+    former reads 'Womens' Locker'. A sign on the latter reads 'Men's Locker'.",
+        before [;
+            go:
+            if (selected_direction == s_to) "You can't go in the mens' locker room. ";
+            if (selected_direction == n_to) print"You push through the door and it swings closed behind you.^^";
+        ],
         w_to hallway_3_3,
-        n_to storage,
+        n_to female_locker_door,
     has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor female_locker_door "door"
+     with name 'swinging' 'metal' 'door',
+        description [;
+            print"It's a swinging metal door. ";
+        ],
+        door_to [;
+            if (parent(self) == hallway_3_4) return female_locker_room; return hallway_3_4;
+        ],
+        door_dir [;
+            if (parent(self) == hallway_3_4) return n_to; return s_to;
+        ],
+        found_in hallway_3_4 female_locker_room,
+    has scenery door openable open; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room storage "Storage"
-    with description "This is a storage room, cluttered with all manner of medical devices and supplies. 
-        Shelves stocked with lots of stuff you don't need line the walls and an autoclave sits on a counter.
-        A dented full-length metal locker sits in the shadows in one corner. ",
-        s_to hallway_3_4,
-        cheap_scenery
-        'locker' 'door' [;
-            open:
-            <<open locker>>;
-            close:
-            <<close locker>>;
-            examine:
-            print"The locker door is currently ";
-            open_or_closed(self);
-            ".";
-        ],
-        after [;
+Room female_locker_room "Womens' Locker Room"
+    with 
+        description "This is a locker room. Banks of square metal lockers line the walls and a wooden 
+        bench runs down the center of the room. The lockers are numbered and there seem to be 24 of them in all. 
+        Each one has a lock and keyhole. In one corner of the room stands a battered metal cabinet with metal
+        doors. ",
+        before [;
             go:
-            if (selected_direction == n_to && nurse_retch in self) 
-            {
-                print"^As you enter the dark cluttered storage room, you spot Nurse Retch standing near the autoclave. 
-                Seeing you enter, she releases an annoyed sigh and hurriedly stuffs something in her hand back into a pocket. 
-                You have the distinct impression that you've interupted something.^^";
-                move kcl_bottle to nurse_retch;
-                retch_timer_2.time_out();
-            }
-        ]
+            if(selected_direction == s_to) print"You push through the door and it swings closed behind you.^^";
+        ],
+        s_to female_locker_door,
     has light;
 
-Object autoclave "autoclave" storage
-    with name 'autoclave',
-        description [;
-            print"It's a large metal box with a heavy hinged door (currently ";
-            open_or_closed(self); print"). ";
-            if (self has on) "It's currently turned on and is humming loudly. ";
-                "It's currently turned off. ";
+Object fake_lockers "lockers" female_locker_room
+    with
+        parse_name [ wd num x gotit;
+            while (wd = NextWord()) 
+            {
+                if (wd == 'locker') num++;
+                x = TryNumber(wn);print"wn = ",wn,", x = ",x,"^";
+                if (x == CORRECT_LOCKER) return 0;
+                if(x > 0 && x < 25 && x ~= CORRECT_LOCKER) { num++; gotit = true; }
+            }
+            if (gotit == false) return 0;
+            return num;
         ],
-        describe [; rtrue;],
+        article "two banks of",
+        description "It's a standard metal locker. It's locked and closed. ",
         before [;
-            switchon:
-            if (self has open) { give self ~open; "(first closing the autoclave)"; }
+            open:
+            "It's closed and locked. ";
+            examine: 
+            self.describe();
+            xlocker:
+            "It's a standard metal locker. It's locked and closed. ";
         ],
-    has container openable switchable ~open;
+    has scenery;
 
-Object locker "locker" storage
-    with name 'locker' 'metal',
+Object locker_cabinet "cabinet" female_locker_room
+    with 
+        name 'cabinet' 'metal',
         description [;
-            print"It's a full-length dented metal locker. The door is currently ";
+            print"It's a full-length dented metal cabinet. The door is currently ";
             open_or_closed(self);".";
         ],
         inside_description [;
-            if (self has open) "You're couched in a dark metal locker. Through the open door you can
-            see out at the storage room. ";
-            "You're crouched inside the locker. You can peek out at the storage room 
-            through metal slots in the door. ";
+            "You're couched in a cramped metal cabinet. Through the crack in the door you can
+            see out into the locker room. ";
         ],
-        describe [;rtrue;],
-    has light container enterable openable open;
+        after [;
+            enter:
+            "You crawl into the cabinet, closing it behind you. ";
+        ],
+    has container enterable openable open scenery;
+
+Object correct_fake_locker "locker" female_locker_room
+    with
+        parse_name [ wd num x gotit;
+            print"IN PARSE_NAME^";
+            while (wd = NextWord()) 
+            {
+                if (wd == 'locker') num++;
+                x = TryNumber(wn);print"in CORRECT wn = ",wn,", x = ",x,"^";
+                if(x > 0 && x < 25 && x == CORRECT_LOCKER) { num++; gotit = true; }
+            }
+            if (gotit == false) return 0;
+            print"in correct num = ",num,"^";
+            return num;
+        ],
+        description [;
+            print"It's a metal locker, currently ";
+            if (self has open) "currently open. "; "currently closed. ";
+        ],
+        react_before [;
+            !openlocker:
+            !<<open self>>;
+            !xlocker:
+            !<<examine self>>;
+        ],
+    has container openable ~open scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"
-    with description "This is an employee break room. There's a white plastic table here with matching chairs and a 
+    with 
+        description "This is an employee break room. There's a white plastic table here with matching chairs and a 
         refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
-    n_to hallway_3_3,
-    pn_to hallway_3_3,
+        n_to hallway_3_3,
     has light;
 
 Object break_room_table "table" break_room
