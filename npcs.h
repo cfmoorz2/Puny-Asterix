@@ -38,14 +38,8 @@ Class MyNPC
 Object oliver "Oliver" morgue
     with name 'oliver' 'mortuary' 'assistant',
         max_capacity 34,
-        description "He's of average build, about 30, and wearing a dirty laboratory
+        description "He's the morgue assistant. He's of average build, about 30, and wearing a dirty laboratory
         coat over jeans and a flannel shirt. He wears thick glasses and a mop of brown hair that hasn't seen a comb today.",
-        describe [;  
-            print"^Oliver is here. ";
-            if(self has encountered) "";
-            give self encountered;
-            print"He's the morgue assistant in charge of putting the deceased on ice until the morning.^";
-        ],
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
         ],
@@ -56,18 +50,12 @@ Object oliver "Oliver" morgue
 Object freddy "Freddy" folding_chair
     with name 'freddy' 'security' 'guard',
         description [;
-            print"He's in his early 20s. He wears a blue uniform shirt, partially untucked, and dark blue 
-            pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
-            if (FREDDY_ASLEEP == true) "He's leaning back in a folding chair snoring. "; else 
-                "He's leaning back in a metal folding chair trying hard to stay awake. He's listening to a boombox sitting 
-                next to him on the floor. ";
-        ],
-        describe [;
-            print"Freddy is here.";
-            if (self has encountered) rtrue;
-            give self encountered;
             print"He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
-            make it here through the blizzard. ";
+            make it here through the blizzard. He's in his early 20s. He wears a blue uniform shirt, partially untucked, and dark blue 
+            pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
+            if (FREDDY_ASLEEP == true) "He's leaning back in a folding chair snoring and deeply asleep. "; else 
+            "He's leading back against the wall in a metal folding chair. His lids are heavy and
+            he's having a tough time staying awake. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   
@@ -141,19 +129,11 @@ Object sid_jorry "Sid Jorry" jorry_chair
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object eugene "Eugene" environmental_services
     with name 'eugene' 'gene' 'custodian' 'janitor',
-        description "He's a short squat balding gentleman wearing gray custodian overalls.
+        description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
         He's wearing a walkman and whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
         npc_avoid stairwell_b,
         npc_walk [; print"pushes the mop bucket";],
-        describe [;  
-            if (self hasnt encountered)
-            {
-                give self encountered;
-                print"Eugene, the night-shift custodian, is here pushing a mop bucket.";
-            }
-            print"Eugene is here, pushing a mop bucket.";   
-        ],
     class Mover MyNPC
     has animate proper transparent;  
 
@@ -198,14 +178,9 @@ Object wringer "wringer" bucket
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object vic "Vic"
     with name 'vic',
-        describe [;  
-            if(self has encountered) print"Vic is here.";
-            give self encountered;
-            print"Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
-            maintenance uniform that doesn't appear to be his. ";
-        ],
         description "He's a tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
-            clean-shaven and sunken. ",  
+            clean-shaven and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
+            to be his. ",  
         each_turn [;
             if(real_location == sub_basement_02)
             {
@@ -223,14 +198,6 @@ Object vic "Vic"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
     with name 'northrup' 'doctor' 'walt' 'walter',  
-        describe [;
-            if (self hasnt encountered)
-            {
-                give self encountered;
-                print"Dr. Northrup is here, standing next to his desk. ";
-            }
-            print"Dr. Northrup is here.";
-        ],
         description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ",
     class Mover MyNPC
@@ -242,12 +209,6 @@ Object mabel "Mabel" main_lobby
         description "She's an elderly African American lady. From previous conversations with her you know that she's 82,
         but her unlined face and white shock of curly hair make her look much younger. She wears a floral print dress with numerous 
         layers over it and wire bifocals on a chain. ",
-        describe [;  
-            if(self has encountered) print"Mabel is here behind the information desk.";
-            give self encountered;
-            print"^Mabel is here behind the information desk. She sees you and waves. ~Hey there Candy girl. 
-            Got any new books for me?~";
-        ],
     class Mover MyNPC
     has animate female proper;
 
@@ -257,16 +218,6 @@ Object nurse_retch "Nurse Retch" station_b
         description "She's an austere-looking woman in her 40s. Her jet black hair is pulled back into a 
             tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
             nurse uniform with a white nurse cap pinned to her hair. ",
-        describe [;
-            if (self hasnt encountered)
-            {
-                give self encountered;
-                print"Nurse Retch is here. She's standing at the nurses' station doing some paperwork. She's the senior nurse
-                on duty this evening. She's never been particularly nice to you or even acknowledged your existence 
-                that you can recall.";
-            }
-            print"Nurse Retch is here.";
-        ],
         life [;
             give, show:
             if (noun == syringe) 
@@ -336,7 +287,7 @@ Object retch_timer_2
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object terrible_trio "Angry Trio"
+Object terrible_trio "angry trio"
     with 
         id 0, ! 1 = northrup, 2 = retch, 3 = vic
         parse_name [ w1 w2;

@@ -828,24 +828,10 @@ Room outside "Outside"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room admin_hallway "Administration"
-    with description [;
-        print"This is the western end of a long east-west hallway. It's a bit better maintained than the others and warmer 
-        colors accentuate the walls. The overhead fluorescent tubes are replaced here by round light fixtures and the floor is covered with blue 
-        carpet. There's a plain wooden door to the north with a small placard mounted next to it and a set of french glass doors lie to the west. ";
-        if (freddy hasnt encountered) 
-        {
-            give freddy encountered;
-            print "^^Freddy, the third-shift security guard is posted here, tasked with guarding Sid Jorry's office down the hall 
-            until the police can make it in through the blizzard. He's leading back against the wall in a metal folding chair. His lids are heavy and
-            he's having a tough time staying awake. ";
-            if (boombox in self) "A boombox sits next to him on the floor. ";
-        }   else
-        {
-            if (FREDDY_ASLEEP) print"^^Freddy is here, deeply asleep leaning back in a metal folding chair. ";
-                else print"^^Freddy is here, leaning back in a metal folding chair and struggling to stay awake. ";
-                if (boombox in self) "A boombox sits next to him on the floor. "; else rtrue;
-        }  
-    ],
+    with description "This is the western end of a long east-west hallway. It's a bit better maintained 
+        than the others and warmer colors accentuate the walls. The overhead fluorescent tubes are replaced 
+        here by round light fixtures and the floor is covered with blue carpet. There's a plain wooden door 
+        to the north with a small placard mounted next to it and a set of french glass doors lie to the west. ",
     cheap_scenery
     3 'brass' 'placard' 'sign' [;
         take:
@@ -870,6 +856,7 @@ Room admin_hallway "Administration"
 OnChair folding_chair "metal folding chair" admin_hallway
     with name 'metal' 'folding' 'chair',
         description "It's a standard metal folding chair. ",
+        invent "",
     has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2107,8 +2094,8 @@ Object sub_basement_01 "Hallway"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor boiler_door "thick metal door"
-     with name 'heavy' 'thick' 'metal' 'door',
+ myDoor boiler_door "boiler room door"
+     with name 'boiler' 'door',
         description [;
             print"It's a heavy thick metal door, currently ";open_or_closed(self);".";
         ],
