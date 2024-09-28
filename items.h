@@ -387,15 +387,16 @@ Tape jorry_tape "cassette tape with a green label" rock
 [ jorry_confession ;
     jorry_tape.current_track = 2;
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
-    into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I have mailed this to you 
+    into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I plan to mail this to you 
     because I have information you may find interesting pertaining to possible financial misdealings perpetrated by 
     Dr. Walt Northrup, CEO of the hospital.~^^
     He clears his throat awkwardly and you hear paper rustling.^^
     ~It seems the good doctor has been siphoning money from the hospital with the expectation that it would fail. At 
     the same time, Dr. Northrup has become a shadow investor in the company that owns the hospital building and grounds.~^^
     He pauses and you hear what sounds like drinking from a glass.^^
-    ~The hospital is likely worth much more as real estate than as a hospital. I have records of all of this in a
-    ledger locked in the safe in my office. The combination is ";
+    ~The hospital is likely worth much more as real estate than as a hospital and its failure would be a windfall for 
+    several powerful people. I have records of all of this in a ledger locked in my safe. To delay Northrup from finding it, 
+    I have secretly swapped safes with him. My safe is now in his office. The combination is ";
     print SAFE_1,", ",SAFE_2,", ",SAFE_3,".^^";
     "You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
     information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
