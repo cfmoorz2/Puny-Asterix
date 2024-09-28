@@ -95,6 +95,15 @@ Constant F_BADDIES_FOLLOWING 7;
     }
 ];
 
+
+[ GamePreRoutine ;
+    if (action == ##go) 
+    {
+        print"GO^";
+    }
+    rfalse;
+];
+
 Global following = false;
 
 [ InScope p_actor direction npc k final;

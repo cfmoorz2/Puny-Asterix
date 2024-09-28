@@ -25,7 +25,7 @@ Class Room
                     {
                         if(obj has animate && obj.hide == false)
                         {
-                            print"^",(name)obj," is ";
+                            print(The)obj," is ";
                             if(direction == u_obj) "up above. ";
                             if(direction == d_obj) "down below. ";
                             print"off to the ",(name)direction,".^";
@@ -66,7 +66,7 @@ Class Mover
             if(self.move_mode == FOLLOW_PATH)
             {
                 self.target_room = real_location;
-                path_move(parent(self), self.target_room);
+                if (self notin real_location) path_move(parent(self), self.target_room);
                     !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)
@@ -346,16 +346,26 @@ Class Mover
 [narrate_move npc direction rev_dir;
     if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
-        if(direction == u_obj) { print"^",(name)npc," "; npc.npc_walk(); " upstairs."; }
-        if(direction == d_obj) { print"^",(name)npc," "; npc.npc_walk(); " downstairs."; }
-        print"^",(name)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
+        if(direction == u_obj) { print(The)npc," "; npc.npc_walk(); " upstairs."; }
+        if(direction == d_obj) { print(The)npc," "; npc.npc_walk(); " downstairs."; }
+        print(The)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
     }
     if(npc.move_mode == FOLLOW_PATH)
     {
         rev_dir = reverse_dir(direction);
-        if(direction == u_obj) { print"^",(name)npc,", following, enters from from downstairs.^"; }
-        if(direction == d_obj) { print"^",(name)npc,", following, enters from upstairs.^"; }
-        print"^",(name)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
+        if(direction == u_obj) 
+        { 
+            print(The)npc,", following, enters from downstairs.^";
+            if(npc provides npc_post_follow) npc.npc_post_follow();
+            rtrue;
+         }
+        if(direction == d_obj) 
+        { 
+            print(The)npc,", following, enters from upstairs.^";
+            if(npc provides npc_post_follow) npc.npc_post_follow();
+            rtrue;
+        }
+        print(The)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
         if(npc provides npc_post_follow) npc.npc_post_follow();
     }
 ];

@@ -41,10 +41,10 @@ Object oliver "Oliver" morgue
         description "He's of average build, about 30, and wearing a dirty laboratory
         coat over jeans and a flannel shirt. He wears thick glasses and a mop of brown hair that hasn't seen a comb today.",
         describe [;  
-            print"^Oliver is here.^";
+            print"^Oliver is here. ";
             if(self has encountered) "";
             give self encountered;
-            "He's the morgue assistant in charge of putting the deceased on ice until the morning. ";
+            print"He's the morgue assistant in charge of putting the deceased on ice until the morning.^";
         ],
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
@@ -63,10 +63,10 @@ Object freddy "Freddy" folding_chair
                 next to him on the floor. ";
         ],
         describe [;
-            print"^Freddy is here.^";
+            print"Freddy is here.";
             if (self has encountered) rtrue;
             give self encountered;
-            "He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
+            print"He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
             make it here through the blizzard. ";
         ],
     class Mover MyNPC
@@ -150,9 +150,9 @@ Object eugene "Eugene" environmental_services
             if (self hasnt encountered)
             {
                 give self encountered;
-                "^Eugene, the night-shift custodian, is here pushing a mop bucket.^";
+                print"Eugene, the night-shift custodian, is here pushing a mop bucket.";
             }
-            "^Eugene is here, pushing a mop bucket.^";   
+            print"Eugene is here, pushing a mop bucket.";   
         ],
     class Mover MyNPC
     has animate proper transparent;  
@@ -199,9 +199,9 @@ Object wringer "wringer" bucket
 Object vic "Vic"
     with name 'vic',
         describe [;  
-            if(self has encountered) "^Vic is here.^";
+            if(self has encountered) print"Vic is here.";
             give self encountered;
-            "^Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
+            print"Lurking here in the gloom you see Vic. A tall gaunt figure wearing an insincere smile and a hospital 
             maintenance uniform that doesn't appear to be his. ";
         ],
         description "He's a tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
@@ -227,9 +227,9 @@ Object northrup "Dr. Northrup" northrup_office
             if (self hasnt encountered)
             {
                 give self encountered;
-                "^Dr. Northrup is here, standing next to his desk. ";
+                print"Dr. Northrup is here, standing next to his desk. ";
             }
-            "^Dr. Northrup is here.";
+            print"Dr. Northrup is here.";
         ],
         description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ",
@@ -243,9 +243,9 @@ Object mabel "Mabel" main_lobby
         but her unlined face and white shock of curly hair make her look much younger. She wears a floral print dress with numerous 
         layers over it and wire bifocals on a chain. ",
         describe [;  
-            if(self has encountered) "^Mabel is here behind the information desk.^";
+            if(self has encountered) print"Mabel is here behind the information desk.";
             give self encountered;
-            print_ret"^Mabel is here behind the information desk. She sees you and waves. ~Hey there Candy girl. 
+            print"^Mabel is here behind the information desk. She sees you and waves. ~Hey there Candy girl. 
             Got any new books for me?~";
         ],
     class Mover MyNPC
@@ -261,11 +261,11 @@ Object nurse_retch "Nurse Retch" station_b
             if (self hasnt encountered)
             {
                 give self encountered;
-                "^Nurse Retch is here. She's standing at the nurses' station doing some paperwork. She's the senior nurse
+                print"Nurse Retch is here. She's standing at the nurses' station doing some paperwork. She's the senior nurse
                 on duty this evening. She's never been particularly nice to you or even acknowledged your existence 
-                that you can recall. ";
+                that you can recall.";
             }
-            "^Nurse Retch is here.";
+            print"Nurse Retch is here.";
         ],
         life [;
             give, show:
@@ -336,7 +336,7 @@ Object retch_timer_2
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object terrible_trio "an angry trio"
+Object terrible_trio "Angry Trio"
     with 
         id 0, ! 1 = northrup, 2 = retch, 3 = vic
         parse_name [ w1 w2;
@@ -368,4 +368,4 @@ Object terrible_trio "an angry trio"
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
         ],
     class Mover MyNPC
-    has animate proper transparent;  
+    has animate transparent;  
