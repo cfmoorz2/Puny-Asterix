@@ -334,3 +334,38 @@ Object retch_timer_2
             nurse_retch.target_room = station_b;
             StartDaemon(nurse_retch);
         ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object terrible_trio "an angry trio"
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+            if (w1 == 'terrible' && w2 == 'trio') { self.id = 0; return 2; }
+            if ((w1 == 'terrible' or 'trio') && w2 == 0) { self.id = 0; return 1; }
+        ],
+        description [;
+            switch (self.id)
+            {
+                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
+                and a red face. ";
+                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
+                veins lining her temples. ";
+                3: "He's smiling and seems to be enjoying himself. ";
+                default:
+                "The three of them seem to be stalking you. Northup and Retch glare at you with burning eyes. Vic, 
+                however, seems to be having fun. One hand is thrust into an inner jacket pocket as if he's hiding 
+                a weapon. ";
+            }
+        ],
+        npc_arrived [;
+            if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
+        ],
+    class Mover MyNPC
+    has animate proper transparent;  

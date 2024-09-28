@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = northrup_office;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 
 #Ifndef USEINFORM;
@@ -202,7 +202,7 @@ Include "VerbLib";
 Object endgame_daemon
     with 
         daemon [;
-            "THEY FOLLOW";
+            !"THEY FOLLOW";
         ];
         
 #Ifdef USEINFORM;

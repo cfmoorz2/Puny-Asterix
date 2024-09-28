@@ -570,6 +570,21 @@ Object garbage_can "garbage can" kitchen
 Room hallway_m1 "hallway_m1"
     with description "This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
         corridor begins here and leads south. ",
+        after [;
+            go:
+            if (selected_direction == e_to) 
+            {
+                SetFlag(F_BADDIES_FOLLOWING);
+                StartDaemon(endgame_daemon);
+                terrible_trio.move_mode = FOLLOW_PATH;
+                StartDaemon(terrible_trio);
+                move terrible_trio to hallway_m2;
+                print"^You hear a noise in the darkness behind you. You turn to see Dr. Northrup, Nurse Retch, and Vic standing in the 
+                shadows down the hallway to the west. The doctor and the nurse look furious but you notice Vic is smiling 
+                and has one hand thrust into an inner pocket. Northrup moves first, stepping toward you, his eyes fixed 
+                on the ledger you're carrying. The other two follow close behind.^^";
+            }
+        ],
         s_to lobby_west,
         w_to hallway_m2,
         e_to elevator_lobby_m,
@@ -646,14 +661,6 @@ Room hallway_m2 "hallway_m2"
             examine:
             if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
-        ],
-        after [;
-            go:
-            if (selected_direction == e_to) 
-            {
-                SetFlag(F_BADDIES_FOLLOWING);
-                StartDaemon(endgame_daemon);
-            }
         ],
     e_to hallway_m1,
     w_to admin_hallway,

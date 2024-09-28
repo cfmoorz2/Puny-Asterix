@@ -25,7 +25,7 @@ Class Room
                     {
                         if(obj has animate && obj.hide == false)
                         {
-                            print"^",(The)obj," is ";
+                            print"^",(name)obj," is ";
                             if(direction == u_obj) "up above. ";
                             if(direction == d_obj) "down below. ";
                             print"off to the ",(name)direction,".^";
@@ -58,7 +58,7 @@ Class Mover
         npc_last_wander,
         npc_arrived [;],
         npc_post_move [; rfalse;],
-        daemon [ x y i;
+        daemon [ x y i ;
             if(self.move_mode == TARGET_PATH)
 			{
 				path_move(parent(self), self.target_room);
@@ -66,8 +66,8 @@ Class Mover
             if(self.move_mode == FOLLOW_PATH)
             {
                 self.target_room = real_location;
-                !print"moving to ",(name)self.target_room,"^";
                 path_move(parent(self), self.target_room);
+                    !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)
             {
