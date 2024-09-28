@@ -647,6 +647,14 @@ Room hallway_m2 "hallway_m2"
             if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
         ],
+        after [;
+            go:
+            if (selected_direction == e_to) 
+            {
+                SetFlag(F_BADDIES_FOLLOWING);
+                StartDaemon(endgame_daemon);
+            }
+        ],
     e_to hallway_m1,
     w_to admin_hallway,
     has light;

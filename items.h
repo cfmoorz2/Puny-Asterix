@@ -586,5 +586,22 @@ Object kcl_bottle "plastic vial" nurse_retch
         on top has been broken and the vial is half-empty. ",
     has item;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ledger "ledger" northrup_safe
+    with 
+        name 'ledger' 'leather' 'book',
+        description "It's a leather-bound book, wider than it is tall. It's filled with lined pages
+        separated into columns and full of numbers written in fine handwritten ink. The whole think reeks
+        of math and totally bores you. ",
+        before [;
+            open:
+            "You flip through the pages of numbers and are immediately reminded of your algebra class freshman year and
+            that weird guy you sat next to who would only shower, like, twice a week?";
+        ],
+    has item;
+        
+
+
+
 
 

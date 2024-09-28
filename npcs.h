@@ -229,7 +229,7 @@ Object northrup "Dr. Northrup" northrup_office
                 give self encountered;
                 "^Dr. Northrup is here, standing next to his desk. ";
             }
-            "^Nurse Retch is here.";
+            "^Dr. Northrup is here.";
         ],
         description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ",
