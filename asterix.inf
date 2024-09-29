@@ -77,8 +77,7 @@ Constant F_BADDIES_FOLLOWING 7;
     if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
         summer school. ";
-    if (deadflag == 7) "You have nearly won. ";
-    print "You have lost"; 
+    !print "You have lost"; 
 ];
 
 [ChooseObjects obj code;
@@ -249,31 +248,89 @@ Object endgame_daemon
 ];
 
 [ mri_cart_anteroom; 
-    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+    print"^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
     screech. Through the window you see the metal cart and the oxygen cannisters on it start to shake violently. As the 
     noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
     missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
-    winds down and stops and the room is eerily silent.^^Your heart sinks as you realize that now you'll never get credit for 
-    your volunteer time.";
+    winds down and stops and the room is eerily silent.^^You look over the carnage of the very expensive MRI machine, 
+    now shattered and in pieces and your heart sinks as you realize that you'll never get credit for your volunteer time now.";
+    deadflag = 3;
+    rtrue;
+];
+
+[ mri_cart_hatch_closed;
+    ! cart in room, player in hatch, hatch closed
+    if (trio in mri_scanner) 
+    {
+        print"^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the walls surrounding you becomes a loud screech. 
+        Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
+        the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
+        MRI scanner and the screeching winds down and the you hear only eerie silence.";
+        deadflag = 2; 
+        rtrue; 
+    }
+    print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
+    scanner becomes a loud whirring screech. Above you, you hear what sounds like metallic clattering followed by loud 
+    crashing and glass breaking. After a moment, there's a pained moan from the MRI scanner and the screeching winds 
+    down and the you hear only eerie silence.^^You peek out of the compartment and see the very expensive MRI machine 
+    shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
+    your volunteer time now. ";
     deadflag = 3;
     rtrue;
 ];
 
 [ mri_cart_hatch_open;
-    "HATCH IS OPEN AND YOU GET CRUSHED";
-    if (FlagIsSet(F_BADDIES_FOLLOWING)) 
+    ! cart in room, player in hatch, hatch closed
+    if (trio in mri_scanner) 
     {
-        print"^^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the walls surrounding you becomes a loud screech. 
-        Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
+        print"^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the surrounding walls becomes a loud screech. 
+        The metal cart and the oxygen cannisters on it start to shake violently. As the noise crescendos, the cannisters 
+        take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+        missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
+        you duck down into the compartment, shutting the hatch behind you. Above you, you hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
         MRI scanner and the screeching winds down and the you hear only eerie silence.";
-        deadflag = 2;  
+        deadflag = 2; 
+        rtrue; 
     }
+    print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
+    scanner becomes a loud whirring screech. The metal cart and the oxygen cannisters on it start to shake violently. As the 
+    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+    missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
+    you duck down into the compartment, shutting the hatch behind you. After a moment, there's a pained moan from the MRI 
+    scanner and the screeching winds down and the you hear only eerie silence.^^You peek out of the compartment and see
+    the very expensive MRI machine shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
+    your volunteer time now. ";
+    deadflag = 3;
+    rtrue;
 ];
 
-[ mri_cart_hatch_closed;
-    if (FlagIsSet(F_BADDIES_FOLLOWING)) "HATCH IS *CLOSED* AND YOU WIN";
-        "HATCH IS CLOSED AND YOU BREAK EVERYTHING AND LOSE. ";
+[ mri_cart_unprotected ; 
+    if (trio in mri_scanner)
+    {
+        print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+        screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
+        noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+        missile bashing into the white tube and smashing the safety glass of the door and window.^^
+        You, Ratchet, Northrup, and Vic try to shield yourselves but to no purpose as the flying debris slams into everyone.^^
+        Finally, the machine groans painfully to a halt, leaving you and your pursuers moaning on the floor.^^
+        Propitiously, however, the police have finally made it through the blizzard and have arrived to survey the scene. The good news is 
+        that you have unmasked the murderers to the thanks and gratitude of all. The bad news is that you are in no state to go back to 
+        school after your run-in with the MRI machine. You miss just enough classroom days that you are required to attend summer
+        school, despite your volunteer work.^";
+        deadflag = 3;
+        rtrue;
+    }
+    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+    screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
+    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+    missile bashing into the white tube and smashing the safety glass of the door and window.^^
+    You raise your arms in an effort to shield yourself but you are pummeled by the flying debris, knocking you unconscious. 
+    With a pained moan, the scanner winds down and stops and the room is eerily silent.^^
+    You come to and groggily look around. Seeing the very expensive MRI machine shattered and in pieces your heart sinks as 
+    you realize that you'll never get credit for your volunteer time now. ";
+    deadflag = 3;
+    rtrue;
 ];
         
 #Ifdef USEINFORM;

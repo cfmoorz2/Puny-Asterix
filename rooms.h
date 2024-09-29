@@ -1304,7 +1304,7 @@ Room hallway_2_3 "hallway_2_3"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room radiology "Radiology"
     with description "This is the eastern end of a long east-west hallway. There's an open archway to the south with a large sign 
-        above reading ~Imaging~. An open doorwary leads north as well. A sign posted above to it reads ~M.R.I.~. ",
+        above reading ~Imaging~. An open doorwary leads north as well. A sign posted above to it reads ~MRI.~. ",
     w_to hallway_2_3,
     n_to mri_anteroom,
     s_to x_ray,
@@ -1387,49 +1387,14 @@ Object green_button "green button" mri_anteroom
             if (real_location == mri_anteroom) { mri_cart_anteroom(); rtrue; }
             if (player in mri_hatch && mri_hatch has open) { mri_cart_hatch_open(); rtrue; }
             if (player in mri_hatch && mri_hatch hasnt open) { mri_cart_hatch_closed(); rtrue; }
-            "DROPPED THROUGH";
+            if (player in mri_scanner) { mri_cart_unprotected(); rtrue; }
+            print"^^Suddenly, from somewhere in the building you hear a horrible cacophany of metal smashing metal 
+            and glass shattering. It's quickly discovered that the MRI machine has been broken beyond repair. 
+            While there is no direct proof that this was your doing, you cannot risk being blamed for the destruction 
+            of a very expensive MRI scanner. You decide it's best to now worry about your volunteering letter and simply 
+            slip away. ";
+            deadflag = 3;
             rtrue;
-
-                    
-                    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-                    screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
-                    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-                    missile bashing into the white tube and smashing the safety glass of the door and window.^^";
-                    if (FlagisClear(F_BADDIES_FOLLOWING))
-                    {
-                        print"You raise your arms in an effort to shield yourself 
-                        but you are pummeled as well by the flying debris, knocking you unconscious. With a pained moan, the scanner
-                        winds down and stops and the room is eerily silent.^";
-                        deadflag = 5;
-                        rtrue;
-                    }
-                    print"You, Ratchet, Northrup, and Vic all scream and try to shield yourselves but to no purpose as the flying debris slams into everyone.^^
-                    Finally, the machine groans painfully to a halt, leaving you and your pursuers moaning on the floor.^^
-                    Propitiously, however, the police have finally made it through the blizzard and have arrived to survey the scene. The good news is 
-                    that you have unmasked the murderers to the thanks and gratitude of all. The bad news is that you are in no state to go back to 
-                    school after your run-in with the MRI machine. You miss just enough classroom days that you are required to attend summer
-                    school, despite your volunteer work.^";
-                    deadflag = 7;
-                    rtrue;
-   
-               "^^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI scanner becomes a loud whirring
-                screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
-                it's back to a mechanical ~chirping~ sound. ";
-    
-            if (location == hallway_2_3)
-            {
-                if (metal_cart in mri_scanner)
-               {
-                    print"^^Suddenly, you hear a dull loud ~clunk~ from within the walls to the north and the muted mechanical whining from the MRI
-                    scanner becomes a loud whirring screech. After a moment, you hear what sounds like projectiles smashing into glass and metal and 
-                    the noise from the other side of the wall winds down and stops.^";
-                    deadflag = 5;
-                    rtrue;
-               }
-               "^^Suddenly, you hear a loud ~clunk~ from the north and the mechanical whining from the MRI scanner becomes a loud whirring
-                screech from the other side of the door. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
-                quiet returns. ";
-            }
         ],
     has scenery;
 
