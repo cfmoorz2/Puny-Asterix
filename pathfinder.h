@@ -25,7 +25,8 @@ Class Room
                     {
                         if(obj has animate && obj.hide == false)
                         {
-                            print(The)obj," is ";
+                            print"^",(The)obj;
+                            if(obj has pluralname) { print" are ";}  else { print " is "; }
                             if(direction == u_obj) "up above. ";
                             if(direction == d_obj) "down below. ";
                             print"off to the ",(name)direction,".^";
@@ -232,8 +233,10 @@ Class Mover
             if (self provides npc_post_move) self.npc_post_move();
             if (self in real_location && self.hide == false) 
             {
-                !print"^",(name)self," is here.^";
-                self.describe();
+                print(The)self;
+                if(self has pluralname) { print" are ";}  else { print " is "; }
+                print"here.^";
+                !self.describe();
             }
             !self.hide = false;
             if (way == self.target_room && self.move_mode == TARGET_PATH) 
@@ -257,20 +260,26 @@ Class Mover
         {
             if (direction == d_obj) 
             {
-                print"^",(The)npc," is down below heading ";
+                print"^",(The)npc;
+                if(npc has pluralname) { print" are ";}  else { print " is "; }
+                print "down below heading ";
                 if (final == d_obj) "downstairs. ";
                 if (final == u_obj) "upstairs. ";
                 "to the ",(name)final,".";
             }
             if (direction == u_obj) 
             {
-                print"^",(The)npc," is up above heading ";
+                print"^",(The)npc;
+                if(npc has pluralname) { print" are ";}  else { print " is "; }
+                print"up above heading ";
                 if (final == d_obj) "downstairs. ";
                 if (final == u_obj) "upstairs. ";
                 "to the ",(name)final,".";
             }
             
-            print"^",(The)npc," is off to the ",(name)direction;
+            print"^",(The)npc;
+            if(npc has pluralname) { print" are ";}  else { print " is "; }
+            print"off to the ",(name)direction;
             if (final == d_obj) " heading downstairs. ";
             if (final == u_obj) " heading upstairs. ";
             " heading to the ",(name)final,".";
@@ -368,13 +377,17 @@ Class Mover
         rev_dir = reverse_dir(direction);
         if(direction == u_obj) 
         { 
-            print(The)npc,", following, enters from downstairs.^";
+            print(The)npc,", following, enter";
+            if(npc hasnt pluralname) { print"s";} 
+            print" from downstairs.^";
             if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
          }
         if(direction == d_obj) 
         { 
-            print(The)npc,", following, enters from upstairs.^";
+            print(The)npc,", following, enter";
+            if(npc hasnt pluralname) { print"s";} 
+            print" from upstairs.^";
             if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
         }

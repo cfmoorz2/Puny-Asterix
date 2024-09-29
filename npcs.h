@@ -195,15 +195,7 @@ Object vic "Vic"
                 if (syringe in player && denim_jacket in player) { print "He plucks the jacket and syringe from you.^"; remove denim_jacket;
                     remove syringe; }  
             }          
-        ], 
-        npc_arrived [;
-            if (parent(self) == mri_scanner)
-            {
-                StopDaemon(self); 
-                self.move_mode = 0;
-                rtrue;
-            }
-        ],       
+        ],     
     class Mover MyNPC
     has animate proper;
 
@@ -215,14 +207,6 @@ Object northrup "Dr. Northrup" northrup_office
             and a red face. ";
         "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ";
-        ],
-        npc_arrived [;
-            if (parent(self) == mri_scanner)
-            {
-                StopDaemon(self); 
-                self.move_mode = 0;
-                rtrue;
-            }
         ],
     class Mover MyNPC
     has animate proper;
@@ -278,12 +262,6 @@ Object nurse_retch "Nurse Retch" station_b
                 StartTimer(retch_timer_2, 3);
                 rtrue; 
             }
-            if (parent(self) == mri_scanner)
-            {
-                StopDaemon(self); 
-                self.move_mode = 0;
-                rtrue;
-            }
         ],
         
         each_turn [;
@@ -322,3 +300,36 @@ Object retch_timer_2
             StartDaemon(nurse_retch);
         ];
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object trio "Retch, Northrup, and Vic" 
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+        ],
+        description [;
+            switch (self.id)
+            {
+                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
+                and a red face. ";
+                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
+                veins lining her temples. ";
+                3: "He's smiling and seems to be enjoying himself. ";
+            }
+        ],
+        npc_arrived [;
+            if (parent(self) == mri_scanner)
+            {
+                StopDaemon(self); 
+                self.move_mode = 0;
+                rtrue;
+            }
+        ],
+    class Mover MyNPC
+    has animate proper pluralname transparent; 
