@@ -1492,8 +1492,8 @@ Room mri_scanner "MRI Suite"
     with description "This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
-        A thick window in the east wall allows a view into the control room. You can go east to the control room and 
-        a non-descript metal door leads south.",
+        A thick window in the east wall allows a view into the control room. There's a small hatch in the floor next to the scanner, presumably to 
+        allow service access. You can return east to the control. ",
         cheap_scenery
          'warning' 'sign' [;
             examine:
@@ -1533,6 +1533,40 @@ Bed mri_table "exam table" mri_scanner
     with name 'exam' 'table' 'white',
         description "It's a white exam table that would typically slide into the MRI tube. ",
     has scenery; 
+
+Object mri_hatch "hatch" mri_scanner
+    with 
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'compartment' && w2 == 'door') return 2;
+            if (w1 == 'hatch' or 'door') return 1;
+            if (w1 == 'hatch' && w2 == 'door') return 2;
+            if (w1 == 'compartment' or 'space') return 1;
+        ],
+        name 'hatch' 'compartment',
+        inside_description [;
+            if (self has open) "You're sitting in a small compartment under the floor of the MRI suite, surrounded 
+            by wiring conduits and pipes. ";
+            "You're crouched in a small dark compartment beneath the floor of the MRI suite, hemmed in by wiring conduits
+            and pipes. ";
+        ],
+        before [;
+            open:
+            if (self has open) "It's already open. ";
+            give self open;
+            "You open the hatch, revealing a small empty space surrounded by wires and pipes. ";
+            enter:
+            print"You climb down, squeezing yourself into the small compartment.^";
+            PlayerTo(self, 1);
+            rtrue;
+        ],
+        description [;
+            if (self has open) "Through an open hatch in the floor you can see a small dark space full of wires
+            and pipes. ";
+            "It's a closed hatch in the floor next to the MRI scanner. ";
+        ],
+    has scenery light container enterable openable ~open; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
