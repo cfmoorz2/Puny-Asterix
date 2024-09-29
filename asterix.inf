@@ -72,11 +72,12 @@ Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7;
 
 [ DeathMessage; 
-     if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
-     if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
-     if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
-     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
+    if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
+    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
+    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
+    if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
         summer school. ";
+    if (deadflag == 7) "You have nearly won. ";
     print "You have lost"; 
 ];
 

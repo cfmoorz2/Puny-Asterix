@@ -1371,41 +1371,6 @@ Object red_button "red button" mri_anteroom
         ],
     has scenery;
 
-Object metal_cart "cart" central_supply
-    with name 'metal' 'cart',
-        description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
-        large metal oxygen cannisters. ",
-            before [ dirobj;
-            take:
-                "Love the optimism but no. ";
-            push:
-                "You should supply a direction. ";
-            pull:
-                "It would make more sense to push it. ";
-            pushdir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you shove the heavy cart to the ";
-                print (string) direction_name_array-->selected_direction_index;
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue;   
-            receive:
-            "The cart is already full. ";  
-        ],
-    has supporter;
-
-Object oxygen "oxygen cannisters" metal_cart
-    with name 'oxygen' 'cannister' 'cannisters//p',
-        article "a bunch of",
-        description "You see a collection of maybe 20 large metal oxygen cannisters. ",
-        before [;
-            take:
-                "Each cannister on its own is too heavy and awkward. ";
-        ],
-    has scenery;
-
 Object green_button "green button" mri_anteroom
     with name 'green' 'button',
         description"It's a large green button. It's labelled ~Scan~. ",
@@ -1438,13 +1403,26 @@ Object green_button "green button" mri_anteroom
             {
                 if (metal_cart in mri_scanner)
                {
+                    
                     print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
                     screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
                     noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-                    missile bashing into the white tube and smashing the safety glass of the door and window. With a scream, you try to shield yourself 
-                    but you are pummeled as well by the flying debris, knocking you unconscious. With a pained moan, the scanner
-                    winds down and stops and the room is eerily silent.^";
-                    deadflag = 4;
+                    missile bashing into the white tube and smashing the safety glass of the door and window.^^";
+                    if (FlagisClear(F_BADDIES_FOLLOWING))
+                    {
+                        print"You raise your arms in an effort to shield yourself 
+                        but you are pummeled as well by the flying debris, knocking you unconscious. With a pained moan, the scanner
+                        winds down and stops and the room is eerily silent.^";
+                        deadflag = 5;
+                        rtrue;
+                    }
+                    print"You, Ratchet, Northrup, and Vic all scream and try to shield yourselves but to no purpose as the flying debris slams into everyone.^^
+                    Finally, the machine groans painfully to a halt, leaving you and your pursuers moaning on the floor.^^
+                    Propitiously, however, the police have finally made it through the blizzard and have arrived to survey the scene. The good news is 
+                    that you have unmasked the murderers to the thanks and gratitude of all. The bad news is that you are in no state to go back to 
+                    school after your run-in with the MRI machine. You miss just enough classroom days that you are required to attend summer
+                    school, despite your volunteer work.^";
+                    deadflag = 7;
                     rtrue;
                }
                "^^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI scanner becomes a loud whirring
@@ -1567,6 +1545,41 @@ Object mri_hatch "hatch" mri_scanner
             "It's a closed hatch in the floor next to the MRI scanner. ";
         ],
     has scenery light container enterable openable ~open; 
+
+Object metal_cart "cart" mri_scanner !central_supply
+    with name 'metal' 'cart',
+        description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
+        large metal oxygen cannisters. ",
+            before [ dirobj;
+            take:
+                "Love the optimism but no. ";
+            push:
+                "You should supply a direction. ";
+            pull:
+                "It would make more sense to push it. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you shove the heavy cart to the ";
+                print (string) direction_name_array-->selected_direction_index;
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;   
+            receive:
+            "The cart is already full. ";  
+        ],
+    has supporter;
+
+Object oxygen "oxygen cannisters" metal_cart
+    with name 'oxygen' 'cannister' 'cannisters//p',
+        article "a bunch of",
+        description "You see a collection of maybe 20 large metal oxygen cannisters. ",
+        before [;
+            take:
+                "Each cannister on its own is too heavy and awkward. ";
+        ],
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
