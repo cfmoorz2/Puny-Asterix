@@ -398,8 +398,9 @@ Tape jorry_tape "cassette tape with a green label" rock
     several powerful people. I have records of all of this in a ledger locked in my safe. To delay Northrup from finding it, 
     I have secretly swapped safes with him. My safe is now in his office. The combination is ";
     print SAFE_1,", ",SAFE_2,", ",SAFE_3,".^^";
-    "You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
+    print"You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
     information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
+    boombox_playing = false;
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1183,6 +1183,7 @@ Object northrup_desk "desk" northrup_office
     with name 'mahogany' 'desk',
         description"It's carved from mahogany and looks very old and very expensive. ",
         before [;
+            if (player in file_cabinet) "You can't reach that from up here. ";
             take:
                 "You're just begging for a hernia. ";
         ],
@@ -1192,6 +1193,7 @@ InChair northrup_chair "leather chair" northrup_office
     with name 'plush' 'leather' 'executive' 'chair',
         description"It's a large plush executive leather chair. ",
         before [;
+            if (player in file_cabinet) "You can't reach that from up here. ";
             take:
                 "It's too heavy. ";
         ],
@@ -1207,6 +1209,7 @@ Object northrup_lamp "floor lamp" northrup_office
             if (self has on) "on."; else "off.";
         ],
         before [;
+            if (player in file_cabinet) "You can't reach that from up here. ";
             take:
                 "It's not a battered trusty portable light source. ";   
         ],
@@ -1221,6 +1224,7 @@ Object northrup_safe "safe" northrup_office
             is currently set to ",SAFE_CURRENT,".";
         ],
         before [;
+            if (player in file_cabinet) "You can't reach that from up here. ";
             take:
                 "It's far too heavy. ";
         ],
@@ -1234,6 +1238,7 @@ Object combo_dial "dial" northrup_office
             diameter and it's currently set to ",SAFE_CURRENT,".^";
         ],
         before [;
+            if (player in file_cabinet) "You can't reach that from up here. ";
             TurnClockwiseTo:
             if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
             print"You turn the dial clockwise to ",second,".^";
