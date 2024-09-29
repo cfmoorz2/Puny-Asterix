@@ -101,6 +101,10 @@ Class Mover
         life [ ;
             if (self notin real_location) print_ret(The)self," isn't here. ";
         ],
+        before [;
+            give, show:
+            if (self notin real_location) print_ret(The)self," isn't here. ";
+        ],
         hide false,
     has animate;
 

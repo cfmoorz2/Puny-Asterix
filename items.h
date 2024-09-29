@@ -17,7 +17,7 @@ Class MyContainer
     has container;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object swipe_card "security card" !security_desk
+Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',
         description "It's a white plastic rectangular swipe card. ",
         mass 1,
@@ -485,7 +485,7 @@ Object cocktail_shrimp "bowlfull of shrimp" shrimp_bowl
     has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object shrimp "rotten shrimp" 
+Object shrimp "rotten shrimp" !garbage_can
     with name 'rotten' 'putrid' 'nasty' 'shrimp',
         description "It's a single boiled shrimp, left behind and well past its expiration date. ",
         mass 1,
@@ -562,7 +562,7 @@ Object syringe "syringe" jacket_pocket
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ladder "ladder" hallway_m2
+Object ladder "ladder" environmental_services
     with name 'ladder' 'metal' 'folding',
     mass 26,
         description [;

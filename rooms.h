@@ -595,7 +595,7 @@ Object book_cart "book cart" station_b
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
         you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
         and old magazines currently on offer to any interested patients. ",
-        before [ dirobj;
+        before [ dirobj x;
             take:
                 "It's far too heavy. ";
             push:
@@ -605,8 +605,16 @@ Object book_cart "book cart" station_b
             pushdir:
                 dirobj = DirPropToFakeObj(selected_direction);
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you push the cart to the ";
-                print (string) direction_name_array-->selected_direction_index;
+                print"Wheels grinding and squeaking, you push the cart ";
+                !print"Wheels grinding and squeaking, you push the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
                 print".^^";
 			    <Go dirobj>;
 			    move self to real_location;
@@ -1499,7 +1507,7 @@ Object mri_hatch "hatch" mri_scanner
         ],
     has scenery light container enterable openable ~open; 
 
-Object metal_cart "cart" mri_scanner !central_supply
+Object metal_cart "cart" central_supply
     with name 'metal' 'cart',
         description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
         large metal oxygen cannisters. ",
