@@ -8,6 +8,23 @@ Extend 'read' replace
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   DIALING PHONES
+Verb 'dial'
+    * noun -> DialObj
+    * number -> DialNumber;
+
+Verb 'hang'
+    * 'up' noun -> Drop;
+
+[DialObjSub;
+    if (noun ~= handset) "I'm not sure how you can dial ",(the)noun,". ";
+];
+
+[DialNumberSub;
+    if (handset notin player)   "You're not holding the phone. ";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   LOOK UNDER 
 Extend 'look' first 
     * 'under' noun ->LookUnder;

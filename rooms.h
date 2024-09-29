@@ -1857,7 +1857,7 @@ Room storage "Storage"
         A tall but narrow brown metal cabinet stands in one corner. ";
         if (player notin storage_locker) print"A battered full-length metal locker faces it on the 
         other side of the room. ";
-        "The exit lies through a metal door to the south. ";
+        "A black telephone is mounted on the wall. The exit lies through a metal door to the south. ";
     ],
         before [;
             go:
@@ -1935,6 +1935,80 @@ Object storage_locker "locker" storage
             the storage room. ";
         ],
     has container open enterable scenery;
+
+Object telephone "telephone" storage
+    with name 'black' 'phone' 'telephone',
+        description [;
+            print"It's a black phone. The base is mounted to the wall and the rotary dial is embedded in the handset. ";
+            if (handset in self) "The handset is in the cradle. "; else "";
+            ],
+        before [;
+            DialObj:
+                <<dialobj handset>>;
+            Take:
+                <<take handset>>;
+            Drop:
+                <<drop handset>>;
+        ],  
+        describe [;
+            rtrue;
+        ],
+    has scenery container open transparent;
+
+Object handset "handset" telephone 
+    with name 'handset',
+        description "It's a black phone handset. It has a rotary dial and is attached to the wall unit by a black coiled cord. ",
+        mass 0,
+        before [;
+            DialObj:
+                if (self notin player) print "(first taking the handset)^";
+                DialPhone();
+                move self to telephone;
+                "^You hang up the phone. "; 
+            Drop:
+                if (self in player) {
+                    move self to telephone;
+                    "You hang up the phone. ";
+                }   else "You're not holding the handset. "; 
+        ],
+        after [;
+            Take:
+                "You hold it to your ear and hear a dial tone. ";
+        ],
+        describe [;
+            rtrue;
+        ],
+        react_before [;
+            Go:
+                if (self in player)   {
+                    move self to telephone;
+                    print"(first hanging up the phone)^";
+                };
+            DialNumber:
+                if (self notin player) print "(first taking the handset)^";
+                DialPhone();
+                move self to telephone;
+                "^You hang up the phone. ";  
+        ],
+    has concealed;
+
+Object dial "dial" storage
+    with name 'rotary' 'dial',
+        description "It's a plastic rotary phone dial. ",
+        before [;
+            Take:
+                "It's part of the handset. ";
+        ],
+    has scenery;
+
+Object phone_cord "phone cord" storage
+    with name 'black' 'coiled' 'cord',
+        description "It's a black coil of phone cord. ",
+    before [;
+            Take:
+                "That's attached to the phone.";
+    ],
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"

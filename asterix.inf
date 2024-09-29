@@ -208,6 +208,19 @@ Include "VerbLib";
     "combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".";
 ];
 
+[ DialPhone ;
+    print"You dial the phone...^";
+    print (string) random(
+    "You seem to have reached the local weather line. You learn that there's a blizzard outside. ",
+    "You seem to have reached a local movie theater. You are pleased to hear that ~Doctor Detroit~ will be playing 
+    tomorrow at 3:30, 6:15, 9:24, and 11:14pm. ",
+    "You seem to have reached a pizza parlor one town over. The person on the other end snippily informs you that they are not currently 
+    delivering due to the blizzard conditions. He also asks if you are insane. ",
+    "You seem to have reached an adult-oriented phone chat service. While somewhat curious, you, unfortunately, don't have a
+    credit card yet. ",
+    "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
+];
+
 Object endgame_daemon
     with 
         daemon [;
@@ -218,6 +231,6 @@ Object endgame_daemon
 Include "Grammar";
 #Endif;
 
-Verb 'hang'	 * held 'on' noun	-> PutOn;
+!Verb 'hang'	 * held 'on' noun	-> PutOn;
 
 ! ============================================================================ !
