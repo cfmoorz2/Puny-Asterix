@@ -67,6 +67,7 @@ Class Mover
             {
                 self.target_room = real_location;
                 if (self notin real_location) path_move(parent(self), self.target_room);
+                if (self provides npc_arrived) self.npc_arrived(); 
                     !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)

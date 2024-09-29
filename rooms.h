@@ -574,7 +574,7 @@ Room hallway_m1 "hallway_m1"
             go:
             if (selected_direction == e_to && ledger in player && FlagIsClear(F_BADDIES_FOLLOWING)) 
             {
-                StartTimer(follow_timer, 3);
+                StartTimer(follow_timer, 4);
                 SetFlag(F_BADDIES_FOLLOWING);
                 print"^You hear a noise in the darkness behind you. You turn to see Dr. Northrup, Nurse Retch, and Vic standing in the 
                 shadows down the hallway to the west. The doctor and the nurse look furious but you notice Vic is smiling 
@@ -1383,26 +1383,13 @@ Object green_button "green button" mri_anteroom
             with the number 5 displayed. ";
         ],
         time_out [;
-            if (location == mri_anteroom) 
-            {
-               if (metal_cart in mri_scanner)
-               {
-                    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-                    screech. Through the window you see the metal cart and the oxygen cannisters on it start to shake violently. As the 
-                    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-                    missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
-                    winds down and stops and the room is eerily silent.^";
-                    deadflag = 3;
-                    rtrue;
-               }
-                "^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-                screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
-                it's back to a mechanical ~chirping~ sound. ";
-            }
-            if (location == mri_scanner)
-            {
-                if (metal_cart in mri_scanner)
-               {
+            if (metal_cart notin mri_scanner) { mri_no_cart(); rtrue; }
+            if (real_location == mri_anteroom) { mri_cart_anteroom(); rtrue; }
+            if (player in mri_hatch && mri_hatch has open) { mri_cart_hatch_open(); rtrue; }
+            if (player in mri_hatch && mri_hatch hasnt open) { mri_cart_hatch_closed(); rtrue; }
+            "DROPPED THROUGH";
+            rtrue;
+
                     
                     print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
                     screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
@@ -1424,11 +1411,11 @@ Object green_button "green button" mri_anteroom
                     school, despite your volunteer work.^";
                     deadflag = 7;
                     rtrue;
-               }
+   
                "^^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI scanner becomes a loud whirring
                 screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
                 it's back to a mechanical ~chirping~ sound. ";
-            }
+    
             if (location == hallway_2_3)
             {
                 if (metal_cart in mri_scanner)
@@ -1533,7 +1520,8 @@ Object mri_hatch "hatch" mri_scanner
             open:
             if (self has open) "It's already open. ";
             give self open;
-            "You open the hatch, revealing a small empty space surrounded by wires and pipes. ";
+            if (player in mri_scanner) "You open the hatch, revealing a small empty space surrounded by wires and pipes. ";
+                "You open the hatch. ";
             enter:
             print"You climb down, squeezing yourself into the small compartment.^";
             PlayerTo(self, 1);

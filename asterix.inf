@@ -72,7 +72,7 @@ Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7;
 
 [ DeathMessage; 
-    if (deadflag == 3) print "Now they'll never give you credit for your volunteerism. ";
+    if (deadflag == 3) print"You are doomed to summer school. ";
     if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
     if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
@@ -242,9 +242,45 @@ Object follow_timer
 Object endgame_daemon
     with 
         daemon [;
-            if (vic in real_location || nurse_retch in real_location || northrup in real_location)
-                "THEY CATCH YOU.";
+            if (parent(player) == parent(vic) || parent(player) == nurse_retch || parent(player) == northrup)
+                print"THEY CATCH YOU.^";
         ];
+
+[ mri_no_cart ;
+    if (real_location == mri_anteroom or mri_scanner)
+         "^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+        screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
+        it's back to a mechanical ~chirping~ sound. ";
+    
+];
+
+[ mri_cart_anteroom; 
+    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
+    screech. Through the window you see the metal cart and the oxygen cannisters on it start to shake violently. As the 
+    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
+    missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
+    winds down and stops and the room is eerily silent.^^Your heart sinks as you realize that now you'll never get credit for 
+    your volunteer time.";
+    deadflag = 3;
+    rtrue;
+];
+
+[ mri_cart_hatch_open;
+    "HATCH IS OPEN AND YOU GET CRUSHED";
+    if (FlagIsSet(F_BADDIES_FOLLOWING)) 
+    {
+        print"^^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the walls surrounding you becomes a loud screech. 
+        Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
+        the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
+        MRI scanner and the screeching winds down and the you hear only eerie silence.";
+        deadflag = 2;  
+    }
+];
+
+[ mri_cart_hatch_closed;
+    if (FlagIsSet(F_BADDIES_FOLLOWING)) "HATCH IS *CLOSED* AND YOU WIN";
+        "HATCH IS CLOSED AND YOU BREAK EVERYTHING AND LOSE. ";
+];
         
 #Ifdef USEINFORM;
 Include "Grammar";

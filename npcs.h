@@ -195,7 +195,15 @@ Object vic "Vic"
                 if (syringe in player && denim_jacket in player) { print "He plucks the jacket and syringe from you.^"; remove denim_jacket;
                     remove syringe; }  
             }          
-        ],        
+        ], 
+        npc_arrived [;
+            if (parent(self) == mri_scanner)
+            {
+                StopDaemon(self); 
+                self.move_mode = 0;
+                rtrue;
+            }
+        ],       
     class Mover MyNPC
     has animate proper;
 
@@ -207,6 +215,14 @@ Object northrup "Dr. Northrup" northrup_office
             and a red face. ";
         "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
         white lab coat over a crisp shirt and tie. ";
+        ],
+        npc_arrived [;
+            if (parent(self) == mri_scanner)
+            {
+                StopDaemon(self); 
+                self.move_mode = 0;
+                rtrue;
+            }
         ],
     class Mover MyNPC
     has animate proper;
@@ -260,8 +276,16 @@ Object nurse_retch "Nurse Retch" station_b
                 StopDaemon(self); 
                 self.move_mode = 0; 
                 StartTimer(retch_timer_2, 3);
-                rtrue; }
+                rtrue; 
+            }
+            if (parent(self) == mri_scanner)
+            {
+                StopDaemon(self); 
+                self.move_mode = 0;
+                rtrue;
+            }
         ],
+        
         each_turn [;
             if (self in storage && player in storage_locker)
             {
