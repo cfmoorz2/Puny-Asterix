@@ -649,7 +649,8 @@ Object magazines "magazines" book_cart
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "hallway_m2"
-    with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. ",
+    with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. 
+    You notice that one of the tiles in the drop ceiling is ajar and you can see darkness behind it. ",
         before [;
             go:
             if (selected_direction == u_to && ladder in self) 
@@ -664,7 +665,8 @@ Room hallway_m2 "hallway_m2"
                 rtrue;
                 }
             examine:
-            if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. You can see darkness behind it. ";
+            if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. 
+                You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
         ],
     e_to hallway_m1,
@@ -866,7 +868,7 @@ OnChair folding_chair "metal folding chair" admin_hallway
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor french_doors "french doors" 
-    with name 'french' 'double' 'door' 'doors//p',
+    with name 'french' 'double' 'doors',
         description [;
             print"They're a pair of glass french doors, currently ";
             open_or_closed(self);

@@ -562,7 +562,7 @@ Object syringe "syringe" jacket_pocket
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ladder "ladder" environmental_services
+Object ladder "ladder" engineering
     with name 'ladder' 'metal' 'folding',
     mass 26,
         description [;
