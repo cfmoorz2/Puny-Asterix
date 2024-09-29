@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
   <diagram name="Page-1" id="ifslNYAoz_acobLtJExe">
-    <mxGraphModel dx="3196" dy="3311" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="2827" dy="3165" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -619,12 +619,6 @@
             <mxPoint x="910" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Se65NE5hqtVho5Owk1Go-10" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Ro30wuysqxpOcJ6ZnLPi-1" target="Ro30wuysqxpOcJ6ZnLPi-8" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="800" y="780" as="sourcePoint" />
-            <mxPoint x="850" y="730" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="H6gIyjHhuOFso3kUnR7H-1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="279.5" y="-1200" as="sourcePoint" />
@@ -730,7 +724,7 @@
         <mxCell id="Jl3BJ8tSFotL6OoS965q-39" value="northrup_office" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="840" y="498" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="9zYE6To8k06LG8xaKJ0f-1" value="Mens&#39; Locker Room" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="9zYE6To8k06LG8xaKJ0f-1" value="Mens&#39; Locker Room" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="855" y="1618" width="130" height="30" as="geometry" />
         </mxCell>
       </root>
