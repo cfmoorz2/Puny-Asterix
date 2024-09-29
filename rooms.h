@@ -1295,11 +1295,10 @@ Object red_line "red line"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "hallway_2_3" 
-    with description "This long dim hallway continues east towards the radiology suite and west toward the elevators.
-        It's otherwise empty here except for a plain unmarked door to the north. ",
+    with description "This long dim hallway continues east towards the radiology suite and west 
+        toward the elevators. ",
     w_to elevator_lobby_2,
     e_to radiology,
-    n_to mri_exit_door,
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1328,6 +1327,14 @@ Room mri_anteroom "MRI Anteroom"
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
             metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
             injury or property damage may result~. ";
+        ],
+         after [;
+            go:
+            if (selected_direction == e_to) 
+            {
+                give scanner_door ~open;
+                print"The glass door swings closed behind you.^^";
+            }
         ],
         s_to radiology,
         w_to scanner_door,
@@ -1500,8 +1507,15 @@ Room mri_scanner "MRI Suite"
             metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
             injury or property damage may result~. ";
         ],
+        after [;
+            go:
+            if (selected_direction == w_to) 
+            {
+                give scanner_door ~open;
+                print"The glass door swings closed behind you.^^";
+            }
+        ],
         e_to scanner_door,
-        s_to mri_exit_door,
     has light;
 
 Object mri_machine "MRI machine" mri_scanner
@@ -1519,30 +1533,6 @@ Bed mri_table "exam table" mri_scanner
     with name 'exam' 'table' 'white',
         description "It's a white exam table that would typically slide into the MRI tube. ",
     has scenery; 
-
- !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor mri_exit_door "metal exit door"
-     with name 'exit' 'metal' 'door',
-        description [;
-            print"It's an unassuming metal door, currently ";open_or_closed(self);".";
-        ],
-        door_to [;
-            if (parent(self) == mri_scanner) return hallway_2_3; return mri_scanner;
-        ],
-        door_dir [;
-            if (self in hallway_2_3) return n_to; return s_to;
-        ],
-        found_in hallway_2_3 mri_scanner,
-        before [;
-            open:
-            if (real_location == hallway_2_3) "It seems to be locked from the other side. ";
-        ],
-        react_after [;
-            go:
-                if (selected_direction == s_to)  { give self ~open; print"^As you pass through the door it shuts behind you with 
-                    a ~click~.^^"; }
-        ],
-    has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
