@@ -77,6 +77,18 @@ Class Mover
                 wander_move();
             }
             objectloop (i in parent(self))  {
+                if(FlagIsSet(F_BADDIES_FOLLOWING) && (self == nurse_retch or northrup or vic) && i == ledger)
+                {
+                    if(IndirectlyContains(mri_scanner, self))
+                    {
+                        print"THEY PAUSE I NTHE MRI SUITE.";
+                    } else
+                    {   
+                        print"THEY TAKE THE LEDGER AND YOU LOSE.^";
+                        deadflag = true;
+                        rtrue;
+                    }
+                }
                 if(i has valuable) {
                     move i to self;
                     if(self in real_location) print(The)self," picks up ",(a)i,".^";

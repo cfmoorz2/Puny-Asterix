@@ -574,11 +574,8 @@ Room hallway_m1 "hallway_m1"
             go:
             if (selected_direction == e_to && ledger in player && FlagIsClear(F_BADDIES_FOLLOWING)) 
             {
+                StartTimer(follow_timer, 3);
                 SetFlag(F_BADDIES_FOLLOWING);
-                StartDaemon(endgame_daemon);
-                move terrible_trio to hallway_m2;
-                terrible_trio.move_mode = FOLLOW_PATH;
-                StartDaemon(terrible_trio);
                 print"^You hear a noise in the darkness behind you. You turn to see Dr. Northrup, Nurse Retch, and Vic standing in the 
                 shadows down the hallway to the west. The doctor and the nurse look furious but you notice Vic is smiling 
                 and has one hand thrust into an inner pocket. Northrup moves first, stepping toward you, his eyes fixed 

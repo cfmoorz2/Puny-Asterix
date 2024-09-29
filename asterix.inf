@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = hallway_m1;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
 
 #Ifndef USEINFORM;
@@ -99,7 +99,7 @@ Constant F_BADDIES_FOLLOWING 7;
 [ GamePreRoutine ;
     if (action == ##go) 
     {
-        print"GO^";
+        !print"GO^";
     }
     rfalse;
 ];
@@ -142,8 +142,9 @@ Include "puny.h";
     oliver.move_mode = TARGET_PATH;
 	oliver.target_room = conference_room;
     StartDaemon(oliver);
-    move swipe_card to player;
-    move syringe to player;
+    !move swipe_card to player;
+    !move syringe to player;
+    move ledger to player;
     init_safe();
     !SetFlag(F_SAW_KNOCK_SPOT);
 ];
@@ -220,11 +221,27 @@ Include "VerbLib";
     credit card yet. ",
     "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
 ];
+Object follow_timer 
+    with
+        time_left,
+        time_out [;
+            StartDaemon(endgame_daemon);
+            move nurse_retch to hallway_m2;
+            move vic to hallway_m2;
+            move northrup to hallway_m2;
+            nurse_retch.move_mode = FOLLOW_PATH;
+            vic.move_mode = FOLLOW_PATH;
+            northrup.move_mode = FOLLOW_PATH;
+            StartDaemon(nurse_retch);
+            StartDaemon(vic);
+            StartDaemon(northrup);
+        ];
 
 Object endgame_daemon
     with 
         daemon [;
-            !"THEY FOLLOW";
+            if (vic in real_location || nurse_retch in real_location || northrup in real_location)
+                "THEY CATCH YOU.";
         ];
         
 #Ifdef USEINFORM;
