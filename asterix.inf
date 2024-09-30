@@ -40,9 +40,8 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-!Constant INITIAL_LOCATION_VALUE = admin_hallway;
-Constant INITIAL_LOCATION_VALUE = station_b;
-!Constant INITIAL_LOCATION_VALUE = elevator_lobby_3;
+!Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;
 
@@ -133,6 +132,7 @@ Global following = false;
 ];
 
 Include "ext_cheap_scenery.h";
+Include "ext_talk_menu.h";
 Include "puny.h";
 
 [ Initialise r;
@@ -158,6 +158,7 @@ Include "my_grammar.h";
 Include "compass.h";
 Include "pathfinder.h";
 Include "rooms.h";
+Include "conversations.h";
 Include "npcs.h";
 Include "items.h";
 Include "elevator.h";
