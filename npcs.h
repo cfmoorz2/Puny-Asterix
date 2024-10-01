@@ -264,14 +264,43 @@ Object sphygmomanometer "sphygmomanometer" danny
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object doris "Doris" station_a
+    with name 'nurse' 'doris',
+        description "She's one of the nurses assigned to ward A tonight. She has gray hair haphazardly pushed 
+        into her white nurse's cap and is wearing a white nurse uniform. She appears to be in her 60s and carries a laid-back 
+        air, having seen everything a nurse can see and counting the days until retirement. ",
+        describe [; print"^Nurse Doris is here, ";
+            print_ret (string) random( "checking her nails. ",
+            "charting some vitals. ", "daydreaming. ");
+        ],
+        !talk_array talk_array_doris, 
+    class Mover MyNPC
+    has animate proper transparent; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object linda "Linda" station_a
+    with name 'aide' 'linda',
+        description "She's the super-cheery nurse's aide assigned to ward A. She's in her 40s and is 
+        perpetually smiling. She has bright red hair curled into a tight perm and wears green scrubs. ",
+        describe [; print"^Linda the nurse's aide is here, ";
+            print_ret (string) random( "twirling a curl of hair with an index finger. ",
+            "smiling. ", "humming to herself. ");
+        ],
+        npc_wander_delay 3,
+        npc_avoid hallway_3_2,
+        !talk_array talk_array_linda, 
+    class Mover MyNPC
+    has animate proper transparent; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object maria "Maria" station_b
     with name 'aide' 'maria',
-        description "She's the nurse's aide assigned to ward b. She's a latina in her 30s. 
+        description "She's the nurse's aide assigned to ward B. She's a latina in her 30s. 
         She has long black hair pulled back into a pony-tail and wears pink scrubs ",
         describe [; "^Maria the nurse's aide is here, being helpful. "; ],
         !talk_array talk_array_maria, 
         npc_wander_delay 3,
-        npc_avoid hallway_3_2,
+        npc_avoid hallway_2_2,
     class Mover MyNPC
     has animate proper transparent;  
 
