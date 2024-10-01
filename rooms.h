@@ -1430,7 +1430,7 @@ Room mri_scanner "MRI Suite"
         allow service access. You can return east to the control anteroom. ";
         if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
         glass window into the control room is shattered. Oxygen cannisters are scattered on the floor.^";
-    ],
+        ],
         cheap_scenery
          'warning' 'sign' [;
             examine:
@@ -1443,6 +1443,9 @@ Room mri_scanner "MRI Suite"
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
             metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
             injury or property damage may result~. ";
+        ],
+        before [;
+            if (player in mri_hatch && noun in self && noun ~= mri_hatch) "You need to get out of the compartment first. ";
         ],
         after [;
             go:
@@ -1459,7 +1462,6 @@ Object mri_machine "MRI machine" mri_scanner
     with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner',
         description "It's a large white box with a large white tube attached. The bore of the tube is about two feet across. ",
         before [;
-            if (player in mri_hatch) "You need to get out of the compartment first. ";
             enter:
                 "You enter the narrow dark tube, immediately start to hyperventilate, and then quickly climb out. ";
             take:
@@ -1472,7 +1474,7 @@ Bed mri_table "exam table" mri_scanner
         description "It's a white exam table that would typically slide into the MRI tube. ",
     has scenery; 
 
-Object mri_hatch "hatch" mri_scanner
+Object mri_hatch "compartment" mri_scanner
     with 
         parse_name [ w1 w2 ;
             w1 = NextWord();
@@ -1509,8 +1511,10 @@ Object mri_hatch "hatch" mri_scanner
 
 Object metal_cart "cart" central_supply
     with name 'metal' 'cart',
-        description "It's an old steel push cart, battered and rusted in spots. It's loaded with 
-        large metal oxygen cannisters. ",
+        description [;
+            print"It's an old steel push cart, battered and rusted in spots. ";
+            if (FlagIsClear(F_MRI_SUITE_DESTROYED)) "It's loaded with large metal oxygen cannisters. ";
+            ],
             before [ dirobj;
             take:
                 "Love the optimism but no. ";
@@ -1535,7 +1539,10 @@ Object metal_cart "cart" central_supply
 Object oxygen "oxygen cannisters" metal_cart
     with name 'oxygen' 'cannister' 'cannisters//p',
         article "a bunch of",
-        description "You see a collection of maybe 20 large metal oxygen cannisters. ",
+        description [;
+            print"You see a collection of maybe 20 large metal oxygen cannisters ";
+            if (FlagIsClear(F_MRI_SUITE_DESTROYED)) "scattered on the floor. "; "collected on the metal cart. ";
+        ],
         before [;
             take:
                 "Each cannister on its own is too heavy and awkward. ";

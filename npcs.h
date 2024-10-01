@@ -300,7 +300,7 @@ Object maria "Maria" station_b
         describe [; "^Maria the nurse's aide is here, being helpful. "; ],
         !talk_array talk_array_maria, 
         npc_wander_delay 3,
-        npc_avoid hallway_2_2,
+        npc_avoid hallway_3_2,
     class Mover MyNPC
     has animate proper transparent;  
 
