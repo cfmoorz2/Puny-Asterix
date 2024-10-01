@@ -88,17 +88,6 @@ Object morgue_table "metal table" morgue
         description "It's a narrow stainless steel table that stands about waist level. ",
     has scenery supporter;
 
-Object body "body" morgue_table
-    with name 'sid' 'jorry' 'body' 'corpse',
-        description "It's the former Sid Jorry, the hospital CFO. He reminds you of your Uncle Sid, a corpulent fellow 
-        with a large bushy mustache and a ring of hair encircling his otherwise bald head. His eyes are closed (thank goodness) 
-        and his complexion is sallow. There's an IV placed in the back of his left hand. ",
-        before [;
-            take:
-            "He'd just be dead weight. ";
-        ],
-    has scenery;
-
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
     with name 'door',

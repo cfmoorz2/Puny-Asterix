@@ -1,6 +1,5 @@
 Class MyNPC
     with 
-        max_capacity 24,
         holding [counter i;
             objectloop(i in self && i hasnt worn)   {
                 !counter = counter + i.mass;
@@ -42,6 +41,9 @@ Object oliver "Oliver" morgue
         coat over jeans and a flannel shirt. He wears thick glasses and a mop of brown hair that hasn't seen a comb today.",
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
+        ],
+        describe [;
+            if(self in morgue) "^Oliver the morgue assistant is here doing some paperwork. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   
@@ -134,6 +136,9 @@ Object eugene "Eugene" environmental_services
         npc_wander_delay 5,
         npc_avoid stairwell_b,
         npc_walk [; print"pushes the mop bucket";],
+        describe [;
+            "^Eugene the janitor is here, bopping and mopping. ";
+        ],
     class Mover MyNPC
     has animate proper transparent;  
 
@@ -221,6 +226,57 @@ Object mabel "Mabel" main_lobby
     has animate female proper;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object becky "Becky" station_b
+    with name 'nurse' 'becky',
+        description "She's one of the nurses on duty on Ward B tonight. She's a cheerful blonde in 
+        her late 20s and St. Asterix is her first nursing job. She's attired in the standard white nursing 
+        uniform. ",
+        describe [; print"^Nurse Becky is here, ";
+            print_ret (string) random ("charting some vital signs. ", "adjusting her white nurse's cap. ",
+            "looking at the clock. ");
+        ],
+        !talk_array talk_array_becky, 
+    class Mover MyNPC
+    has animate proper transparent;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object danny "Danny" station_a
+    with name 'nurse' 'danny',
+        description "He's one of the nurses assigned to ward A tonight. He's thirty-ish with prematurely 
+        thinning hair and glasses. He's dressed in a white shirt, white pants, and black-and-white checkered
+        Vans. ",
+        describe [; print"^Nurse Danny is here, ";
+            print_ret (string) random( "idly futzing with a sphygmomanometer. ",
+            "charting some vitals. ", "pondering a move to warmer climes. ");
+        ],
+        !talk_array talk_array_danny, 
+    class Mover MyNPC
+    has animate proper transparent; 
+
+Object sphygmomanometer "sphygmomanometer" danny
+    with
+        name 'sphygmomanometer' 'cuff',
+        description "It's a standard sphygmoma-whozit, used to take blood pressures. ",
+        before [;
+            take:
+            "It's nearly unpronounceable, so you don't need it. ";
+        ],
+    has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object maria "Maria" station_b
+    with name 'aide' 'maria',
+        description "She's the nurse's aide assigned to ward b. She's a latina in her 30s. 
+        She has long black hair pulled back into a pony-tail and wears pink scrubs ",
+        describe [; "^Maria the nurse's aide is here, being helpful. "; ],
+        !talk_array talk_array_maria, 
+        npc_wander_delay 3,
+        npc_avoid hallway_3_2,
+    class Mover MyNPC
+    has animate proper transparent;  
+
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object nurse_retch "Nurse Retch" station_b
     with name 'nurse' 'retch',
         description [;
@@ -230,6 +286,9 @@ Object nurse_retch "Nurse Retch" station_b
                 tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
                 nurse uniform with a white nurse cap pinned to her hair. ";
         ],
+        describe [;
+            if (self in station_b) "^Nurse Retch is here performing some nursing-related activities. ";
+            ],
         life [;
             give, show:
             if (noun == syringe) 

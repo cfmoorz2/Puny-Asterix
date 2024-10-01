@@ -40,8 +40,8 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-!Constant INITIAL_LOCATION_VALUE = station_b;
-Constant INITIAL_LOCATION_VALUE = main_lobby;
+Constant INITIAL_LOCATION_VALUE = station_a;
+!Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;
 
@@ -144,6 +144,8 @@ Include "puny.h";
     StartDaemon(master_timer);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
+    maria.move_mode = WANDER_PATH;
+    StartDaemon(maria);
     oliver.move_mode = TARGET_PATH;
 	oliver.target_room = conference_room;
     StartDaemon(oliver);
