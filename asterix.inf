@@ -143,6 +143,8 @@ Include "puny.h";
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
     mixtape.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
+    winston.move_mode = WANDER_PATH;
+    StartDaemon(winston);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
     maria.move_mode = WANDER_PATH;

@@ -348,16 +348,34 @@ Room room_34 "Room 34"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
     with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.
-        The floor is scuffed linoleum and a steaming radiator hisses under a window. The way out is to the north. ",
+        The floor is scuffed linoleum and a steaming radiator hisses under a window. A bed is pushed against one 
+        wall and the exit is to the north. ",
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
             "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
             take, touch, pull, push:
             "I guess third-degree burns are your thing?";
+        ]
+        1 'pillow' [;
+            examine:
+            "It's a thin lumpy pillow. ";
+            take:
+            "You don't need the lumpy pillow. ";
+        ]
+        'green' 'blanket' [;
+            examine:
+            "It's a thin greenish blanket. ";
+            take:
+            "Edith needs the blanket more than you do. ";
         ],
         n_to station_b,
     has light;
+
+Bed room_32_bed "bed" room_32 
+    with 
+        name 'bed',
+        description "It's a standard hospital bed. ";    
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"

@@ -296,14 +296,13 @@ Object linda "Linda" station_a
 Object maria "Maria" station_b
     with name 'aide' 'maria',
         description "She's the nurse's aide assigned to ward B. She's a latina in her 30s. 
-        She has long black hair pulled back into a pony-tail and wears pink scrubs ",
+        She has long black hair pulled back into a pony-tail and wears pink scrubs. ",
         describe [; "^Maria the nurse's aide is here, being helpful. "; ],
         !talk_array talk_array_maria, 
         npc_wander_delay 3,
         npc_avoid hallway_3_2,
     class Mover MyNPC
     has animate proper transparent;  
-
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object nurse_retch "Nurse Retch" station_b
@@ -447,3 +446,40 @@ Object injured_trio "Retch, Northrup, and Vic"
             "Dr. Northrup, Nurse Retch, and Vic are here, incacapitated on the floor. ";
         ],
     has animate proper pluralname transparent; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object winston "Winston" hallway_3_4
+    with name 'winston',
+        description "He's a thin enderly gentleman with sparse strands of white hair on a bald head 
+        pocked with age spots. A gray four-day stubble shades his cheeks and chin. He's wearing a 
+        hospital gown and slip-proof socks. He pushes a wheeled IV pole in front of him. ",
+        describe [;  
+            print"^Winston is here. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's a bored patient pushing an IV pole up and down the wards. ";
+        ],
+        npc_walk [; print"pushes his IV pole";],
+        npc_wander_delay 4,
+        npc_avoid storage conference_room break_room stairwell_3 room_32 room_33 room_34,
+    class Mover MyNPC
+    has animate proper transparent; 
+
+Object winston_pole "IV pole" winston
+    with name 'iv' 'i.v.' 'pole',
+        description"It's a wheeled metal pole with a hook at the top for hanging IV fluids. There's a clear bag of 
+            saline hooked to it. ",
+        before [;
+            take:
+                if (noun == self) "You should leave Winston's IV alone. ";
+            ], 
+    has static;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object edith "Edith" room_32_bed
+    with name 'edith',
+        description "She's a thin elderly woman resting on the bed. Her gray hair is messily sprawled across her pillow 
+        and she's covered by a threadbare green blanket. ",
+        !talk_array talk_array_edith, 
+    class Mover MyNPC
+    has animate proper transparent;  
