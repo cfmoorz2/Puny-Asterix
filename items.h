@@ -600,9 +600,22 @@ Object ledger "ledger" northrup_safe
             that weird guy you sat next to who would only shower, like, twice a week?";
         ],
     has item;
-        
 
-
-
-
-
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object letter "letter" 
+    with 
+        name 'letter' 'confirmation',
+        description "It's a typed letter signed by and on Sid Jorry's letterhead. ",
+        initial "A piece of paper is here fluttering in the air. ",
+        before [;
+            read:
+            "~This will confirm that Candy Striper has successfully completed her mandatory volunteer
+            assignment here at St. Asterix.^^Sincerely,^Sid Jorry, CFO";
+        ],
+        after [;
+            take:
+            print"YOU WIN^^";
+            deadflag = 2;
+            rtrue;
+        ],
+    has item;

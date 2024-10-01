@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = station_a;
+Constant INITIAL_LOCATION_VALUE = station_b;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;
@@ -61,7 +61,7 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
-Constant FLAG_COUNT 7;
+Constant FLAG_COUNT 8;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -69,6 +69,7 @@ Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
 Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7;
+Constant F_MRI_SUITE_DESTROYED 8;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school. ";
@@ -278,7 +279,10 @@ Object endgame_daemon
         Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
         MRI scanner and the screeching winds down and the you hear only eerie silence.";
-        deadflag = 2; 
+        SetFlag(F_MRI_SUITE_DESTROYED);
+        remove trio;
+        move injured_trio to mri_scanner;
+        move letter to mri_scanner;
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
@@ -302,7 +306,10 @@ Object endgame_daemon
         you duck down into the compartment, shutting the hatch behind you. Above you, you hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
         MRI scanner and the screeching winds down and the you hear only eerie silence.";
-        deadflag = 2; 
+        SetFlag(F_MRI_SUITE_DESTROYED);
+        remove trio;
+        move injured_trio to mri_scanner;
+        move letter to mri_scanner;
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 

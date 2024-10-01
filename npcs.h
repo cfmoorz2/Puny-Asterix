@@ -421,3 +421,29 @@ Object trio "Retch, Northrup, and Vic"
         ],
     class Mover MyNPC
     has animate proper pluralname transparent; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object injured_trio "Retch, Northrup, and Vic" 
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+        ],
+        description [;
+            switch (self.id)
+            {
+                1: "He's lying on the floor. He's moaning, battered, and bruised. ";
+                2: "She's grunting painfully and angrily, rolling around on the floor. ";
+                3: "His face is bruised and swollen and he groans painfully. ";
+            }
+        ],
+        describe [;
+            "Dr. Northrup, Nurse Retch, and Vic are here, incacapitated on the floor. ";
+        ],
+    has animate proper pluralname transparent; 

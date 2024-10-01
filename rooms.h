@@ -1116,15 +1116,14 @@ Room northrup_office "Northrup's Office"
                 ~Ahh, the candystriper I've heard about. The one poking around into things that have nothing to do with her;
                 things she doesn't understand; things she may be misinterpreting?~^^
                 He smiles for a moment and then his face hardens.^^
-                ~I don't know what you think is happening here, young lady. But I believe you need a letter testifying 
-                to your successful completion of your volunteer assignment here at St. Asterix. Now that poor Mr. Jorry 
+                ~I don't know what you think is happening here, young lady.~ He pulls a piece of paper from a pocket
+                and holds it up. You squint and see that it's on Mr. Jorry's letterhead and seems to be your letter verifying 
+                the successful completion of your volunteer assignment. ~But I believe you need a letter. And now that poor Mr. Jorry 
                 has passed away, that letter would come from me. So if I were you, I'd finish out my time this evening and 
-                be done with it.~^^
-                He turns to Nurse Retch.^^
-                ~I think we'd best have a talk with our mutual friend. And you, my dear, need to leave.~^^
-                Northrup motions to the door and you step out into the anteroom. He and Nurse Retch follow and Northrup 
-                closes the locks the office door behind him. He and Retch quickly leave to the east and disappear 
-                down the dark hallway.^^";
+                be done with it.~^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend. 
+                And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the anteroom. He and 
+                Nurse Retch follow and Northrup closes the locks the office door behind him. He and Retch quickly leave 
+                to the east and disappear down the dark hallway.^^";
                 remove nurse_retch;
                 remove northrup;
                 give northrup_door ~open;
@@ -1423,11 +1422,15 @@ Object green_button "green button" mri_anteroom
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room mri_scanner "MRI Suite"
-    with description "This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
+    with description [;
+        print"This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
         A thick window in the east wall allows a view into the control room. There's a small hatch in the floor next to the scanner, presumably to 
-        allow service access. You can return east to the control. ",
+        allow service access. You can return east to the control anteroom. ";
+        if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
+        glass window into the control room is shattered. Oxygen cannisters are scattered on the floor.^";
+    ],
         cheap_scenery
          'warning' 'sign' [;
             examine:
@@ -1456,6 +1459,7 @@ Object mri_machine "MRI machine" mri_scanner
     with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner',
         description "It's a large white box with a large white tube attached. The bore of the tube is about two feet across. ",
         before [;
+            if (player in mri_hatch) "You need to get out of the compartment first. ";
             enter:
                 "You enter the narrow dark tube, immediately start to hyperventilate, and then quickly climb out. ";
             take:
