@@ -483,3 +483,29 @@ Object edith "Edith" room_32_bed
         !talk_array talk_array_edith, 
     class Mover MyNPC
     has animate proper transparent;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object larry "Larry" room_33_bed
+    with name 'larry',
+        description "He's a jaundiced gentleman in his 60s. He's quite large; the hospital bed barely contains him. 
+        He has thick grey hair and his cheeks are ruddy. ",
+        !talk_array talk_array_larry, 
+    class Mover MyNPC
+    has animate proper transparent;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object elliot "Elliot" hallway_2_3
+    with name 'elliot',
+        description "He's a young athletic blonde blond gentleman in his 20s. He's rolling idly up and 
+        down the hallways in a wheelchair, his right leg propped in front of him in a cast. ",
+        describe [;  
+            print"^Elliot is here. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's rolling up and down the hallway in his wheelchair. ";
+        ],
+        npc_walk [; print"rolls";],
+        npc_wander_delay 3,
+        npc_avoid radiology stairwell_2 room_21 room_22 room_23,
+    class Mover MyNPC
+    has animate proper transparent; 

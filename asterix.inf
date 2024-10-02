@@ -145,6 +145,8 @@ Include "puny.h";
     StartDaemon(master_timer);
     winston.move_mode = WANDER_PATH;
     StartDaemon(winston);
+    elliot.move_mode = WANDER_PATH;
+    StartDaemon(elliot);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
     maria.move_mode = WANDER_PATH;
