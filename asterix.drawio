@@ -484,7 +484,7 @@
         <mxCell id="l9DeKeTZ9b0HpHlxS__q-6" value="room_22" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="-80" y="960" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="l9DeKeTZ9b0HpHlxS__q-7" value="room_23" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+        <mxCell id="l9DeKeTZ9b0HpHlxS__q-7" value="room_24&lt;div&gt;(elliot)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="80" y="960" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="l9DeKeTZ9b0HpHlxS__q-8" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="l9DeKeTZ9b0HpHlxS__q-7" target="Wa4HmB7pNGT4p0sFPQ5S-1" edge="1">
@@ -583,7 +583,7 @@
         <mxCell id="Se65NE5hqtVho5Owk1Go-2" value="room_32&lt;div&gt;(edith)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="-80" y="1600" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Se65NE5hqtVho5Owk1Go-3" value="room_33" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+        <mxCell id="Se65NE5hqtVho5Owk1Go-3" value="room_33&lt;div&gt;(larry)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="80" y="1280" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Se65NE5hqtVho5Owk1Go-4" value="room_34" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
