@@ -226,34 +226,20 @@ Object mabel "Mabel" main_lobby
     has animate female proper;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object becky "Becky" station_b
+Object becky "Becky" station_a
     with name 'nurse' 'becky',
-        description "She's one of the nurses on duty on Ward B tonight. She's a cheerful blonde in 
+        description "She's the nurse on duty on Ward A tonight. She's a cheerful blonde in 
         her late 20s and St. Asterix is her first nursing job. She's attired in the standard white nursing 
-        uniform. ",
+        uniform and is wearing black and white checkered Vans. ",
         describe [; print"^Nurse Becky is here, ";
             print_ret (string) random ("charting some vital signs. ", "adjusting her white nurse's cap. ",
-            "looking at the clock. ");
+            "idly playing with a sphygmomanometer. ");
         ],
         !talk_array talk_array_becky, 
     class Mover MyNPC
-    has animate proper transparent;  
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object danny "Danny" station_a
-    with name 'nurse' 'danny',
-        description "He's one of the nurses assigned to ward A tonight. He's thirty-ish with prematurely 
-        thinning hair and glasses. He's dressed in a white shirt, white pants, and black-and-white checkered
-        Vans. ",
-        describe [; print"^Nurse Danny is here, ";
-            print_ret (string) random( "idly futzing with a sphygmomanometer. ",
-            "charting some vitals. ", "pondering a move to warmer climes. ");
-        ],
-        !talk_array talk_array_danny, 
-    class Mover MyNPC
     has animate proper transparent; 
 
-Object sphygmomanometer "sphygmomanometer" danny
+Object sphygmomanometer "sphygmomanometer" becky
     with
         name 'sphygmomanometer' 'cuff',
         description "It's a standard sphygmoma-whozit, used to take blood pressures. ",
@@ -261,21 +247,7 @@ Object sphygmomanometer "sphygmomanometer" danny
             take:
             "It's nearly unpronounceable, so you don't need it. ";
         ],
-    has scenery;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object doris "Doris" station_a
-    with name 'nurse' 'doris',
-        description "She's one of the nurses assigned to ward A tonight. She has gray hair haphazardly pushed 
-        into her white nurse's cap and is wearing a white nurse uniform. She appears to be in her 60s and carries a laid-back 
-        air, having seen everything a nurse can see and counting the days until retirement. ",
-        describe [; print"^Nurse Doris is here, ";
-            print_ret (string) random( "checking her nails. ",
-            "charting some vitals. ", "daydreaming. ");
-        ],
-        !talk_array talk_array_doris, 
-    class Mover MyNPC
-    has animate proper transparent; 
+    has scenery; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object linda "Linda" station_a
@@ -310,7 +282,7 @@ Object nurse_retch "Nurse Retch" station_b
         description [;
             if(FlagIsSet(F_BADDIES_FOLLOWING)) "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
                 veins lining her temples. ";
-                "She's an austere-looking woman in her 40s. Her jet black hair is pulled back into a 
+                "She's the nurse assigned to Ward B tonight. She's an austere-looking woman in her 40s. Her jet black hair is pulled back into a 
                 tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
                 nurse uniform with a white nurse cap pinned to her hair. ";
         ],
@@ -509,3 +481,15 @@ Object elliot "Elliot" hallway_2_3
         npc_avoid radiology stairwell_2 room_21 room_22 room_23,
     class Mover MyNPC
     has animate proper transparent; 
+
+Object wheelchair "wheelchair" elliot
+    with
+        name 'wheelchair' 'chair' 'wheels',
+        description "It's a standard wheelchair. Elliot is occupying it currently. ",
+        before [;
+            take:
+            "It's currently in use. ";
+            push:
+            "Elliot waves off your assistance. ";
+        ],
+    has scenery;
