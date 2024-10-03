@@ -46,7 +46,6 @@ Constant INITIAL_LOCATION_VALUE = station_b;
 #Ifndef USEINFORM;
 
 Include "globals.h";
-Global FREDDY_ASLEEP = false;
 Global dial_setting = 0;
 Global elevator_level = 0;
 Global elevator_call_level;
@@ -61,7 +60,7 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 
-Constant FLAG_COUNT 8;
+Constant FLAG_COUNT 9;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -70,6 +69,7 @@ Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7;
 Constant F_MRI_SUITE_DESTROYED 8;
+Constant F_FREDDY_ASLEEP 9;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school. ";

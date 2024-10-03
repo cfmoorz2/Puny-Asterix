@@ -70,7 +70,11 @@ Object flashlight "flashlight" mabel
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global boombox_playing = true;
 Object boombox "boombox" admin_hallway
-    with name 'boombox' 'box' 'player' 'compartment',
+    with 
+        name 'boombox' 'box' 'player' 'compartment',
+        describe [;
+            if (self hasnt moved) "A boombox sits on the floor next to Freddy. ";
+        ],
         description [ obj;
             print"It's a boxy silver plastic and metal boombox with a black carrying handle. The tape compartment in 
             the side is currently ";
@@ -91,11 +95,12 @@ Object boombox "boombox" admin_hallway
             if(boombox_playing) "and that the little rotors are turning. "; else "and that the little 
             rotors are motionless. ";
         ],
+        
         before [;
             open:
                 <<push eject_button>>;
             take:
-            if (self in admin_hallway && freddy in folding_chair && FREDDY_ASLEEP == false) 
+            if (self in admin_hallway && freddy in folding_chair && FlagIsClear(F_FREDDY_ASLEEP)) 
                 "Freddy stirs himself. ~Hey, hands off my tunes, man.~";
             receive:
             if (children(self) > 5 ) "There's already a tape in the boombox. ";
@@ -110,7 +115,6 @@ Object boombox "boombox" admin_hallway
             }
                 rfalse;
         ],
-        describe [; if (self in admin_hallway) rtrue;],
         mass 6, 
         each_turn [ obj;
             obj = boombox.tape_is_loaded();
@@ -436,12 +440,12 @@ Tape air_supply_tape "cassette tape with a blue label" environmental_desk
                     }
                 }
                 print".^";
-                if (FREDDY_ASLEEP == false) 
+                if (FlagIsClear(F_FREDDY_ASLEEP))
                 {
                     print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
                     drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
                     begins to snore.^";
-                    FREDDY_ASLEEP = true;
+                    SetFlag(F_FREDDY_ASLEEP);
                 }
         ],
         each_turn [;

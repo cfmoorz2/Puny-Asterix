@@ -865,7 +865,7 @@ Room admin_hallway "Administration"
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
     before [;
         go:
-        if (selected_direction == n_to && FREDDY_ASLEEP == false) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
+        if (selected_direction == n_to && FlagIsClear(F_FREDDY_ASLEEP)) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
         Northrup's orders.~";
     ],
     e_to hallway_m2,
@@ -877,7 +877,12 @@ Room admin_hallway "Administration"
 OnChair folding_chair "metal folding chair" admin_hallway
     with name 'metal' 'folding' 'chair',
         description "It's a standard metal folding chair. ",
-        invent "",
+        before [;
+            take:
+            "Freddy is sitting on it. ";
+            enter:
+            "The chair is already occupied. ";
+        ],
     has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -907,7 +912,7 @@ OnChair folding_chair "metal folding chair" admin_hallway
         ],
         before [;
             open:
-            if (real_location == admin_hallway && FREDDY_ASLEEP == false) 
+            if (real_location == admin_hallway && FlagIsClear(F_FREDDY_ASLEEP)) 
             "Freddy stops you. ~Sorry, dude. Nobody goes in until the cops get here. ";
         ],
         door_to [;
@@ -930,7 +935,7 @@ Room jorry_office "Office"
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
         His eyes, thankfully, are closed.^";
         if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
-            There's no trace of any papers or documents. ";
+            There's no trace of any papers or documents, including your completion letter. ";
     ],
     cheap_scenery
     4 'painting' 'paintings//p' 'picture' 'pictures//p' [;

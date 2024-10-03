@@ -42,22 +42,35 @@ Object oliver "Oliver" morgue
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
         ],
-        describe [;
-            if(self in morgue) "^Oliver the morgue assistant is here doing some paperwork. ";
+        describe [;  
+            print"^Oliver is here. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's the morgue assistant assigned to the night shift. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object freddy "Freddy" folding_chair
+Object freddy "Freddy" admin_hallway
     with name 'freddy' 'security' 'guard',
         description [;
             print"He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
             make it here through the blizzard. He's in his early 20s. He wears a blue uniform shirt, partially untucked, and dark blue 
             pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
-            if (FREDDY_ASLEEP == true) "He's leaning back in a folding chair snoring and deeply asleep. "; else 
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's leaning back in a folding chair snoring and deeply asleep. "; else 
             "He's leading back against the wall in a metal folding chair. His lids are heavy and
-            he's having a tough time staying awake. ";
+            he's struggling to stay awake. ";
+        ],
+        describe [;  
+            print"^Freddy is here. ";
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's tipped back in his chair deeply asleep. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's one of the third-shift security guards. He's been tasked with guarding Sid Jorry's office until the police can 
+            make it here through the blizzard. He's grossly unqualified but rumor is his uncle is on the hospital board. 
+            He's leading back against the wall in a metal folding chair. His lids are heavy and he's having a tough 
+            time staying awake. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   
