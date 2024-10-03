@@ -96,7 +96,6 @@ Constant F_MRI_SUITE_DESTROYED 8;
     }
 ];
 
-
 [ GamePreRoutine ;
     if (action == ##give || action == ##show) 
     {
@@ -108,6 +107,17 @@ Constant F_MRI_SUITE_DESTROYED 8;
     }
     rfalse;
 ];
+
+[ BeforeParsing x;
+    for (wn=2 : wn<parse->1 : wn++)
+    if (buffer->(parse->(4*wn + 1)) == '.' &&
+    parse-->(2*wn - 3) == 'dr' or 'mr' or 'mrs' or 'prof' or
+    'rev' or 'st' && parse-->(2*wn + 1) == 'chen') {
+    buffer->(parse->(4*wn + 1)) = ' ';
+    x++;
+    }
+    if (x) @tokenise buffer parse;
+    ];
 
 Global following = false;
 

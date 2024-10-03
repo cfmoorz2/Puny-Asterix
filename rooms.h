@@ -32,9 +32,8 @@ Class OnChair
 
 Class Bed
     with sit_or_lie,
-        before [ obj;
+        before [ ;
             enter:
-                objectloop(obj in self && obj has animate && obj ~= player) "There's already someone in the bed."; 
                 if (verb_word == 'sit' or 'lie' or 'get')    {
                     if (self == parent(player) && self.sit_or_lie == verb_word)
                     "You're already on it. ";
@@ -336,7 +335,11 @@ Room room_33 "Room 33"
 
 Bed room_33_bed "patient bed" room_33
     with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "Larry is fully occupying the bed. ";
+        ]; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_34 "Room 34"
@@ -375,7 +378,11 @@ Room room_32 "Room 32"
 Bed room_32_bed "bed" room_32 
     with 
         name 'bed',
-        description "It's a standard hospital bed. ";    
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "I don't think edith wants to spoon. ";
+        ];    
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"

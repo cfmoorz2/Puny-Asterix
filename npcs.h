@@ -448,19 +448,35 @@ Object winston_pole "IV pole" winston
     has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object edith "Edith" room_32_bed
+Object edith "Edith" room_32
     with name 'edith',
         description "She's a thin elderly woman resting on the bed. Her gray hair is messily sprawled across her pillow 
         and she's covered by a threadbare green blanket. ",
         !talk_array talk_array_edith, 
+        describe [;
+            if (self hasnt encountered) 
+            {
+                give self encountered;
+                "^Edith, a frial elderly patient is lying in the bed. ";
+            }
+            "^Edith is lying in the bed. ";
+        ],
     class Mover MyNPC
     has animate proper transparent;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object larry "Larry" room_33_bed
+Object larry "Larry" room_33
     with name 'larry',
         description "He's a jaundiced gentleman in his 60s. He's quite large; the hospital bed barely contains him. 
         He has thick grey hair and his cheeks are ruddy. ",
+        describe [;
+            if (self hasnt encountered) 
+            {
+                give self encountered;
+                "^Larry, a corpulent gentleman is lying in the bed. ";
+            }
+            "^Larry is lying in the bed. ";
+        ],
         !talk_array talk_array_larry, 
     class Mover MyNPC
     has animate proper transparent;  
@@ -493,3 +509,21 @@ Object wheelchair "wheelchair" elliot
             "Elliot waves off your assistance. ";
         ],
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object mrs_chen "Mrs. Chen" room_21
+    with 
+        name 'mrs' 'chen',
+        description "She's a small birdlike cheery Chinese lady with short gray here and a constant smile 
+            on her face. She doesn't speak English but retains an air of wise insight. ",
+        describe [;
+            if (self hasnt encountered) 
+            {
+                give self encountered;
+                "^Mrs. Chen, a small Chinese lady is lying in the bed. ";
+            }
+            "^Mrs. Chen is lying in the bed. ";
+        ],
+    class Mover MyNPC
+    has animate proper transparent; 
+
