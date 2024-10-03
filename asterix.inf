@@ -108,12 +108,13 @@ Constant F_MRI_SUITE_DESTROYED 8;
     rfalse;
 ];
 
-[ BeforeParsing x;
-    for (wn=2 : wn<parse->1 : wn++)
-    if (buffer->(parse->(4*wn + 1)) == '.' &&
-    parse-->(2*wn - 3) == 'dr' or 'mr' or 'mrs' or 'prof' or
-    'rev' or 'st' && parse-->(2*wn + 1) == 'chen') {
-    buffer->(parse->(4*wn + 1)) = ' ';
+[ BeforeParsing x local_parse;
+    local_parse = parse;
+    for (wn=2 : wn<local_parse->1 : wn++)
+    if (buffer->(local_parse->(4*wn + 1)) == '.' &&
+    local_parse-->(2*wn - 3) == 'dr' or 'mr' or 'mrs' or 'ms' && local_parse-->(2*wn + 1) == 'chen' or 'johnson' 
+        or 'winston' or 'northrup' or 'parsons') {
+    buffer->(local_parse->(4*wn + 1)) = ' ';
     x++;
     }
     if (x) @tokenise buffer parse;
@@ -155,6 +156,8 @@ Include "puny.h";
     StartDaemon(master_timer);
     winston.move_mode = WANDER_PATH;
     StartDaemon(winston);
+    mr_johnson.move_mode = WANDER_PATH;
+    StartDaemon(mr_johnson);
     elliot.move_mode = WANDER_PATH;
     StartDaemon(elliot);
     eugene.move_mode = WANDER_PATH;

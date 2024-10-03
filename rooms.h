@@ -381,7 +381,7 @@ Bed room_32_bed "bed" room_32
         description "It's a standard hospital bed. ",
         before [;
             enter:
-                "I don't think edith wants to spoon. ";
+                "I don't think Edith wants to spoon. ";
         ];    
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1680,7 +1680,7 @@ Room a_ward_1 "Ward A - East"
 Room room_23 "Room 23"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
-        leads north back out to the hallway. ",
+        leads south back out to the hallway. ",
         s_to a_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
@@ -1750,7 +1750,11 @@ Room room_21 "Room 21"
 
 Bed room_21_bed "patient bed" room_21
     with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "It's not a sleepover. ";
+        ];  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_22 "Room 22"
@@ -1769,7 +1773,11 @@ Room room_22 "Room 22"
 
 Bed room_22_bed "patient bed" room_22
     with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "You might accidentally crush Ms. Parsons. ";
+        ];  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_3 "hallway_3_3"

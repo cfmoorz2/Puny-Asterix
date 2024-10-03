@@ -206,7 +206,7 @@ Object vic "Vic"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
-    with name 'northrup' 'doctor' 'walt' 'walter',  
+    with name 'dr' 'northrup' 'doctor' 'walt' 'walter',  
         description [;
         if(FlagIsSet(F_BADDIES_FOLLOWING)) "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
             and a red face. ";
@@ -420,13 +420,14 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object winston "Winston" hallway_3_4
-    with name 'winston',
+Object winston "Mr. Winston" hallway_3_4
+    with 
+        name 'mr' 'winston',
         description "He's a thin enderly gentleman with sparse strands of white hair on a bald head 
         pocked with age spots. A gray four-day stubble shades his cheeks and chin. He's wearing a 
         hospital gown and slip-proof socks. He pushes a wheeled IV pole in front of him. ",
         describe [;  
-            print"^Winston is here. ";
+            print"^Mr. Winston is here. ";
             if(self has encountered) "";
             give self encountered;
             "He's a bored patient pushing an IV pole up and down the wards. ";
@@ -460,6 +461,25 @@ Object edith "Edith" room_32
                 "^Edith, a frial elderly patient is lying in the bed. ";
             }
             "^Edith is lying in the bed. ";
+        ],
+    class Mover MyNPC
+    has animate proper transparent;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ms_parsons "Ms. Parsons" room_22
+    with name 'ms' 'parsons',
+        description "She's a small pouch of wrinkled skin and scant white hair. She's nearly swallowed up
+        by her gown and the bed she's lying in. She's smiling but her eyes are closed. You pause for a moment 
+        to make sure she's breathing... Yes. She is. ",
+        describe [;
+            if (self hasnt encountered) 
+            {
+                give self encountered;
+                "^Ms. Parsons, a frail hyper-elderly lady is lying in the bed. She's recognized as the oldest resident of the 
+                Tri-state area. The best guess is that she's 103 years old. She has dementia and doesn't talk much but is always 
+                smiling. She once claimed that the secret to her longevity was that she never married. ";
+            }
+            "^Ms. Parsons is lying in the bed. ";
         ],
     class Mover MyNPC
     has animate proper transparent;  
@@ -514,7 +534,7 @@ Object wheelchair "wheelchair" elliot
 Object mrs_chen "Mrs. Chen" room_21
     with 
         name 'mrs' 'chen',
-        description "She's a small birdlike cheery Chinese lady with short gray here and a constant smile 
+        description "She's a small birdlike cheery Chinese lady with short gray hair and a constant smile 
             on her face. She doesn't speak English but retains an air of wise insight. ",
         describe [;
             if (self hasnt encountered) 
@@ -527,3 +547,19 @@ Object mrs_chen "Mrs. Chen" room_21
     class Mover MyNPC
     has animate proper transparent; 
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object mr_johnson "Mr. Johnson" room_23
+    with name 'mr' 'johnson',
+        description "He's a middle-aged gentleman of average height pushing a rolling walker. He's tan with 
+        short black hair. He's wearing a gown and non-slip socks. ",
+        describe [;  
+            print"^Mr. Johnson is here. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's pushing a rolling walker ahead of him up and down the halls. ";
+        ],
+        npc_walk [; print"rolls";],
+        npc_wander_delay 2,
+        npc_avoid stairwell_2 mri_anteroom x_ray room_21 room_22 room_24,
+    class Mover MyNPC
+    has animate proper transparent; 

@@ -466,7 +466,7 @@
         <mxCell id="l9DeKeTZ9b0HpHlxS__q-1" value="room_21&lt;div&gt;(mrs_chen)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="-80" y="640" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="l9DeKeTZ9b0HpHlxS__q-2" value="room_23" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+        <mxCell id="l9DeKeTZ9b0HpHlxS__q-2" value="room_23&lt;div&gt;(mr_johnson)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="80" y="640" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="l9DeKeTZ9b0HpHlxS__q-4" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="Wa4HmB7pNGT4p0sFPQ5S-3" target="l9DeKeTZ9b0HpHlxS__q-1" edge="1">
