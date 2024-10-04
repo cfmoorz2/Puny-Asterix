@@ -98,7 +98,7 @@ Object boombox "boombox" admin_hallway
         
         before [;
             open:
-                <<push eject_button>>;
+                <<push bb_eject_button>>;
             take:
             if (self in admin_hallway && freddy in folding_chair && FlagIsClear(F_FREDDY_ASLEEP)) 
                 "Freddy stirs himself. ~Hey, hands off my tunes, man.~";
@@ -131,7 +131,7 @@ Object boombox "boombox" admin_hallway
         ],
     has container transparent openable item;
 
-Object eject_button "eject button" boombox
+Object bb_eject_button "eject button" boombox
     with name 'eject' 'button', 
         article "an",
         description"It's a chunky black button with the 'eject' symbol on the top. ",
@@ -144,7 +144,7 @@ Object eject_button "eject button" boombox
         ],
     has scenery;
 
-Object play_button "play button" boombox
+Object bb_play_button "play button" boombox
     with name 'play' 'button',
         description"It's a chunky black button with a 'play' arrow on the top. ",
         before [ obj;
@@ -160,7 +160,7 @@ Object play_button "play button" boombox
         ],
     has scenery;   
 
-Object stop_button "stop button" boombox
+Object bb_stop_button "stop button" boombox
     with name 'stop' 'button',
         description"It's a chunky black button with the 'stop' square on the top. ",
         before [;
@@ -171,7 +171,7 @@ Object stop_button "stop button" boombox
         ],
     has scenery;   
 
-Object fast_forward_button "fast forward button" boombox
+Object bb_fast_forward_button "fast forward button" boombox
     with name 'fast' 'forward' 'button',
         description"It's a chunky black button with two 'FF' arrows on the top. ",
         before [ obj;
@@ -191,7 +191,7 @@ Object fast_forward_button "fast forward button" boombox
         ],
     has scenery;  
 
-Object rewind_button "rewind button" boombox
+Object bb_rewind_button "rewind button" boombox
     with name 'rewind' 'button',
         description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
         before [ obj;
@@ -275,6 +275,7 @@ Class Tape
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
             x = SIDE_END - x;
             self.current_track = x;
+            rtrue;
             !print_ret"now current track = ",self.current_track,".";
         ],
     rewind [ i;
