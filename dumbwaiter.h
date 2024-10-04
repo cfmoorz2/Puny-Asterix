@@ -52,8 +52,15 @@
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 DumbwaiterShaft basement_dumbwaiter hallway_b1;
-Object basement_dumbwaiter_door "metal door" hallway_b1
-    with name 'metal' 'sliding' 'door',
+Object basement_dumbwaiter_door "dumbwaiter door" hallway_b1
+    with 
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
+            if (w1 == 'sliding' && w2 == 'door') return 2;
+            if (w1 == door) return 1;
+        ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
             open_or_closed(self);
@@ -108,16 +115,25 @@ Object third_floor_dumbwaiter_door "metal door" hallway_3_2
     has scenery;
 
 DumbwaiterShaft sub_basement_dumbwaiter sub_basement_01;
-Object sub_basement_dumbwaiter_door "metal door" sub_basement_01
-    with name 'metal' 'sliding' 'door',
+Object sub_basement_dumbwaiter_door "dumbwaiter door" sub_basement_01
+    with
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
+            if (w1 == 'sliding' && w2 == 'door') return 2;
+            if (w1 == 'door' or 'sliding') return 1;
+        ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(self);
+            open_or_closed(sub_basement_dumbwaiter);
             ".";
         ],
         before [;
             open:
                 <<open sub_basement_dumbwaiter>>;
+            close:
+                <<close sub_basement_dumbwaiter>>;
         ],
     has scenery;
 

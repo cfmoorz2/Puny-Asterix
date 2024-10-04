@@ -2216,6 +2216,7 @@ Object sub_basement_01 "Hallway"
             w3 = NextWord();
             if (w1 == 'boiler' && w2 == 'room' && w3 == 'door') return 3;
             if (w1 == 'boiler' && w2 == 'door') return 2;
+            if (w1 == 'door') return 1;
         ],
         description [;
             print"It's a heavy thick metal door, currently ";open_or_closed(self);".";
