@@ -59,6 +59,8 @@ Global SAFE_2;
 Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
+Global walkman_playing = false;
+Global dummy_walkman_playing = false;
 
 Constant FLAG_COUNT 9;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
@@ -86,7 +88,9 @@ Constant F_FREDDY_ASLEEP 9;
     {
        if (action == ##flip && obj in boombox && obj ofclass tape) return 2; !else return 0;
        if (action == ##Take && obj in boombox && obj ofclass tape) return 0; !else return 2;
+       if (action == ##push && IndirectlyContains(player, obj)) return 2;
     }
+
     if(code == 0)   {
         if(action == ##drop) if(obj notin actor) return 2;
         if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
@@ -173,6 +177,7 @@ Include "puny.h";
     !move syringe to player;
     !move ledger to player;
     init_safe();
+    move walkman to player;
     !SetFlag(F_SAW_KNOCK_SPOT);
 ];
 

@@ -68,6 +68,190 @@ Object flashlight "flashlight" mabel
     has switchable valuable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object dummy_headphones "dummy headphones" 
+    with
+        name 'dummy' 'headphones' 'phones',
+        article "a pair of",
+        description "You see two poofy orange ear pieces at the end of a round strip of metal. ",
+        before [ t_obj ;
+            plugin:
+            if (dummy_headphones in player)
+            {
+                print"(into the walkman)^";
+            }
+            move walkman to parent(dummy_walkman);
+            t_obj = dummy_walkman.tape_is_loaded();
+            if (t_obj ~= 0) move t_obj to walkman;
+            if (self has worn) give walkman worn;
+            walkman_playing = dummy_walkman_playing;
+            remove dummy_headphones;
+            remove dummy_walkman;
+            "You plug the headphones into the walkman. ";
+        ]
+    has item clothing;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object dummy_walkman "dummy walkman" 
+    with 
+        name 'walkman' 'player',
+        description [ obj;
+            print"It's a portable tape player. The tape compartment in the side is 
+            currently ";
+            if(self has open) print "open. "; else print"closed. ";
+            print"Several chunky black buttons protrude from the side including 'play', 'stop', 
+            'f-fwd', 'rewind', and 'eject'. ";
+            if (self has open)
+            {
+                objectloop (obj in self)
+                {
+                    if (obj ofclass tape) "A cassette tape sits in the open compartment. ";
+                }
+                "The open compartment is empty. ";
+            }
+            objectloop (obj in self)
+            {
+                if (obj ofclass Tape) print"Through the little window you can see a cassette tape inside "; 
+            }
+            if(dummy_walkman_playing == true) "and that the little rotors are turning. "; "and that the little 
+            rotors are motionless. ";
+        ],
+        before [;
+            open:
+                <<push wm_eject_button>>;
+            receive:
+            if (children(self) > 5 ) "There's already a tape in the walkman. ";
+            wear:
+            if(self has worn) "You're already wearing the headphones. ";
+            give self worn;
+            "The headphones aren't plugged in. ";
+        ],
+        invent [;
+            if (inventory_stage == 2) rtrue;
+        ],
+        tape_is_loaded  [ obj;
+            objectloop(obj in self)
+            {
+                if (obj ofclass Tape) return obj;
+            }
+                rfalse;
+        ],
+        each_turn [ obj;
+            obj = dummy_walkman.tape_is_loaded();
+                if(obj && dummy_walkman_playing == true)
+                {
+                    if (obj.tape_advance == ADVANCE_TIMER)
+                    {
+                        obj.advance();
+                        obj.tape_advance = 0;
+                        rtrue;
+                    }
+                    obj.tape_advance++;
+                }   
+        ],
+    has container transparent openable item clothing;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object walkman "walkman" station_b
+    with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'walkman' or 'player') { self.id = 0; return 1; }
+            if (w1 == 'headphones' or 'phones') { self.id = 1; return 1; }
+        ],
+        id, !0 = walkman, 1 = headphones
+        description [ obj;
+            if (self.id == 0)
+            {
+                print"It's a walkman with headphones. The tape compartment in the side is 
+                currently ";
+                if(self has open) print "open. "; else print"closed. ";
+                print"Several chunky black buttons protrude from the side including 'play', 'stop', 
+                'f-fwd', 'rewind', and 'eject'. ";
+                if (self has open)
+                {
+                    objectloop (obj in self)
+                    {
+                        if (obj ofclass tape) "A cassette tape sits in the open compartment. ";
+                    }
+                    "The open compartment is empty. ";
+                }
+                objectloop (obj in self)
+                {
+                    if (obj ofclass Tape) print"Through the little window you can see a cassette tape inside "; 
+                }
+                if(walkman_playing == true) "and that the little rotors are turning. "; "and that the little 
+                rotors are motionless. ";
+            }
+            if (self.id == 1)
+            {
+                "You see two poofy orange ear pieces at the end of a round strip of metal. They're plugged into 
+                the walkman. ";
+            }
+        ],
+        before [ t_obj ;
+            open:
+                <<push wm_eject_button>>;
+            receive:
+            if (children(self) > 5 ) "There's already a tape in the walkman. ";
+            wear:
+            if(self has worn) "You're already wearing the headphones. ";
+            give self worn;
+            "You put the headphones on. ";
+            unplug:
+            t_obj = walkman.tape_is_loaded();
+            if (t_obj ~= 0) move t_obj to dummy_walkman;
+            if (walkman has worn) 
+            {
+                move dummy_headphones to parent(walkman);
+                give dummy_headphones worn;
+            }
+            move dummy_walkman to parent(walkman);
+            move dummy_headphones to parent(walkman);
+            dummy_walkman_playing = walkman_playing;
+            remove walkman;
+            "You pull the headphone plug out of the audio jack. ";
+            plugin, pluginto:
+            "The headphones are already plugged into the walkman. ";
+        ],
+        invent [;
+            if (inventory_stage == 2) rtrue;
+        ],
+        tape_is_loaded  [ obj;
+            objectloop(obj in self)
+            {
+                if (obj ofclass Tape) return obj;
+            }
+                rfalse;
+        ],
+        each_turn [ obj;
+            obj = walkman.tape_is_loaded();
+                if(obj && walkman_playing == true)
+                {
+                    if (obj.tape_advance == ADVANCE_TIMER)
+                    {
+                        obj.advance();
+                        obj.tape_advance = 0;
+                        rtrue;
+                    }
+                    obj.tape_advance++;
+                }   
+        ],
+    has container transparent openable item clothing;
+
+Object wm_eject_button "eject button" walkman
+    with name 'eject' 'button', 
+        article "an",
+        description"It's a chunky black button with the 'eject' symbol on the top. ",
+        before [;
+            push:
+                if (walkman has open) "The walkman is already open. ";
+                walkman_playing = false;
+                give walkman open;
+                "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
+        ],
+    has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global boombox_playing = true;
 Object boombox "boombox" admin_hallway
     with 
@@ -292,7 +476,7 @@ Class Tape
     ],
     has item;
 
-Tape mixtape "casette tape with a yellow label" boombox
+Tape mixtape "casette tape with a yellow label" walkman
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
