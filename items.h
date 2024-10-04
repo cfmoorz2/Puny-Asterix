@@ -68,9 +68,9 @@ Object flashlight "flashlight" mabel
     has switchable valuable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object dummy_headphones "dummy headphones" 
+Object dummy_headphones "headphones" 
     with
-        name 'dummy' 'headphones' 'phones',
+        name 'headphones' 'phones',
         article "a pair of",
         description "You see two poofy orange ear pieces at the end of a round strip of metal. ",
         before [ t_obj ;
@@ -91,7 +91,7 @@ Object dummy_headphones "dummy headphones"
     has item clothing;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object dummy_walkman "dummy walkman" 
+Object dummy_walkman "walkman" 
     with 
         name 'walkman' 'player',
         description [ obj;
