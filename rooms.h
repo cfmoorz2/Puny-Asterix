@@ -2209,7 +2209,14 @@ Object sub_basement_01 "Hallway"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor boiler_door "boiler room door"
-     with name 'boiler' 'door',
+     with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boiler' && w2 == 'room' && w3 == 'door') return 3;
+            if (w1 == 'boiler' && w2 == 'door') return 2;
+        ],
         description [;
             print"It's a heavy thick metal door, currently ";open_or_closed(self);".";
         ],
@@ -2230,6 +2237,11 @@ Object boiler_room "Boiler Room"
     A dented thick metal door leads east. ",
     cheap_scenery
     'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. ",
+    after [;
+        go:
+        if (selected_direction == w_to) print"In the distance down the hall you hear what sounds like the 
+        service elevator opening.^";
+    ],
     e_to boiler_door,
     has light;  
 

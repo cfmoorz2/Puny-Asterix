@@ -149,8 +149,12 @@ Object eugene "Eugene" environmental_services
         npc_wander_delay 5,
         npc_avoid stairwell_b,
         npc_walk [; print"pushes the mop bucket";],
-        describe [;
-            "^Eugene the janitor is here, bopping and mopping. ";
+        describe [;  
+            print"^Eugene is here, bopping and mopping. ";
+            if(self has encountered) "";
+            give self encountered;
+            "He's the overnight custodian. He's pushing a mob bucket and listening to easy-listening music on a 
+            walkman. ";
         ],
     class Mover MyNPC
     has animate proper transparent;  
@@ -200,13 +204,20 @@ Object vic "Vic"
             if (FlagIsSet(F_BADDIES_FOLLOWING)) "He's smiling and seems to be enjoying himself. His right hand is 
             ominously thrust into a pocket."; 
             "He's a tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
-            clean-shaven and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
+            pock-marked and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
             to be his. ";
+        ],
+        describe [;  
+            print"^Vic is here, lurking. ";
+            if(self has encountered) "";
+            give self encountered;
+            "You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
+            since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description. ";
         ],
         each_turn [;
             if(real_location == sub_basement_02)
             {
-                if (syringe in player || denim_jacket in player) print"^Vic eyes you over suspiciously. ~Hey there, 
+                if (syringe in player || denim_jacket in player) print"^Vic eyes you suspiciously. ~Hey there, 
             little lady. Whatcha got there now?~^";
                 if (syringe in player && denim_jacket notin player) { print "He plucks the syringe from you.^"; remove syringe; }
                 if (denim_jacket in player && syringe notin player) { print "He plucks the jacket from you.^"; remove denim_jacket; }
