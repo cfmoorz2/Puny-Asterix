@@ -208,10 +208,14 @@ Object vic "Vic"
             to be his. ";
         ],
         describe [;  
-            print"^Vic is here, lurking. ";
-            if(self has encountered) "";
+            if (self has encountered)
+            {
+                print"^Vic is here, ";
+                print_ret (string) random ("trying to act casual.", "watching you without trying to look too obvious. ",
+                "creepily staring at you when he thinks you're not looking. ", "lurking. ");
+            }
             give self encountered;
-            "You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
+            "^Vic is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
             since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description. ";
         ],
         each_turn [;
