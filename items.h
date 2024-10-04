@@ -150,6 +150,134 @@ Object dummy_walkman "dummy walkman"
         ],
     has container transparent openable item clothing;
 
+Object dw_eject_button "walkman eject button" dummy_walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'eject' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'eject') return 2;
+            if (w1 == 'eject' && w2 == 'button') return 2;
+            if (w1 == 'eject') return 1;
+        ],
+        article "an",
+        description"It's a chunky black button with the 'eject' symbol on the top. ",
+        before [;
+            push:
+                if (walkman has open) "The walkman is already open. ";
+                walkman_playing = false;
+                give walkman open;
+                "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
+        ],
+    has scenery;
+
+Object dw_play_button "walkman play button" dummy_walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'play' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'play') return 2;
+            if (w1 == 'play' && w2 == 'button') return 2;
+            if (w1 == 'play') return 1;
+        ],
+        description"It's a chunky black button with a 'play' arrow on the top. ",
+        before [ obj;
+            push:
+                if(walkman has open) "You should close the tape compartment first. ";
+                if(walkman_playing) "The walkman is already playing. ";
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.press_play(walkman);
+                    rtrue;
+                } 
+            walkman_playing = true;
+            "With a satisfying ~click~ the play button engages.";
+        ],
+    has scenery; 
+
+Object dw_stop_button "walkman stop button" dummy_walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'stop' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'stop') return 2;
+            if (w1 == 'stop' && w2 == 'button') return 2;
+            if (w1 == 'stop') return 1;
+        ],
+        description"It's a chunky black button with the 'stop' square on the top. ",
+        before [;
+            push:
+                if(~~walkman_playing) "It's already stopped. ";
+                walkman_playing = false;
+                "You press the button and the 'play' button disengages with a ~clunk~. ";
+        ],
+    has scenery;  
+
+Object dw_fast_forward_button "walkman fast-forward button" dummy_walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'fast-forward' or 'fast' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'fast' or 'forward') return 2;
+            if (w1 == 'fast' && w2 == 'forward') return 2;
+            if (w1 == 'fast' or 'forward' && w2 == 'button') return 2;
+            if (w1 == 'fast' or 'forward') return 1;
+        ],
+        description"It's a chunky black button with two 'FF' arrows on the top. ",
+        before [ obj;
+            push:
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.fast_forward(walkman);
+                } 
+                else
+                {
+                    walkman_playing = false;
+                    "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
+                    release the button.";
+                }
+                rtrue;    
+        ],
+    has scenery; 
+
+Object dw_rewind_button "walkman rewind button" dummy_walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'rewind' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'rewind') return 2;
+            if (w1 == 'rewind' && w2 == 'button') return 2;
+            if (w1 == 'rewind') return 1;
+        ],
+        description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
+        before [ obj;
+            push:
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.rewind(walkman);
+                } 
+                else
+                {
+                    walkman_playing = false;
+                    "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
+                    release the button.";
+                }
+                rtrue;    
+        ],
+    has scenery;   
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object walkman "walkman" station_b
     with 
