@@ -238,8 +238,17 @@ Object walkman "walkman" station_b
         ],
     has container transparent openable item clothing;
 
-Object wm_eject_button "eject button" walkman
-    with name 'eject' 'button', 
+Object wm_eject_button "walkman eject button" walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'eject' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'eject') return 2;
+            if (w1 == 'eject' && w2 == 'button') return 2;
+            if (w1 == 'eject') return 1;
+        ],
         article "an",
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
@@ -250,6 +259,112 @@ Object wm_eject_button "eject button" walkman
                 "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
         ],
     has scenery;
+
+Object wm_play_button "walkman play button" walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'play' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'play') return 2;
+            if (w1 == 'play' && w2 == 'button') return 2;
+            if (w1 == 'play') return 1;
+        ],
+        description"It's a chunky black button with a 'play' arrow on the top. ",
+        before [ obj;
+            push:
+                if(walkman has open) "You should close the tape compartment first. ";
+                if(walkman_playing) "The walkman is already playing. ";
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.press_play();
+                    rtrue;
+                } 
+            walkman_playing = true;
+            "With a satisfying ~click~ the play button engages.";
+        ],
+    has scenery; 
+
+Object wm_stop_button "walkman stop button" walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'stop' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'stop') return 2;
+            if (w1 == 'stop' && w2 == 'button') return 2;
+            if (w1 == 'stop') return 1;
+        ],
+        description"It's a chunky black button with the 'stop' square on the top. ",
+        before [;
+            push:
+                if(~~walkman_playing) "It's already stopped. ";
+                walkman_playing = false;
+                "You press the button and the 'play' button disengages with a ~clunk~. ";
+        ],
+    has scenery;  
+
+Object wm_fast_forward_button "walkman fast-forward button" walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'fast-forward' or 'fast' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'fast' or 'forward') return 2;
+            if (w1 == 'fast' && w2 == 'forward') return 2;
+            if (w1 == 'fast' or 'forward' && w2 == 'button') return 2;
+            if (w1 == 'fast' or 'forward') return 1;
+        ],
+        description"It's a chunky black button with two 'FF' arrows on the top. ",
+        before [ obj;
+            push:
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.fast_forward();
+                } 
+                else
+                {
+                    walkman_playing = false;
+                    "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
+                    release the button.";
+                }
+                rtrue;    
+        ],
+    has scenery; 
+
+Object wm_rewind_button "walkman rewind button" walkman
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'walkman' && w2 == 'rewind' && w3 == 'button') return 3;
+            if (w1 == 'walkman' && w2 == 'rewind') return 2;
+            if (w1 == 'rewind' && w2 == 'button') return 2;
+            if (w1 == 'rewind') return 1;
+        ],
+        description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
+        before [ obj;
+            push:
+                obj = walkman.tape_is_loaded();
+                if(obj)
+                {
+                    obj.rewind();
+                } 
+                else
+                {
+                    walkman_playing = false;
+                    "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
+                    release the button.";
+                }
+                rtrue;    
+        ],
+    has scenery;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Global boombox_playing = true;
@@ -315,8 +430,17 @@ Object boombox "boombox" admin_hallway
         ],
     has container transparent openable item;
 
-Object bb_eject_button "eject button" boombox
-    with name 'eject' 'button', 
+Object bb_eject_button "boombox eject button" boombox
+    with 
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boombox' && w2 == 'eject' && w3 == 'button') return 3;
+            if (w1 == 'boombox' && w2 == 'eject') return 2;
+            if (w1 == 'eject' && w2 == 'button') return 2;
+            if (w1 == 'eject') return 1;
+        ],
         article "an",
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
@@ -328,8 +452,17 @@ Object bb_eject_button "eject button" boombox
         ],
     has scenery;
 
-Object bb_play_button "play button" boombox
-    with name 'play' 'button',
+Object bb_play_button "boombox play button" boombox
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boombox' && w2 == 'play' && w3 == 'button') return 3;
+            if (w1 == 'boombox' && w2 == 'play') return 2;
+            if (w1 == 'play' && w2 == 'button') return 2;
+            if (w1 == 'play') return 1;
+        ],
         description"It's a chunky black button with a 'play' arrow on the top. ",
         before [ obj;
             push:
@@ -339,13 +472,24 @@ Object bb_play_button "play button" boombox
                 if(obj)
                 {
                     obj.press_play();
+                    rtrue;
                 } 
-                rtrue;
+            boombox_playing = true;
+            "With a satisfying ~click~ the play button engages.";
         ],
     has scenery;   
 
-Object bb_stop_button "stop button" boombox
-    with name 'stop' 'button',
+Object bb_stop_button "boombox stop button" boombox
+    with 
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boombox' && w2 == 'stop' && w3 == 'button') return 3;
+            if (w1 == 'boombox' && w2 == 'stop') return 2;
+            if (w1 == 'stop' && w2 == 'button') return 2;
+            if (w1 == 'stop') return 1;
+        ],
         description"It's a chunky black button with the 'stop' square on the top. ",
         before [;
             push:
@@ -355,8 +499,18 @@ Object bb_stop_button "stop button" boombox
         ],
     has scenery;   
 
-Object bb_fast_forward_button "fast forward button" boombox
-    with name 'fast' 'forward' 'button',
+Object bb_fast_forward_button "boombox fast-forward button" boombox
+    with 
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boombox' && w2 == 'fast-forward' or 'fast' && w3 == 'button') return 3;
+            if (w1 == 'boombox' && w2 == 'fast' or 'forward') return 2;
+            if (w1 == 'fast' && w2 == 'forward') return 2;
+            if (w1 == 'fast' or 'forward' && w2 == 'button') return 2;
+            if (w1 == 'fast' or 'forward') return 1;
+        ],
         description"It's a chunky black button with two 'FF' arrows on the top. ",
         before [ obj;
             push:
@@ -375,8 +529,17 @@ Object bb_fast_forward_button "fast forward button" boombox
         ],
     has scenery;  
 
-Object bb_rewind_button "rewind button" boombox
-    with name 'rewind' 'button',
+Object bb_rewind_button "boombox rewind button" boombox
+    with
+        parse_name [ w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'boombox' && w2 == 'rewind' && w3 == 'button') return 3;
+            if (w1 == 'boombox' && w2 == 'rewind') return 2;
+            if (w1 == 'rewind' && w2 == 'button') return 2;
+            if (w1 == 'rewind') return 1;
+        ],
         description"It's a chunky black button with two backwards 'rewind' arrows on the top.",
         before [ obj;
             push:

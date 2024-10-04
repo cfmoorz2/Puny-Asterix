@@ -88,7 +88,7 @@ Constant F_FREDDY_ASLEEP 9;
     {
        if (action == ##flip && obj in boombox && obj ofclass tape) return 2; !else return 0;
        if (action == ##Take && obj in boombox && obj ofclass tape) return 0; !else return 2;
-       if (action == ##push && IndirectlyContains(player, obj)) return 2;
+       !if (action == ##push && IndirectlyContains(player, obj)) return 2;
     }
 
     if(code == 0)   {
