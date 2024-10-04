@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = boiler_room;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;

@@ -53,64 +53,93 @@
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 DumbwaiterShaft basement_dumbwaiter hallway_b1;
 Object basement_dumbwaiter_door "dumbwaiter door" hallway_b1
-    with 
+    with
         parse_name [ w1 w2 ;
             w1 = NextWord();
             w2 = NextWord();
             if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
             if (w1 == 'sliding' && w2 == 'door') return 2;
-            if (w1 == door) return 1;
+            if (w1 == 'door' or 'sliding') return 1;
         ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(self);
+            open_or_closed(basement_dumbwaiter);
             ".";
         ],
         before [;
             open:
                 <<open basement_dumbwaiter>>;
+            close:
+                <<close basement_dumbwaiter>>;
         ],
     has scenery;
 
 DumbwaiterShaft main_dumbwaiter hallway_m2;
-Object main_dumbwaiter_door "metal door" hallway_m2
-    with name 'metal' 'sliding' 'door',
+Object main_dumbwaiter_door "dumbwaiter door" hallway_m2
+    with
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
+            if (w1 == 'sliding' && w2 == 'door') return 2;
+            if (w1 == 'door' or 'sliding') return 1;
+        ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(self);
+            open_or_closed(main_dumbwaiter);
             ".";
         ],
         before [;
             open:
                 <<open main_dumbwaiter>>;
+            close:
+                <<close main_dumbwaiter>>;
         ],
     has scenery;
 
 DumbwaiterShaft second_floor_dumbwaiter hallway_2_2;
-Object second_floor_dumbwaiter_door "metal door" hallway_2_2
-    with name 'metal' 'sliding' 'door',
+Object second_floor_dumbwaiter_door "dumbwaiter door" hallway_2_2
+    with
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
+            if (w1 == 'sliding' && w2 == 'door') return 2;
+            if (w1 == 'door' or 'sliding') return 1;
+        ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(self);
+            open_or_closed(second_floor_dumbwaiter);
             ".";
         ],
         before [;
             open:
                 <<open second_floor_dumbwaiter>>;
+            close:
+                <<close second_floor_dumbwaiter>>;
         ],
     has scenery;
 
 DumbwaiterShaft third_floor_dumbwaiter hallway_3_2;
-Object third_floor_dumbwaiter_door "metal door" hallway_3_2
-    with name 'metal' 'sliding' 'door',
+Object third_floor_dumbwaiter_door "dumbwaiter door" hallway_3_2
+    with
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
+            if (w1 == 'sliding' && w2 == 'door') return 2;
+            if (w1 == 'door' or 'sliding') return 1;
+        ],
         description [;
             print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(self);
+            open_or_closed(third_floor_dumbwaiter);
             ".";
         ],
         before [;
             open:
                 <<open third_floor_dumbwaiter>>;
+            close:
+                <<close third_floor_dumbwaiter>>;
         ],
     has scenery;
 
@@ -159,6 +188,7 @@ Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
             move dumbwaiter_cab to basement_dumbwaiter; 
             scope_modified = true;
             dumbwaiter_level++;
+            "You hear metallic grinding from within the dumbwaiter shaft. ";
         0:  if (TestScope(dumbwaiter_cab, player))  {
                 print "You pull the chain and the dumbwaiter cab rises out of view.^";
                 move dumbwaiter_cab to main_dumbwaiter; 
