@@ -153,8 +153,11 @@ Object eugene "Eugene" environmental_services
             print"^Eugene is here, bopping and mopping. ";
             if(self has encountered) "";
             give self encountered;
+            move air_supply_tape to player;
             "He's the overnight custodian. He's pushing a mob bucket and listening to easy-listening music on a 
-            walkman. ";
+            walkman. He stops when he sees you and reaches into a pocket, pulling out a casette tape with a blue label.^^
+            ~Here's a tape for you, Candy.~ He's talking too loud with his headphones still on. ~You kids today don't 
+            appreciate real artistry.~ He hands you the tape.";
         ],
     class Mover MyNPC
     has animate proper transparent;  

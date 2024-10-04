@@ -408,7 +408,7 @@ Tape jorry_tape "cassette tape with a green label" rock
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Tape air_supply_tape "cassette tape with a blue label" environmental_desk
+Tape air_supply_tape "cassette tape with a blue label" 
     with name 'air' 'supply' 'tape' 'cassette' 'blue',
         description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
         current_side SIDE_A,
