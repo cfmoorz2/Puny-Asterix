@@ -635,6 +635,9 @@ Class Tape
             if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
             x = SIDE_END - x;
             self.current_track = x;
+            if(self in boombox) give boombox ~open;
+            if(self in walkman) give walkman ~open;
+            if(self in dummy_walkman) give dummy_walkman ~open;
             rtrue;
             !print_ret"now current track = ",self.current_track,".";
         ],
@@ -659,8 +662,8 @@ Tape mixtape "casette tape with a yellow label" walkman
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
-        playback [;
-            print"^From the boombox you hear ";
+        playback [p ;
+            print"^From the ",(name)p," you hear ";
                 if (self.current_side == SIDE_A)
                 {
                     switch (self.current_track) 
@@ -688,7 +691,8 @@ Tape mixtape "casette tape with a yellow label" walkman
                 ".";
         ],
         each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) self.playback();
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
+            if(self in walkman && walkman_playing && walkman has worn) self.playback(walkman);
         ],
         has item;
 
