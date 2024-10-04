@@ -279,7 +279,7 @@ Object wm_play_button "walkman play button" walkman
                 obj = walkman.tape_is_loaded();
                 if(obj)
                 {
-                    obj.press_play();
+                    obj.press_play(walkman);
                     rtrue;
                 } 
             walkman_playing = true;
@@ -325,7 +325,7 @@ Object wm_fast_forward_button "walkman fast-forward button" walkman
                 obj = walkman.tape_is_loaded();
                 if(obj)
                 {
-                    obj.fast_forward();
+                    obj.fast_forward(walkman);
                 } 
                 else
                 {
@@ -354,7 +354,7 @@ Object wm_rewind_button "walkman rewind button" walkman
                 obj = walkman.tape_is_loaded();
                 if(obj)
                 {
-                    obj.rewind();
+                    obj.rewind(walkman);
                 } 
                 else
                 {
@@ -471,7 +471,7 @@ Object bb_play_button "boombox play button" boombox
                 obj = boombox.tape_is_loaded();
                 if(obj)
                 {
-                    obj.press_play();
+                    obj.press_play(boombox);
                     rtrue;
                 } 
             boombox_playing = true;
@@ -517,7 +517,7 @@ Object bb_fast_forward_button "boombox fast-forward button" boombox
                 obj = boombox.tape_is_loaded();
                 if(obj)
                 {
-                    obj.fast_forward();
+                    obj.fast_forward(boombox);
                 } 
                 else
                 {
@@ -546,7 +546,7 @@ Object bb_rewind_button "boombox rewind button" boombox
                 obj = boombox.tape_is_loaded();
                 if(obj)
                 {
-                    obj.rewind();
+                    obj.rewind(boombox);
                 } 
                 else
                 {
@@ -568,15 +568,20 @@ Constant ADVANCE_TIMER = 4;
 
 Class Tape 
     with
-        is_in_player [obj;
-        if(obj in boombox) rtrue; rfalse;
+        is_in_player [;
+        if(self in boombox) return boombox;
+        if(self in walkman) return walkman;
+        if(self in dummy_walkman) return dummy_walkman;
+        rfalse;
     ],
     mass 2,
     current_side,
     current_track,
     tape_advance 0,
-    fast_forward [ i;
-        boombox_playing = false;
+    fast_forward [ p i;
+        if(p == boombox) boombox_playing = false;
+        if(p == walkman) walkman_playing = false;
+        if(p == dummy_walkman) dummy_walkman_playing = false;
         self.tape_advance = 0;
         if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
         i = self.current_track;
@@ -588,34 +593,42 @@ Class Tape
         "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
         release the button. ";
     ],
-    press_play [;
+    press_play [ p;
         if (self.current_track == SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
         if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
         print"With a satisfying ~click~ the play button engages.^";
-        boombox_playing = true;
+        if(p == boombox) boombox_playing = true;
+        if(p == walkman) walkman_playing = true;
+        if(p == dummy_walkman) dummy_walkman_playing = true;
         ],
-    play [;
-        if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
-        if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
-        self.playback();
-    ],
+    !play [;
+    !    if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
+    !    if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
+    !    self.playback();
+    !],
     advance [;
         self.current_track++;
         if (self.current_track == SIDE_END) 
         {
-            boombox_playing = false;
+            if(self in boombox) boombox_playing = false;
+            if(self in walkman) walkman_playing = false;
+            if(self in dummy_walkman) dummy_walkman_playing = false;
             "With a ~click~ the tape comes to the end of the side and the play button disengages. ";
         }   
     ],
     before [ x;
         flip:
             !print"flipping ",(name)self,"^";
-            boombox_playing = false;
+            if(self in boombox) boombox_playing = false;
+            if(self in walkman) walkman_playing = false;
+            if(self in dummy_walkman) dummy_walkman_playing = false;
             if (self.current_side == SIDE_A) self.current_side = SIDE_B; else self.current_side = SIDE_A;
             !print"now side = ",self.current_side,"^";
             x = self.current_track;
             !print"current track = ",x,"^";
-            give boombox ~open;
+            if(self in boombox) give boombox open;
+            if(self in walkman) give walkman open;
+            if(self in dummy_walkman) give dummy_walkman open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
             self.tape_advance = 0;
             if (x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
@@ -625,8 +638,10 @@ Class Tape
             rtrue;
             !print_ret"now current track = ",self.current_track,".";
         ],
-    rewind [ i;
-        boombox_playing = false;
+    rewind [ p i;
+        if(p == boombox) boombox_playing = false;
+        if(p == walkman) walkman_playing = false;
+        if(p == dummy_walkman) dummy_walkman_playing = false;
         self.tape_advance = 0;
         if (self.current_track == SIDE_START) { self.current_track = FIRST_TRACK; "The tape seems to already be rewound to the beginning. "; }
         i = self.current_track;
