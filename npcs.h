@@ -250,6 +250,14 @@ Object mabel "Mabel" main_lobby
         description "She's an elderly African American lady. She's 82 but her unlined face and white shock of curly hair 
         make her look much younger. She wears a floral print dress with numerous layers against the chill and wire bifocals on a chain. ",
         talk_array talk_array_mabel,
+        describe [;  
+            print"^Mabel is here, occupying the information desk. ";
+            if(self has encountered) "";
+            give self encountered;
+            "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
+            home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ~Hey, 
+            Candy girl. You got any new books for me?~";
+        ],
     class Mover MyNPC
     has animate female proper;
 
@@ -259,9 +267,12 @@ Object becky "Becky" station_a
         description "She's the nurse on duty on Ward A tonight. She's a cheerful blonde in 
         her late 20s and St. Asterix is her first nursing job. She's attired in the standard white nursing 
         uniform and is wearing black and white checkered Vans. ",
-        describe [; print"^Nurse Becky is here, ";
-            print_ret (string) random ("charting some vital signs. ", "adjusting her white nurse's cap. ",
+        describe [;  
+            print"^Nurse Becky is here ", (string) random ("charting some vital signs. ", "adjusting her white nurse's cap. ",
             "idly playing with a sphygmomanometer. ");
+            if(self has encountered) "";
+            give self encountered;
+            "She's the nurse on duty tonight on Ward A. ";
         ],
         !talk_array talk_array_becky, 
     class Mover MyNPC
@@ -282,9 +293,12 @@ Object linda "Linda" station_a
     with name 'aide' 'linda',
         description "She's the super-cheery nurse's aide assigned to ward A. She's in her 40s and is 
         perpetually smiling. She has bright red hair curled into a tight perm and wears green scrubs. ",
-        describe [; print"^Linda the nurse's aide is here, ";
-            print_ret (string) random( "twirling a curl of hair with an index finger. ",
+        describe [; 
+            print"^Linda is here, ", (string) random( "twirling a curl of hair with an index finger. ",
             "smiling. ", "humming to herself. ");
+            if (self has encountered) "";
+            give self encountered;
+            "She's the perpetually chipper nursing assistant on Ward A this evening. ";
         ],
         npc_wander_delay 3,
         npc_avoid hallway_3_2,
@@ -297,7 +311,12 @@ Object maria "Maria" station_b
     with name 'aide' 'maria',
         description "She's the nurse's aide assigned to ward B. She's a latina in her 30s. 
         She has long black hair pulled back into a pony-tail and wears pink scrubs. ",
-        describe [; "^Maria the nurse's aide is here, being helpful. "; ],
+        describe [; 
+            print"^Maria is here. ";
+            if (self has encountered) "";
+            give self encountered;
+            "She's the nursing assistant on Ward B tonight. ";
+        ],
         !talk_array talk_array_maria, 
         npc_wander_delay 3,
         npc_avoid hallway_3_2,
@@ -314,9 +333,7 @@ Object nurse_retch "Nurse Retch" station_b
                 tight bun and severe green eyes peer out over high gaunt cheekbones. She wears a white 
                 nurse uniform with a white nurse cap pinned to her hair. ";
         ],
-        describe [;
-            if (self in station_b) "^Nurse Retch is here performing some nursing-related activities. ";
-            ],
+        describe "^Nurse Retch is here. ",
         life [;
             give, show:
             if (noun == syringe) 
