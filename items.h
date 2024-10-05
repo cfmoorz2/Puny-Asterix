@@ -319,12 +319,19 @@ Object walkman "walkman" station_b
         before [ t_obj ;
             open:
                 <<push wm_eject_button>>;
+
             receive:
             if (children(self) > 5 ) "There's already a tape in the walkman. ";
+
             wear:
             if(self has worn) "You're already wearing the headphones. ";
             give self worn;
+            SetFlag(F_HEADPHONES_ON);
             "You put the headphones on. ";
+
+            disrobe:
+            ClearFlag(F_HEADPHONES_ON);
+
             unplug:
             t_obj = walkman.tape_is_loaded();
             if (t_obj ~= 0) move t_obj to dummy_walkman;
@@ -338,6 +345,7 @@ Object walkman "walkman" station_b
             dummy_walkman_playing = walkman_playing;
             remove walkman;
             "You pull the headphone plug out of the audio jack. ";
+            
             plugin, pluginto:
             "The headphones are already plugged into the walkman. ";
         ],
