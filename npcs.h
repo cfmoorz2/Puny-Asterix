@@ -63,6 +63,11 @@ Object freddy "Freddy" admin_hallway
             "He's leading back against the wall in a metal folding chair. His lids are heavy and
             he's struggling to stay awake. ";
         ],
+        talk_array talk_array_freddy,
+        before [;
+            talk:
+            print"He yawns and briefly sits up.^";
+        ],
         describe [;  
             print"^Freddy is here. ";
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's tipped back in his chair deeply asleep. ";

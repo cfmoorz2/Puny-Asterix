@@ -27,3 +27,17 @@ Array talk_array_oliver -->
   00 303 "Potassium Chloride" TM_NO_LINE "It's a good way to kill somebody. You inject them and their heart stops. 
   Nothing shows up in the blood because we're already full of potassium anyway. "
   TM_END;
+
+Array talk_array_freddy -->
+  30 "Himself" TM_NO_LINE "I'm just working this gig until my band takes of. I'm the drummer for 'The Pink Motley'. 
+  You've probably heard of us. "
+  30 "Dr. Northrup" TM_NO_LINE "I stay out of the big man's way and do what he tells me. Plus, that nurse friend of his scares 
+  me. " 304
+  30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in there. I didn't know him but I'm supposed to keep everybody out until the 
+  cops get here. The blizzard is slowing them down. I did see that nurse who hangs with Northrup go in there for a while. "  304
+  30 "boombox" TM_NO_LINE "You like it? It takes 8 'C' batteries and can play for two hours. "
+  30 "mix tape" TM_NO_LINE "I dunno. This chick I'm hanging out with gave it to me. Some songs are OK. At least they keep me 
+  awake. "
+  30 "Buzz" TM_NO_LINE "He's my boss. He's allright, I guess. He doesn't like to leave the security office. "
+  00 304 "Nurse Retch" TM_NO_LINE "I'm pretty sure she's killed people, dude. And I hear she's mafia-connected. "
+  TM_END;

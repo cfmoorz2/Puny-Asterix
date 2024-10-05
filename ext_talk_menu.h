@@ -149,7 +149,8 @@ Constant TM_SKIP_MSG_EXIT;
 #Endif;
 
 #Ifndef TM_SKIP_MSG_EXIT;
-Constant TM_REUSABLE_MSG_EXIT "With that, you politely end the conversation.";
+!Constant TM_REUSABLE_MSG_EXIT "With that, you politely end the conversation.";
+Constant TM_REUSABLE_MSG_EXIT "And, we're done...";
 #Endif;
 
 #Ifndef TM_MSG_YOU;
