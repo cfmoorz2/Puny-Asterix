@@ -527,10 +527,12 @@ Object boombox "boombox" admin_hallway
             open:
                 <<push bb_eject_button>>;
             take:
-            if (self in admin_hallway && freddy in folding_chair && FlagIsClear(F_FREDDY_ASLEEP)) 
+            if (FlagIsClear(F_FREDDY_ASLEEP))
                 "Freddy stirs himself. ~Hey, hands off my tunes, man.~";
+            ClearFlag(F_FREDDY_ASLEEP);
+            "Freddy rouses from his slumber. ~Hey, man. Leave my tunes be. ";
             receive:
-            if (children(self) > 5 ) "There's already a tape in the boombox. ";
+            if (children(self) > 5 ) "There's already a tape in the boombox. ";            
         ],
         invent [;
             if (inventory_stage == 2) rtrue;
@@ -565,7 +567,9 @@ Object bb_eject_button "boombox eject button" boombox
             w2 = NextWord();
             w3 = NextWord();
             if (w1 == 'boombox' && w2 == 'eject' && w3 == 'button') return 3;
+            if (w1 == 'box' && w2 == 'eject' && w3 == 'button') return 3;
             if (w1 == 'boombox' && w2 == 'eject') return 2;
+            if (w1 == 'box' && w2 == 'eject') return 2;
             if (w1 == 'eject' && w2 == 'button') return 2;
             if (w1 == 'eject') return 1;
         ],
@@ -576,7 +580,13 @@ Object bb_eject_button "boombox eject button" boombox
                 if (boombox has open) "The boombox is already open. ";
                 boombox_playing = false;
                 give boombox open;
-                "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
+                print"You press the 'eject' button and the tape compartment springs open with a ~clatter~.^";
+                if(FlagIsSet(F_FREDDY_ASLEEP)) 
+                {
+                    ClearFlag(F_FREDDY_ASLEEP);
+                    "The noise and sudden silence rouses Freddy from his slumber. ";
+                } 
+            rtrue;
         ],
     has scenery;
 
@@ -587,7 +597,9 @@ Object bb_play_button "boombox play button" boombox
             w2 = NextWord();
             w3 = NextWord();
             if (w1 == 'boombox' && w2 == 'play' && w3 == 'button') return 3;
+            if (w1 == 'box' && w2 == 'play' && w3 == 'button') return 3;
             if (w1 == 'boombox' && w2 == 'play') return 2;
+            if (w1 == 'box' && w2 == 'play') return 2;
             if (w1 == 'play' && w2 == 'button') return 2;
             if (w1 == 'play') return 1;
         ],
@@ -614,7 +626,9 @@ Object bb_stop_button "boombox stop button" boombox
             w2 = NextWord();
             w3 = NextWord();
             if (w1 == 'boombox' && w2 == 'stop' && w3 == 'button') return 3;
+            if (w1 == 'box' && w2 == 'stop' && w3 == 'button') return 3;
             if (w1 == 'boombox' && w2 == 'stop') return 2;
+            if (w1 == 'box' && w2 == 'stop') return 2;
             if (w1 == 'stop' && w2 == 'button') return 2;
             if (w1 == 'stop') return 1;
         ],
@@ -623,7 +637,13 @@ Object bb_stop_button "boombox stop button" boombox
             push:
                 if(~~boombox_playing) "It's already stopped. ";
                 boombox_playing = false;
-                "You press the button and the 'play' button disengages with a ~clunk~. ";
+                print"You press the button and the 'play' button disengages with a ~clunk~.^";
+                if(FlagIsSet(F_FREDDY_ASLEEP)) 
+                {
+                    ClearFlag(F_FREDDY_ASLEEP);
+                    "The noise and lack of music rouses Freddy from his slumber. ";
+                }
+            rtrue;
         ],
     has scenery;   
 
@@ -634,7 +654,9 @@ Object bb_fast_forward_button "boombox fast-forward button" boombox
             w2 = NextWord();
             w3 = NextWord();
             if (w1 == 'boombox' && w2 == 'fast-forward' or 'fast' && w3 == 'button') return 3;
+            if (w1 == 'box' && w2 == 'fast-forward' or 'fast' && w3 == 'button') return 3;
             if (w1 == 'boombox' && w2 == 'fast' or 'forward') return 2;
+            if (w1 == 'box' && w2 == 'fast' or 'forward') return 2;
             if (w1 == 'fast' && w2 == 'forward') return 2;
             if (w1 == 'fast' or 'forward' && w2 == 'button') return 2;
             if (w1 == 'fast' or 'forward') return 1;
@@ -664,7 +686,9 @@ Object bb_rewind_button "boombox rewind button" boombox
             w2 = NextWord();
             w3 = NextWord();
             if (w1 == 'boombox' && w2 == 'rewind' && w3 == 'button') return 3;
+            if (w1 == 'box' && w2 == 'rewind' && w3 == 'button') return 3;
             if (w1 == 'boombox' && w2 == 'rewind') return 2;
+            if (w1 == 'box' && w2 == 'rewind') return 2;
             if (w1 == 'rewind' && w2 == 'button') return 2;
             if (w1 == 'rewind') return 1;
         ],
@@ -741,7 +765,13 @@ Class Tape
             if(self in boombox) boombox_playing = false;
             if(self in walkman) walkman_playing = false;
             if(self in dummy_walkman) dummy_walkman_playing = false;
-            "With a ~click~ the tape comes to the end of the side and the play button disengages. ";
+            print"With a ~click~ the tape comes to the end of the side and the play button disengages.^";
+            if(self == air_supply_tape && self in boombox)
+            {
+                ClearFlag(F_FREDDY_ASLEEP);
+                "The noise and sudden silence rouse Freddy from his reverie. ";
+            }
+        rtrue;
         }   
     ],
     before [ x;
