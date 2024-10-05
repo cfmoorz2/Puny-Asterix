@@ -1141,6 +1141,7 @@ Room northrup_office "Northrup's Office"
         each_turn [;
             if (IndirectlyContains(self, northrup) && IndirectlyContains(self, nurse_retch)) 
             {
+                if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"^(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"^You seem to have interupted the start of an animated conversation between Dr. Northrup and 
                 Nurse Retch. They abuptly clam up as you enter.^^
                 ~Ahh, the candystriper I've heard about. The one poking around into things that have nothing to do with her;
