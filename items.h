@@ -337,6 +337,7 @@ Object walkman "your walkman"
             move dummy_headphones to parent(walkman);
             dummy_walkman_playing = walkman_playing;
             remove walkman;
+            ClearFlag(F_WALKMAN_BLOCKING);
             "You pull the headphone plug out of the audio jack. ";
 
             plugin, pluginto:
@@ -391,7 +392,7 @@ Object wm_eject_button "walkman eject button" walkman
             push:
                 if (walkman has open) "The walkman is already open. ";
                 walkman_playing = false;
-                ClearFlag(F_MUSIC_PLAYING);
+                ClearFlag(F_WALKMAN_BLOCKING);
                 give walkman open;
                 "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
         ],
@@ -440,7 +441,7 @@ Object wm_stop_button "walkman stop button" walkman
             push:
                 if(~~walkman_playing) "It's already stopped. ";
                 walkman_playing = false;
-                ClearFlag(F_MUSIC_PLAYING);
+                ClearFlag(F_WALKMAN_BLOCKING);
                 "You press the button and the 'play' button disengages with a ~clunk~. ";
         ],
     has scenery;  
@@ -589,7 +590,7 @@ Object bb_eject_button "boombox eject button" boombox
             push:
                 if (boombox has open) "The boombox is already open. ";
                 boombox_playing = false;
-                ClearFlag(F_MUSIC_PLAYING);
+                ClearFlag(F_WALKMAN_BLOCKING);
                 give boombox open;
                 print"You press the 'eject' button and the tape compartment springs open with a ~clatter~.^";
                 if(FlagIsSet(F_FREDDY_ASLEEP)) 
@@ -648,7 +649,7 @@ Object bb_stop_button "boombox stop button" boombox
             push:
                 if(~~boombox_playing) "It's already stopped. ";
                 boombox_playing = false;
-                ClearFlag(F_MUSIC_PLAYING);
+                ClearFlag(F_WALKMAN_BLOCKING);
                 print"You press the button and the 'play' button disengages with a ~clunk~.^";
                 if(FlagIsSet(F_FREDDY_ASLEEP)) 
                 {
@@ -728,6 +729,7 @@ Constant SIDE_B = 1;
 Constant SIDE_START = 0;
 Constant FIRST_TRACK = 1;
 Constant SIDE_END = 7;
+Constant THRILLER_SIDE_END = 6;
 Constant ADVANCE_TIMER = 4;
 
 Class Tape 
@@ -746,20 +748,24 @@ Class Tape
         if(p == boombox) boombox_playing = false;
         if(p == walkman) walkman_playing = false;
         if(p == dummy_walkman) dummy_walkman_playing = false;
-        ClearFlag(F_MUSIC_PLAYING);
+        ClearFlag(F_WALKMAN_BLOCKING);
         self.tape_advance = 0;
-        if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
+        if (self ~= thriller && self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
+        if (self == thriller && self.current_track == THRILLER_SIDE_END) "The tape seems to be at the end of the side. ";
         i = self.current_track;
         i++;
         self.current_track = i;
         !print"in FF new track = ",i,"^";
-        if (self.current_track == SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
+        if (self ~= thriller && self.current_track == SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
+            With a ~click~ you reach the end of the side. "; 
+        if (self == thriller && self.current_track == THRILLER_SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
             With a ~click~ you reach the end of the side. "; 
         "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
         release the button. ";
     ],
     press_play [ p;
-        if (self.current_track == SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
+        if (self ~= thriller && self.current_track == SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
+        if (self == thriller && self.current_track == THRILLER_SIDE_END) "You press the button but you seem to be at the end of this side of the tape. ";
         if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
         print"With a satisfying ~click~ the play button engages.^";
         if(p == boombox) boombox_playing = true;
@@ -773,13 +779,13 @@ Class Tape
     !],
     advance [;
         self.current_track++;
-        if (self.current_track == SIDE_END) 
+        if ((self ~= thriller && self.current_track == SIDE_END) || (self == thriller && self.current_track == THRILLER_SIDE_END))
         {
             if(self in boombox) boombox_playing = false;
             if(self in walkman) walkman_playing = false;
             if(self in dummy_walkman) dummy_walkman_playing = false;
             print"With a ~click~ the tape comes to the end of the side and the play button disengages.^";
-            ClearFlag(F_MUSIC_PLAYING);
+            ClearFlag(F_WALKMAN_BLOCKING);
             if(self == air_supply_tape && self in boombox)
             {
                 ClearFlag(F_FREDDY_ASLEEP);
@@ -794,19 +800,25 @@ Class Tape
             if(self in boombox) boombox_playing = false;
             if(self in walkman) walkman_playing = false;
             if(self in dummy_walkman) dummy_walkman_playing = false;
-            ClearFlag(F_MUSIC_PLAYING);
+            ClearFlag(F_WALKMAN_BLOCKING);
             if (self.current_side == SIDE_A) self.current_side = SIDE_B; else self.current_side = SIDE_A;
             !print"now side = ",self.current_side,"^";
             x = self.current_track;
             !print"current track = ",x,"^";
-            if(self in boombox) give boombox open;
-            if(self in walkman) give walkman open;
-            if(self in dummy_walkman) give dummy_walkman open;
+            if(self in boombox) give boombox ~open;
+            if(self in walkman) give walkman ~open;
+            if(self in dummy_walkman) give dummy_walkman ~open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
             self.tape_advance = 0;
-            if (x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
-            if (x == SIDE_START) { self.current_track = SIDE_END; rtrue; }
-            x = SIDE_END - x;
+            if (self ~= thriller && x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
+            if (self == thriller && x == SIDE_END) { self.current_track = FIRST_TRACK; rtrue; }
+            if (x == SIDE_START)
+            { 
+                if (x ~= thriller)  { self.current_track = SIDE_END; rtrue; }
+                if (x == thriller)  { self.current_track = THRILLER_SIDE_END; rtrue; }
+            }
+            if (self ~= thriller) x = SIDE_END - x;
+            if (self == thriller) x = THRILLER_SIDE_END - x;
             self.current_track = x;
             if(self in boombox) give boombox ~open;
             if(self in walkman) give walkman ~open;
@@ -818,7 +830,7 @@ Class Tape
         if(p == boombox) boombox_playing = false;
         if(p == walkman) walkman_playing = false;
         if(p == dummy_walkman) dummy_walkman_playing = false;
-        ClearFlag(F_MUSIC_PLAYING);
+        ClearFlag(F_WALKMAN_BLOCKING);
         self.tape_advance = 0;
         if (self.current_track == SIDE_START) { self.current_track = FIRST_TRACK; "The tape seems to already be rewound to the beginning. "; }
         i = self.current_track;
@@ -831,14 +843,16 @@ Class Tape
     ],
     has item;
 
-Tape mixtape "casette tape with a yellow label" walkman
+Tape mixtape "casette tape with a yellow label" boombox
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [p ;
-            print"^From the ",(name)p," you hear ";
-                if (self.current_side == SIDE_A)
+            if ( p == boombox && FlagIsSet(F_WALKMAN_BLOCKING)) rtrue;
+            if ( p == boombox) print"From the boombox you hear ";
+            if ( p == walkman) print"Through the headphones you hear. ";
+            if (self.current_side == SIDE_A)
                 {
                     switch (self.current_track) 
                     {
@@ -865,10 +879,48 @@ Tape mixtape "casette tape with a yellow label" walkman
                 ".";
         ],
         each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) { SetFlag(F_MUSIC_PLAYING); self.playback(boombox); }
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_MUSIC_PLAYING); self.playback(walkman); }
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
+            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ],
         has item;
+
+Tape thriller "casette tape with a red label" walkman
+    with name 'thriller' 'tape' 'cassette' 'red',
+        description"It's a cassette tape with a red label that reads ~Thriller~.",
+        current_side SIDE_A,
+        current_track FIRST_TRACK,
+        playback [p ;
+            if ( p == boombox) print"From the boombox you hear ";
+            if ( p == walkman) print"Through the headphones you hear ";
+            if (self.current_side == SIDE_A)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Wanna Be Startin' Somethin'~";
+                    2:  print"~Baby Be Mine~";
+                    3:  print"~The Girl Is Mine~";
+                    4:  print"~Thriller~";
+                    5:  print"empty tape";
+                    }
+                }
+                if (self.current_side == SIDE_B)
+                {
+                    switch (self.current_track) 
+                    {
+                    1:  print"~Beat It~";
+                    2:  print"~Billie Jean~";
+                    3:  print"~Human Nature~";
+                    4:  print"~P.Y.T. (Pretty Young Thing)~";
+                    5:  print"~The Lady in My Life~";
+                    }
+                }
+                ".";
+        ],
+        each_turn [;
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
+            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
+        ],
+        has item;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object rock "rock" aquarium 
@@ -925,8 +977,8 @@ Tape jorry_tape "cassette tape with a green label" rock
                 ".";
         ],
         each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) { SetFlag(F_MUSIC_PLAYING); self.playback(boombox); }
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_MUSIC_PLAYING); self.playback(walkman); }
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
+            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ],
     has item;
 
@@ -991,8 +1043,8 @@ Tape air_supply_tape "cassette tape with a blue label"
                 }
         ],
         each_turn [;
-            if(self in boombox && boombox_playing && TestScope(self)) { SetFlag(F_MUSIC_PLAYING); self.playback(boombox); }
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_MUSIC_PLAYING); self.playback(walkman); }
+            if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
+            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ],
         has item;
 

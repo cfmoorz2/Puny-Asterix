@@ -69,10 +69,10 @@ Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knock
 Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
 Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
-Constant F_BADDIES_FOLLOWING 7;
-Constant F_MRI_SUITE_DESTROYED 8;
+Constant F_BADDIES_FOLLOWING 7; !baddies are following at endgame
+Constant F_MRI_SUITE_DESTROYED 8; 
 Constant F_FREDDY_ASLEEP 9;
-Constant F_MUSIC_PLAYING 10;
+Constant F_WALKMAN_BLOCKING 10;
 
 Constant MSG_WEAR_DEFAULT 1000;
 
@@ -169,7 +169,9 @@ Include "puny.h";
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
-    mixtape.current_track = FIRST_TRACK;
+    !mixtape.current_track = FIRST_TRACK;
+    !thriller.current_track = FIRST_TRACK;
+    !jorry_confession.current_track = FIRST_TRACK;
     StartDaemon(master_timer);
     winston.move_mode = WANDER_PATH;
     StartDaemon(winston);
