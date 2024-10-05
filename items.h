@@ -84,7 +84,6 @@ Object dummy_headphones "headphones"
             if (t_obj ~= 0) move t_obj to walkman;
             if (self has worn) { give walkman worn; }  else { give walkman ~worn; }
             walkman_playing = dummy_walkman_playing;
-            print"[walkman_playing = ",dummy_walkman_playing,"^";
             remove dummy_headphones;
             remove dummy_walkman;
             "You plug the headphones into the walkman. ";
@@ -92,7 +91,7 @@ Object dummy_headphones "headphones"
     has item clothing;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object dummy_walkman "walkman" 
+Object dummy_walkman "your walkman" 
     with 
         name 'walkman' 'player',
         description [ obj;
@@ -280,10 +279,12 @@ Object dw_rewind_button "walkman rewind button" dummy_walkman
     has scenery;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object walkman "walkman" station_b
+Object walkman "your walkman" station_b
     with 
-        parse_name [ w1;
+        parse_name [ w1 w2;
             w1 = NextWord();
+            w2 = Nextword();
+            if (w1 == 'my' && w2 == 'walkman') { self.id = 0; return 2; }
             if (w1 == 'walkman' or 'player') { self.id = 0; return 1; }
             if (w1 == 'headphones' or 'phones') { self.id = 1; return 1; }
         ],
@@ -340,7 +341,6 @@ Object walkman "walkman" station_b
             move dummy_walkman to parent(walkman);
             move dummy_headphones to parent(walkman);
             dummy_walkman_playing = walkman_playing;
-            print"[dummy_walkman_playing = ",walkman_playing,"^";
             remove walkman;
             "You pull the headphone plug out of the audio jack. ";
 
@@ -370,7 +370,7 @@ Object walkman "walkman" station_b
                     obj.tape_advance++;
                 }   
         ],
-    has container transparent openable item clothing;
+    has container proper transparent openable item clothing;
 
 Object wm_eject_button "walkman eject button" walkman
     with

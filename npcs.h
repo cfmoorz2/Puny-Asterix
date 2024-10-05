@@ -145,7 +145,7 @@ Object sid_jorry "Sid Jorry" jorry_chair
 Object eugene "Eugene" environmental_services
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
-        He's wearing a walkman and whistling while he pushes a mop in a mop bucket.",
+        He's wearing a damaged walkman held together with duct tape and whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
         npc_avoid stairwell_b,
         npc_walk [; print"pushes the mop bucket";],
@@ -154,13 +154,29 @@ Object eugene "Eugene" environmental_services
             if(self has encountered) "";
             give self encountered;
             move air_supply_tape to player;
-            "He's the overnight custodian. He's pushing a mob bucket and listening to easy-listening music on a 
+            "He's the overnight custodian. He's pushing a mop bucket and listening to easy-listening music on a 
             walkman. He stops when he sees you and reaches into a pocket, pulling out a casette tape with a blue label.^^
             ~Here's a tape for you, Candy.~ He's talking too loud with his headphones still on. ~You kids today don't 
             appreciate real artistry.~ He hands you the tape.";
         ],
     class Mover MyNPC
-    has animate proper transparent;  
+    has animate proper transparent; 
+
+Object eugene_walkman "Eugene's damaged walkman" eugene
+    with 
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'eugene' or 'damaged' && w2 == 'walkman' or 'player') return 2;
+            if (w1 == 'walkman' or 'damaged') return 1;
+        ],
+        description "It's a beat-up walkman. The door is missing from the tape compartment and a couple of the 
+        buttons appear to have fallen off. It still seems to work, though, and Eugene doesn't seem to mind. ",
+        before [;
+            take:
+            "That belongs to Eugene. And yours is in much better condition, anyway. ";
+        ],
+    has item proper;
 
 Object mop "mop" eugene
     with name 'wet' 'mop',
