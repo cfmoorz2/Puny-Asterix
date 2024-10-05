@@ -103,6 +103,7 @@ Object buzz "Buzz" security_chair
                 self.take_shrimp = true;
             }
         ],
+        talk_array talk_array_buzz,
         life [;
             give, show:
             if (noun == shrimp) 
@@ -215,6 +216,7 @@ Object vic "Vic"
             pock-marked and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
             to be his. ";
         ],
+        talk_array talk_array_vic,
         describe [;  
             if (self has encountered)
             {
