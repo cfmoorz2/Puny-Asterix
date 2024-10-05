@@ -658,6 +658,11 @@ Array TenDashes static -> "----------";
 ];
 
 [ TalkSub;
+	if (IndirectlyContains(real_location, noun) == false)
+        {
+            print(The)noun;
+            if (noun has pluralname) " aren't here. "; " isn't here. ";
+        }
 #Ifdef TM_NOT_PUNY;
    if (noun==player) { L__M(##Tell, 1, noun); rtrue; }
    if (~~(noun provides talk_array)) { L__M(##Show, 2, second); rtrue; }
