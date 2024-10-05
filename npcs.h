@@ -42,6 +42,7 @@ Object oliver "Oliver" morgue
         npc_arrived [;
             if(parent(self)== morgue) { StopDaemon(self); self.move_mode = 0; rtrue; }
         ],
+        talk_array talk_array_oliver,
         describe [;  
             print"^Oliver is here. ";
             if(self has encountered) "";

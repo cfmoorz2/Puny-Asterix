@@ -1184,6 +1184,10 @@ Object kcl_bottle "plastic vial" nurse_retch
         name 'kcl' 'potassium' 'plastic' 'bottle' 'vial',
         description "It's a small plastic bottle labelled ~Potassium Chloride~. The seal 
         on top has been broken and the vial is half-empty. ",
+        after [;
+            take:
+            ActivateTopic(oliver, 303);
+        ],
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
