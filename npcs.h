@@ -258,8 +258,7 @@ Object mabel "Mabel" main_lobby
             if(self has encountered) "";
             give self encountered;
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
-            home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ~Hey, 
-            Candy girl. You got any new books for me?~";
+            home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";
         ],
     class Mover MyNPC
     has animate female proper;
@@ -344,12 +343,14 @@ Object nurse_retch "Nurse Retch" station_b
                 remove syringe;
                 SetFlag(F_RETCH_TRIGGERED);
                 StartTimer(retch_timer, 4);
+                if(FlagIsSet(F_MUSIC_PLAYING)) { print"[you press 'stop' on your walkman.]^"; walkman_playing = false; }
                 "^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
                 relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
                 have you sticking yourself now, can we?~";
             }
             if (noun == kcl_bottle)
             {
+                if(FlagIsSet(F_MUSIC_PLAYING)) { print"[you press 'stop' on your walkman.]^"; walkman_playing = false; }
                 print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
                 ~You are quite the persistent little thing, aren't you?~ She angrily swipes the vial from you.^^
                 ~You'd best be careful, candystriper, or you may not finish out your time here.~^";

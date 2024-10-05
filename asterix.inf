@@ -72,7 +72,7 @@ Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7;
 Constant F_MRI_SUITE_DESTROYED 8;
 Constant F_FREDDY_ASLEEP 9;
-Constant F_HEADPHONES_ON 10;
+Constant F_MUSIC_PLAYING 10;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school. ";
