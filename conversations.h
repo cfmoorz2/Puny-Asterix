@@ -1,6 +1,8 @@
 Array talk_array_mabel -->
-  0 300 "Herself" "Tell me more about yourself!" "I'm just an average girl."
-  30 "Weather" "How do you like the weather?" "It's too hot for me." 1 300
-  0 "Heat" "Say, don't you like hot weather?" TM_NO_LINE 
-           "Linda looks upset and turns away."
+  30 "Herself" TM_NO_LINE "I'm just an average girl."
+  00 300 "'Throbbing Loins of Nantucket'" TM_NO_LINE "Ooh, girl. That one's a personal favorite. I do like my sea captains muscular and sweaty.
+    It's almost as good as that one about the stable boys. " 1 
+  00 301 "'Shirtless Stable Boys of Madison County'" TM_NO_LINE "She fans herself. Don't get me started, girl. And that book you brought me last week about 
+    the vampires? She gives a 'chef's kiss'. " 302
+  00 302 "'You Had Me at 'Blah''" TM_NO_LINE "Ooh, girl. I do like 'em pale and stringy. "
   TM_END;

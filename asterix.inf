@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = admin_hallway;
+Constant INITIAL_LOCATION_VALUE = lobby_west;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;
@@ -193,6 +193,7 @@ Include "puny.h";
     !move ledger to player;
     init_safe();
     move walkman to player;
+    move book_cart to lobby_west;
     !SetFlag(F_SAW_KNOCK_SPOT);
 ];
 

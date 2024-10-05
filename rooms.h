@@ -798,9 +798,10 @@ Room main_lobby "Main Lobby"
             {
                 SetFlag(F_HAVE_FLASHLIGHT);
                 move flashlight to player; 
+                ActivateTopic(mabel, 300);
                 print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
-                She picks up a book titled 'Heaving Waves of Passion'.^^
+                She picks up a book titled 'Throbbing Loins of Nantucket'.^^
                 ~Ooh, I almost forgot. Take this.~^
                 She pulls a flashlight from the folds of her layers and hands it to you.^^
                 ~You may need this tonight if the blizzard causes a brown-out. I sure do wish I'd gotten myself 
