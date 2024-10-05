@@ -279,7 +279,7 @@ Object dw_rewind_button "walkman rewind button" dummy_walkman
     has scenery;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object walkman "your walkman" station_b
+Object walkman "your walkman"
     with 
         parse_name [ w1 w2;
             w1 = NextWord();
@@ -325,11 +325,6 @@ Object walkman "your walkman" station_b
             receive:
             if (children(self) > 5 ) "There's already a tape in the walkman. ";
 
-            wear:
-            if(self has worn) "You're already wearing the headphones. ";
-            give self worn;
-            "You put the headphones on. ";
-
             unplug:
             t_obj = walkman.tape_is_loaded();
             if (t_obj ~= 0) move t_obj to dummy_walkman;
@@ -348,7 +343,14 @@ Object walkman "your walkman" station_b
             "The headphones are already plugged into the walkman. ";
         ],
         invent [;
-            if (inventory_stage == 2) rtrue;
+            if (inventory_stage == 2) 
+            {
+                if (self has worn)
+                {
+                    print" (worn)";
+                }
+                rtrue;
+            }
         ],
         tape_is_loaded  [ obj;
             objectloop(obj in self)
@@ -370,7 +372,7 @@ Object walkman "your walkman" station_b
                     obj.tape_advance++;
                 }   
         ],
-    has container proper transparent openable item clothing;
+    has clothing container proper transparent openable item;
 
 Object wm_eject_button "walkman eject button" walkman
     with

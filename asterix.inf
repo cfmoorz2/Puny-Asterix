@@ -74,6 +74,8 @@ Constant F_MRI_SUITE_DESTROYED 8;
 Constant F_FREDDY_ASLEEP 9;
 Constant F_MUSIC_PLAYING 10;
 
+Constant MSG_WEAR_DEFAULT 1000;
+
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school. ";
     if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
@@ -81,6 +83,16 @@ Constant F_MUSIC_PLAYING 10;
     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
         summer school. ";
     !print "You have lost"; 
+];
+
+[LibraryMessages p_msg p_arg_1 p_arg_2;
+    p_arg_1 = p_arg_2;
+    switch(p_msg) {
+    
+    MSG_WEAR_DEFAULT:
+        if(noun == walkman) "You slip the headphones over your ears. ";
+        print_ret "You are now wearing ",(the)noun,".";
+    }
 ];
 
 [ChooseObjects obj code;
