@@ -66,7 +66,8 @@ Array talk_array_becky-->
   30 "Nurse Retch" TM_NO_LINE "She's, um, very experienced, I guess."
   00 300 "Linda" TM_NO_LINE "She's really perky and the patients seem to love her."
   00 305 "Mrs. Chen" TM_NO_LINE "Such a sweet lady. I hope her pneumonia gets better soon."
-  00 306 "Ms. Parsons" TM_NO_LINE "Oh, gee. I guess it would look really bad if she died on my shift."
+  00 306 "Ms. Parsons" TM_NO_LINE "She's 103 years old, so she doesn't say much. But she has moments of lucidity and, I think, 
+  hears conversations around her sometimes."
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
   00 308 "Elliot" TM_NO_LINE "He had knee surgery a couple days ago. He's quite the athlete, apparently."
   TM_END;

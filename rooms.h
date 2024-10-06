@@ -1791,6 +1791,16 @@ Room room_22 "Room 22"
             take, touch, pull, push:
             "I guess third-degree burns are your thing?";
         ],
+        each_turn [;
+            if (random(2) == 1 && FlagIsClear(F_HAS_PARSONS_SPOKEN)) 
+            {
+                SetFlag(F_HAS_PARSONS_SPOKEN);
+                "^Suddenly, the dessicated figure on the bed stirs. She opens her eyes wide and stares at you with 
+                surprising clarity.^^
+                ~They're killing someone...with a hitman and an injection.~^^
+                After a moment her eyes close and she resumes her previous mien. ";
+            }
+        ],
     has light;
 
 Bed room_22_bed "patient bed" room_22

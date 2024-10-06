@@ -188,7 +188,8 @@ Verb 'follow'
 !   CAPACITY
 Verb meta 'capacity' * -> Capacity;
 [ CapacitySub  i count; 
-    print"Candy can carry a total of ",PLAYER_CAPACITY," poorly-defined units and is currently holding ";
+    print"You can carry a total of ",PLAYER_CAPACITY," poorly-defined units based on weight, mass, 
+    and 'awkwardness'. You are currently holding ";
     count = 0;
     objectloop(i in player) {
         count = count + i.mass;
