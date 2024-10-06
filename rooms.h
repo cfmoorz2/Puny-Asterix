@@ -1,3 +1,21 @@
+Class MyContainer
+    with max_capacity,
+        holding [counter i;
+            objectloop(i in self)   {
+                counter = counter + i.mass;
+                print"counter = ",counter,".^";
+                print"added ",i.mass," to counter.^";
+            }
+            print"final counter = ",counter,"^";
+            return counter;
+        ],
+        before [ x;
+            receive:
+                x = self.holding();
+                if (x + noun.mass > self.max_capacity) "There's not enough room in ",(the)self,".";
+        ],
+    has container;
+
 Class InChair
     with 
         before [ obj;
@@ -1473,7 +1491,7 @@ Room mri_scanner "MRI Suite"
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
         A thick window in the east wall allows a view into the control room. There's a small hatch in the floor next to the scanner, presumably to 
-        allow service access. You can return east to the control anteroom. ";
+        allow service access. You can return east to the control anteroom.^";
         if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
         glass window into the control room is shattered. Oxygen cannisters are scattered on the floor.^";
         ],
@@ -1491,7 +1509,13 @@ Room mri_scanner "MRI Suite"
             injury or property damage may result~. ";
         ],
         before [;
-            if (player in mri_hatch && noun in self && noun ~= mri_hatch) "You need to get out of the compartment first. ";
+            go:
+            if (selected_direction == e_to && player in mri_hatch)
+            {
+                print"(first leaving the compartment)^";
+                PlayerTo(mri_scanner, 1);
+                <<go FAKE_E_OBJ>>;
+            }
         ],
         after [;
             go:
@@ -1537,16 +1561,29 @@ Object mri_hatch "compartment" mri_scanner
             "You're crouched in a small dark compartment beneath the floor of the MRI suite, hemmed in by wiring conduits
             and pipes. ";
         ],
+        react_before [;
+            if(parent(player) == self ) 
+            {
+                if (action == ##go) rfalse;
+                !print "noun = ",(name)noun,"^";
+                !print "second = ",(name)second,"^";
+                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
+                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
+            }
+        ],
         before [;
             open:
             if (self has open) "It's already open. ";
             give self open;
-            if (player in mri_scanner) "You open the hatch, revealing a small empty space surrounded by wires and pipes. ";
+            if (player in mri_scanner) "You open the hatch, revealing a comparment surrounded by wires and pipes. ";
                 "You open the hatch. ";
             enter:
+            if(ladder in player) "Not with the ladder. ";
             print"You climb down, squeezing yourself into the small compartment.^";
             PlayerTo(self, 1);
             rtrue;
+            receive:
+            if(noun == ladder) "The ladder is too large to fit. ";
         ],
         description [;
             if (self has open) "Through an open hatch in the floor you can see a small dark space full of wires
@@ -1953,6 +1990,7 @@ Object storage_cabinet "cabinet" storage
             "The cabinet door won't open. It seems to be jammed. ";
             knock:
             <<knock cabinet_door>>;
+            enter:
         ],
         max_capacity 30,
     has scenery container openable locked ~open;
@@ -1997,6 +2035,20 @@ Object storage_locker "locker" storage
         name 'locker' 'metal',
         description"It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ",
         inside_description"You're crouched in a battered metal locker peering out through a crack in the door. ",
+        react_before [;
+            if(parent(player) == self ) 
+            {
+                if (action == ##go) rfalse;
+                !print "noun = ",(name)noun,"^";
+                !print "second = ",(name)second,"^";
+                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
+                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
+            }
+            enter:
+            if(ladder in player) "Not with the ladder. ";
+            receive:
+            if(noun == ladder) "The ladder is too large to fit. ";
+        ],
         after [;
             enter:
             "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
@@ -2012,6 +2064,7 @@ Object telephone "telephone" storage
             print"It's a black phone. The base is mounted to the wall and the rotary dial is embedded in the handset. ";
             if (handset in self) "The handset is in the cradle. "; else "";
             ],
+        mass 0,
         before [;
             DialObj:
                 <<dialobj handset>>;
@@ -2071,6 +2124,7 @@ Object dial "dial" storage
             Take:
                 "It's part of the handset. ";
         ],
+        mass 0,
     has scenery;
 
 Object phone_cord "phone cord" storage
@@ -2080,6 +2134,7 @@ Object phone_cord "phone cord" storage
             Take:
                 "That's attached to the phone.";
     ],
+    mass 0,
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

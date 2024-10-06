@@ -23,7 +23,7 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
-Constant PLAYER_CAPACITY 32;
+Constant PLAYER_CAPACITY 40;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 Constant OPTIONAL_GUESS_MISSING_NOUN;
@@ -229,9 +229,16 @@ Include "VerbLib";
     if (door has open) print "open"; else print "closed";
 ];
 
-[MyTakeRule ;
+[MyTakeRule count i x ;
     if (action ~= ##take)   rfalse;
-    print"TAKE^";
+    count = 0;
+    x = noun.mass;
+    objectloop(i in player) {
+        count = count + i.mass;
+    }
+    !print"carrying = ",count,"^";
+    !print"mass = ",x,"^";
+    if(count + x > PLAYER_CAPACITY) "That's too much for you to carry. ";
     rfalse;
 ];
 
