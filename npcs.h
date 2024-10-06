@@ -36,7 +36,6 @@ Class MyNPC
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object oliver "Oliver" morgue
     with name 'oliver' 'mortuary' 'assistant',
-        max_capacity 34,
         description "He's the morgue assistant. He's of average build, about 30, and wearing a dirty laboratory
         coat over jeans and a flannel shirt. He wears thick glasses and a mop of brown hair that hasn't seen a comb today.",
         npc_arrived [;
@@ -285,6 +284,7 @@ Object becky "Becky" station_a
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(mabel, 304);
+            ActivateTopic(linda, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         talk_array talk_array_becky, 
@@ -304,37 +304,20 @@ Object sphygmomanometer "sphygmomanometer" becky
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object linda "Linda" station_a
     with name 'aide' 'linda',
-        description "She's the super-cheery nurse's aide assigned to ward A. She's in her 40s and is 
+        description "She's the super-cheery nurse's aide on duty this evening. She's in her 40s and is 
         perpetually smiling. She has bright red hair curled into a tight perm and wears green scrubs. ",
         describe [; 
             print"^Linda is here, ", (string) random( "twirling a curl of hair with an index finger. ",
             "smiling. ", "humming to herself. ");
             if (self has encountered) "";
             give self encountered;
-            "She's the perpetually chipper nursing assistant on Ward A this evening. ";
+            "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
         npc_wander_delay 3,
         npc_avoid hallway_3_2,
-        !talk_array talk_array_linda, 
+        talk_array talk_array_linda, 
     class Mover MyNPC
     has animate proper transparent; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object maria "Maria" station_b
-    with name 'aide' 'maria',
-        description "She's the nurse's aide assigned to ward B. She's a latina in her 30s. 
-        She has long black hair pulled back into a pony-tail and wears pink scrubs. ",
-        describe [; 
-            print"^Maria is here. ";
-            if (self has encountered) "";
-            give self encountered;
-            "She's the nursing assistant on Ward B tonight. ";
-        ],
-        !talk_array talk_array_maria, 
-        npc_wander_delay 3,
-        npc_avoid hallway_3_2,
-    class Mover MyNPC
-    has animate proper transparent;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object nurse_retch "Nurse Retch" station_b
@@ -490,6 +473,7 @@ Object winston "Mr. Winston" hallway_3_4
             print"^Mr. Winston is here. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(linda, 305);
             "He's a bored patient pushing an IV pole up and down the wards. ";
         ],
         npc_walk [; print"pushes his IV pole";],
@@ -536,6 +520,7 @@ Object ms_parsons "Ms. Parsons" room_22
             {
                 give self encountered;
                 ActivateTopic(becky, 306);
+                ActivateTopic(linda, 302);
                 "^Ms. Parsons, a frail hyper-elderly lady is lying in the bed. She's recognized as the oldest resident of the 
                 Tri-state area. The best guess is that she's 103 years old. She has dementia and doesn't talk much but is always 
                 smiling. She once claimed that the secret to her longevity was that she never married. ";
@@ -558,6 +543,7 @@ Object larry "Larry" room_33
             if (self hasnt encountered) 
             {
                 give self encountered;
+                ActivateTopic(linda, 306);
                 "^Larry, a corpulent gentleman is lying in the bed. ";
             }
             "^Larry is lying in the bed. ";
@@ -576,6 +562,7 @@ Object elliot "Elliot" hallway_2_3
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(becky, 308);
+            ActivateTopic(linda, 304);
             "He's rolling up and down the hallway in his wheelchair. ";
         ],
         npc_walk [; print"rolls";],
@@ -607,6 +594,7 @@ Object mrs_chen "Mrs. Chen" room_21
             {
                 give self encountered;
                 ActivateTopic(becky, 305);
+                ActivateTopic(linda, 301);
                 "^Mrs. Chen, a small Chinese lady is lying in the bed. ";
             }
             "^Mrs. Chen is lying in the bed. ";
@@ -624,6 +612,7 @@ Object mr_johnson "Mr. Johnson" room_23
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(becky, 307);
+            ActivateTopic(linda, 303);
             "He's pushing a rolling walker ahead of him up and down the halls. ";
         ],
         npc_walk [; print"rolls";],

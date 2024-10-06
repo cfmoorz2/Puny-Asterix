@@ -182,8 +182,6 @@ Include "puny.h";
     StartDaemon(elliot);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
-    maria.move_mode = WANDER_PATH;
-    StartDaemon(maria);
     linda.move_mode = WANDER_PATH;
     StartDaemon(linda);
     oliver.move_mode = TARGET_PATH;

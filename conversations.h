@@ -69,3 +69,17 @@ Array talk_array_becky-->
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
   00 308 "Elliot" TM_NO_LINE "He had knee surgery a couple days ago. He's quite the athlete, apparently."
   TM_END;
+
+Array talk_array_linda-->
+  30 "herself" TM_NO_LINE "I was planning on being a nurse someday. But then I wound up in summer school and here 
+  I am. Ha!"
+  30 "Nurse Retch" TM_NO_LINE "She's not one for small-talk, I'll tell you that."
+  00 300 "Nurse Becky" TM_NO_LINE "She's a joy to work with."
+  00 301 "Mrs. Chen" TM_NO_LINE "I think she's here with pneumonia. Nobody has been able to talk to her but she seems 
+  pretty laid-back about the whole thing."
+  00 302 "Ms. Parsons" TM_NO_LINE "She's 103 years old, they say. Don't sneak up on her. Ha!"
+  00 303 "Mr. Johnson" TM_NO_LINE "Nice enough fellow. Had a joint replacement I think."
+  00 304 "Elliot" TM_NO_LINE "He likes to flirt with me so I think his knee is feeling better."
+  00 305 "Winston" TM_NO_LINE "He's a regular around here. Poor guy's been sickly for a while."
+  00 306 "Larry" TM_NO_LINE "Don't drink too much. That's all I'll say about that."
+  TM_END;
