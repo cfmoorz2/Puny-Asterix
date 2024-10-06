@@ -1,21 +1,3 @@
-Class MyContainer
-    with max_capacity,
-        holding [counter i;
-            objectloop(i in self)   {
-                counter = counter + i.mass;
-                print"counter = ",counter,".^";
-                print"added ",i.mass," to counter.^";
-            }
-            print"final counter = ",counter,"^";
-            return counter;
-        ],
-        before [ x;
-            receive:
-                x = self.holding();
-                if (x + noun.mass > self.max_capacity) "There's not enough room in ",(the)self,".";
-        ],
-    has container;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',
@@ -58,7 +40,7 @@ Object flashlight "flashlight" mabel
             print"It's a standard black plastic flashlight, ";
             if(self has on) "currently on. "; "currently off. ";
         ],
-        mass 6,
+        mass 5,
         after [;
             switchon:
                 give self light;
@@ -72,6 +54,7 @@ Object dummy_headphones "headphones"
     with
         name 'headphones' 'phones',
         article "a pair of",
+        mass 2,
         description "You see two poofy orange ear pieces at the end of a round strip of metal. ",
         before [ t_obj ;
             plugin:
@@ -517,6 +500,7 @@ Object boombox "boombox" admin_hallway
         describe [;
             if (self hasnt moved) "A boombox sits on the floor next to Freddy. ";
         ],
+        mass 10,
         description [ obj;
             print"It's a boxy silver plastic and metal boombox with a black carrying handle. The tape compartment in 
             the side is currently ";
@@ -559,7 +543,6 @@ Object boombox "boombox" admin_hallway
             }
                 rfalse;
         ],
-        mass 6, 
         each_turn [ obj;
             obj = boombox.tape_is_loaded();
                 if(obj && boombox_playing == true)
@@ -930,7 +913,8 @@ Tape thriller "casette tape with a red label" walkman
 Object rock "rock" aquarium 
     with 
         name 'decorative' 'rock',
-        description "It's a decorative chunk of rock, about twice as large as one of your fists. ",
+        mass 8,
+        description "It's a heavy, decorative chunk of rock, about twice as large as one of your fists. ",
         before [;
             take:
             if (self in aquarium)
@@ -952,7 +936,6 @@ Object rock "rock" aquarium
                 "You lift the rock and find a casette tape under it. ";
             }
         ],
-        mass 5,
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1060,6 +1043,7 @@ Object shrimp_bowl "bowl" security_desk
             if (children(self) == 0)    "currently empty. "; else print"currently holding ", (a)(child(self)),".^";
         ],
         mass 5,
+        max_capacity 4,
         describe [;
             if (self in security_desk) rtrue;
         ],
@@ -1076,10 +1060,10 @@ Object shrimp_bowl "bowl" security_desk
     has container open item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object cocktail_shrimp "bowlfull of shrimp" shrimp_bowl
+Object cocktail_shrimp "bowlful of shrimp" shrimp_bowl
     with name 'cocktail' 'shrimp',
-        description "It's a bowlfull of cocktail shrimp. ",
-        mass 5,
+        description "It's a bowlful of cocktail shrimp. ",
+        mass 4,
         before [;
                 take:
                     if (buzz in security_chair) "Buzz, stops you. 
@@ -1168,7 +1152,7 @@ Object syringe "syringe" jacket_pocket
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
     with name 'ladder' 'metal' 'folding',
-    mass 26,
+    mass 31,
         description [;
             print"It's a six-foot aluminum folding ladder, it's currently ";
             if (self has open) "unfolded. "; "collapsed. ";
@@ -1192,6 +1176,7 @@ Object kcl_bottle "plastic vial" nurse_retch
             take:
             ActivateTopic(oliver, 303);
         ],
+        mass 2,
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1206,6 +1191,7 @@ Object ledger "ledger" northrup_safe
             "You flip through the pages of numbers and are immediately reminded of your algebra class freshman year and
             that weird guy you sat next to who would only shower, like, twice a week?";
         ],
+        mass 10,
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1225,4 +1211,5 @@ Object letter "letter"
             deadflag = 2;
             rtrue;
         ],
+        mass 2,
     has item;

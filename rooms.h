@@ -515,7 +515,9 @@ Object cash_drawer "cash drawer" cafeteria
             close:
             give self locked;
         ],
-    has container open openable scenery;
+        max_capacity 6,
+    class MyContainer
+    has open openable scenery;
 
 Object cash_buttons "buttons" cafeteria 
     with name 'button' 'buttons//p',
@@ -578,7 +580,9 @@ Object garbage_can "garbage can" kitchen
             search:
                 move shrimp to self;
         ],
-    has container scenery open;
+        max_capacity 30,
+    class MyContainer
+    has scenery open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m1 "hallway_m1"
@@ -981,7 +985,9 @@ Object aquarium "aquarium" jorry_office
             A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
             if (rock in self) "A large decorative rock sits in the sand in the other end. "; "";
         ],
-    has scenery transparent container open;
+        max_capacity 20,
+    class MyContainer
+    has scenery transparent open;
 
 Object jorry_note "note"
     with name 'note' 'paper' 'letter',
@@ -1024,7 +1030,9 @@ Object jorry_safe "safe" jorry_office
             take:
                 "It's far too heavy. ";
         ],
-    has container openable scenery open;
+        max_capacity 15,
+    class MyContainer
+    has openable scenery open;
 
 Object jorry_desk "office desk" jorry_office
     with name 'desk' 'office',
@@ -1044,8 +1052,10 @@ Object jorry_drawer "desk drawer" jorry_office
             open_or_closed(self);
             ".";
         ],
+        max_capacity 12,
         describe [; rtrue; ],
-    has scenery container openable ~open;
+    class MyContainer
+    has scenery openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room northrup_anteroom "Anteroom"
@@ -1250,7 +1260,9 @@ Object northrup_safe "safe" northrup_office
             take:
                 "It's far too heavy. ";
         ],
-    has container locked openable scenery ~open;
+        max_capacity 15,
+    class MyContainer
+    has locked openable scenery ~open;
 
 Object combo_dial "dial" northrup_office
     with
@@ -1541,6 +1553,7 @@ Object mri_hatch "compartment" mri_scanner
             and pipes. ";
             "It's a closed hatch in the floor next to the MRI scanner. ";
         ],
+        max_capacity 30,
     has scenery light container enterable openable ~open; 
 
 Object metal_cart "cart" central_supply
@@ -1931,6 +1944,7 @@ Object storage_cabinet "cabinet" storage
             knock:
             <<knock cabinet_door>>;
         ],
+        max_capacity 30,
     has scenery container openable locked ~open;
 
 Object cabinet_door "cabinet door" storage
@@ -1978,7 +1992,9 @@ Object storage_locker "locker" storage
             "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
             the storage room. ";
         ],
-    has container open enterable scenery;
+        max_capacity 30,
+    class MyContainer
+    has open enterable scenery;
 
 Object telephone "telephone" storage
     with name 'black' 'phone' 'telephone',
@@ -1993,6 +2009,8 @@ Object telephone "telephone" storage
                 <<take handset>>;
             Drop:
                 <<drop handset>>;
+            receive:
+            "You can't put things in the phone. ";
         ],  
         describe [;
             rtrue;
@@ -2098,6 +2116,8 @@ Object refrigerator "refrigerator" break_room
         before [;
             take:
                 "You don't possess the power of levitation. You do seem to possess the power of delusion. ";
+            receive:
+            "It's already packed full of leftovers and lunch bags. ";
         ],
     has scenery container openable ~open;
 
@@ -2149,7 +2169,9 @@ Object microwave "microwave oven" break_room
                 }
         ],
         oven_running false,
-    has openable container scenery ~open;
+        max_capacity 15,
+    class MyContainer
+    has openable scenery ~open;
 
 Object microwave_dial "dial" break_room
     with name 'dial' 'control',
