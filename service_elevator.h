@@ -55,6 +55,10 @@ Object service_elevator "Service Elevator"
         ],
         s_to service_elevator_door,
         out_to service_elevator_door,
+        before [;
+            go:
+            if (selected_direction == out_to && FlagIsSet(F_HAVE_MET_VIC) && vic in sub_basement_02) remove vic;
+        ],
     has light;
 
 Object service_elevator_door "service elevator door"

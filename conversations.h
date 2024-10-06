@@ -59,4 +59,4 @@ Array talk_array_vic-->
   30 "Sid Jorry" TM_NO_LINE "Is that the guy who had the heart attack? So sad."
   30 "Nurse Retch" TM_NO_LINE "Never met her."
   30 "syringe" TM_NO_LINE "Uh, well. Yeah. Hospitals are full of syringes, right?"
-  TM_END
+  TM_END;

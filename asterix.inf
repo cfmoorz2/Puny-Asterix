@@ -62,7 +62,7 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global dummy_walkman_playing = false;
 
-Constant FLAG_COUNT 10;
+Constant FLAG_COUNT 11;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -73,6 +73,7 @@ Constant F_BADDIES_FOLLOWING 7; !baddies are following at endgame
 Constant F_MRI_SUITE_DESTROYED 8; 
 Constant F_FREDDY_ASLEEP 9;
 Constant F_WALKMAN_BLOCKING 10;
+Constant F_HAVE_MET_VIC 11; ! vic has been encountered?
 
 Constant MSG_WEAR_DEFAULT 1000;
 
