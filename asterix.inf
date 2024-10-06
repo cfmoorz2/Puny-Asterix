@@ -192,6 +192,7 @@ Include "puny.h";
     StartDaemon(eugene);
     linda.move_mode = WANDER_PATH;
     StartDaemon(linda);
+    StartDaemon(nurse_retch);
     player.orders = MyTakeRule;
     !oliver.move_mode = TARGET_PATH;
 	!oliver.target_room = conference_room;

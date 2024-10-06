@@ -93,7 +93,7 @@ Class Mover
                 }
                 if(i has valuable) {
                     move i to self;
-                    if(self in real_location) print(The)self," picks up ",(a)i,".^";
+                    if(self in real_location) print"^",(The)self," picks up ",(the)i,".^";
                 }
             }
             rfalse;

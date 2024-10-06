@@ -1146,8 +1146,10 @@ Object syringe "syringe" jacket_pocket
     before [;
         take:
             if (self in jacket_pocket) move self to real_location;
+            ActivateTopic(vic, 300);
+            ActivateTopic(nurse_retch, 300);
     ],
-    has item;
+    has item valuable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
@@ -1175,9 +1177,10 @@ Object kcl_bottle "plastic vial" nurse_retch
         after [;
             take:
             ActivateTopic(oliver, 303);
+            ActivateTopic(nurse_retch, 301);
         ],
         mass 2,
-    has item;
+    has item valuable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ledger "ledger" northrup_safe

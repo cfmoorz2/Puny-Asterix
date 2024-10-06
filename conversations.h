@@ -58,7 +58,7 @@ Array talk_array_vic-->
   30 "boiler room" TM_NO_LINE "Little girls shouldn't be poking around in such places."
   30 "Sid Jorry" TM_NO_LINE "Is that the guy who had the heart attack? So sad."
   30 "Nurse Retch" TM_NO_LINE "Never met her."
-  30 "syringe" TM_NO_LINE "Uh, well. Yeah. Hospitals are full of syringes, right?"
+  00 300 "syringe" TM_NO_LINE "Uh, well. Yeah. Hospitals are full of syringes, right?"
   TM_END;
 
 Array talk_array_becky-->
@@ -96,3 +96,38 @@ Array talk_array_eugene-->
   30 "Dr. Northrup" TM_NO_LINE "Seems like the last few years he's become more of a businessman rather than a doctor."
   30 "Air Supply" TM_NO_LINE "They're awesome, man. Most people don't know that they started out in Australia."
   TM_END;
+
+Array talk_array_retch-->
+  00 300 "syringe" TM_NO_LINE TM_NO_LINE TM_retch_syringe
+  00 301 "potassium vial" TM_NO_LINE TM_NO_LINE TM_retch_vial
+  TM_END;
+
+[ TM_retch_syringe ;
+  if(syringe in player)
+  {
+    remove syringe;
+      SetFlag(F_RETCH_TRIGGERED);
+                StartTimer(retch_timer, 4);
+                if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
+                "^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
+                relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
+                have you sticking yourself now, can we?~";
+  }
+    "~I certainly don't know what you're talking about.~";
+];
+
+[ TM_retch_vial ;
+  if (kcl_bottle in player)
+  {
+    print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
+                ~You are quite the persistent little thing, aren't you?~ She angrily swipes the vial from you.^^
+                ~You'd best be careful, candystriper, or you may not finish out your time here.~^";
+                remove kcl_bottle;
+                SetFlag(F_RETCH_KCL);
+                nurse_retch.move_mode = TARGET_PATH;
+	            nurse_retch.target_room = northrup_office;
+                StartDaemon(nurse_retch);
+                rtrue;
+  }
+    "~I have no idea what you're talking about.~";
+];

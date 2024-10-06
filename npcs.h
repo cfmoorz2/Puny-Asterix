@@ -331,6 +331,7 @@ Object nurse_retch "Nurse Retch" station_b
                 nurse uniform with a white nurse cap pinned to her hair. ";
         ],
         describe "^Nurse Retch is here. ",
+        talk_array talk_array_retch,
         life [;
             give, show:
             if (noun == syringe) 
@@ -366,7 +367,6 @@ Object nurse_retch "Nurse Retch" station_b
                 rtrue; 
             }
         ],
-        
         each_turn [;
             if (self in storage && player in storage_locker)
             {
