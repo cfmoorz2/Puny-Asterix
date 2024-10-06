@@ -163,6 +163,7 @@ Object eugene "Eugene" environmental_services
             ~Here's a tape for your little tape player there, Candy. You kids today don't 
             appreciate real artistry.~ He hands you the tape.";
         ],
+        talk_array talk_array_eugene,
     class Mover MyNPC
     has animate proper transparent; 
 

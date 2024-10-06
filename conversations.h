@@ -85,3 +85,14 @@ Array talk_array_linda-->
   00 305 "Winston" TM_NO_LINE "He's a regular around here. Poor guy's been sickly for a while."
   00 306 "Larry" TM_NO_LINE "Don't drink too much. That's all I'll say about that."
   TM_END;
+
+Array talk_array_eugene-->
+  30 "himself" TM_NO_LINE "I started working here thirty years ago. I prefer the night shift. It's quieter and
+  fewer spills and messes."
+  30 "St. Asterix Hospital" TM_NO_LINE "It's gone downhill a lot lately. It's too bad Mr. Jorry died. He was the one 
+  keeping the place solvent." 300
+  00 300 "Sid Jorry" TM_NO_LINE "He was the money man for Dr. Northrup. I heard he and Northrup had been arguing a lot 
+  lately."
+  30 "Dr. Northrup" TM_NO_LINE "Seems like the last few years he's become more of a businessman rather than a doctor."
+  30 "Air Supply" TM_NO_LINE "They're my favorite band. Most people don't know that they started out in Australia."
+  TM_END;
