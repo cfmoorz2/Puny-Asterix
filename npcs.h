@@ -11,7 +11,6 @@ Class MyNPC
             take:
             if (noun has scenery || noun has static) rfalse;
             x = self.holding();
-            !if (x + noun.mass > self.max_capacity) "That's more than ",(name)self," can hold.";
             go:
             if (following) { following = false; rfalse; }
             if(player == self && real_location provides noun.door_dir && real_location.(noun.door_dir) ofclass Room)
@@ -311,10 +310,11 @@ Object linda "Linda" station_a
             "smiling. ", "humming to herself. ");
             if (self has encountered) "";
             give self encountered;
+            ActivateTopic(becky, 300);
             "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
-        npc_wander_delay 3,
-        npc_avoid hallway_3_2,
+        npc_wander_delay 2,
+        npc_avoid hallway_2_3 stairwell_m hallway_3_3,
         talk_array talk_array_linda, 
     class Mover MyNPC
     has animate proper transparent; 

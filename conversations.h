@@ -64,6 +64,7 @@ Array talk_array_vic-->
 Array talk_array_becky-->
   30 "herself" TM_NO_LINE "Oh, gee. I'm the new nurse and super excited to be here."
   30 "Nurse Retch" TM_NO_LINE "She's, um, very experienced, I guess."
+  00 300 "Linda" TM_NO_LINE "She's really perky and the patients seem to love her."
   00 305 "Mrs. Chen" TM_NO_LINE "Such a sweet lady. I hope her pneumonia gets better soon."
   00 306 "Ms. Parsons" TM_NO_LINE "Oh, gee. I guess it would look really bad if she died on my shift."
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
