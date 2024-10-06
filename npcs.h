@@ -265,6 +265,7 @@ Object mabel "Mabel" main_lobby
             print"^Mabel is here, occupying the information desk. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(buzz, 300);
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
             home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";
         ],
@@ -283,9 +284,10 @@ Object becky "Becky" station_a
             "idly playing with a sphygmomanometer. ");
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(mabel, 304);
             "She's the nurse on duty tonight on Ward A. ";
         ],
-        !talk_array talk_array_becky, 
+        talk_array talk_array_becky, 
     class Mover MyNPC
     has animate proper transparent; 
 
@@ -533,6 +535,7 @@ Object ms_parsons "Ms. Parsons" room_22
             if (self hasnt encountered) 
             {
                 give self encountered;
+                ActivateTopic(becky, 306);
                 "^Ms. Parsons, a frail hyper-elderly lady is lying in the bed. She's recognized as the oldest resident of the 
                 Tri-state area. The best guess is that she's 103 years old. She has dementia and doesn't talk much but is always 
                 smiling. She once claimed that the secret to her longevity was that she never married. ";
@@ -572,6 +575,7 @@ Object elliot "Elliot" hallway_2_3
             print"^Elliot is here. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(becky, 308);
             "He's rolling up and down the hallway in his wheelchair. ";
         ],
         npc_walk [; print"rolls";],
@@ -602,6 +606,7 @@ Object mrs_chen "Mrs. Chen" room_21
             if (self hasnt encountered) 
             {
                 give self encountered;
+                ActivateTopic(becky, 305);
                 "^Mrs. Chen, a small Chinese lady is lying in the bed. ";
             }
             "^Mrs. Chen is lying in the bed. ";
@@ -618,6 +623,7 @@ Object mr_johnson "Mr. Johnson" room_23
             print"^Mr. Johnson is here. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(becky, 307);
             "He's pushing a rolling walker ahead of him up and down the halls. ";
         ],
         npc_walk [; print"rolls";],

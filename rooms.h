@@ -716,6 +716,8 @@ Room security_office "Security Office"
                     print"^Buzz, the head of security, is sitting at the desk. He's engrossed in the newspaper and 
                         intermittently reaches over and blindly plucks a shrimp from a bowl and plops it into his mouth.^"; 
                     give buzz encountered;
+                    ActivateTopic(mabel, 303);
+                    ActivateTopic(freddy, 301);
                     StartDaemon(buzz);
                 } else {
                     "^Buzz is sitting here, reading the newspaper. ";
