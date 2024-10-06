@@ -985,7 +985,7 @@ Tape jorry_tape "cassette tape with a green label" rock
     print SAFE_1,", ",SAFE_2,", ",SAFE_3,".^^";
     print"You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
     information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
-    boombox_playing = false;
+    walkman_playing = false;
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1197,7 +1197,7 @@ Object ledger "ledger" northrup_safe
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object letter "letter" 
     with 
-        name 'letter' 'confirmation',
+        name 'letter' 'confirmation' 'paper',
         description "It's a typed letter signed by and on Sid Jorry's letterhead. ",
         initial "A piece of paper is here fluttering in the air. ",
         before [;

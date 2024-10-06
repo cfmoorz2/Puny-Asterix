@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = lobby_west;
+Constant INITIAL_LOCATION_VALUE = station_b;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 #Ifndef USEINFORM;
@@ -313,7 +313,7 @@ Object endgame_daemon
     if (real_location == mri_anteroom or mri_scanner)
          "^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
         screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
-        it's back to a mechanical ~chirping~ sound. ";
+        it's back to a mechanical ~chirping~ sound.^";
     
 ];
 
@@ -323,7 +323,7 @@ Object endgame_daemon
     noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
     missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
     winds down and stops and the room is eerily silent.^^You look over the carnage of the very expensive MRI machine, 
-    now shattered and in pieces and your heart sinks as you realize that you'll never get credit for your volunteer time now.";
+    now shattered and in pieces and your heart sinks as you realize that you'll never get credit for your volunteer time now.^";
     deadflag = 3;
     rtrue;
 ];
@@ -335,7 +335,7 @@ Object endgame_daemon
         print"^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the walls surrounding you becomes a loud screech. 
         Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
-        MRI scanner and the screeching winds down and the you hear only eerie silence.";
+        MRI scanner and the screeching winds down and the you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         move injured_trio to mri_scanner;
@@ -347,7 +347,7 @@ Object endgame_daemon
     crashing and glass breaking. After a moment, there's a pained moan from the MRI scanner and the screeching winds 
     down and the you hear only eerie silence.^^You peek out of the compartment and see the very expensive MRI machine 
     shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
-    your volunteer time now. ";
+    your volunteer time now.^";
     deadflag = 3;
     rtrue;
 ];
@@ -362,7 +362,7 @@ Object endgame_daemon
         missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
         you duck down into the compartment, shutting the hatch behind you. Above you, you hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
-        MRI scanner and the screeching winds down and the you hear only eerie silence.";
+        MRI scanner and the screeching winds down and the you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         move injured_trio to mri_scanner;
@@ -376,7 +376,7 @@ Object endgame_daemon
     you duck down into the compartment, shutting the hatch behind you. After a moment, there's a pained moan from the MRI 
     scanner and the screeching winds down and the you hear only eerie silence.^^You peek out of the compartment and see
     the very expensive MRI machine shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
-    your volunteer time now. ";
+    your volunteer time now.^";
     deadflag = 3;
     rtrue;
 ];
@@ -404,7 +404,7 @@ Object endgame_daemon
     You raise your arms in an effort to shield yourself but you are pummeled by the flying debris, knocking you unconscious. 
     With a pained moan, the scanner winds down and stops and the room is eerily silent.^^
     You come to and groggily look around. Seeing the very expensive MRI machine shattered and in pieces your heart sinks as 
-    you realize that you'll never get credit for your volunteer time now. ";
+    you realize that you'll never get credit for your volunteer time now.^";
     deadflag = 3;
     rtrue;
 ];

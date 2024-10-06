@@ -2,12 +2,11 @@ push cart e
 g
 g
 g
-push button
+press button
 z
 z
 z
 push cart in
-z
 press m
 z
 z
@@ -22,39 +21,74 @@ e
 n
 look in can
 take shrimp
+w
 s
 w
 w
 s
+w
 open door
 w
-give shrimp to buzz
+show shrimp
 take card
 e
 n
-w
 e
-press down
+n
+d
+s
+w
+w
+w
+open door
+s
+push cart n
+push cart e
+g
+g
+press button
+z
+push cart in
+push 2
+z
+z
+push cart out
+push cart e
+g
+push cart n
+open glass door
+push cart w
+open glass door
+e
+s
+w
+w
+w
+press down button
+z
 z
 in
 swipe card
 z
 z
+z
 out
 w
-open dumbwaiter
-pull right
-open boiler door
+open door
+boiler
 w
+search jacket
 take syringe
 e
-put syringe in dumbwaiter
+open sliding door
+look in shaft
+pull right
+put syringe and card in dumbwaiter
 pull left
 g
 g
 g
 g
-close dumbwaiter
 e
 press button
 in
@@ -66,10 +100,11 @@ z
 out
 w
 open dumbwaiter
-take syringe
+look in dumbwaiter
+take card and syringe
 w
 w
-give syringe to retch
+show syringe to retch
 e
 e
 e
@@ -105,64 +140,54 @@ g
 g
 g
 g
-e
-e
-e
-e
 n
-d
-s
-w
-w
-w
-w
 e
-n
-take tape
-take ladder
-s
-e
-e
-e
-n
-u
-d
-u
-s
-w
-w
-w
-e
-e
-e
-w
-w
-w
 press eject
+boombox
 take yellow
-i
-put blue tape in boombox
-close box
-press play
-open door
-office
+e
+e
+e
 n
-x jorry
+d
+s
+w
+w
+w
+w
+take ladder
+i
+e
+e
+e
+e
+n
+u
+s
+w
+w
+w
+put blue in boombox
+close boombox
+press play
+boombox
+open door
+n
 take rock
 take tape
-s
-take boombox
-n
-press eject
-take blue
 i
-put green in box
-closes box
-press play
-close box
-press play
+drop rock
+drop card
 s
+capacity
 e
+press eject
+look in walkman
+take red
+put green in walkman
+close walkman
+press play
+wear headphones
 e
 e
 n
@@ -173,93 +198,47 @@ w
 w
 w
 take ladder
+i
+drop red
+drop yellow
+drop walkman
+take ladder
+i
+l
 e
 e
 e
 e
-u
 n
 u
 s
 w
-
 w
-drop ladder 
-u
+w
+e
+drop ladder
 open ladder
-turn on light
 u
+turn on light
 w
 w
 s
 s
 d
-get off cabinet
+d
+l
 turn dial right to 1
 turn dial left to 2
 turn dial right to 3
 open safe
 take ledger
-open door
-u
-get on cabinet
+climb cabinet
 u
 n
 n
 e
 e
 d
-drop ledger
-turn off light
-e
-e
-n
-d
-s
-w
-w
-w
-s
-open door
-s
-push cart n
-push cart e
-g
-g
-push button
-up
-z
-z
-push cart n
-push 2
-push cart s
-w
-drop box
-e
-push button
-push cart in
-press 2
-z
-z
-push cart out
-push cart e
-g
-push cart n
-open door
-push cart w
-e
-open door
-glass
-e
-s
-w
-w
-n
-d
-s
-w
-w
-take ledger
 e
 e
 n
@@ -268,12 +247,16 @@ s
 e
 e
 n
-open door
+open glass
 press green
 w
 open hatch
 get in compartment
 close hatch
 z
-
-
+open hatch
+l
+leave hatch
+take paper
+q
+quit

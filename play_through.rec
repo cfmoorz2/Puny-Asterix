@@ -58,10 +58,7 @@ g
 push cart n
 open glass door
 push cart w
-e
-s
 open glass door
-s
 e
 s
 w
@@ -104,7 +101,6 @@ out
 w
 open dumbwaiter
 look in dumbwaiter
-take all
 take card and syringe
 w
 w
@@ -149,8 +145,6 @@ e
 press eject
 boombox
 take yellow
-put blue tape in boombox
-i
 e
 e
 e
@@ -239,9 +233,6 @@ turn dial left to 2
 turn dial right to 3
 open safe
 take ledger
-n
-open door
-u
 climb cabinet
 u
 n
@@ -266,9 +257,7 @@ close hatch
 z
 open hatch
 l
-take paper
-take letter
 leave hatch
-take letter
+take paper
 q
 quit

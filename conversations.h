@@ -94,5 +94,5 @@ Array talk_array_eugene-->
   00 300 "Sid Jorry" TM_NO_LINE "He was the money man for Dr. Northrup. I heard he and Northrup had been arguing a lot 
   lately."
   30 "Dr. Northrup" TM_NO_LINE "Seems like the last few years he's become more of a businessman rather than a doctor."
-  30 "Air Supply" TM_NO_LINE "They're my favorite band. Most people don't know that they started out in Australia."
+  30 "Air Supply" TM_NO_LINE "They're awesome, man. Most people don't know that they started out in Australia."
   TM_END;
