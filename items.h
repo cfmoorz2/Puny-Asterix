@@ -94,6 +94,7 @@ Object dummy_headphones "headphones"
 Object dummy_walkman "your walkman" 
     with 
         name 'walkman' 'player',
+        mass 6,
         description [ obj;
             print"It's a portable tape player. The tape compartment in the side is 
             currently ";
@@ -120,6 +121,7 @@ Object dummy_walkman "your walkman"
                 <<push wm_eject_button>>;
             receive:
             if (children(self) > 5 ) "There's already a tape in the walkman. ";
+            if (~~noun ofclass Tape) "You can't put ",(the)noun," in the walkman. ";
             wear:
             if(self has worn) "You're already wearing the headphones. ";
             give self worn;
@@ -288,6 +290,7 @@ Object walkman "your walkman"
             if (w1 == 'walkman' or 'player') { self.id = 0; return 1; }
             if (w1 == 'headphones' or 'phones') { self.id = 1; return 1; }
         ],
+        mass 7,
         id, !0 = walkman, 1 = headphones
         description [ obj;
             if (self.id == 0)
@@ -324,6 +327,7 @@ Object walkman "your walkman"
 
             receive:
             if (children(self) > 5 ) "There's already a tape in the walkman. ";
+            if (~~noun ofclass Tape) "You can't put ",(the)noun," in the walkman. ";
 
             unplug:
             t_obj = walkman.tape_is_loaded();
