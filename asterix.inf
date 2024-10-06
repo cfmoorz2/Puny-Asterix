@@ -185,6 +185,7 @@ Include "puny.h";
     StartDaemon(eugene);
     linda.move_mode = WANDER_PATH;
     StartDaemon(linda);
+    player.orders = MyTakeRule;
     !oliver.move_mode = TARGET_PATH;
 	!oliver.target_room = conference_room;
     !StartDaemon(oliver);
@@ -226,6 +227,12 @@ Include "VerbLib";
 
 [open_or_closed door;
     if (door has open) print "open"; else print "closed";
+];
+
+[MyTakeRule ;
+    if (action ~= ##take)   rfalse;
+    print"TAKE^";
+    rfalse;
 ];
 
 [read_news i;
