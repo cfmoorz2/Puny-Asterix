@@ -192,8 +192,6 @@ Include "puny.h";
     !move ledger to player;
     init_safe();
     move walkman to player;
-    move book_cart to lobby_west;
-    !SetFlag(F_SAW_KNOCK_SPOT);
 ];
 
 Include "my_grammar.h";
