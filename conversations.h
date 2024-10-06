@@ -84,6 +84,7 @@ Array talk_array_linda-->
   00 304 "Elliot" TM_NO_LINE "He likes to flirt with me so I think his knee is feeling better."
   00 305 "Winston" TM_NO_LINE "He's a regular around here. Poor guy's been sickly for a while."
   00 306 "Larry" TM_NO_LINE "Don't drink too much. That's all I'll say about that."
+  00 307 "Edith" TM_NO_LINE "Such a sweet lady. Hope her urinary tract infection clears up."
   TM_END;
 
 Array talk_array_eugene-->
@@ -100,6 +101,13 @@ Array talk_array_eugene-->
 Array talk_array_retch-->
   00 300 "syringe" TM_NO_LINE TM_NO_LINE TM_retch_syringe
   00 301 "potassium vial" TM_NO_LINE TM_NO_LINE TM_retch_vial
+  30 "herself" TM_NO_LINE "I really don't think that's any of your business."
+  30 "Dr. Northup" TM_NO_LINE "He's a great man and deserves your utmost respect."
+  00 302 "Edith" TM_NO_LINE "I don't discuss patients with the candy stripers."
+  00 303 "Winston" TM_NO_LINE "I don't see how that's any of your business."
+  00 304 "Larry" TM_NO_LINE "You'd best keep to your books, candy striper."
+  00 305 "Vic" TM_NO_LINE TM_NO_LINE TM_retch_vic
+  30 "Sid Jorry" TM_NO_LINE "He should have taken better care of himself; he'd have lived longer."
   TM_END;
 
 [ TM_retch_syringe ;
@@ -130,4 +138,8 @@ Array talk_array_retch-->
                 rtrue;
   }
     "~I have no idea what you're talking about.~";
+];
+
+[ TM_retch_vic ;
+  "She's seems taken aback for a second.^^~I...I think he's the new janitor. He seems quite nice, actually.~";
 ];

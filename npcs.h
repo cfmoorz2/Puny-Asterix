@@ -225,6 +225,7 @@ Object vic "Vic"
             }
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
+            ActivateTopic(nurse_retch, 305);
             "^Vic is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
             since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description. ";
         ],
@@ -475,6 +476,7 @@ Object winston "Mr. Winston" hallway_3_4
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(linda, 305);
+            ActivateTopic(nurse_retch, 303);
             "He's a bored patient pushing an IV pole up and down the wards. ";
         ],
         npc_walk [; print"pushes his IV pole";],
@@ -503,6 +505,8 @@ Object edith "Edith" room_32
             if (self hasnt encountered) 
             {
                 give self encountered;
+                ActivateTopic(nurse_retch, 302);
+                ActivateTopic(linda, 307);
                 "^Edith, a frial elderly patient is lying in the bed. ";
             }
             "^Edith is lying in the bed. ";
@@ -545,6 +549,7 @@ Object larry "Larry" room_33
             {
                 give self encountered;
                 ActivateTopic(linda, 306);
+                ActivateTopic(nurse_retch, 304);
                 "^Larry, a corpulent gentleman is lying in the bed. ";
             }
             "^Larry is lying in the bed. ";
