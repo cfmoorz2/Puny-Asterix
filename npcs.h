@@ -77,6 +77,19 @@ Object freddy "Freddy" admin_hallway
             "He's leading back against the wall in a metal folding chair. His lids are heavy and
             he's struggling to stay awake. ";
         ],
+        life [;
+            show, give:
+            switch (noun)
+            {
+                walkman: "~My boombox is better.~";
+                dummy_walkman: "~My boombox is better.~";
+                mixtape: "~You can keep it. Just don't tell my girlfriend.~";
+                thriller: "~My girlfriend plays that thing non-stop.~";
+                air_supply_tape: "~That's old person naptime music.~";
+                shrimp: "He covers his nose with his arm. ~Aw, man! That's rank!";
+                default: "He yawns and is thoroughly uninterested. ";
+            }
+        ],
         talk_array talk_array_freddy,
         before [;
             talk:

@@ -106,12 +106,6 @@ Constant MSG_WEAR_DEFAULT 1000;
        if (action == ##flip && obj in boombox && obj ofclass tape) return 2;
        if (action == ##flip && obj in walkman && obj ofclass tape) return 2; 
        if (action == ##flip && obj in dummy_walkman && obj ofclass tape) return 2; 
-       if (action == ##Take && obj in boombox && obj ofclass tape) return 0; 
-       if (action == ##Take && obj in walkman && obj ofclass tape) return 0; 
-       if (action == ##Take && obj in dummy_walkman && obj ofclass tape) return 0; 
-       if (action == ##Examine && obj in boombox && obj ofclass tape) return 0; 
-       if (action == ##Examine && obj in walkman && obj ofclass tape) return 0; 
-       if (action == ##Examine && obj in dummy_walkman && obj ofclass tape) return 0; 
        !if (action == ##push && IndirectlyContains(player, obj)) return 2;
     }
 
