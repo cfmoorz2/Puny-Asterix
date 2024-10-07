@@ -49,14 +49,19 @@ Object oliver "Oliver" morgue
         ],
         life [;
             give, show:
-            if (noun == syringe) "~Huh, that's odd.~";
-            if (noun == kcl_bottle) "~That's strange. That shouldn't be out for you to find.~";
-            if (noun == walkman) "~Yes, you have a walkman.~";
-            if (noun == thriller) "~Yeah, I've heard it, obviously.~";
-            if (noun == air_supply_tape) "~They're a little too sedating for my taste.~";
-            if (noun == shrimp) "~Ugh! Get that out of my face.~";
-            if (noun == ledger) "~That looks like it might be important to someone else.~";
-            "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
+            switch (noun)
+            {
+                syringe: "~Huh, that's odd.~";
+                kcl_bottle: "~That's strange. That shouldn't be out for you to find.~";
+                walkman: "~Yes, you have a walkman.~";
+                thriller: "~Yeah, I've heard it, obviously.~";
+                air_supply_tape: "~They're a little too sedating for my taste.~";
+                shrimp: "~Ugh! Get that out of my face.~";
+                ledger: "~That looks like it might be important to someone else.~";
+                book_cart: "~No thanks. I don't need any romance novels.~";
+                metal_cart: "~Why are you pushing that dumb thing around?~";
+                default: "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
+            }
         ],
     class Mover MyNPC
     has animate proper transparent;   
