@@ -1610,12 +1610,13 @@ Object metal_cart "cart" central_supply
             pushdir:
                 dirobj = DirPropToFakeObj(selected_direction);
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you shove the heavy cart to the ";
-                print (string) direction_name_array-->selected_direction_index;
-                print".^^";
-			    <Go dirobj>;
+                <Go dirobj>;
 			    move self to real_location;
-                rtrue;   
+                print"Wheels grinding and squeaking, you shove the heavy cart ";
+                if (dirobj == FAKE_OUT_OBJ) "out. ";
+                if (dirobj == FAKE_IN_OBJ) "inside. ";
+                print (string) direction_name_array-->selected_direction_index;
+                ".";
             receive:
             "The cart is already full. ";  
         ],
