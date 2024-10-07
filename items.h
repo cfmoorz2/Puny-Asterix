@@ -99,6 +99,13 @@ Object dummy_walkman "your walkman"
             if(dummy_walkman_playing == true) "and that the little rotors are turning. "; "and that the little 
             rotors are motionless. ";
         ],
+        react_before [ ;
+            take:
+            if (noun in self && noun ofclass Tape)
+            {
+                <push dw_eject_button>;   
+            }
+        ],
         before [;
             open:
                 <<push wm_eject_button>>;

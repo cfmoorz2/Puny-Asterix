@@ -197,8 +197,22 @@ Object eugene "Eugene" environmental_services
             give self encountered;
             move air_supply_tape to player;
             "He's the overnight custodian. He waves and stops when he sees you and reaches into a pocket, pulling out a casette tape with a blue label.^^
-            ~Here's a tape for your little tape player there, Candy. You kids today don't 
+            ~Here's a tape for your little tape player, Candy. You kids today don't 
             appreciate real artistry.~ He hands you the tape.";
+        ],
+        life [;
+            give, show:
+            switch (noun)
+            {
+                swipe_card: "~That'll let you down into the sub-basement. But I wouldn't go down there. It's dark and dangerous.~";
+                walkman, dummy_walkman: "~Hey, you can listen to your new tape right here.~";
+                thriller: "~'Thriller'? Never heard of it.~";
+                air_supply_tape: "~That's for you. It's real music.~";
+                shrimp: "~Ohh, that's bad.~";
+                book_cart: "~No thanks. I've got enough books and the missus subscribes to 'People'.~";
+                metal_cart: "~You should probably put that back.~";
+                default: "Eugene politely feigns interest in ",(the)noun,".";
+            }
         ],
         talk_array talk_array_eugene,
     class Mover MyNPC
