@@ -562,7 +562,7 @@ Object larry "Larry" room_33
             }
             "^Larry is lying in the bed. ";
         ],
-        !talk_array talk_array_larry, 
+        talk_array talk_array_larry, 
     class Mover MyNPC
     has animate proper transparent;  
 

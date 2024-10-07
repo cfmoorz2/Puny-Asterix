@@ -176,7 +176,7 @@ Include "ext_talk_menu.h";
 Include "puny.h";
 
 [ Initialise r;
-    print"It's very snowy out and you may not survive the night.^";
+    intro();
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
@@ -270,6 +270,23 @@ Include "VerbLib";
     if(count + x > MAX_CARRIED) "That's too much for you to carry. ";
     rfalse;
 ];
+
+[ intro;
+    "One more night. One more cold winter night. It's been a painful four weeks but you're so close you can taste it. And then 
+    Mr. Rogers, your Ethics teacher can suck it.^^
+    You're going to be a senior and you have BIG plans coming up this summer. Tiffany is going to be life-guarding at the pool 
+    and she's promised to get you a cushy job at the snack bar. You'll spend your working days surrounded by cute boy lifeguards and your 
+    off-time at the mall.^^
+    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this at all costs, 
+    you took Ethics this semester, an easy ~A~. But, in order to pass, you have to perform some sort of volunteer activity for three weeks. 
+    The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
+    Hospital.^^
+    It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
+    your sponsor at the hospital, Mr. Jorry, was supposed to give you a letter confirming your volunteer hours. Catastrophically, Mr. Jorry was
+    found dead in his office tonight. And, even worse, a blizzard blew in today and now it doesn't seem like you can even get home tonight.^^
+    Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
+    you have to find that stupid letter because you are NOT going to summer school this year. ";
+];   
 
 [read_news i;
     i = random(12);
