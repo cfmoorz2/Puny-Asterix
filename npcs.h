@@ -286,6 +286,7 @@ Object becky "Becky" station_a
             give self encountered;
             ActivateTopic(mabel, 304);
             ActivateTopic(linda, 300);
+            ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         talk_array talk_array_becky, 
@@ -315,6 +316,7 @@ Object linda "Linda" station_a
             ActivateTopic(becky, 300);
             ActivateTopic(winston, 300);
             ActivateTopic(larry, 302);
+            ActivateTopic(elliot, 301);
             "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
         npc_wander_delay 2,
@@ -570,8 +572,8 @@ Object larry "Larry" room_33
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object elliot "Elliot" hallway_2_3
     with name 'elliot',
-        description "He's a young athletic blonde blond gentleman in his 20s. He's rolling idly up and 
-        down the hallways in a wheelchair, his right leg propped in front of him in a cast. ",
+        description "He's an athletic-appearing blonde gentleman in his 30s. He's rolling idly up and 
+        down the hallways in a wheelchair, his right leg bandaged and propped in front of him on a padded strut. ",
         describe [;  
             print"^Elliot is here. ";
             if(self has encountered) "";
@@ -580,6 +582,7 @@ Object elliot "Elliot" hallway_2_3
             ActivateTopic(linda, 304);
             "He's rolling up and down the hallway in his wheelchair. ";
         ],
+        talk_array talk_array_elliot,
         npc_walk [; print"rolls";],
         npc_wander_delay 3,
         npc_avoid radiology stairwell_2 room_21 room_22 room_23,
@@ -617,21 +620,3 @@ Object mrs_chen "Mrs. Chen" room_21
     class Mover MyNPC
     has animate proper transparent; 
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object mr_johnson "Mr. Johnson" room_23
-    with name 'mr' 'johnson',
-        description "He's a middle-aged gentleman of average height pushing a rolling walker. He's tan with 
-        short black hair. He's wearing a gown and non-slip socks. ",
-        describe [;  
-            print"^Mr. Johnson is here. ";
-            if(self has encountered) "";
-            give self encountered;
-            ActivateTopic(becky, 307);
-            ActivateTopic(linda, 303);
-            "He's pushing a rolling walker ahead of him up and down the halls. ";
-        ],
-        npc_walk [; print"rolls";],
-        npc_wander_delay 2,
-        npc_avoid stairwell_2 mri_anteroom x_ray room_21 room_22 room_24,
-    class Mover MyNPC
-    has animate proper transparent; 
