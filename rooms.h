@@ -631,6 +631,7 @@ Object book_cart "book cart" station_b
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
         you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
         and old magazines currently on offer to any interested patients. ",
+        mass 100,
         before [ dirobj x;
             take:
                 "It's far too heavy. ";

@@ -23,7 +23,7 @@ Constant Headline   "^A basic IF demonstration.^";
 Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
-Constant PLAYER_CAPACITY 40;
+Constant MAX_CARRIED 40;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 Constant OPTIONAL_GUESS_MISSING_NOUN;
@@ -42,6 +42,8 @@ Serial "221116";
 Constant STATUSLINE_TIME; Statusline time;
 Constant INITIAL_LOCATION_VALUE = station_b;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
+
+Constant CUSTOM_PLAYER_OBJECT selfobj;
 
 #Ifndef USEINFORM;
 
@@ -222,6 +224,25 @@ Object master_timer
         if (the_time == 420) "GAME OVER";
 ];
 
+Object selfobj "you"
+	with
+		name 'me' 'myself' 'self',
+		short_name  "yourself",
+		description "You're a seventeen-year-old teenage girl. You're wearing a red-and-white pinstriped 
+        candy striper uniform and your favorite black-and-white checkerboard Vans. ",
+		before NULL,
+		after NULL,
+		life NULL,
+		each_turn NULL,
+		time_out NULL,
+		describe NULL,
+		add_to_scope 0,
+		capacity MAX_CARRIED,
+		parse_name 0,
+		orders 0,
+		number 0,
+	has concealed animate proper transparent;
+
 #Endif;
 
 #Ifdef USEINFORM;
@@ -246,7 +267,7 @@ Include "VerbLib";
     }
     !print"carrying = ",count,"^";
     !print"mass = ",x,"^";
-    if(count + x > PLAYER_CAPACITY) "That's too much for you to carry. ";
+    if(count + x > MAX_CARRIED) "That's too much for you to carry. ";
     rfalse;
 ];
 

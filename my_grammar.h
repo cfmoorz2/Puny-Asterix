@@ -170,7 +170,7 @@ Verb 'follow'
 !   CAPACITY
 Verb meta 'capacity' * -> Capacity;
 [ CapacitySub  i count; 
-    print"You can carry a total of ",PLAYER_CAPACITY," poorly-defined units based on weight, mass, 
+    print"You can carry a total of ",MAX_CARRIED," poorly-defined units based on weight, mass, 
     and 'awkwardness'. You are currently holding ";
     count = 0;
     objectloop(i in player) {

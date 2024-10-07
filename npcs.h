@@ -278,7 +278,7 @@ Object becky "Becky" station_a
     with name 'nurse' 'becky',
         description "She's the nurse on duty on Ward A tonight. She's a cheerful blonde in 
         her late 20s and St. Asterix is her first nursing job. She's attired in the standard white nursing 
-        uniform and is wearing black and white checkered Vans. ",
+        uniform. ",
         describe [;  
             print"^Nurse Becky is here ", (string) random ("charting some vital signs. ", "adjusting her white nurse's cap. ",
             "idly playing with a sphygmomanometer. ");
