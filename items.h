@@ -1205,7 +1205,7 @@ Object letter "letter"
         initial "A piece of paper is here fluttering in the air. ",
         before [;
             read:
-            "~This will confirm that Candy Striper has successfully completed her mandatory volunteer
+            "~This will confirm that the above student has successfully completed her mandatory volunteer
             assignment here at St. Asterix.^^Sincerely,^Sid Jorry, CFO";
         ],
         after [;

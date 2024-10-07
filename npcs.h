@@ -47,6 +47,17 @@ Object oliver "Oliver" morgue
             give self encountered;
             "He's the morgue assistant assigned to the night shift. ";
         ],
+        life [;
+            give, show:
+            if (noun == syringe) "~Huh, that's odd.~";
+            if (noun == kcl_bottle) "~That's strange. That shouldn't be out for you to find.~";
+            if (noun == walkman) "~Yes, you have a walkman.~";
+            if (noun == thriller) "~Yeah, I've heard it, obviously.~";
+            if (noun == air_supply_tape) "~They're a little too sedating for my taste.~";
+            if (noun == shrimp) "~Ugh! Get that out of my face.~";
+            if (noun == ledger) "~That looks like it might be important to someone else.~";
+            "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
+        ],
     class Mover MyNPC
     has animate proper transparent;   
 
@@ -616,6 +627,10 @@ Object mrs_chen "Mrs. Chen" room_21
                 "^Mrs. Chen, a small Chinese lady is lying in the bed. ";
             }
             "^Mrs. Chen is lying in the bed. ";
+        ],
+        before [;
+            talk:
+            "She smiles but doesn't seem to speak english. ";
         ],
     class Mover MyNPC
     has animate proper transparent; 
