@@ -313,6 +313,7 @@ Object linda "Linda" station_a
             if (self has encountered) "";
             give self encountered;
             ActivateTopic(becky, 300);
+            ActivateTopic(winston, 300);
             "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
         npc_wander_delay 2,
@@ -468,6 +469,7 @@ Object injured_trio "Retch, Northrup, and Vic"
 Object winston "Mr. Winston" hallway_3_4
     with 
         name 'mr' 'winston',
+        talk_array talk_array_winston,
         description "He's a thin enderly gentleman with sparse strands of white hair on a bald head 
         pocked with age spots. A gray four-day stubble shades his cheeks and chin. He's wearing a 
         hospital gown and slip-proof socks. He pushes a wheeled IV pole in front of him. ",
@@ -499,7 +501,7 @@ Object winston_pole "IV pole" winston
 Object edith "Edith" room_32
     with name 'edith',
         description "She's a thin elderly woman resting on the bed. Her gray hair is messily sprawled across her pillow 
-        and she's covered by a threadbare green blanket. ",
+        and she's covered by a threadbare green blanket. Her eyes are closed. ",
         !talk_array talk_array_edith, 
         describe [;
             if (self hasnt encountered) 
@@ -510,6 +512,12 @@ Object edith "Edith" room_32
                 "^Edith, a frial elderly patient is lying in the bed. ";
             }
             "^Edith is lying in the bed. ";
+        ],
+        before [;
+            talk:
+            "She seems to be asleep. ";
+            wakeother:
+            "Let the poor woman sleep. ";
         ],
     class Mover MyNPC
     has animate proper transparent;  

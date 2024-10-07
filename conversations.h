@@ -143,3 +143,11 @@ Array talk_array_retch-->
 [ TM_retch_vic ;
   "She's seems taken aback for a second.^^~I...I think he's the new janitor. He seems quite nice, actually.~";
 ];
+
+Array talk_array_winston-->
+  30 "Nurse Retch" TM_NO_LINE "Ooh, her hands are really cold!"
+  30 "Dr. Northrup" TM_NO_LINE "Seems competent. Looks like a TV doctor."
+  30 "St. Asterix Hospital" TM_NO_LINE "It's the only hospital in this part of town. I hope it survives but that seems 
+  less likely every week."
+  00 300 "Linda" TM_NO_LINE "She's super nice. Almost painfully perky, though."
+  TM_END;
