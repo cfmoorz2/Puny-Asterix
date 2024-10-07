@@ -1,5 +1,6 @@
 Array talk_array_mabel -->
-  30 "herself" TM_NO_LINE "Girl, you know my story. I was a nurse here forever. I was getting bored after I retired so here I am." 
+  30 "herself" TM_NO_LINE "Girl, you know my story. I was a nurse here forever. I was getting bored after I retired so here I am. You
+   got any new romance novels for me?" 
   30 "St. Asterix Hospital" TM_NO_LINE "I suppose I've been here most of my life, first as a nurse and now doing this. Don't get me started on 
   the people running it these days, though."
   30 "Dr. Northrup" TM_NO_LINE "She frowns. My Momma told me not to deal in rumors. But I think that doctor has been running this place 
@@ -151,3 +152,16 @@ Array talk_array_winston-->
   less likely every week."
   00 300 "Linda" TM_NO_LINE "She's super nice. Almost painfully perky, though."
   TM_END;
+
+Array talk_array_larry-->
+  30 "himself" TM_NO_LINE "Ha! I'm here because I can't resist the finer things in life, good food and good drink. I'm in for a little 'buff and shine' 
+  of the old liver."
+  30 "Nurse Retch" TM_NO_LINE "She's downright terrifying. Don't ask her for an OJ."
+  00 302 "Linda" TM_NO_LINE "She's super-nice and almost makes up for that scary nurse."
+  30 "St. Asterix Hospital" TM_NO_LINE "This place? Meh. They take my insurance so here I am. The place is run by a guy named Northrup." 300
+  00 300 "Dr. Northrup" TM_NO_LINE "He takes over struggling hospitals and then when they inevitably go under, he gets a nice little golden parachute. I think 
+  the guy they found dead tonight, Jorry? He's his CFO and right-hand man." 301
+  00 301 "Sid Jorry" TM_NO_LINE "These people are snakes. It wouldn't shock me if this Jorry guy was offed because he had information on somebody."
+  TM_END;
+
+

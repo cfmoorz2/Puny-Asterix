@@ -314,6 +314,7 @@ Object linda "Linda" station_a
             give self encountered;
             ActivateTopic(becky, 300);
             ActivateTopic(winston, 300);
+            ActivateTopic(larry, 302);
             "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
         npc_wander_delay 2,
