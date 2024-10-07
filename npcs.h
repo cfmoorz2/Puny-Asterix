@@ -140,7 +140,15 @@ Object buzz "Buzz" security_chair
                 ~Ooh, thought you could get away, huh?~^
                 Before you can react, he plops the shrimp in the bowl with the others. ";
             } 
-            "Buzz doesn't seem interested in the ",(name)noun,".";
+            switch (noun)
+            {
+                flashlight: "~Hm. That's a nice flashlight.~";
+                thriller, mixtape: "~Nope. Frank Sinatra is my man.~";
+                air_supply_tape: "~I'm not into Australian music.~";
+                book_cart: "~There's nothing on that cart I'd be interested in.~";
+                metal_cart: "~You shouldn't be wheeling that around. Put it back.~";
+                default: "Buzz doesn't seem interested in ",(the)noun,".";
+            }   
         ],
     has animate proper transparent;
 

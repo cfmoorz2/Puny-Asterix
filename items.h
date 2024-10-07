@@ -1098,6 +1098,8 @@ Object shrimp "rotten shrimp" !garbage_can
                 "It's fairly rank. ";
             eat:
                 "You try but just can't do it. ";
+            take:
+            if (self in shrimp_bowl) "Buzz smacks your hand away. ~Get your own.~";
         ],
         describe [; if(self in garbage_can) rtrue;],
         has edible item;
