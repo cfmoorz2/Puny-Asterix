@@ -622,6 +622,17 @@ Object winston "Mr. Winston" hallway_3_4
             ActivateTopic(nurse_retch, 303);
             "He's a bored patient pushing an IV pole up and down the wards. ";
         ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
+                shrimp: "~I think your dinner has turned.~";
+                book_cart: "~Naw, I don't think there's anything on that cart for me.~";
+                default:
+                "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
+            }
+        ]
         npc_walk [; print"pushes his IV pole";],
         npc_wander_delay 4,
         npc_avoid storage conference_room break_room stairwell_3 room_32 room_33 room_34,
