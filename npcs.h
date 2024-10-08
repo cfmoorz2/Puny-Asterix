@@ -22,10 +22,6 @@ Class MyNPC
                 print"You head off to the ",(name)noun,".^";
             }
         ],
-        life [;
-            show, give:
-            if (noun == letter) add_signature(self); rtrue;
-        ],
         signature_desc [;
             if(self has female) print"She "; else print"He ";
             print"takes the letter and pen, signs it and hands it back.^";
@@ -60,6 +56,7 @@ Object oliver "Oliver" morgue
             give, show:
             switch (noun)
             {
+                letter: add_signature(self); rtrue;
                 syringe: "~Huh, that's odd.~";
                 kcl_bottle: "~That's strange. That shouldn't be out for you to find.~";
                 walkman: "~Yes, you have a walkman.~";
@@ -90,6 +87,7 @@ Object freddy "Freddy" admin_hallway
             show, give:
             switch (noun)
             {
+                letter: add_signature(self); rtrue;
                 walkman: "~My boombox is better.~";
                 dummy_walkman: "~My boombox is better.~";
                 mixtape: "~You can keep it. Just don't tell my girlfriend.~";
@@ -151,6 +149,7 @@ Object buzz "Buzz" security_chair
             } 
             switch (noun)
             {
+                letter: add_signature(self); rtrue;
                 flashlight: "~Hm. That's a nice flashlight.~";
                 thriller, mixtape: "~Nope. Frank Sinatra is my man.~";
                 air_supply_tape: "~I'm not into Australian music.~";
@@ -159,6 +158,7 @@ Object buzz "Buzz" security_chair
                 default: "Buzz doesn't seem interested in ",(the)noun,".";
             }   
         ],
+    class MyNPC
     has animate proper transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -213,6 +213,7 @@ Object eugene "Eugene" environmental_services
             give, show:
             switch (noun)
             {
+                letter: add_signature(self); rtrue;
                 swipe_card: "~That'll let you down into the sub-basement. But I wouldn't go down there. It's dark and dangerous.~";
                 walkman, dummy_walkman: "~Hey, you can listen to your new tape right here.~";
                 thriller: "~'Thriller'? Never heard of it.~";
@@ -345,6 +346,7 @@ Object mabel "Mabel" main_lobby
             give, show:
             switch(noun)
             {
+                letter: add_signature(self); rtrue;
                 kcl_bottle: "~Ooh, girl. That looks like something that shouldn't be.~";
                 syringe: "~Oh my, girl. That ain't right. You should report that to somebody.~";
                 swipe_card: "She smiles. ~Now how'd you finagle that?~";
@@ -379,6 +381,23 @@ Object becky "Becky" station_a
             ActivateTopic(linda, 300);
             ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
+        ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                letter: add_signature(self); rtrue;
+                kcl_bottle: "~Huh. Where'd you get that? That shouldn't be outside the pharmacy.~";
+                syringe: "~Ooh, that's definitely odd. You should show that to Nurse Retch. She's in charge 
+                tonight.~";
+                swipe_card: "~That's a security swipe card. I don't think they give those to the candy stripers.~";
+                thriller: "~Oh, I LOVE that album.~";
+                shrimp: "She holds her nose. ~Oh, get that away.~";
+                book_cart: "She takes a quick peek at the books and magazines. ~No thanks. I think I'm caught up.~";
+                metal_cart: "~You should put that back in case someone needs oxygen.~";
+                default:
+                    "She politely feigns interest in ",(the)noun,".";
+            }
         ],
         talk_array talk_array_becky, 
     class Mover MyNPC
