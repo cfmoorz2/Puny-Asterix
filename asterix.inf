@@ -272,10 +272,20 @@ Include "VerbLib";
     }
 ];
 
+[ check_signature npc x i;
+    for (x=0 : x < 15: x++)
+    {
+        i = signatures-->x;
+        if (i == npc) { print(The)npc," has already signed your letter.^"; return true; }
+    }
+    return false;
+];
+
 [ add_signature npc x i o; 
     x = signature_count();
     if (x == 9) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
+    if (check_signature(npc) == true) rtrue;
     for (i=0 : i < 15: i++)
     {
         o = signatures-->i;
