@@ -750,6 +750,15 @@ Object elliot "Elliot" hallway_2_3
             ActivateTopic(linda, 304);
             "He's rolling up and down the hallway in his wheelchair. ";
         ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                thriller, air_supply_tape, mixtape: "~Sweet tunes, dude.~";
+                shrimp: "~Dude, you have to throw that away.~";
+                default: "He's distracted and doesn't care about ",(the)noun,".";
+            }
+        ],
         talk_array talk_array_elliot,
         npc_walk [; print"rolls";],
         npc_wander_delay 3,
@@ -788,6 +797,10 @@ Object mrs_chen "Mrs. Chen" room_21
         before [;
             talk:
             "She smiles but doesn't seem to speak english. ";
+        ],
+        life [;
+            give, show:
+            "She smiles sweetly and nods. ";
         ],
     class Mover MyNPC
     has animate female proper transparent; 
