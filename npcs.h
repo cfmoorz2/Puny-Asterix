@@ -671,6 +671,10 @@ Object edith "Edith" room_32
             wakeother:
             "Let the poor woman sleep. ";
         ],
+        life [;
+            give, show:
+            "She's asleep. ";
+        ],
     class Mover MyNPC
     has animate female proper transparent;  
 
@@ -695,6 +699,10 @@ Object ms_parsons "Ms. Parsons" room_22
         before [;
             talk:
             "I don't think she can hear you. ";
+        ],
+        life [;
+            give, show:
+            "Her eyes are shut and she seems oblivious to ",(the)noun,".";
         ],
     class Mover MyNPC
     has animate female proper transparent;  
