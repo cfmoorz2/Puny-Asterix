@@ -274,15 +274,14 @@ Include "VerbLib";
 
 [ add_signature npc x i o; 
     x = signature_count();
-    if (x == 10) "You don't need any more signatures. ";
+    if (x == 9) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
     for (i=0 : i < 15: i++)
     {
         o = signatures-->i;
         if (o == 0) 
         {
-            signatures-->i = npc;
-            npc.signature_desc();
+            if (npc.signature_desc()) signatures-->i = npc;
             rtrue;
         }
     }

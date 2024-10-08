@@ -28,7 +28,8 @@ Class MyNPC
         ],
         signature_desc [;
             if(self has female) print"She "; else print"He ";
-            "takes the letter and pen, signs it and hands it back. ";
+            print"takes the letter and pen, signs it and hands it back.^";
+            return true;
         ],
         npc_after_action    [ i;
             objectloop (i in parent(self))  {
