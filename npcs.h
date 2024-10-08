@@ -490,6 +490,16 @@ Object nurse_retch "Nurse Retch" station_b
                 StartDaemon(nurse_retch);
                 rtrue;
             }
+            switch(noun)
+            {
+                swipe_card: move swipe_card to lost; "She eyes you suspiciously. ~Where did you get that? You're not 
+                supposed to have that.~ She plucks the card away. "; 
+                shrimp: "She grimaces and waves her hand. ";
+                book_cart: "~Yes, you should stick to your duties, candy striper.~";
+                metal_cart: "~You need to put that back right now. You're interfering in patient care.";
+                default:
+                    print_ret"Annoyed, she ignores ",(the)noun,".";
+            }
         ],
         npc_arrived [;
             if(parent(self)== storage) 
