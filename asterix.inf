@@ -194,6 +194,7 @@ Include "puny.h";
     !move swipe_card to player;
     !move syringe to player;
     !move ledger to player;
+    move letter to player;
     init_safe();
     move walkman to player;
 ];
@@ -250,6 +251,32 @@ Include "VerbLib";
     if (door has open) print "open"; else print "closed";
 ];
 
+[ signature_count  x y i;
+            for (x=0 : x < 15: x++)
+            {
+                i = signatures-->x;
+                print"here i = ",(name)i,"^";
+                if (i ofclass MyNPC) y++;
+            }
+            return y;
+];
+
+[ add_signature npc x i o; 
+    x = signature_count();
+    if (x == 10) "You don't need any more signatures. ";
+    if (pen notin player) "You need a pen. ";
+    for (i=0 : i < 15: i++)
+    {
+        o = signatures-->i;
+        if (o == 0) 
+        {
+            signatures-->i = npc;
+            if(npc has female) print"She "; else print"He ";
+            "takes the letter and pen, signs it and hands it back. ";
+        }
+    }
+];
+
 [MyTakeRule count i x ;
     if (action ~= ##take)   rfalse;
     count = 0;
@@ -274,10 +301,11 @@ Include "VerbLib";
     The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
     Hospital.^^
     It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
-    your sponsor at the hospital, Mr. Jorry, was supposed to give you a letter confirming your volunteer hours. Catastrophically, Mr. Jorry was
+    your sponsor at the hospital, Mr. Jorry, was supposed to sign your letter tonight confirming your volunteer hours after you get 
+    the signatures of 3 nurses or nurse assistants and 4 patients. Catastrophically, Mr. Jorry was
     found dead in his office tonight. And, even worse, a blizzard blew in today and now it doesn't seem like you can even get home tonight.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
-    you have to find that stupid letter because you are NOT going to summer school this year. ";
+    you have to get those signatures because you are NOT going to summer school this year. ";
 ];   
 
 [read_news i;

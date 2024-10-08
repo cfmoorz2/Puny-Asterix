@@ -1223,15 +1223,23 @@ Object ledger "ledger" northrup_safe
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array signatures --> 15;
 Object letter "letter" 
     with 
         name 'letter' 'confirmation' 'paper',
-        description "It's a typed letter signed by and on Sid Jorry's letterhead. ",
-        initial "A piece of paper is here fluttering in the air. ",
-        before [;
+        description [ x ;
+            print"It's a typed letter on your high school's letterhead. Below the text there are 10 lines 
+            for signatures. Currently, there are ";
+            x = self.signature_count();
+            print_ret x," signatures currently. ";
+        ],
+        before [ x ;
             read:
-            "~This will confirm that the above student has successfully completed her mandatory volunteer
-            assignment here at St. Asterix.^^Sincerely,^Sid Jorry, CFO";
+            print"~Thank you for allowing this student to volunteer at your facility. To confirm the 
+            student's participation, this letter must be signed by 9 patients or staff and 1 hospital 
+            administrator.^^There are ";
+            x = signature_count();
+            print_ret x," signatures currently. ";
         ],
         after [;
             take:
@@ -1240,4 +1248,12 @@ Object letter "letter"
             rtrue;
         ],
         mass 2,
+    has item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object pen "ballpoint pen" 
+    with 
+        name 'pen' 'ballpoint',
+        description "It's a standard ballpoint pen. ",
+        mass 0,
     has item;

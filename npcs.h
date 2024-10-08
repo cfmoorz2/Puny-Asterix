@@ -371,9 +371,13 @@ Object becky "Becky" station_a
             ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
+        life [;
+            show, give:
+            if (noun == letter) add_signature(self); rtrue;
+        ],
         talk_array talk_array_becky, 
     class Mover MyNPC
-    has animate proper transparent; 
+    has animate proper female transparent; 
 
 Object sphygmomanometer "sphygmomanometer" becky
     with
@@ -405,7 +409,7 @@ Object linda "Linda" station_a
         npc_avoid hallway_2_3 stairwell_m hallway_3_3,
         talk_array talk_array_linda, 
     class Mover MyNPC
-    has animate proper transparent; 
+    has animate female proper transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object nurse_retch "Nurse Retch" station_b
@@ -470,7 +474,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
     class Mover MyNPC
-    has animate proper transparent;  
+    has animate female proper transparent;  
 
 Object retch_timer
     with 
@@ -605,7 +609,7 @@ Object edith "Edith" room_32
             "Let the poor woman sleep. ";
         ],
     class Mover MyNPC
-    has animate proper transparent;  
+    has animate female proper transparent;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ms_parsons "Ms. Parsons" room_22
@@ -630,7 +634,7 @@ Object ms_parsons "Ms. Parsons" room_22
             "I don't think she can hear you. ";
         ],
     class Mover MyNPC
-    has animate proper transparent;  
+    has animate female proper transparent;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object larry "Larry" room_33
@@ -704,5 +708,5 @@ Object mrs_chen "Mrs. Chen" room_21
             "She smiles but doesn't seem to speak english. ";
         ],
     class Mover MyNPC
-    has animate proper transparent; 
+    has animate female proper transparent; 
 
