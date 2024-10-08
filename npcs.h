@@ -266,6 +266,18 @@ Object vic "Vic"
             pock-marked and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
             to be his. ";
         ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                swipe_card: remove swipe_card; "He plucks the card from you. ~I don't think you're supposed to have that, 
+                    little lady. Can't have you getting in trouble down here.~ He smiles a sickly leer. ";
+                walkman, dummy_walkman: "~Sure, little lady. You play your music.~";
+                book_cart: "~Yeah, you keep to your books, candy striper. ";
+                default:
+                    "Vic smiles a lupine grin. ~Yeah, that's super.~";
+            }
+        ],
         talk_array talk_array_vic,
         describe [;  
             if (self has encountered)
@@ -320,7 +332,26 @@ Object mabel "Mabel" main_lobby
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
             home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";
         ],
-        
+        life [;
+            give, show:
+            switch(noun)
+            {
+                kcl_bottle: "~Ooh, girl. That looks like something that shouldn't be.~";
+                syringe: "~Oh my, girl. That ain't right. You should report that to somebody.~";
+                swipe_card: "She smiles. ~Now how'd you finagle that?~";
+                flashlight: "~That's for you tonight, girl.~";
+                walkman, dummy_walkman: "She smiles. ~Ooh, my grandkids all have those, too.";
+                thriller: "~I actually prefer 'Off The Wall'.~";
+                air_supply_tape: "~My husband George sure does like those boys.~";
+                shrimp: "~Ooh, girl. You need to throw that rotten thing away before somebody gets sick.~";
+                ledger: "She flips through the pages. ~You be careful now, girl. I don't know what this means but I 
+                    have a feeling somebody might come after it.~";
+                book_cart: "~Girl, you know I like perusing the romance books.~";
+                metal_cart: "~Girl, why you draggin' that around?~";
+                default:
+                    "Bemused, she smiles at ",(the)noun,".";
+            }
+        ],
     class Mover MyNPC
     has animate female proper;
 
