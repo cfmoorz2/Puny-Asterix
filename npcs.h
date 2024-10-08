@@ -26,6 +26,10 @@ Class MyNPC
             show, give:
             if (noun == letter) add_signature(self); rtrue;
         ],
+        signature_desc [;
+            if(self has female) print"She "; else print"He ";
+            "takes the letter and pen, signs it and hands it back. ";
+        ],
         npc_after_action    [ i;
             objectloop (i in parent(self))  {
                 if(i has valuable) {

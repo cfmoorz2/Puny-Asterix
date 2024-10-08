@@ -1243,16 +1243,9 @@ Object letter "letter"
             student's participation, this letter must be signed by 9 patients or staff and 1 hospital 
             administrator.~^^There ";
             x = signature_count();
-            if (x==1) print"is one signature currently"; else print"are ",x," signatures currently";
+            if (x==1) print"is one signature currently: "; else print"are ",x," signatures currently: ";
             if (x==0) ".";
-            print" including ";
             show_signatures();
-            "";
-        ],
-        after [;
-            take:
-            print"YOU WIN^^";
-            deadflag = 2;
             rtrue;
         ],
         mass 2,

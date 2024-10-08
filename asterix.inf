@@ -282,8 +282,8 @@ Include "VerbLib";
         if (o == 0) 
         {
             signatures-->i = npc;
-            if(npc has female) print"She "; else print"He ";
-            "takes the letter and pen, signs it and hands it back. ";
+            npc.signature_desc();
+            rtrue;
         }
     }
 ];
