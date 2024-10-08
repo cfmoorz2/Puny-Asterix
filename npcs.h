@@ -429,7 +429,25 @@ Object linda "Linda" station_a
             ActivateTopic(elliot, 301);
             "She's the perpetually chipper nursing assistant on duty this evening. ";
         ],
-        npc_wander_delay 2,
+        life [;
+            give, show:
+            switch(noun)
+            {
+                letter: add_signature(self); rtrue;
+                kcl_bottle: "~That's probably for one of the patients?~";
+                syringe: "~Hm. That's odd. I wonder who injected who.~";
+                swipe_card: "~Hey! You found a security card. That'll let you into the sub-basement. I've never been down 
+                there. It's creepy down there in the boiler room.~";
+                thriller: "~I've bought that album, like, three times.~";
+                shrimp: "~Ew, that is nasty.~";
+                book_cart: "~No thanks. I haven't finished that 'TV Guide' yet.~";
+                metal_cart: "~OOh, be careful. I got in BIG trouble once when I took a metal oxygen tank into the MRI scanner 
+                place.~";
+                default:
+                    print_ret"~",(The)noun," is terrific.~";
+            }
+        ],
+        npc_wander_delay 3,
         npc_avoid hallway_2_3 stairwell_m hallway_3_3,
         talk_array talk_array_linda, 
     class Mover MyNPC

@@ -140,7 +140,7 @@ Object dummy_walkman "your walkman"
                     obj.tape_advance++;
                 }   
         ],
-    has container transparent openable item clothing;
+    has container proper transparent openable item clothing;
 
 Object dw_eject_button "walkman eject button" dummy_walkman
     with
