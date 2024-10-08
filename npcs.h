@@ -722,6 +722,17 @@ Object larry "Larry" room_33
             }
             "^Larry is lying in the bed. ";
         ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                walkman, mixtape, thriller, air_supply_tape: "~Yeah, I'm not really much into music.~";
+                book_cart: "~No thanks. I'm just gonna listen to the game.~";
+                ledger: "~Hm. That looks like something the police may be interested in.~";
+                default:
+                "~Sorry, I'm not really interested in that.~";
+            }
+        ],
         talk_array talk_array_larry, 
     class Mover MyNPC
     has animate proper transparent;  
