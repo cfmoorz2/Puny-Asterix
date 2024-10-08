@@ -1229,17 +1229,25 @@ Object letter "letter"
         name 'letter' 'confirmation' 'paper',
         description [ x ;
             print"It's a typed letter on your high school's letterhead. Below the text there are 10 lines 
-            for signatures. Currently, there are ";
-            x = self.signature_count();
-            print_ret x," signatures currently. ";
+            for signatures. Currently, there ";
+            x = signature_count();
+            if (x==1) print"is one signature currently"; else print"are ",x," signatures currently";
+            if (x==0) ".";
+            print", including ";
+            show_signatures();
+            "";
         ],
         before [ x ;
             read:
             print"~Thank you for allowing this student to volunteer at your facility. To confirm the 
             student's participation, this letter must be signed by 9 patients or staff and 1 hospital 
-            administrator.^^There are ";
+            administrator.~^^There ";
             x = signature_count();
-            print_ret x," signatures currently. ";
+            if (x==1) print"is one signature currently"; else print"are ",x," signatures currently";
+            if (x==0) ".";
+            print" including ";
+            show_signatures();
+            "";
         ],
         after [;
             take:

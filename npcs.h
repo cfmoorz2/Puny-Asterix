@@ -22,6 +22,10 @@ Class MyNPC
                 print"You head off to the ",(name)noun,".^";
             }
         ],
+        life [;
+            show, give:
+            if (noun == letter) add_signature(self); rtrue;
+        ],
         npc_after_action    [ i;
             objectloop (i in parent(self))  {
                 if(i has valuable) {
@@ -370,10 +374,6 @@ Object becky "Becky" station_a
             ActivateTopic(linda, 300);
             ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
-        ],
-        life [;
-            show, give:
-            if (noun == letter) add_signature(self); rtrue;
         ],
         talk_array talk_array_becky, 
     class Mover MyNPC

@@ -40,7 +40,7 @@ Release 3;
 Serial "221116";
 
 Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = station_a;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
@@ -195,6 +195,7 @@ Include "puny.h";
     !move syringe to player;
     !move ledger to player;
     move letter to player;
+    move pen to player;
     init_safe();
     move walkman to player;
 ];
@@ -252,13 +253,23 @@ Include "VerbLib";
 ];
 
 [ signature_count  x y i;
-            for (x=0 : x < 15: x++)
-            {
-                i = signatures-->x;
-                print"here i = ",(name)i,"^";
-                if (i ofclass MyNPC) y++;
-            }
-            return y;
+    for (x=0 : x < 15: x++)
+    {
+        i = signatures-->x;
+        !print"here i = ",(name)i,"^";
+        if (i ofclass MyNPC) y++;
+    }
+    return y;
+];
+
+[ show_signatures x i k;
+    for (x=0 : x<15: x++)
+    {
+        i = signatures-->x;
+        k = signatures-->(x+1);
+        if (k==0) print_ret(name)i,".";
+        print(name)i,", ";
+    }
 ];
 
 [ add_signature npc x i o; 
