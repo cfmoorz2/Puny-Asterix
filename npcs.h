@@ -637,6 +637,7 @@ Object winston "Mr. Winston" hallway_3_4
             give, show:
             switch(noun)
             {
+                letter: add_signature(self); rtrue;
                 walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
                 shrimp: "~I think your dinner has turned.~";
                 book_cart: "~Naw, I don't think there's anything on that cart for me.~";
@@ -737,6 +738,7 @@ Object larry "Larry" room_33
             give, show:
             switch(noun)
             {
+                letter: add_signature(self); rtrue;
                 walkman, mixtape, thriller, air_supply_tape: "~Yeah, I'm not really much into music.~";
                 book_cart: "~No thanks. I'm just gonna listen to the game.~";
                 ledger: "~Hm. That looks like something the police may be interested in.~";
@@ -765,6 +767,7 @@ Object elliot "Elliot" hallway_2_3
             give, show:
             switch(noun)
             {
+                letter: add_signature(self); rtrue;
                 thriller, air_supply_tape, mixtape: "~Sweet tunes, dude.~";
                 shrimp: "~Dude, you have to throw that away.~";
                 default: "He's distracted and doesn't care about ",(the)noun,".";

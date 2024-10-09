@@ -273,7 +273,7 @@ Include "VerbLib";
 ];
 
 [ signature_count  x y i;
-    for (x=0 : x < 15: x++)
+    for (x=5 : x < 11: x++)
     {
         i = signatures-->x;
         !print"here i = ",(name)i,"^";
@@ -283,7 +283,7 @@ Include "VerbLib";
 ];
 
 [ show_signatures x i k;
-    for (x=0 : x<15: x++)
+    for (x=5 : x<11: x++)
     {
         i = signatures-->x;
         k = signatures-->(x+1);
@@ -293,7 +293,7 @@ Include "VerbLib";
 ];
 
 [ check_signature npc x i;
-    for (x=0 : x < 15: x++)
+    for (x=5 : x < 11: x++)
     {
         i = signatures-->x;
         if (i == npc) { print(The)npc," has already signed your letter.^"; return true; }
@@ -306,12 +306,13 @@ Include "VerbLib";
     if (x == 6) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
-    for (i=0 : i < 15: i++)
+    for (i=5 : i < 11: i++)
     {
         o = signatures-->i;
         if (o == 0) 
         {
             if (npc.signature_desc()) signatures-->i = npc;
+            Achieved(i);
             rtrue;
         }
     }

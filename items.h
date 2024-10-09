@@ -1223,7 +1223,7 @@ Object ledger "ledger" northrup_safe
     has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array signatures --> 15;
+Array signatures --> 12;
 Object letter "letter" 
     with 
         name 'letter' 'confirmation' 'paper',
