@@ -23,7 +23,7 @@
                 if (dumbwaiter_cab in self) {
                     <<insert noun dumbwaiter_cab>>;
                 }   else    {
-                    remove noun;
+                    move noun to lost;
                     "You drop ",(the)noun," into the dumbwaiter shaft and with a clatter it disappears into the darkness. ";
                 }
             search:

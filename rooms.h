@@ -1307,6 +1307,7 @@ Object combo_dial "dial" northrup_office
                     {
                         give northrup_safe ~locked;
                         Achieved(12);
+                        SetFlag(F_SAFE_IS_OPEN);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue;                  
@@ -1318,6 +1319,7 @@ Object combo_dial "dial" northrup_office
                     {
                         give northrup_safe ~locked;
                         Achieved(12);
+                        SetFlag(F_SAFE_IS_OPEN);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue;
@@ -1335,6 +1337,7 @@ Object combo_dial "dial" northrup_office
                     {
                         give northrup_safe ~locked;
                         Achieved(12);
+                        SetFlag(F_SAFE_IS_OPEN);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue; 

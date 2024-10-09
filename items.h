@@ -33,6 +33,7 @@ Object swipe_card "security card" security_desk
         after [;
             take:
             Achieved(1);
+            SetFlag(F_HAS_SWIPE_CARD);
         ],
         has item;
 
