@@ -69,6 +69,9 @@ Object oliver "Oliver" morgue
                 default: "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
             }
         ],
+        signature_desc [;
+            "~Sure, whatever. I'll sign whatever you need. I wish I had a letter that'd get ME out of here.~";
+        ],
     class Mover MyNPC
     has animate proper transparent;   
 

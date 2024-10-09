@@ -82,6 +82,7 @@ Constant F_HAVE_MET_VIC 11; ! vic has been encountered?
 Constant F_HAS_PARSONS_SPOKEN 12; !has ms. parsons given her clue.
 
 Constant MSG_WEAR_DEFAULT 1000;
+COnstant MSG_PARSER_NEW_SCORE 1001;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school. ";
@@ -99,6 +100,18 @@ Constant MSG_WEAR_DEFAULT 1000;
     MSG_WEAR_DEFAULT:
         if(noun == walkman) "You slip the headphones over your ears. ";
         print_ret "You are now wearing ",(the)noun,".";
+    MSG_PARSER_NEW_SCORE:
+        print "^[Your score has just gone ";
+		if(p_arg_1 < score) {
+			p_arg_2 = score - p_arg_1;
+			print "up";
+		} else {
+			p_arg_2 = p_arg_1 - score;
+			print "down";
+		}
+		print " by ", p_arg_2, " point";
+		if(p_arg_2 > 1) print "s";
+		print ".]^";
     }
 ];
 
@@ -342,10 +355,10 @@ Include "VerbLib";
     Hospital.^^
     It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
     your sponsor at the hospital, Mr. Jorry, was supposed to sign your letter tonight confirming your volunteer hours after you get 
-    the signatures of 3 nurses or nurse assistants and 4 patients. Catastrophically, Mr. Jorry was
-    found dead in his office tonight. And, even worse, a blizzard blew in today and now it doesn't seem like you can even get home tonight.^^
+    the signatures of 6 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
+    blizzard blew in tonight and now it doesn't seem like you can even get home.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
-    you have to get those signatures because you are NOT going to summer school this year. ";
+    you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures. ";
 ];   
 
 [read_news i;
