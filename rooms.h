@@ -827,6 +827,7 @@ Room main_lobby "Main Lobby"
                 SetFlag(F_HAVE_FLASHLIGHT);
                 move flashlight to player; 
                 ActivateTopic(mabel, 300);
+                Achieved(0);
                 print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
                 She picks up a book titled 'Throbbing Loins of Nantucket'.^^

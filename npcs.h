@@ -149,13 +149,8 @@ Object buzz "Buzz" security_chair
             } 
             switch (noun)
             {
-                letter: add_signature(self); rtrue;
-                flashlight: "~Hm. That's a nice flashlight.~";
-                thriller, mixtape: "~Nope. Frank Sinatra is my man.~";
-                air_supply_tape: "~I'm not into Australian music.~";
-                book_cart: "~There's nothing on that cart I'd be interested in.~";
                 metal_cart: "~You shouldn't be wheeling that around. Put it back.~";
-                default: "Buzz doesn't seem interested in ",(the)noun,".";
+                default: "~Sweetie, I'm not interested in ",(the)noun,". I just want to be left alone.~";
             }   
         ],
     class MyNPC
@@ -816,7 +811,7 @@ Object mrs_chen "Mrs. Chen" room_21
         ],
         life [;
             give, show:
-            "She smiles sweetly and nods. ";
+            "She just smiles sweetly and nods. ";
         ],
     class Mover MyNPC
     has animate female proper transparent; 

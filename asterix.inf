@@ -20,7 +20,6 @@ Constant MANUAL_PRONOUNS;
 
 Constant Story	  "The Candy Striper of St. Asterix";
 Constant Headline   "^A basic IF demonstration.^";
-Constant MAX_SCORE  2;
 Constant OPTIONAL_PROVIDE_UNDO;
 Constant DEATH_MENTION_UNDO;
 Constant MAX_CARRIED 40;
@@ -30,6 +29,11 @@ Constant OPTIONAL_GUESS_MISSING_NOUN;
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
+Constant OPTIONAL_FULL_SCORE;
+Constant TASKS_PROVIDED;
+Constant NUMBER_TASKS = 16;
+Constant MAX_SCORE = 80;
+Array task_scores -> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
 
 Attribute valuable;
 Attribute stairs;
@@ -39,7 +43,7 @@ Attribute item;
 Release 3;
 Serial "221116";
 
-Constant STATUSLINE_TIME; Statusline time;
+!Constant STATUSLINE_TIME; Statusline time;
 Constant INITIAL_LOCATION_VALUE = station_b;
 !Constant INITIAL_LOCATION_VALUE = main_lobby;
 
@@ -97,6 +101,22 @@ Constant MSG_WEAR_DEFAULT 1000;
         if(noun == walkman) "You slip the headphones over your ears. ";
         print_ret "You are now wearing ",(the)noun,".";
     }
+];
+
+[ PrintTaskName task_number;
+  switch (task_number) {
+      0: "getting the flashlight";
+      1: "getting the swipe care";
+      2: "finding the syringe";
+      3: "getting the potassium vial";
+      4: "lulling Freddy to sleep";
+      5,6,7,8,9,10: "getting a signature";
+      11: "finding Sid Jorry's tape";
+      12: "opening the safe";
+      13: "getting the ledger";
+      14: "incapacitating the baddies in the MRI suite";
+      15: "getting Northrup's signature";
+  }
 ];
 
 [ChooseObjects obj code;
@@ -283,7 +303,7 @@ Include "VerbLib";
 
 [ add_signature npc x i o; 
     x = signature_count();
-    if (x == 9) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
+    if (x == 6) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
     for (i=0 : i < 15: i++)
