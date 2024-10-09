@@ -16,6 +16,20 @@ Class MyContainer
         ],
     has container;
 
+Class Tiles
+    with 
+        before [;
+            examine:
+            if (selected_direction == d_to) "You see scuffed and stained linoleum tiles. ";
+        ];
+
+Class DropCeiling
+    with 
+        before [;
+            examine:
+            if(selected_direction == u_to) "You see a standard industrial tile drop ceiling. ";
+        ];
+
 Class InChair
     with 
         before [ obj;
@@ -101,6 +115,7 @@ Room morgue "Morgue"
 				Take, Remove, Turn, Pull, Push: "You decide you don't really need morgue refrigerators. ";
 			],
         w_to morgue_door,
+    class Tiles DropCeiling
     has light;
 
 Object morgue_table "metal table" morgue
@@ -138,6 +153,7 @@ Room basement_hallway_east "Basement Hallway"
             'sign' 'placard' "It's a sign posted on the wall next to the door. It reads ~Morgue~.",
         e_to morgue_door,
         w_to elevator_lobby_b,
+    class Tiles DropCeiling
     has light; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -154,6 +170,7 @@ Room elevator_lobby_b "elevator_lobby_b"
         s_to elevator_doors,
         in_to elevator_doors,
         w_to basement_hallway_west,
+    class Tiles DropCeiling
     has light,
     ;
 
@@ -164,6 +181,7 @@ Room stairwell_b "stairwell_b"
         Concrete stairs zig-zag upward to the floor above.",
         s_to elevator_lobby_b,
         u_to stairwell_m,
+    class Tiles 
     has light stairs,
     ;
 
@@ -176,8 +194,8 @@ Room basement_hallway_west "basement_hallway_west"
         w_to hallway_b1,
         n_to service_elevator_door,
         in_to service_elevator_door,
-        has light,
-        ;
+    class Tiles DropCeiling
+    has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_b1 "hallway_b1"
@@ -185,6 +203,7 @@ Room hallway_b1 "hallway_b1"
     old dumbwaiter, presumably once used to deliver needed items to the patient floors above.",
     e_to basement_hallway_west,
     w_to hallway_b2,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,6 +216,7 @@ Room hallway_b2 "hallway_b2"
         n_to environmental_services,
         s_to central_supply_door,
         w_to engineering,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -206,6 +226,11 @@ Room central_supply "Central Supply"
     projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
     north.",
     n_to central_supply_door,
+    before [;
+        examine:
+        if(selected_direction == u_to) "You see exposed ducts and piping. ";
+    ],
+    class Tiles
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,6 +260,7 @@ Room environmental_services "Environmental Services"
         "The exit is to the south. ";
     ],
     s_to hallway_b2,
+    class Tiles DropCeiling
     has light;
 
 Object environmental_desk "desk" environmental_services
@@ -253,8 +279,11 @@ Room engineering "Engineering"
         before [;
             Smell:
                 "It smells mechanical in here, with a hint of electricity. ";
+            examine:
+            if(selected_direction == u_to) "You see exposed ducts and electrical conduits. ";
         ],
     e_to hallway_b2,
+    class Tiles
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,7 +296,7 @@ Room stairwell_m "stairwell_m"
     s_to elevator_lobby_m,
     u_to stairwell_2,
     has light stairs,
-    ;
+    class Tiles;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_2 "stairwell_2"
@@ -276,6 +305,7 @@ Room stairwell_2 "stairwell_2"
         d_to stairwell_m,
         s_to elevator_lobby_2,
         u_to stairwell_3,
+    class Tiles
     has light stairs;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,6 +314,7 @@ Room stairwell_3 "stairwell_3"
         A large number 3 is painted on the wall. Concrete stairs zig-zag down to the floors below. ",
         d_to stairwell_2,
         s_to elevator_lobby_3,
+    class Tiles
     has light stairs;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -301,6 +332,7 @@ Room elevator_lobby_3 "elevator_lobby_3"
     s_to elevator_doors,
     in_to elevator_doors,
     w_to hallway_3_1,
+    class Tiles DropCeiling
     has light; 
 
 Object blue_line "blue line"
@@ -317,6 +349,7 @@ Room hallway_3_1 "hallway_3_1"
         w_to hallway_3_2,
         n_to service_elevator_door,
         in_to service_elevator_door,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -326,6 +359,7 @@ Room hallway_3_2 "hallway_3_2"
         an old service dumbwaiter is here, embedded in the south wall. ",
         e_to hallway_3_1,
         w_to b_ward_1,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -337,6 +371,7 @@ Room b_ward_1 "Ward B - East"
         w_to station_b,
         n_to room_33,
         s_to room_34,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -352,6 +387,7 @@ Room room_33 "Room 33"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_33_bed "patient bed" room_33
@@ -367,6 +403,7 @@ Room room_34 "Room 34"
     with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. 
         There's a doorway leading out to the north. ",
         n_to b_ward_1,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -394,6 +431,7 @@ Room room_32 "Room 32"
             "Edith needs the blanket more than you do. ";
         ],
         n_to station_b,
+    class Tiles DropCeiling
     has light;
 
 Bed room_32_bed "bed" room_32 
@@ -408,13 +446,14 @@ Bed room_32_bed "bed" room_32
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"
     with description "This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
-    visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
-    middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
-    a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
-    allowing space for medical staff to chart and dictate. ",
-    e_to b_ward_1,
-    n_to room_31,
-    s_to room_32,
+        visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
+        middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
+        a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
+        allowing space for medical staff to chart and dictate. ",
+        e_to b_ward_1,
+        n_to room_31,
+        s_to room_32,
+    class Tiles DropCeiling
     has light;
 
 Object ward_b_station "nurses' station" station_b
@@ -436,6 +475,7 @@ Room room_31 "Room 31"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_31_bed "patient bed" room_31
@@ -458,6 +498,7 @@ Room elevator_lobby_m "Main Elevator Lobby"
         w_to hallway_m1,
         s_to elevator_doors,
         in_to elevator_doors,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -494,6 +535,7 @@ Room cafeteria "Cafeteria"
                 "There's nothing hidden in the buffet station. ";
         ],
     n_to kitchen,
+    class Tiles DropCeiling
     has light;
 
 Object cashier_station "cashier station" cafeteria 
@@ -590,6 +632,7 @@ Room kitchen "Kitchen"
             "It's a glowing green 'exit' sign. ";
         ],
     s_to cafeteria,
+    class Tiles DropCeiling
     has light;
 
 Object garbage_can "garbage can" kitchen
@@ -626,7 +669,7 @@ Room hallway_m1 "hallway_m1"
         e_to elevator_lobby_m,
         n_to service_elevator_door,
         in_to service_elevator_door,
-
+    class Tiles DropCeiling
     has light;
 
 Object book_cart "book cart" station_b
@@ -711,6 +754,7 @@ Room hallway_m2 "hallway_m2"
         ],
     e_to hallway_m1,
     w_to admin_hallway,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -728,6 +772,7 @@ Room lobby_west "Lobby West"
         ],
     e_to main_lobby,
     w_to security_door,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -769,6 +814,7 @@ Room security_office "Security Office"
                 if (noun == 0) "It smells like onions, garlic, and old cheese. ";
         ],
         e_to security_door,
+    class Tiles DropCeiling
     has light;
 
 Object security_desk "security desk" security_office
@@ -836,7 +882,8 @@ Room main_lobby "Main Lobby"
                 ~You may need this tonight if the blizzard causes a brown-out. I sure do wish I'd gotten myself 
                 out of here and home before they closed the roads.~^";
             }
-        ]
+        ],
+    class Tiles DropCeiling
     has light;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -897,6 +944,9 @@ Room admin_hallway "Administration"
         go:
         if (selected_direction == n_to && FlagIsClear(F_FREDDY_ASLEEP)) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
         Northrup's orders.~";
+        examine:
+        if (selected_direction == u_to) "You see a tile drop ceiling and light fixtures hanging down. ";
+        if (selected_direction == d_to) "You see blue carpeting. ";
     ],
     e_to hallway_m2,
     n_to jorry_door,
@@ -967,6 +1017,11 @@ Room jorry_office "Office"
         if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
             There's no trace of any papers or documents, including your completion letter. ";
     ],
+        before [;
+            examine:
+            if(selected_direction == u_to) "You see a tile drop ceiling. ";
+            if(selected_direction == d_to) "You see blue carpet. ";
+        ],
     cheap_scenery
     4 'painting' 'paintings//p' 'picture' 'pictures//p' [;
         examine:
@@ -1099,6 +1154,11 @@ Room northrup_anteroom "Anteroom"
             read:
             "~Walt Northrup, M.D., President/CEO~";
         ],
+        before [;
+            examine:
+            if(selected_direction == u_to) "You see a tile drop ceiling. ";
+            if(selected_direction == d_to) "You see blue carpet. ";
+        ],
         e_to french_doors,
         s_to northrup_door,
     has light;
@@ -1173,6 +1233,9 @@ Room northrup_office "Northrup's Office"
             {
                 if (player notin file_cabinet) "You can't reach the ceiling from down here. ";
             }
+            examine:
+            if(selected_direction == u_to) "You see a tile drop ceiling. ";
+            if(selected_direction == d_to) "You see blue carpet. ";
         ],
         each_turn [;
             if (IndirectlyContains(self, northrup) && IndirectlyContains(self, nurse_retch)) 
@@ -1363,6 +1426,7 @@ Room elevator_lobby_2 "elevator_lobby_2"
     s_to elevator_doors,
     in_to elevator_doors,
     w_to hallway_2_1,
+    class Tiles DropCeiling
     has light;
 
 Object red_line "red line"
@@ -1377,6 +1441,7 @@ Room hallway_2_3 "hallway_2_3"
         toward the elevators. ",
     w_to elevator_lobby_2,
     e_to radiology,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1386,6 +1451,7 @@ Room radiology "Radiology"
     w_to hallway_2_3,
     n_to mri_anteroom,
     s_to x_ray,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1410,6 +1476,7 @@ Room mri_anteroom "MRI Anteroom"
         ],
         s_to radiology,
         w_to scanner_door,
+        class Tiles DropCeiling
         has light;
 
 Object control_desk "control desk" mri_anteroom
@@ -1526,6 +1593,8 @@ Room mri_scanner "MRI Suite"
                 if (mri_hatch hasnt open) "The hatch is closed. ";
                 <<enter mri_hatch>>;
             }
+            examine:
+            if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
         after [;
             go:
@@ -1536,6 +1605,7 @@ Room mri_scanner "MRI Suite"
             }
         ],
         e_to scanner_door,
+    class Tiles
     has light;
 
 Object mri_machine "MRI machine" mri_scanner
@@ -1651,7 +1721,8 @@ Room x_ray "X-Ray Suite"
         are currently turned off. The exit lies through an 
         open arch to the north. ",
         n_to radiology,
-        has light;
+    class Tiles DropCeiling
+    has light;
 
 Bed x_ray_table "x-ray table" x_ray 
     with name 'metal' 'exam' 'table',
@@ -1721,6 +1792,7 @@ Room hallway_2_1 "hallway_2_1"
         w_to hallway_2_2,
         n_to service_elevator_door,
         in_to service_elevator_door,
+    class Tiles DropCeiling
     has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1730,6 +1802,7 @@ Room hallway_2_2 "hallway_2_2"
         an old service dumbwaiter is here, embedded in the south wall. ",
         e_to hallway_2_1,
         w_to a_ward_1,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1744,6 +1817,7 @@ Room a_ward_1 "Ward A - East"
         w_to station_a,
         n_to room_23,
         s_to room_24,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1759,6 +1833,7 @@ Room room_23 "Room 23"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_23_bed "patient bed" room_23
@@ -1778,6 +1853,7 @@ Room room_24 "Room 24"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_24_bed "patient bed" room_24
@@ -1795,6 +1871,7 @@ Room station_a "Ward A - Station"
         e_to a_ward_1,
         n_to room_21,
         s_to room_22,
+    class Tiles DropCeiling
     has light;
 
 Object ward_a_station "nurses' station" station_a
@@ -1816,6 +1893,7 @@ Room room_21 "Room 21"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_21_bed "patient bed" room_21
@@ -1849,6 +1927,7 @@ Room room_22 "Room 22"
                 After a moment her eyes close and she resumes her previous mien. ";
             }
         ],
+    class Tiles DropCeiling
     has light;
 
 Bed room_22_bed "patient bed" room_22
@@ -1867,6 +1946,7 @@ Room hallway_3_3 "hallway_3_3"
         n_to conference_door,
         s_to break_room,
         e_to hallway_3_4,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1890,6 +1970,11 @@ Room conference_room "Conference Room"
         An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
         soothing. ",
         s_to conference_door,
+        before [;
+            examine:
+            if(selected_direction == d_to) "You see worn beige carpet. ";
+        ],
+    class DropCeiling
     has light;
 
 Object fish_tank "aquarium" conference_room
@@ -1941,6 +2026,7 @@ Room hallway_3_4 "hallway_3_4"
         ],
         w_to hallway_3_3,
         n_to storage_door,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1984,6 +2070,7 @@ Room storage "Storage"
             }
         ],
         s_to hallway_3_4,
+    class Tiles DropCeiling
     has light;
 
 Object storage_cabinet "cabinet" storage
@@ -2154,6 +2241,7 @@ Room break_room "Break Room"
         description "This is an employee break room. There's a white plastic table here with matching chairs and a 
         refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
         n_to hallway_3_3,
+    class Tiles DropCeiling
     has light;
 
 Object break_room_table "table" break_room
@@ -2294,6 +2382,7 @@ Object sub_basement_02 "Sub-Basement"
     n_to service_elevator_door,
     in_to service_elevator_door,
     w_to sub_basement_01,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2307,6 +2396,7 @@ Object sub_basement_01 "Hallway"
         ],
     e_to sub_basement_02,
     w_to boiler_door,
+    class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2345,6 +2435,11 @@ Object boiler_room "Boiler Room"
         if (selected_direction == w_to) print"In the distance down the hall you hear what sounds like the 
         service elevator opening.^";
     ],
+    before [;
+            examine:
+            if(selected_direction == u_to)  "You see a tangle of pipes and ducts. ";
+            if(selected_direction == d_to)  "The floor is gray cement. ";
+        ],
     e_to boiler_door,
     has light;  
 
