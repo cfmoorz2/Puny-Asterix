@@ -100,6 +100,9 @@ Object freddy "Freddy" admin_hallway
                 default: "He yawns and is thoroughly uninterested. ";
             }
         ],
+        signature_desc [;
+            "~What? You don't work here, dude? Sure I suppose I can sign your petition.~";
+        ],
         talk_array talk_array_freddy,
         before [;
             talk:
@@ -139,6 +142,9 @@ Object buzz "Buzz" security_chair
             } else {
                 self.take_shrimp = true;
             }
+        ],
+        signature_desc [;
+            "~No, I don't think so. I'm very busy. You should bother somebody else, like a nurse.~";
         ],
         talk_array talk_array_buzz,
         life [;
@@ -206,6 +212,9 @@ Object eugene "Eugene" environmental_services
             "He's the overnight custodian. He waves and stops when he sees you and reaches into a pocket, pulling out a casette tape with a blue label.^^
             ~Here's a tape for your little tape player, Candy. You kids today don't 
             appreciate real artistry.~ He hands you the tape.";
+        ],
+        signature_desc [;
+            "~Sure, I'll sign. Nobody ever asks the janitor to sign anything.~";
         ],
         life [;
             give, show:
@@ -286,6 +295,9 @@ Object vic "Vic"
                     "Vic smiles a lupine grin. ~Yeah, that's super.~";
             }
         ],
+        signature_desc [;
+            "~Uh, no. I'm a very new employee, you see. It just wouldn't seem right.~";
+        ],
         talk_array talk_array_vic,
         describe [;  
             if (self has encountered)
@@ -361,6 +373,9 @@ Object mabel "Mabel" main_lobby
                     "Bemused, she smiles at ",(the)noun,".";
             }
         ],
+        signature_desc [;
+            "~Sure thing I'll sign, dear. Don't forget, you promised to come back and visit sometime.~";
+        ],
     class Mover MyNPC
     has animate female proper;
 
@@ -396,6 +411,9 @@ Object becky "Becky" station_a
                 default:
                     "She politely feigns interest in ",(the)noun,".";
             }
+        ],
+        signature_desc [;
+            "~Oh, ok. Yeah, I guess I can sign your form.~";
         ],
         talk_array talk_array_becky, 
     class Mover MyNPC
@@ -445,6 +463,9 @@ Object linda "Linda" station_a
                     print_ret"~",(The)noun," is terrific.~";
             }
         ],
+        signature_desc [;
+            "~Sure thing I'll sign. I had to go to summer school once; wouldn't wish it on anybody.~";
+        ],
         npc_wander_delay 3,
         npc_avoid hallway_2_3 stairwell_m hallway_3_3,
         talk_array talk_array_linda, 
@@ -463,6 +484,9 @@ Object nurse_retch "Nurse Retch" station_b
         ],
         describe "^Nurse Retch is here. ",
         talk_array talk_array_retch,
+        signature_desc [;
+            "~Uh, no. I don't think so. I don't sign off on volunteer forms.~";
+        ],
         life [;
             give, show:
             if (noun == syringe) 
@@ -654,6 +678,9 @@ Object winston "Mr. Winston" hallway_3_4
             ActivateTopic(nurse_retch, 303);
             "He's a bored patient pushing an IV pole up and down the wards. ";
         ],
+        signature_desc [;
+            "~Yeah, I'll sign it. I think you brought me a book once, I think?~";
+        ],
         life [;
             give, show:
             switch(noun)
@@ -661,7 +688,7 @@ Object winston "Mr. Winston" hallway_3_4
                 letter: add_signature(self); rtrue;
                 walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
                 shrimp: "~I think your dinner has turned.~";
-                book_cart: "~Naw, I don't think there's anything on that cart for me.~";
+                book_cart: "~Naw, I don't think there's anything left on that cart for me.~";
                 default:
                 "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
             }
@@ -755,6 +782,9 @@ Object larry "Larry" room_33
             }
             "^Larry is lying in the bed. ";
         ],
+        signature_desc [;
+            "~Yeah, sure. It's too bad they're forcing you to do volunteer work.~";
+        ],
         life [;
             give, show:
             switch(noun)
@@ -783,6 +813,9 @@ Object elliot "Elliot" hallway_2_3
             ActivateTopic(becky, 308);
             ActivateTopic(linda, 304);
             "He's rolling up and down the hallway in his wheelchair. ";
+        ],
+        signature_desc [;
+            "~Sure thing, little lady. I suppose this letter is your ticket out of here.~";
         ],
         life [;
             give, show:
