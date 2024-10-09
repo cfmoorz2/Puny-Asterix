@@ -43,8 +43,8 @@ Attribute item;
 Release 3;
 Serial "221116";
 
-!Constant INITIAL_LOCATION_VALUE = station_b;
-Constant INITIAL_LOCATION_VALUE = northrup_office;
+Constant INITIAL_LOCATION_VALUE = station_b;
+!Constant INITIAL_LOCATION_VALUE = northrup_office;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -438,6 +438,7 @@ Object endgame_daemon
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         move injured_trio to mri_scanner;
+        Achieved(14);
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
@@ -463,6 +464,7 @@ Object endgame_daemon
         MRI scanner and the screeching winds down and the you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
+        Achieved(14);
         move injured_trio to mri_scanner;
         rtrue; 
     }

@@ -596,10 +596,11 @@ Object injured_trio "Retch, Northrup, and Vic"
                 3: "His face is bruised and swollen and he groans painfully. ";
             }
         ],
-        life [;
+        life [ x;
             show, give:
             if (noun == letter)
             {
+                if (pen notin player) "You need a pen. ";
                 if (self.id == 2) 
                 {
                     if (check_signature(nurse_retch)) "Nurse Retch has already signed your letter. ";
@@ -607,8 +608,21 @@ Object injured_trio "Retch, Northrup, and Vic"
                 }
                 if (self.id == 3) "He doesn't seem to be in any condition to sign your letter. Nor is he connected to the hospital 
                     in any legal way. ";
-                print"Northrup signs the letter and you win.^";
-                deadflag = 2;
+                print"Northrup blearily and incredulously stares at the letter you hold before him. He winces in pain and sighs.
+                ~Fine, whatever. Just never come into this hospital again.~ Resigned, he scrawls his signature and hands it back to you.^^
+                Serendipitously, several police officers enter the room, powered snow still dusting their caps and coats. Soon, thanks to 
+                your sleuthing, Retch, Vic, and Northrup are handcuffed and led away, charged with the murder of Sid Jorry.";
+                if (x==6)
+                {
+                    print"^^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
+                    go on to have your best summer ever at the pool.^";
+                    deadflag = 2;
+                    rtrue;
+                }
+                print"^^Unfortunately, you weren't able to obtain all the necessary signatures on your confirmation letter. You would think that, 
+                considering the circumstances there would be some leniency. But Mr. Rogers is a hard man and it IS an ethics class. Unfortunately, 
+                your summer is ruined as you are stuck in summer school.^";
+                deadflag = 3;
             }
             rtrue;
         ],

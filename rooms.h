@@ -1500,7 +1500,7 @@ Room mri_scanner "MRI Suite"
         a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
         A thick window in the east wall allows a view into the control room. There's a small hatch in the floor next to the scanner, presumably to 
         allow service access. You can return east to the control anteroom.^";
-        if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
+        if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
         glass window into the control room is shattered. Oxygen cannisters are scattered on the floor.^";
         ],
         cheap_scenery
