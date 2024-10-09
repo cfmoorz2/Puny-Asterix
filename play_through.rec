@@ -2,7 +2,7 @@ push cart e
 g
 g
 g
-press button
+press down button
 z
 z
 z
@@ -46,7 +46,7 @@ push cart n
 push cart e
 g
 g
-press button
+press up button
 z
 push cart in
 push 2
@@ -74,8 +74,7 @@ z
 z
 out
 w
-open door
-boiler
+open boiler door
 w
 search jacket
 take syringe
@@ -90,7 +89,7 @@ g
 g
 g
 e
-press button
+press up button
 in
 press 3
 z
@@ -143,8 +142,7 @@ g
 g
 n
 e
-press eject
-boombox
+press boombox eject
 take yellow
 e
 e
@@ -170,8 +168,7 @@ w
 w
 put blue in boombox
 close boombox
-press play
-boombox
+press boombox play
 open door
 n
 take rock
@@ -182,12 +179,12 @@ drop card
 s
 capacity
 e
-press eject
+press walkman eject
 look in walkman
 take red
 put green in walkman
 close walkman
-press play
+press walkman play
 wear headphones
 e
 e
@@ -258,6 +255,4 @@ z
 open hatch
 l
 leave hatch
-take paper
-q
-quit
+

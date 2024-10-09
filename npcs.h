@@ -601,6 +601,22 @@ Object injured_trio "Retch, Northrup, and Vic"
                 3: "His face is bruised and swollen and he groans painfully. ";
             }
         ],
+        life [;
+            show, give:
+            if (noun == letter)
+            {
+                if (self.id == 2) 
+                {
+                    if (check_signature(nurse_retch)) "Nurse Retch has already signed your letter. ";
+                        "She doesn't seem to be in any shape to sign your letter. ";
+                }
+                if (self.id == 3) "He doesn't seem to be in any condition to sign your letter. Nor is he connected to the hospital 
+                    in any legal way. ";
+                print"Northrup signs the letter and you win.^";
+                deadflag = 2;
+            }
+            rtrue;
+        ],
         describe [;
             "Dr. Northrup, Nurse Retch, and Vic are here, incacapitated on the floor. ";
         ],

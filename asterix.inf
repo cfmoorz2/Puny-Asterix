@@ -418,7 +418,6 @@ Object endgame_daemon
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         move injured_trio to mri_scanner;
-        move letter to mri_scanner;
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
@@ -445,7 +444,6 @@ Object endgame_daemon
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         move injured_trio to mri_scanner;
-        move letter to mri_scanner;
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
