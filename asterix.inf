@@ -43,9 +43,8 @@ Attribute item;
 Release 3;
 Serial "221116";
 
-!Constant STATUSLINE_TIME; Statusline time;
-Constant INITIAL_LOCATION_VALUE = station_b;
-!Constant INITIAL_LOCATION_VALUE = main_lobby;
+!Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = northrup_office;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -105,17 +104,17 @@ Constant MSG_WEAR_DEFAULT 1000;
 
 [ PrintTaskName task_number;
   switch (task_number) {
-      0: "getting the flashlight";
-      1: "getting the swipe care";
-      2: "finding the syringe";
-      3: "getting the potassium vial";
-      4: "lulling Freddy to sleep";
-      5,6,7,8,9,10: "getting a signature";
-      11: "finding Sid Jorry's tape";
-      12: "opening the safe";
-      13: "getting the ledger";
-      14: "incapacitating the baddies in the MRI suite";
-      15: "getting Northrup's signature";
+      0: "- getting the flashlight";
+      1: "- getting the swipe care";
+      2: "- finding the syringe";
+      3: "- getting the potassium vial";
+      4: "- lulling Freddy to sleep";
+      5,6,7,8,9,10: "- getting a signature";
+      11: "- finding Sid Jorry's tape";
+      12: "- opening the safe";
+      13: "- getting the ledger";
+      14: "- incapacitating the baddies in the MRI suite";
+      15: "- getting Northrup's signature";
   }
 ];
 

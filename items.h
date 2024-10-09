@@ -30,7 +30,10 @@ Object swipe_card "security card" security_desk
                 "The little light on the card reader turns green and you feel the elevator moving beneath you. ";
             }
         ],
-
+        after [;
+            take:
+            Achieved(1);
+        ],
         has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +106,7 @@ Object dummy_walkman "your walkman"
             take:
             if (noun in self && noun ofclass Tape)
             {
-                <push dw_eject_button>;   
+                if (self hasnt open) <push dw_eject_button>;   
             }
         ],
         before [;
@@ -314,7 +317,7 @@ Object walkman "your walkman"
             take:
             if (noun in self && noun ofclass Tape)
             {
-                <push wm_eject_button>;   
+                if (self hasnt open) <push wm_eject_button>;    
             }
         ],
         before [ t_obj ;
@@ -543,7 +546,7 @@ Object boombox "boombox" admin_hallway
             take:
             if (noun in self && noun ofclass Tape)
             {
-                <push bb_eject_button>;   
+                if (self hasnt open) <push bb_eject_button>;    
             }
         ],
         before [;
@@ -990,6 +993,10 @@ Tape jorry_tape "cassette tape with a green label" rock
             if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ],
+        after [;
+            take:
+            Achieved(11);
+        ],
     has item;
 
 [ jorry_confession ;
@@ -1050,6 +1057,7 @@ Tape air_supply_tape "cassette tape with a blue label"
                     drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
                     begins to snore.^";
                     SetFlag(F_FREDDY_ASLEEP);
+                    Achieved(4);
                 }
         ],
         each_turn [;
@@ -1173,6 +1181,7 @@ Object syringe "syringe" jacket_pocket
             if (self in jacket_pocket) move self to real_location;
             ActivateTopic(vic, 300);
             ActivateTopic(nurse_retch, 300);
+            Achieved(2);
     ],
     has item valuable;
 
@@ -1203,6 +1212,7 @@ Object kcl_bottle "plastic vial"
             take:
             ActivateTopic(oliver, 303);
             ActivateTopic(nurse_retch, 301);
+            Achieved(3);
         ],
         mass 2,
     has item valuable;
@@ -1218,6 +1228,10 @@ Object ledger "ledger" northrup_safe
             open:
             "You flip through the pages of numbers and are immediately reminded of your algebra class freshman year and
             that weird guy you sat next to who would only shower, like, twice a week?";
+        ],
+        after [;
+            take:
+            Achieved(13);
         ],
         mass 10,
     has item;

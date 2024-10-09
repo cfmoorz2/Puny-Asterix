@@ -1306,6 +1306,7 @@ Object combo_dial "dial" northrup_office
                     if (SAFE_CYCLE == 3)
                     {
                         give northrup_safe ~locked;
+                        Achieved(12);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue;                  
@@ -1316,6 +1317,7 @@ Object combo_dial "dial" northrup_office
                     if (SAFE_CYCLE == 3)
                     {
                         give northrup_safe ~locked;
+                        Achieved(12);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue;
@@ -1332,6 +1334,7 @@ Object combo_dial "dial" northrup_office
                     if (SAFE_CYCLE == 3)
                     {
                         give northrup_safe ~locked;
+                        Achieved(12);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 
                     rtrue; 
