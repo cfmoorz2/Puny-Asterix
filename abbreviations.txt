@@ -1,0 +1,261 @@
+Inform 6.42 (in development)
+"globals.h", line 157: Warning:  *** Skipping Undo - not supported in v3 ***
+> Message warning "*** Skipping Undo - not supported in v3 ***"
+"globals.h", line 196: Error:  All 32 attributes already declared (compile as Advanced game to get an extra 16)
+> Attribute
+line 186: Error:  Opcode unavailable in this Z-machine version: "tokenise"
+>     if (x) @tokenise buffer parse;
+"compass.h", line 30: Error:  Limit (of 4 values) exceeded for property "name"
+>                                 name 'u//' 'up' 'ceiling' 'above' 's  ...etc
+"compass.h", line 30: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "sky"
+>                                 name 'u//' 'up' 'ceiling' 'above' 's  ...etc
+"compass.h", line 30: Error:  Expected directive, '[' or class name but found ;
+>                                 name 'u//' 'up' 'ceiling' 'above' 's  ...etc
+"compass.h", line 32: Error:  Limit (of 4 values) exceeded for property "name"
+>                                 name 'd//' 'down' 'floor' 'below' 'g  ...etc
+"compass.h", line 32: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "ground"
+>                                 name 'd//' 'down' 'floor' 'below' 'g  ...etc
+"compass.h", line 32: Error:  Expected directive, '[' or class name but found ;
+>                                 name 'd//' 'down' 'floor' 'below' 'g  ...etc
+"pathfinder.h", line 1: Error:  All 32 attributes already declared (compile as Advanced game to get an extra 16)
+> Include "pathfinder.h";Attribute
+"rooms.h", line 306: Error:  Limit (of 4 values) exceeded for property "found_in"
+>         found_in elevator_lobby_3 hallway_3_1 hallway_3_2 b_ward_1 s  ...etc
+"rooms.h", line 306: Error:  Expected property name but found ,
+>         found_in elevator_lobby_3 hallway_3_1 hallway_3_2 b_ward_1 s  ...etc
+"rooms.h", line 632: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'cart' 'push' 'wooden' 'book' 'wheeled',
+"rooms.h", line 632: Error:  Expected property name but found ,
+>     with name 'cart' 'push' 'wooden' 'book' 'wheeled',
+"rooms.h", line 632: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 634: Error:  Expected directive, '[' or class name but found string "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a ...
+>         and old magazines currently on offer to any interested patie  ...etc
+"rooms.h", line 639: Error:  Expected directive, '[' or class name but found take
+>             take
+"rooms.h", line 641: Error:  Expected directive, '[' or class name but found push
+>             push
+"rooms.h", line 643: Error:  Expected directive, '[' or class name but found pull
+>             pull
+"rooms.h", line 645: Error:  Expected directive, '[' or class name but found pushdir
+>             pushdir
+"rooms.h", line 647: Error:  Expected directive, '[' or class name but found if
+>                 if
+"rooms.h", line 648: Error:  Expected directive, '[' or class name but found print
+>                 print
+"rooms.h", line 650: Error:  Expected directive, '[' or class name but found x
+>                 x
+"rooms.h", line 651: Error:  Expected directive, '[' or class name but found if
+>                 if
+"rooms.h", line 652: Error:  Expected directive, '[' or class name but found if
+>                 if
+"rooms.h", line 653: Error:  Expected directive, '[' or class name but found if
+>                 if
+"rooms.h", line 657: Error:  Expected directive, '[' or class name but found }
+>                 }
+"rooms.h", line 659: Error:  Expected directive, '[' or class name but found <
+>        <
+"rooms.h", line 660: Error:  Expected directive, '[' or class name but found move
+>        move
+"rooms.h", line 661: Error:  Expected directive, '[' or class name but found rtrue
+>                 rtrue
+"rooms.h", line 662: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 665: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
+"rooms.h", line 665: Error:  Expected property name but found ,
+>     with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
+"rooms.h", line 665: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 667: Error:  Expected directive, '[' or class name but found string "It's a wide assortment of romance novels. You think about your grandmother who loves these things. "
+>         description "It's a wide assortment of romance novels. You t  ...etc
+"rooms.h", line 669: Error:  Expected directive, '[' or class name but found read
+>             read
+"rooms.h", line 671: Error:  Expected directive, '[' or class name but found take
+>             take
+"rooms.h", line 673: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 676: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
+"rooms.h", line 676: Error:  Expected property name but found ,
+>     with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
+"rooms.h", line 676: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 678: Error:  Expected directive, '[' or class name but found string "It's a motley collection of old magazines. You see issues of 'Time', 'People', and 'Newsweek' among the stacks."
+>             and 'Newsweek' among the stacks."
+"rooms.h", line 681: Error:  Expected directive, '[' or class name but found take
+>             take
+"rooms.h", line 683: Error:  Expected directive, '[' or class name but found read
+>             read
+"rooms.h", line 685: Error:  Expected directive, '[' or class name but found read_news
+>                 read_news
+"rooms.h", line 686: Error:  Expected directive, '[' or class name but found rtrue
+>                 rtrue
+"rooms.h", line 687: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 1205: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'metal' 'gray' 'file' 'cabinet' 'drawer' 'drawers//p'
+"rooms.h", line 1205: Error:  Expected property name but found dict word 'drawers//p'
+>     with name 'metal' 'gray' 'file' 'cabinet' 'drawer' 'drawers//p'
+"rooms.h", line 1205: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 1207: Error:  Expected directive, '[' or class name but found string "It's a standard gray metal file cabinet with three large drawers. "
+>         description"It's a standard gray metal file cabinet with thr  ...etc
+"rooms.h", line 1209: Error:  Expected directive, '[' or class name but found go
+>             go
+"rooms.h", line 1214: Error:  Expected directive, '[' or class name but found PlayerTo
+>                 PlayerTo
+"rooms.h", line 1215: Error:  Expected directive, '[' or class name but found rtrue
+>                 rtrue
+"rooms.h", line 1216: Error:  Expected directive, '[' or class name but found }
+>             }
+"rooms.h", line 1220: Error:  Expected directive, '[' or class name but found print
+>                 print
+"rooms.h", line 1221: Error:  Expected directive, '[' or class name but found }
+>             }
+"rooms.h", line 1224: Error:  Expected directive, '[' or class name but found enter
+>             enter
+"rooms.h", line 1226: Error:  Expected directive, '[' or class name but found string "With some difficulty, you awkwardly clamber onto the file cabinet. "
+>             "With some difficulty, you awkwardly clamber onto the fi  ...etc
+"rooms.h", line 1227: Error:  Expected directive, '[' or class name but found exit
+>             exit
+"rooms.h", line 1229: Error:  Expected directive, '[' or class name but found string "You lower yourself from the file cabinet. "
+>             "You lower yourself from the file cabinet. "
+"rooms.h", line 1230: Error:  Expected directive, '[' or class name but found open
+>             open
+"rooms.h", line 1232: Error:  Expected directive, '[' or class name but found take
+>             take
+"rooms.h", line 1234: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 1368: Error:  Limit (of 4 values) exceeded for property "found_in"
+>         found_in elevator_lobby_2 hallway_2_1 hallway_2_2 a_ward_1 s  ...etc
+"rooms.h", line 1368: Error:  Expected property name but found ,
+>         found_in elevator_lobby_2 hallway_2_1 hallway_2_2 a_ward_1 s  ...etc
+"rooms.h", line 1430: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor'
+"rooms.h", line 1430: Error:  Expected property name but found dict word 'monitor'
+>     with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor'
+"rooms.h", line 1430: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "screen"
+>     with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor' 'screen'  ...etc
+"rooms.h", line 1431: Error:  Expected directive, '[' or class name but found ,
+>     with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor' 'screen'  ...etc
+"rooms.h", line 1433: Error:  Expected directive, '[' or class name but found print
+>             print
+"rooms.h", line 1434: Error:  Expected directive, '[' or class name but found if
+>             if
+"rooms.h", line 1435: Error:  Expected directive, '[' or class name but found else
+>                 else
+"rooms.h", line 1436: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 1438: Error:  Expected directive, '[' or class name but found read
+>             read
+"rooms.h", line 1440: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 1553: Error:  Limit (of 4 values) exceeded for property "name"
+>     with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner'
+"rooms.h", line 1553: Error:  Expected property name but found dict word 'scanner'
+>     with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner'
+"rooms.h", line 1553: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 1555: Error:  Expected directive, '[' or class name but found string "It's a large white box with a large white tube attached. The bore of the tube is about two feet across. "
+>         description "It's a large white box with a large white tube   ...etc
+"rooms.h", line 1557: Error:  Expected directive, '[' or class name but found enter
+>             enter
+"rooms.h", line 1559: Error:  Expected directive, '[' or class name but found take
+>             take
+"rooms.h", line 1561: Error:  Expected directive, '[' or class name but found ]
+>         ]
+"rooms.h", line 2001: Error:  Limit (of 4 values) exceeded for property "name"
+>         name 'cabinet' 'brown' 'metal' 'tall' 'narrow',
+"rooms.h", line 2001: Error:  Expected property name but found ,
+>         name 'cabinet' 'brown' 'metal' 'tall' 'narrow',
+"rooms.h", line 2001: Error:  Expected 'with', 'has' or 'class' in object/class definition but found "description"
+>         description
+"rooms.h", line 2004: Error:  Expected routine name but found ;
+>         description [ ;
+line 54: Warning:  Global variable "dial_setting" declared but not used
+line 55: Warning:  Global variable "elevator_level" declared but not used
+line 56: Warning:  Global variable "elevator_call_level" declared but not used
+line 57: Warning:  Global variable "elevator_active" declared but not used
+line 58: Warning:  Global variable "dumbwaiter_level" declared but not used
+line 59: Warning:  Global variable "service_elevator_level" declared but not used
+line 60: Warning:  Global variable "service_elevator_call_level" declared but not used
+line 61: Warning:  Global variable "service_elevator_active" declared but not used
+line 68: Warning:  Global variable "dummy_walkman_playing" declared but not used
+line 70: Warning:  Defined constant "FLAG_COUNT" declared but not used
+line 73: Warning:  Defined constant "F_CABINET_UNLOCKED" declared but not used
+line 74: Warning:  Defined constant "F_SAW_KNOCK_SPOT" declared but not used
+line 75: Warning:  Defined constant "F_RETCH_KCL" declared but not used
+line 81: Warning:  Defined constant "F_HAVE_MET_VIC" declared but not used
+"rooms.h", line 149: Error:  No such constant as "elevator_doors"
+"rooms.h", line 171: Error:  No such constant as "service_elevator_door"
+"rooms.h", line 1875: Error:  No such constant as "break_room"
+Compiled with 89 errors and 15 warnings (no output)
+Beginning calculation of optimal abbreviations...
+
+Chosen abbreviations (in Inform syntax):
+
+Abbreviate ". ";
+Abbreviate ", ";
+Abbreviate " the ";
+Abbreviate "It's a";
+Abbreviate "You";
+Abbreviate "The";
+Abbreviate "It's hissing and knocking in a vain struggle against";
+Abbreviate "This is";
+Abbreviate " th";
+Abbreviate " an";
+Abbreviate " door";
+Abbreviate "ing";
+Abbreviate "ere";
+Abbreviate " is";
+Abbreviate " st";
+Abbreviate " room";
+Abbreviate " to";
+Abbreviate " you";
+Abbreviate " wa";
+Abbreviate "currently";
+Abbreviate "It's";
+Abbreviate "'t ";
+Abbreviate "allway";
+Abbreviate "andard hospital bed";
+Abbreviate "'re ";
+Abbreviate "the";
+Abbreviate "ly ";
+Abbreviate "oor";
+Abbreviate "s are ";
+Abbreviate "all ";
+Abbreviate "ain";
+Abbreviate "ious injury or property damage may result~";
+Abbreviate "stern end of a long";
+Abbreviate "hisses under";
+Abbreviate "Northrup";
+Abbreviate "large ";
+Abbreviate "om ";
+Abbreviate "tion";
+Abbreviate "ock";
+Abbreviate "s a ";
+Abbreviate "already ";
+Abbreviate "A sign ";
+Abbreviate " see";
+Abbreviate "rea";
+Abbreviate " a pictograph of a horseshoe magnet with intimidat";
+Abbreviate " down";
+Abbreviate "lways ON - No loose metal objects";
+Abbreviate "hat";
+Abbreviate " into";
+Abbreviate " fluorescent";
+Abbreviate " li";
+Abbreviate " le";
+Abbreviate " can";
+Abbreviate " open";
+Abbreviate " con";
+Abbreviate " next";
+Abbreviate " west";
+Abbreviate " chai";
+Abbreviate " cast-iron radiator drips";
+Abbreviate " have";
+Abbreviate "hea";
+Abbreviate " east";
+Abbreviate " si";
+Abbreviate "dark";

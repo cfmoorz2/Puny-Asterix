@@ -348,9 +348,9 @@ Room room_33 "Room 33"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
     has light;
 
@@ -377,9 +377,9 @@ Room room_32 "Room 32"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ]
         1 'pillow' [;
             examine:
@@ -432,9 +432,9 @@ Room room_31 "Room 31"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
     has light;
 
@@ -1396,15 +1396,9 @@ Room mri_anteroom "MRI Anteroom"
         cheap_scenery
         'warning' 'sign' [;
             examine:
-            "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
-            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
-            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~. ";
+            print_ret"In large red letters it reads: ",(string)MRI_WARNING;
             read:
-            "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
-            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
-            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~. ";
+            print_ret (string)MRI_WARNING;
         ],
          after [;
             go:
@@ -1509,15 +1503,9 @@ Room mri_scanner "MRI Suite"
         cheap_scenery
          'warning' 'sign' [;
             examine:
-            "In large red letters it reads: ~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
-            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
-            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~. ";
+            print_ret"In large red letters it reads: ",(string)MRI_WARNING;
             read:
-            "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
-            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
-            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~. ";
+            print_ret (string)MRI_WARNING;
         ],
         before [;
             go:
@@ -1767,9 +1755,9 @@ Room room_23 "Room 23"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
     has light;
 
@@ -1786,9 +1774,9 @@ Room room_24 "Room 24"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
     has light;
 
@@ -1824,9 +1812,9 @@ Room room_21 "Room 21"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
     has light;
 
@@ -1847,9 +1835,9 @@ Room room_22 "Room 22"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+            print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
-            "I guess third-degree burns are your thing?";
+            print_ret(string)RADIATOR_TOUCH;
         ],
         each_turn [;
             if (random(2) == 1 && FlagIsClear(F_HAS_PARSONS_SPOKEN)) 

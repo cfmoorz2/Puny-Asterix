@@ -35,6 +35,13 @@ Constant NUMBER_TASKS = 16;
 Constant MAX_SCORE = 80;
 Array task_scores -> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
 
+Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
+            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
+            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
+            injury or property damage may result~. ";
+Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
+Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?";
+
 Attribute valuable;
 Attribute stairs;
 Attribute encountered;
