@@ -1524,6 +1524,17 @@ Room mri_scanner "MRI Suite"
                 PlayerTo(mri_scanner, 1);
                 <<go FAKE_E_OBJ>>;
             }
+            if (selected_direction == u_to or out_to && player in mri_hatch)
+            {
+                if (mri_hatch hasnt open) "The hatch is closed. ";
+                PlayerTo(mri_scanner);
+                rtrue;
+            }
+            if (selected_direction == d_to or in_to && player in self)
+            {
+                if (mri_hatch hasnt open) "The hatch is closed. ";
+                <<enter mri_hatch>>;
+            }
         ],
         after [;
             go:

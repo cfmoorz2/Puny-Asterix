@@ -608,11 +608,15 @@ Object injured_trio "Retch, Northrup, and Vic"
                 }
                 if (self.id == 3) "He doesn't seem to be in any condition to sign your letter. Nor is he connected to the hospital 
                     in any legal way. ";
+                x = signature_count();
+                
                 print"Northrup blearily and incredulously stares at the letter you hold before him. He winces in pain and sighs.
-                ~Fine, whatever. Just never come into this hospital again.~ Resigned, he scrawls his signature and hands it back to you.^^
-                Serendipitously, several police officers enter the room, powered snow still dusting their caps and coats. Soon, thanks to 
+                ~Fine, whatever. Just never come into this hospital again.~ Resigned, he scrawls his signature and hands it back to you.^^";
+                Achieved(15);
+                print"Serendipitously, several police officers enter the room, powered snow still dusting their caps and coats. Soon, thanks to 
                 your sleuthing, Retch, Vic, and Northrup are handcuffed and led away, charged with the murder of Sid Jorry.";
-                if (x==6)
+                
+                if (x>5)
                 {
                     print"^^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
                     go on to have your best summer ever at the pool.^";

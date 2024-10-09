@@ -1,21 +1,3 @@
-e
-n
-give letter to larry
-s
-e
-e
-e
-e
-show letter to winston
-gonear freddy
-give letter to freddy
-gonear oliver
-give letter to oliver
-gonear mabel
-show letter to mabel
-gonear eugene
-show letter to eugene
-read letter
 gonear winston
 show letter to winston
 read letter
@@ -56,4 +38,3 @@ open hatch
 get in hatch
 close hatch
 recording off
-
