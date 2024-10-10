@@ -288,6 +288,8 @@ Room engineering "Engineering"
     with description "This is a small cramped room that smells vaguely of ozone. A metal workbench 
         takes up most of the available space and electrical conduits descend like a massive pipe organ from 
         the ceiling into a large fuse box on the wall. The only exit is east through a plain metal door. ",
+        cheap_scenery
+        2 'conduit' 'conduits' "You see tangles and bundles of wires leading into a fusebox. ",
         before [;
             Smell:
                 "It smells mechanical in here, with a hint of electricity. ";
@@ -297,6 +299,32 @@ Room engineering "Engineering"
     e_to hallway_b2,
     class Tiles
     has light;
+
+Object fusebox "fusebox" engineering 
+    with 
+        name 'fusebox' 'box' 'fuses',
+        description "It's a large gray metal box. Wires and electrical conduits sprout from it and climb upward to the ceiling. 
+        A plaque on the front reads ~WARNING - HIGH VOLTAGE~",
+        before [;
+            take:
+            "Rubbish.";
+            open:
+            "A high-schooler trying to open a high-voltage metal fusebox? What could go wrong?";
+        ],
+    has scenery;
+
+Object bench "workbench" engineering 
+    with 
+        name 'workbench' 'bench' 'table',
+        description [ ;
+            print"It's a beat-up metal waist-high workbench. ";
+            if(PrintContents("On it you can see ", self)) "."; else "";
+        ],
+        before [;
+            take:
+            "Impossible. ";
+        ],
+    has supporter scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_m "stairwell_m" 
