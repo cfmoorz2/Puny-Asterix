@@ -1650,6 +1650,21 @@ Room mri_scanner "MRI Suite"
                 if (mri_hatch hasnt open) "The hatch is closed. ";
                 <<enter mri_hatch>>;
             }
+            if (selected_direction == e_to && trio in self) 
+            {
+                if (ledger in player)
+                {
+                    print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
+                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                } else {
+                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
+                    you are a loose end.~^^";
+                }
+                print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
+                neck. And then you feel nothing.^";
+                deadflag = true;
+                rtrue;  
+            }            
             examine:
             if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
