@@ -416,7 +416,7 @@ Room b_ward_1 "Ward B - East"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_33 "Room 33"
-    with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
+    with description "This is an unassuming patient room. The walls are blue and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
         leads south back out to the hallway. ",
         s_to b_ward_1,
@@ -445,6 +445,15 @@ Room room_34 "Room 34"
         n_to b_ward_1,
     class Tiles DropCeiling
     has light;
+
+Bed room_34_bed "patient bed" room_34
+    with name 'patient' 'bed',
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "You lie down in the bed but in your mind you see Jenny Twill flirting with the cute boy lifeguards at the pool
+                while you're in class and you hop back to your feet. ";
+        ]; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
@@ -791,6 +800,13 @@ Room hallway_m2 "hallway_m2"
             if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. 
                 You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
+        ],
+        cheap_scenery
+        2 'tile' 'tiles' [ ;
+            examine:
+            "One of the tiles in the drop ceiling is askew. There's dark empty space above it. ";
+            take: 
+            "You can't reach it and don't need it. ";
         ],
     e_to hallway_m1,
     w_to admin_hallway,

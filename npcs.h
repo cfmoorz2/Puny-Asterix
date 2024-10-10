@@ -6,6 +6,10 @@ Class MyNPC
             }
             return counter;
         ],
+        life [;
+            ask, tell, order:
+            "You can 'talk to ",(name)self,"'.";
+        ],
         npc_post_follow [; rfalse;],
         react_before [ x;
             take:

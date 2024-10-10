@@ -36,7 +36,7 @@ Array talk_array_freddy -->
   me." 304
   30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in there. I didn't know him but I'm supposed to keep everybody out until the 
   cops get here. The blizzard is slowing them down. I did see that nurse who hangs with Northrup go in there for a while."  304
-  30 "boombox" TM_NO_LINE "You like it? It takes, like, 12 'D' batteries, man."
+  30 "boombox" TM_NO_LINE "You like it? It takes, like, 12 'D' batteries, man. You could KILL a guy with this thing."
   30 "mix tape" TM_NO_LINE "I dunno. My girlfriend gave it to me. Some songs are OK. At least they keep me 
   awake."
   00 301 "Buzz" TM_NO_LINE "He's my boss. He's allright, I guess. He doesn't like to leave the security office."
