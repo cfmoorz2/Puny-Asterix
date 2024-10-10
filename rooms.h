@@ -908,7 +908,6 @@ Room main_lobby "Main Lobby"
             print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large double doors 
             leading out. The windows are partially iced over and through them you can see gales of wind-driven snow blowing sideways. 
             The lobby continues back to the west. An information desk occupies the north wall.^";
-            !if(mabel in main_lobby) "^^Mabel, a hospital volunteer, is currently staffing the information desk. "; "";
         ],
         after [;
             go:
@@ -971,9 +970,9 @@ Room outside "Outside"
         each_turn [;
             switch(outside_timer)   {
                 1:  print"You're not sure how long you can stand the cold.^";
-                2:  print"You notice that your lips seem to be turning blue.^";
-                3:  print"Unable to stand the cold any longer, you collapse in a heap of snow. Unfortunately, you seem to have 
-                    died of hypothermia. "; deadflag = true;
+                2:  print"You notice that your fingers seem to be turning blue.^";
+                3:  print"Unable to stand the cold any longer, you surrender and push through the doors, 
+                scrambling back into the relative warmth of the lobby.^"; PlayerTo(main_lobby); 
                 }
                 outside_timer++;
             ],
@@ -995,6 +994,7 @@ Room admin_hallway "Administration"
         examine:
         "It's a small brass placard mounted next to the door. It reads ~Sid Jorry, VP/CFO~.";
     ]
+    2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
     before [;
         go:
@@ -1562,7 +1562,8 @@ Object red_button "red button" mri_anteroom
         description"It's a large red button. It's labelled ~Arm~. ",
         before [;
             push:
-            "The mechanical whining seems to intensify. ";
+            StopTimer(green_button);
+            "The mechanical whining winds back down to a desultory clunking. ";
         ],
     has scenery;
 
@@ -2030,6 +2031,14 @@ Room conference_room "Conference Room"
             examine:
             if(selected_direction == d_to) "You see worn beige carpet. ";
         ],
+        cheap_scenery
+        2 'wooden' 'pedestal' [ ;
+            examine:
+            "It's a wooden stand holding up the fish tank. ";
+            take:
+            "No can do. ";
+        ]
+        2 'carpet' 'rug' "It's a standard beige carpet. ",
     class DropCeiling
     has light;
 
@@ -2124,6 +2133,8 @@ Room storage "Storage"
                 PlayerTo(storage, 1);
                 <<go FAKE_S_OBJ>>;
             }
+            if (selected_direction == in_to && player in self) <<enter storage_locker>>;
+            if (selected_direction == out_to && player in storage_locker) { PlayerTo(storage); rtrue; }
         ],
         s_to hallway_3_4,
     class Tiles DropCeiling

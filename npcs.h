@@ -537,11 +537,17 @@ Object nurse_retch "Nurse Retch" station_b
         each_turn [;
             if (self in storage && player in storage_locker)
             {
-                print"^Through the crack in the locker door you see her move to the metal cabinet in the corner. 
-                She nervously looks around then pulls on the door handle. She grunts angrily then pauses and balls up a fist. 
-                She bangs on the door in a specific spot and it pops open.^^
-                You see her take something from a pocket, put it in the cabinet, and close the cabinet door.^^
-                Looking around one last time, she leaves the room to the south.^";
+                print"^Through the crack in the locker door you see her move to the phone on the wall. She punches an 
+                extension and waits a moment.^^
+                ~It's me. We may have a problem. The freaking candy striper of all people just handed me the syringe. 
+                He must be getting sloppy. I don't think she knows anything else, though.~ She pauses and there's a 
+                voice on the other end. ~Yeah, I know. Just in case, I'm stashing the potassium until the storm passes and the 
+                cops leave. I'll have a chat with our careless associate later.~^^
+                She hangs up the phone and walks to the metal cabinet in the corner. 
+                She looks around then pulls on the door handle which won't open. She grunts angrily then balls up a fist, striking 
+                a specific spot on the door which pops open.^^
+                You see her take something from a pocket, put it in the cabinet, and push the door closed again.^^
+                Glancing around one last time, she hurries out of the room to the south.^";
                 move self to hallway_3_4;
                 move kcl_bottle to storage_cabinet;
                 SetFlag(F_SAW_KNOCK_SPOT);
