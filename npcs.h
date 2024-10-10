@@ -10,7 +10,6 @@ Class MyNPC
             ask, tell, order:
             "You can 'talk to ",(name)self,"'.";
         ],
-        npc_post_follow [; rfalse;],
         react_before [ x;
             take:
             if (noun has scenery || noun has static) rfalse;
@@ -599,6 +598,31 @@ Object trio "Retch, Northrup, and Vic"
                 3: "He's smiling and seems to be enjoying himself. ";
             }
         ],
+        npc_post_follow [;
+            if (self in real_location && real_location == mri_scanner)
+            {
+                StartTimer(baddie_mri_delay, 4);
+                if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
+            }
+            if (self in real_location && real_location ~= mri_scanner)
+            {
+                print"^Unfortunately, the baddies have caught up with you. ";
+                if (ledger in player)
+                {
+                    print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
+                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                } else {
+                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
+                    you are a loose end.~^^";
+                }
+                print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
+                neck. And then you feel nothing.^";
+                deadflag = true;
+                rtrue;   
+            }
+            if (self in mri_scanner) "THEY ARRIVE. ";
+            if (ledger in parent(self)) { print"THEY FIND THE LEDGER.^"; deadflag = true; rtrue; }
+        ],
         npc_arrived [;
             if (parent(self) == mri_scanner)
             {
@@ -666,7 +690,7 @@ Object injured_trio "Retch, Northrup, and Vic"
             rtrue;
         ],
         describe [;
-            "Dr. Northrup, Nurse Retch, and Vic are here, incacapitated on the floor. ";
+            "Dr. Northrup, Nurse Retch, and Vic are here, incapacitated on the floor. ";
         ],
     has animate proper pluralname transparent; 
 

@@ -58,6 +58,7 @@ Class Mover
         npc_wander_delay,
         npc_last_wander,
         npc_arrived [;],
+        npc_post_follow [; rfalse;],
         npc_post_move [; rfalse;],
         daemon [ x y i ;
             if(self.move_mode == TARGET_PATH)
@@ -79,18 +80,18 @@ Class Mover
                 wander_move();
             }
             objectloop (i in parent(self))  {
-                if(FlagIsSet(F_BADDIES_FOLLOWING) && (self == nurse_retch or northrup or vic) && i == ledger)
-                {
-                    if(IndirectlyContains(mri_scanner, self))
-                    {
-                        print"THEY PAUSE I NTHE MRI SUITE.";
-                    } else
-                    {   
-                        print"THEY TAKE THE LEDGER AND YOU LOSE.^";
-                        deadflag = true;
-                        rtrue;
-                    }
-                }
+                !if(FlagIsSet(F_BADDIES_FOLLOWING) && (self == trio) && i == ledger)
+                !{
+                !    if(IndirectlyContains(mri_scanner, self))
+                !    {
+                !        print"THEY PAUSE I NTHE MRI SUITE.";
+                !    } else
+                !    {   
+                !        print"THEY TAKE THE LEDGER AND YOU LOSE.^";
+                !        deadflag = true;
+                !        rtrue;
+                !    }
+                !}
                 if(i has valuable) {
                     move i to self;
                     if(self in real_location) print"^",(The)self," picks up ",(the)i,".^";
@@ -235,11 +236,12 @@ Class Mover
             scope_modified = true;
             if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
             if (self provides npc_post_move) self.npc_post_move();
-            if (self in real_location && self.hide == false) 
+            if (self in real_location && self.hide == false)
             {
                 print(The)self;
                 if(self has pluralname) { print" are ";}  else { print " is "; }
                 print"here.^";
+                if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
                 !self.describe();
             }
             !self.hide = false;
@@ -248,8 +250,10 @@ Class Mover
                 StopDaemon(self);
                 self.move_mode = 0;
                 if (self provides npc_arrived) self.npc_arrived(self.target_room); 
+                if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
                 rtrue;
             } else
+            if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
             break;
         }
 		prev = prev.hop;
@@ -384,7 +388,7 @@ Class Mover
             print(The)npc,", following, enter";
             if(npc hasnt pluralname) { print"s";} 
             print" from downstairs.^";
-            if(npc provides npc_post_follow) npc.npc_post_follow();
+            !if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
          }
         if(direction == d_obj) 
@@ -392,10 +396,10 @@ Class Mover
             print(The)npc,", following, enter";
             if(npc hasnt pluralname) { print"s";} 
             print" from upstairs.^";
-            if(npc provides npc_post_follow) npc.npc_post_follow();
+            !if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
         }
-        print(The)npc,", following, "; self.npc_follow(); print" from the ",(name)rev_dir,".^";
-        if(npc provides npc_post_follow) npc.npc_post_follow();
+        print(The)npc,", following, enter"; if(npc hasnt pluralname) { print"s";} ; print" from the ",(name)rev_dir,".^";
+        !if(npc provides npc_post_follow) npc.npc_post_follow();
     }
 ];

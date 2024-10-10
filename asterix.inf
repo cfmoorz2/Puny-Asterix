@@ -427,17 +427,30 @@ Object follow_timer
     with
         time_left,
         time_out [;
-            StartDaemon(endgame_daemon);
             move trio to hallway_m2;
             trio.move_mode = FOLLOW_PATH;
             StartDaemon(trio);
         ];
 
-Object endgame_daemon
-    with 
-        daemon [;
-            if (parent(player) == parent(vic) || parent(player) == nurse_retch || parent(player) == northrup)
-                print"THEY CATCH YOU.^";
+Object baddie_mri_delay
+    with   
+        time_left, 
+        time_out [;
+            if (player in mri_hatch)
+                print"Suddenly, the hatch swings open and you look up to see the snarling grin of Vic. He pull you 
+                up into the MRI suite.^^";
+            if (ledger in player)
+                {
+                    print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
+                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                } else {
+                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
+                    you are a loose end.~^^";
+                }
+            print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
+            neck. And then you feel nothing.^";
+            deadflag = true;
+            rtrue;  
         ];
 
 [ mri_no_cart ;
@@ -469,6 +482,7 @@ Object endgame_daemon
         MRI scanner and the screeching winds down and the you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
+        StopDaemon(trio);
         move injured_trio to mri_scanner;
         Achieved(14);
         rtrue; 
