@@ -197,21 +197,19 @@ Object sid_jorry "Sid Jorry" jorry_chair
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object eugene "Eugene" environmental_services
+Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
         and is whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
-        npc_avoid stairwell_b,
+        npc_avoid stairwell_b environmental_services,
         npc_walk [; print"pushes the mop bucket";],
         describe [;  
             print"^Eugene is here. ";
             if(self has encountered) "";
             give self encountered;
-            move air_supply_tape to player;
-            "He's the overnight custodian. He waves and stops when he sees you and reaches into a pocket, pulling out a casette tape with a blue label.^^
-            ~Here's a tape for your little tape player, Candy. You kids today don't 
-            appreciate real artistry.~ He hands you the tape.";
+            "He's the overnight custodian. He waves and stops when he sees you. ~Hey, Candy. I brought a tape for your little tape 
+            player. It's on my desk. You kids today don't appreciate real artistry.~";
         ],
         signature_desc [;
             "~Sure, I'll sign. Nobody ever asks the janitor to sign anything.~";

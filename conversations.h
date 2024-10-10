@@ -97,6 +97,7 @@ Array talk_array_eugene-->
   lately."
   30 "Dr. Northrup" TM_NO_LINE "Seems like the last few years he's become more of a businessman rather than a doctor."
   30 "Air Supply" TM_NO_LINE "They're awesome, man. Most people don't know that they started out in Australia."
+  30 "Air Supply Tape" TM_NO_LINE "It's for you. Enjoy."
   TM_END;
 
 Array talk_array_retch-->

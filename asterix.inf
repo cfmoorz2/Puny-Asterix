@@ -350,7 +350,7 @@ Include "VerbLib";
 ];
 
 [MyTakeRule count i x ;
-    if (action ~= ##take)   rfalse;
+    if (action ~= ##take || noun hasnt item)   rfalse;
     count = 0;
     x = noun.mass;
     objectloop(i in player) {

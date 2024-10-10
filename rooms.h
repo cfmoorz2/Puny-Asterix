@@ -226,6 +226,10 @@ Room central_supply "Central Supply"
     projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
     north.",
     n_to central_supply_door,
+    cheap_scenery
+    5 'pipes' 'tangle' 'conduit' 'pipe' 'conduits' "It's a dark labyrinth of pipes of all kinds running along the ceiling. "
+    2 'shadow' 'shadows' "Ooh. Scary. "
+    2 'lamp' 'lamps' "They're simple green lamps hanging from the ceiling above. ",
     before [;
         examine:
         if(selected_direction == u_to) "You see exposed ducts and piping. ";
@@ -252,14 +256,22 @@ Room central_supply "Central Supply"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room environmental_services "Environmental Services"
-    with description [;
-        print"This small cement-lined space is filled with various containers of cleaning solvents, brushes, "; 
-        !if (mop_bucket in self) print "a mop bucket, ";
-        print"and brooms. ";
-        print"A small wooden desk is shoved into one corner. ";
-        "The exit is to the south. ";
-    ],
-    s_to hallway_b2,
+    with description "This small cement-lined space is filled with various containers of cleaning solvents, brushes, 
+        and brooms. A small wooden desk is shoved into one corner and the exit is to the south. ",
+        cheap_scenery
+        4 'containers' 'solvents' 'container' 'solvent' [;
+            examine: 
+            "Most of them display a little skull-and-crossbone on the side. ";
+            take: 
+            "Ew, no. You are definitely not interested in cleaning anything. ";
+        ]
+        4 'brush' 'broom' 'brushes' 'brooms' [;
+            examine:
+            "They're neatly organized by size and type. ";
+            take:
+            "Ew. You don't need a dirty broom. ";
+        ],
+        s_to hallway_b2,
     class Tiles DropCeiling
     has light;
 
