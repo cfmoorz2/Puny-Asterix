@@ -2496,7 +2496,8 @@ Object boiler_room "Boiler Room"
     A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
     A dented thick metal door leads east. ",
     cheap_scenery
-    'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. ",
+    'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. "
+    5 'metal' 'lamp' 'lamps' 'light' 'lights' "They're dusty black lamps hanging from the darkness above. ",
     after [;
         go:
         if (selected_direction == w_to) print"In the distance down the hall you hear what sounds like the 
@@ -2536,6 +2537,39 @@ Object ceiling_01 "In The Ceiling"
         ],
         w_to ceiling_02,
     has light;
+
+Object ceiling_pipes "pipes"
+    with
+        name 'pipe' 'pipes',
+        description "It's a network of black pipes running through the ceiling. ",
+        before [;
+            take:
+            "Actually, no. ";
+        ],
+        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+    has scenery pluralname;
+
+Object brackets "brackets"
+    with
+        name 'brackets' 'bracket',
+        description "It's a box structure of metal brackets holding up the drop ceiling below. ",
+        before [;
+            take:
+            "They're currently holding you up. ";
+        ],
+        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+    has scenery pluralname;
+
+Object ceiling_ducts "air ducts"
+    with
+        name 'ducts' 'duct' 'air',
+        description "They're boxy aluminum ducts coated with dust. ",
+        before [;
+            take:
+            "You definitely don't need that. ";
+        ],
+        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+    has scenery pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_02 "In The Ceiling"
