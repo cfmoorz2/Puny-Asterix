@@ -1198,8 +1198,8 @@ Room northrup_anteroom "Anteroom"
         if (secretary_chair in self) print"and chair are here"; else print "is here";
         print". Glass french doors lead back east to the hallway and a standard wooden door, currently ";
         open_or_closed(northrup_door);
-        print", leads south. There's a brass placard next to the door.^"; 
-        !(if)(northrup in self && northrup_door has ~open) "and light coming from under it. "; else ".";
+        print", leads south. There's a brass placard next to the door "; 
+        if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE) && northrup_door hasnt open) "and light coming from under it. "; else ".";
         ],
         cheap_scenery
         3 'brass' 'placard' 'sign' [;
@@ -1238,7 +1238,7 @@ OnChair secretary_chair "secretary chair" northrup_anteroom
         description [;
             print"It's a thick dark wooden door, currently  ";
             open_or_closed(self);
-            print ".";
+            ".";
         ],
         door_to [;
             if (parent(self) == northrup_anteroom) return northrup_office; return northrup_anteroom;
@@ -1246,8 +1246,13 @@ OnChair secretary_chair "secretary chair" northrup_anteroom
         door_dir [;
             if (parent(self) == northrup_anteroom) return s_to; return n_to;
         ],
+        before [;
+            knock:
+            if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE)) "You could swear you hear breathing coming from the other side 
+            but nothing otherwise seems to happen. "; "No one seems to be home. ";
+        ],
         found_in northrup_anteroom northrup_office,
-    has scenery door openable ~open;
+    has scenery door openable ~open locked;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room northrup_office "Northrup's Office"
