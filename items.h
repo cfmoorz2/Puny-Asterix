@@ -515,7 +515,6 @@ Object wm_rewind_button "walkman rewind button" walkman
     has scenery;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global boombox_playing = true;
 Object boombox "boombox" admin_hallway
     with 
         name 'boombox' 'box' 'player' 'compartment',
@@ -950,7 +949,7 @@ Object rock "rock" aquarium
                 give aquarium open;
                 move self to player;
                 move jorry_tape to aquarium;
-                "You steel yourself to reach into the tank. Lifting up the rock, you find a casette tape lying under
+                "You steel yourself to reach into the tank. Lifting up the rock, you find a casette tape with a green label lying under
                 it. ";
 
             } 

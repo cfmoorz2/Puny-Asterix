@@ -34,6 +34,7 @@ Constant TASKS_PROVIDED;
 Constant NUMBER_TASKS = 16;
 Constant MAX_SCORE = 80;
 Array task_scores -> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
+Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
 Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
@@ -50,8 +51,8 @@ Attribute item;
 Release 3;
 Serial "221116";
 
-Constant INITIAL_LOCATION_VALUE = station_b;
-!Constant INITIAL_LOCATION_VALUE = hallway_3_2;
+!Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = jorry_office;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -72,6 +73,7 @@ Global SAFE_3;
 Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
+Global boombox_playing = true;
 Global dummy_walkman_playing = false;
 
 Constant FLAG_COUNT 14;
@@ -118,9 +120,7 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
 			p_arg_2 = p_arg_1 - score;
 			print "down";
 		}
-		print " by ", p_arg_2, " point";
-		if(p_arg_2 > 1) print "s";
-		print ".]^";
+		" by 5 points.]";
     }
 ];
 
@@ -144,10 +144,11 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     obj = obj;
     if (code == 2)
     {
-       if (action == ##flip && obj in boombox && obj ofclass tape) return 2;
-       if (action == ##flip && obj in walkman && obj ofclass tape) return 2; 
-       if (action == ##flip && obj in dummy_walkman && obj ofclass tape) return 2; 
-       !if (action == ##push && IndirectlyContains(player, obj)) return 2;
+        if (action == ##flip && obj in boombox && obj ofclass tape) return 2;
+        if (action == ##flip && obj in walkman && obj ofclass tape) return 2; 
+        if (action == ##flip && obj in dummy_walkman && obj ofclass tape) return 2; 
+        if (action == ##push && (IndirectlyContains(player, obj)) == true) return 0;
+        if (action == ##push && (~~obj ofclass Button)) return 0;
     }
 
     if(code == 0)   {
@@ -220,7 +221,7 @@ Include "ext_cheap_scenery.h";
 Include "ext_talk_menu.h";
 Include "puny.h";
 
-[ Initialise r;
+[ Initialise r temp;
     intro();
     LookModeLongSub();
     r = random(10);
@@ -249,6 +250,7 @@ Include "puny.h";
     move pen to player;
     init_safe();
     move walkman to player;
+    temp = UUID_ARRAY; !to quiet a compiler warning
 ];
 
 Include "my_grammar.h";

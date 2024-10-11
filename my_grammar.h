@@ -192,3 +192,15 @@ Verb 'swipe' 'slide'
 [ SwipeSub;
     "You can't do that with ",(the)noun,".";
 ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   PUSHING MRI BUTTONS
+[mri_button ;
+    if (noun == red_button or green_button) rtrue; rfalse;
+];
+Extend 'push' first 
+    * noun=mri_button -> pushbutt;
+[ PushButtSub ;
+    "heh, heh...";
+];
+

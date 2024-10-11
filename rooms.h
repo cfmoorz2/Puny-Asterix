@@ -1123,22 +1123,6 @@ Object aquarium "aquarium" jorry_office
     class MyContainer
     has scenery transparent open;
 
-Object jorry_note "note"
-    with name 'note' 'paper' 'letter',
-        description "It appears to be a hastily scrawled note. ",
-        before [;
-            read:
-            "~I have evidence that Walter Northrup and others have been embezzling funds from St. Asterix for
-            years. Since powerful people are involved and I cannot be completely confident of my safety, I have hidden 
-            a ledger containing the receipts in my safe. However, knowing that my own safe would be immediately searched, 
-            I have swapped my safe with the one in Northrup's office. The combination is 23-12-18.~^At the 
-            bottom of the note you see the initials ~S.J.~";
-            take:
-            if (self in rock) move self to location;
-        ],
-    mass 1,
-    has item;
-
 InChair jorry_chair "office chair" jorry_office
     with name 'chair' 'seat' 'rolling' 'leather',
         description "It's a faux-leather rolling executive chair. ",
@@ -1566,7 +1550,8 @@ Object red_button "red button" mri_anteroom
     with name 'red' 'button',
         description"It's a large red button. It's labelled ~Arm~. ",
         before [;
-            push:
+            pushbutt:
+            if (green_button.time_left == 0) "Nothing seems to happen. ";
             StopTimer(green_button);
             "The mechanical whining winds back down to a desultory clunking. ";
         ],
@@ -1577,7 +1562,7 @@ Object green_button "green button" mri_anteroom
         description"It's a large green button. It's labelled ~Scan~. ",
         time_left,
         before [;
-            push:
+            pushbutt:
             if (self.time_left > 0) "Nothing seems to happen. ";
             StartTimer(self, 5);
             "The mechanical whining becomes louder and the banging more insistent. The CRT monitor blooms to life and a countdown appears 
