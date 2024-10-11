@@ -1,19 +1,26 @@
 push cart e
-g
-g
-g
-press down button
+n
+show letter to larry
+s
+push cart e
+push cart e
+give letter to windston
+give letter to winston
+push down button
 z
 z
 z
 push cart in
-press m
+push m
+z
 z
 z
 push cart out
+push cart e
 push cart w
 push cart s
 push cart e
+give letter to mabel
 w
 n
 e
@@ -21,12 +28,10 @@ e
 n
 look in can
 take shrimp
-w
 s
 w
 w
 s
-w
 open door
 w
 show shrimp
@@ -37,16 +42,27 @@ e
 n
 d
 s
+e
+open door
+e
+give letter to oliver
 w
 w
+w
+w
+w
+show letter to eugene
+n
+take blue tape
+s
+e
 w
 open door
 s
 push cart n
 push cart e
-g
-g
-press up button
+push cart e
+press up
 z
 push cart in
 push 2
@@ -55,41 +71,110 @@ z
 push cart out
 push cart e
 g
+give letter to elliot
+push cart e
 push cart n
-open glass door
+open door
 push cart w
-open glass door
+open hatch
+e
+open door
+open glass
 e
 s
 w
 w
+n
+d
+d
+s
 w
+w
+w
+w
+take ladder
+i
+drop all
+take ladder
+e
+e
+e
+e
+n
+u
+s
+w
+w
+drop ladder
+e
+e
+n
+d
+s
+w
+w
+w
+w
+take all
+e
+e
+e
+e
+e
+e
+w
+w
+n
+u
+s
+w
+w
+w
+press boombox eject
+take yellow tape
+put blue tape in boombox
+close boombox
+press play
+boombox
+open door
+score
+full
+n
+take rock
+take tape
+green
+drop rock
+s
+e
+e
 press down button
 z
-z
 in
+x panel
 swipe card
-z
 z
 z
 out
 w
-open boiler door
+open door
+boiler
 w
 search jacket
 take syringe
+i
 e
 open sliding door
-look in shaft
 pull right
-put syringe and card in dumbwaiter
+put all in dumbwaiter
+i
+look in dumbwaiter
 pull left
 g
 g
 g
 g
 e
-press up button
+push button
 in
 press 3
 z
@@ -100,8 +185,17 @@ out
 w
 open dumbwaiter
 look in dumbwaiter
-take card and syringe
+take all
+take letter, pen, light, card
+take light
+look in dumbwaiter
+take red and walkman
+take card and yellow
+take green and syringe
+i
+look in dumbwaiter
 w
+show letter to winston
 w
 show syringe to retch
 e
@@ -115,10 +209,11 @@ get in locker
 z
 z
 z
-leave locker
-hit cabinet
+out
+hit cabinet door
 look in cabinet
-take vial
+show vial
+i
 s
 w
 w
@@ -140,81 +235,9 @@ g
 g
 g
 g
-n
-e
-press boombox eject
-take yellow
+g
 e
 e
-e
-n
-d
-s
-w
-w
-w
-w
-take ladder
-i
-e
-e
-e
-e
-n
-u
-s
-w
-w
-w
-put blue in boombox
-close boombox
-press boombox play
-open door
-n
-take rock
-take tape
-i
-drop rock
-drop card
-s
-capacity
-e
-press walkman eject
-look in walkman
-take red
-put green in walkman
-close walkman
-press walkman play
-wear headphones
-e
-e
-n
-d
-s
-w
-w
-w
-w
-take ladder
-i
-drop red
-drop yellow
-drop walkman
-take ladder
-i
-l
-e
-e
-e
-e
-n
-u
-s
-w
-w
-w
-e
-drop ladder
 open ladder
 u
 turn on light
@@ -230,6 +253,9 @@ turn dial left to 2
 turn dial right to 3
 open safe
 take ledger
+n
+u
+climb on cabinet
 climb cabinet
 u
 n
@@ -237,6 +263,7 @@ n
 e
 e
 d
+read letter
 e
 e
 n
@@ -245,14 +272,20 @@ s
 e
 e
 n
-open glass
 press green
 w
-open hatch
-get in compartment
-close hatch
-z
-open hatch
-l
-leave hatch
+press green button
+w
+restart
+restart
+y
+rq
+y
 
+e
+e
+open dumbwaiter
+i
+put all in shaft
+q
+y

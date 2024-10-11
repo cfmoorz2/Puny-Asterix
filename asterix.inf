@@ -151,8 +151,8 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     }
 
     if(code == 0)   {
-        if(action == ##drop) if(obj notin actor) return 2;
-        if(action == ##take) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
+        if(action == ##drop or ##insert or ##puton) if(obj notin actor) return 2;
+        if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;  
