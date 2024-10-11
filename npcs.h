@@ -624,8 +624,6 @@ Object trio "Retch, Northrup, and Vic"
                 deadflag = true;
                 rtrue;   
             }
-            if (self in mri_scanner) "THEY ARRIVE. ";
-            if (ledger in parent(self)) { print"THEY FIND THE LEDGER.^"; deadflag = true; rtrue; }
         ],
         npc_arrived [;
             if (parent(self) == mri_scanner)
