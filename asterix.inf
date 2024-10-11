@@ -401,13 +401,13 @@ Include "VerbLib";
 ];  
 
 [ init_safe ;
-    !SAFE_1 = random(35);
-    !SAFE_2 = random(35);
-    !SAFE_3 = random(35);
+    SAFE_1 = random(35);
+    SAFE_2 = random(35);
+    SAFE_3 = random(35);
     SAFE_CURRENT = random(35);
-    SAFE_1 = 1;
-    SAFE_2 = 2;
-    SAFE_3 = 3;
+    !SAFE_1 = 1;
+    !SAFE_2 = 2;
+    !SAFE_3 = 3;
     "combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".";
 ];
 
