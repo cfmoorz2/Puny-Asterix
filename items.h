@@ -51,7 +51,7 @@ Object flashlight "flashlight" mabel
             switchoff:
                 give self ~ light;
         ],
-    has switchable valuable item;
+    has switchable item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dummy_headphones "headphones" 
@@ -1184,7 +1184,7 @@ Object syringe "syringe" jacket_pocket
             ActivateTopic(nurse_retch, 300);
             Achieved(2);
     ],
-    has item valuable;
+    has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
@@ -1216,7 +1216,7 @@ Object kcl_bottle "plastic vial"
             Achieved(3);
         ],
         mass 2,
-    has item valuable;
+    has item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ledger "ledger" northrup_safe

@@ -1732,7 +1732,7 @@ Object mri_hatch "compartment" mri_scanner
             open:
             if (self has open) "It's already open. ";
             give self open;
-            if (player in mri_scanner) "You open the hatch, revealing a comparment surrounded by wires and pipes. ";
+            if (player in mri_scanner) "You open the hatch, revealing a compartment surrounded by wires and pipes. ";
                 "You open the hatch. ";
             enter:
             if(ladder in player) "Not with the ladder. ";
@@ -2102,11 +2102,10 @@ InChair conference_chair "overstuffed chair" conference_room
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_4 "hallway_3_4"
     with description "This is the east end of a long east-west corridor. The linoleum-
-    lined hallway returns west under yellow fluorescent light. Doors leads north and south. A sign on the 
-    former reads 'Womens' Locker'. A sign on the latter reads 'Men's Locker'.",
+    lined hallway returns west under yellow fluorescent light. There's a swinging door to the north. A sign next to it 
+    reads ~Storage~. ",
         before [;
             go:
-            if (selected_direction == s_to) "You can't go in the mens' locker room. ";
             if (selected_direction == n_to) print"You push through the door and it swings closed behind you.^^";
         ],
         w_to hallway_3_3,

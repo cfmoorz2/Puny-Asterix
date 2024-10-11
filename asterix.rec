@@ -1,12 +1,300 @@
-gonear mri machine
-purloin metal cart 
-drop cart
-open hatch
-open glass door
-gonear freddy
-purloin ledger
-recording off
+push cart east
+n
+show letter to larry
+s
+push cart east
+push cart east
+show letter to winston
+push cart east
+push down button
+z
+z
+z
+push cart in
+push m
+z
+z
+push cart out
+push cart w
+push cart south
+push cart east
+give letter to mabel
+read letter
+w
+n
 e
+e
+n
+look in can
+take shrimp
+s
+w
+w
+s
+open door
+w
+show shrimp to buzz
+take card
+n
+e
+n
+w
+w
+e
+e
+press down
+z
+in
+swipe card
+z
+z
+out
+w
+open boiler
+open boiler door
+w
+search jacket
+take syringe
+i
+e
+open sliding door
+pull right
+put syringe in dumbwaiter
+put card in dumbwaiter
+pull left
+g
+g
+g
+g
+e
+press up button
+in
+press 3
+z
+z
+z
+z
+out
+w
+w
+w
+show syringe to retch
+e
+e
+open dumbwaiter
+look in dumbwaiter
+take card and syringe
+w
+w
+show syringe to retch
+e
+e
+e
+e
+e
+e
+n
+get in locker
+z
+z
+z
+leave locker
+hit cabinet door
+look in cabinet
+take vial
+i
+full
+s
+w
+w
+press down
+z
+z
+in
+press b
+z
+z
+z
+out
+e
+e
+open door
+e
+give letter to oliver
+read letter
+w
+w
+w
+show letter to eugene
+w
+w
+n
+take blue tape
+s
+w
+take ladder
+capacity
+i
+drop all
+take ladder
+e
+e
+e
+e
+n
+u
+s
+w
+w
+w
+e
+drop ladder
+e
+e
+n
+s
+n
+d
+s
+w
+w
+w
+w
+take all
+l
+i
+e
+open door
+s
+push cart n
+l
+push cart e
+push cart e
+press up
+z
+z
+z
+push cart in
+press 2
+z
+z
+push cart out
+push cart e
+g
+show letter to elliot
+e
+w
+push cart e
+push cart n
+open door
+push cart w
+open hatch
+e
+s
+open glass door
+e
+s
+w
+w
+w
+w
+w
+w
+e
+e
+e
+e
+n
+u
+s
+w
+w
+w
+w
+show vial to retch
+follow retch
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+e
+press box eject
+look in boombox
+take yellow tape
+put blue tape in box
+close box
+press play
+box
+open door
+n
+take rock
+take tape
+green
+drop rock
+press eject
+take red tape
+put green tape in walkman
+close walkman
+wear headphones
+press play
+s
+w
+e
+e
+e
+e
+n
+d
+s
+w
+w
+w
+show letter to eugene
+e
+e
+e
+n
+u
+s
+w
+w
+w
+press stop box
+box
+press boombox stop
+show letter to freddy
+read letter
+e
+u
+open ladder
+u
+turn on light
+w
+w
+s
+s
+d
+leave cabinet
+turn dial right to 34
+turn dial left to 19
+turn dial right to 17
+open safe
+take ledger
+get on cabinet
+u
+n
+n
+e
+e
+d
 e
 e
 n
@@ -15,6 +303,4 @@ s
 e
 e
 n
-press green button
-w
 recording off
