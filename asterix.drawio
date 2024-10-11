@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="ifslNYAoz_acobLtJExe">
-    <mxGraphModel dx="2813" dy="3038" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="2971" dy="3151" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -59,7 +59,7 @@
           <mxGeometry x="720" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="qfG-5sboeh_dWvt4FY1i-18" value="kitchen" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="880" width="80" height="80" as="geometry" />
+          <mxGeometry x="720" y="-160" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="qfG-5sboeh_dWvt4FY1i-19" value="service_&lt;div&gt;elevator_m&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="400" y="-160" width="80" height="80" as="geometry" />
@@ -74,12 +74,6 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="670" y="-40" as="sourcePoint" />
             <mxPoint x="720" y="-90" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qfG-5sboeh_dWvt4FY1i-22" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="qfG-5sboeh_dWvt4FY1i-17" target="qfG-5sboeh_dWvt4FY1i-18" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="870" y="-50" as="sourcePoint" />
-            <mxPoint x="920" y="-100" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="qfG-5sboeh_dWvt4FY1i-24" value="northrup_&lt;div&gt;office&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
@@ -571,12 +565,6 @@
             <mxPoint x="940" y="1150" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nvGIP2nRPo87HuLbEJSP-6" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" target="nvGIP2nRPo87HuLbEJSP-1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="920" y="1600" as="sourcePoint" />
-            <mxPoint x="910" y="1540" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="Se65NE5hqtVho5Owk1Go-1" value="room_31&lt;div&gt;(winston)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="-80" y="1280" width="80" height="80" as="geometry" />
         </mxCell>
@@ -724,8 +712,11 @@
         <mxCell id="Jl3BJ8tSFotL6OoS965q-39" value="northrup_office" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="840" y="498" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="9zYE6To8k06LG8xaKJ0f-1" value="Mens&#39; Locker Room" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="855" y="1618" width="130" height="30" as="geometry" />
+        <mxCell id="bXn8dek6GAgBmN7YtIxG-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="qfG-5sboeh_dWvt4FY1i-17" target="qfG-5sboeh_dWvt4FY1i-18">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="620" as="sourcePoint" />
+            <mxPoint x="670" y="-50" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
