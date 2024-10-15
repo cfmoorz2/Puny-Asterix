@@ -857,7 +857,7 @@ Class Tape
     has item;
 
 Tape mixtape "casette tape with a yellow label" boombox
-    with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow',
+    with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow' 'tapes//p',
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -898,7 +898,7 @@ Tape mixtape "casette tape with a yellow label" boombox
         has item;
 
 Tape thriller "casette tape with a red label" walkman
-    with name 'thriller' 'tape' 'cassette' 'red',
+    with name 'thriller' 'tape' 'cassette' 'red' 'tapes//p',
         description"It's a cassette tape with a red label that reads ~Thriller~.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -966,7 +966,7 @@ Object rock "rock" aquarium
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Tape jorry_tape "cassette tape with a green label" rock
-    with name 'tape' 'cassette' 'green',
+    with name 'tape' 'cassette' 'green' 'tapes//p',
         description"It's a cassette tape with a greenlabel. Written on the label you see ~S.J.~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -1020,7 +1020,7 @@ Tape jorry_tape "cassette tape with a green label" rock
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Tape air_supply_tape "cassette tape with a blue label" environmental_desk
-    with name 'air' 'supply' 'tape' 'cassette' 'blue',
+    with name 'air' 'supply' 'tape' 'cassette' 'blue' 'tapes//p',
         description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
