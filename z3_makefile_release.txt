@@ -1,4 +1,0 @@
-cd Documents
-cd GitHub
-cd Puny-Asterix
-./inform -v3  asterix.inf 
