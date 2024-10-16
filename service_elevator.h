@@ -102,7 +102,7 @@ Object service_interior_panel "panel" service_elevator
     with name 'panel' 'buttons',
         description [; 
             print"It's a panel next to the door. You see five buttons. One is labeled with two horizontal arrows pointing away from each other. 
-                The others are labeled: ~B~,  ~M~,  ~2~, and ~3~. ";
+                The others are labeled: ~B~,  ~M~, and ~2~. ";
             if (service_elevator_active == false) print"None of the buttons are lit. ";
             print"Below the buttons there's a magnetic swipe card reader. Next to this it reads 'Sub-Basement'.^";
             ShowServiceButtons();
@@ -153,12 +153,6 @@ ServiceButton  service_interior_2_button
         short_name "second floor button",
         found_in service_interior_panel;  
 
-ServiceButton  service_interior_3_button 
-    with name '3//' 'three' 'third' 'button',
-        call_level 3,
-        short_name "third floor button",
-        found_in service_interior_panel;  
-
 ServiceButton  service_interior_b_button 
     with name 'b//' 'basement' 'button',
         call_level 0,
@@ -169,6 +163,10 @@ ServiceButton  service_interior_sb_button
     with name 'sb' 'sub-basement' 'button' 'subbasement',
         call_level -1,
         short_name "sub-basement button",
+        before [;
+            push:
+            "It flashes on then off. Nothing otherwise seems to happen. ";
+        ],
         found_in service_interior_panel;     
 
 Object sub_basement_exterior_panel "panel" sub_basement_02

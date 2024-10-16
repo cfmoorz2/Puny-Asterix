@@ -695,7 +695,7 @@ Object garbage_can "garbage can" kitchen
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m1 "hallway_m1"
-    with description "This dark hallway continues east and west. A service elevator is here in the north wall and a short wood-panelled 
+    with description "Two corridors meet here. A dark wide hallway continues east and west and a short wood-panelled 
         corridor begins here and leads south. ",
         after [;
             go:
@@ -712,8 +712,6 @@ Room hallway_m1 "hallway_m1"
         s_to lobby_west,
         w_to hallway_m2,
         e_to elevator_lobby_m,
-        n_to service_elevator_door,
-        in_to service_elevator_door,
     class Tiles DropCeiling
     has light;
 
