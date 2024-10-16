@@ -522,34 +522,14 @@ Room stairwell_2 "stairwell_2"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_3_1 "hallway_3_1"
-    with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
-        A blue line is painted down the middle of the floor. ", 
-        w_to hallway_3_2,
-        n_to service_elevator_door,
-        in_to service_elevator_door,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_3_2 "hallway_3_2" 
-    with description "This is the entrance to 'B' Ward which lies down the hallway to the west. The wallpaper here is blue, 
-        matching the blue line running down the middle of the floor. The hallway returns to the east and 
-        an old service dumbwaiter is here, embedded in the south wall. ",
-        e_to hallway_3_1,
-        w_to b_ward_1,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room b_ward_1 "Ward B - East"
     with description "The hallway continues east and west. Here the walls are blue to match the line running 
         down the middle of the floor. Patient rooms lie north and south through open doorways. A sign next to the former 
-        reads ~33~, one next to the latter reads ~34~.", 
-        e_to hallway_3_2,
-        w_to station_b,
-        n_to room_33,
-        s_to room_34,
+        reads ~31~, one next to the latter reads ~32~.", 
+        w_to hallway_2_3,
+        e_to station_b,
+        n_to room_31,
+        s_to room_32,
     class Tiles DropCeiling
     has light;
 
@@ -558,7 +538,7 @@ Room room_33 "Room 33"
     with description "This is an unassuming patient room. The walls are blue and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
         leads south back out to the hallway. ",
-        s_to b_ward_1,
+        s_to station_b,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
@@ -581,7 +561,7 @@ Bed room_33_bed "patient bed" room_33
 Room room_34 "Room 34"
     with description "This is a single-occupancy patient room. The walls are blue and a single bed is pushed against the wall. 
         There's a doorway leading out to the north. ",
-        n_to b_ward_1,
+        n_to station_b,
     class Tiles DropCeiling
     has light;
 
@@ -618,7 +598,7 @@ Room room_32 "Room 32"
             take:
             "Edith needs the blanket more than you do. ";
         ],
-        n_to station_b,
+        n_to b_ward_1,
     class Tiles DropCeiling
     has light;
 
@@ -633,14 +613,14 @@ Bed room_32_bed "bed" room_32
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"
-    with description "This is the Ward 'B' nurses' station, lying at the western end of a long east-west corridor. To aid in 
-        visitor and patient navigation, the walls here are painted blue and a blue line runs to the east down the 
+    with description "This is the Ward 'B' nurses' station, lying at the eastern end of a long east-west corridor. To aid in 
+        visitor and patient navigation, the walls here are painted blue and a blue line runs to the west down the 
         middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
-        a sign next to the former read ~31~, the latter ~32~. A large wide waist-high desk occupies the center of the room,
+        a sign next to the former read ~33~, the latter ~34~. A large wide waist-high desk occupies the center of the room,
         allowing space for medical staff to chart and dictate. ",
-        e_to b_ward_1,
-        n_to room_31,
-        s_to room_32,
+        w_to b_ward_1,
+        n_to room_33,
+        s_to room_34,
     class Tiles DropCeiling
     has light;
 
@@ -655,7 +635,7 @@ Room room_31 "Room 31"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
         leads south back out to the hallway. ",
-        s_to station_b,
+        s_to b_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
@@ -1116,7 +1096,15 @@ Room admin_hallway "Administration"
         "It's a small brass placard mounted next to the door. It reads ~Sid Jorry, VP/CFO~.";
     ]
     2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
-    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
+    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. "
+    3 'metal' 'folding' 'chair' [;
+        examine:
+        "It's a standard metal folding chair. ";
+        take:
+        "Freddy is sitting on it. ";
+        enter:
+        "The chair is already occupied. ";
+    ],
     before [;
         go:
         if (selected_direction == n_to && FlagIsClear(F_FREDDY_ASLEEP)) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
@@ -1129,18 +1117,6 @@ Room admin_hallway "Administration"
     n_to jorry_door,
     w_to french_doors,
     has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-OnChair folding_chair "metal folding chair" admin_hallway
-    with name 'metal' 'folding' 'chair',
-        description "It's a standard metal folding chair. ",
-        before [;
-            take:
-            "Freddy is sitting on it. ";
-            enter:
-            "The chair is already occupied. ";
-        ],
-    has scenery;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor french_doors "french doors" 
@@ -1234,20 +1210,29 @@ Room jorry_office "Office"
         enter:
         "There's currently a deceased administrator in it. ";
     ],
-    !1 'safe' [;
-    !    examine:
-    !    "It's a squat black metal safe, about two feet on each side. It's open and the combination lock has been 
-    !    drilled out. ";
-    !    take:
-    !    "It's far too heavy. ";
-    !]
-    !'office' 'desk' "It's a standard executive desk, wooden with a glass top. A dead body is currently sprawled across it. ",
     each_turn [;
         print (string) random("^Louanne, curious, flicks her forked tongue at you.^",
             "^Louanne stares at you through yellow reptillian eyes.^", "", "");
     ],
     s_to jorry_door,
     has light;
+
+Object jorry_safe "safe" jorry_office
+    with 
+        name 'safe',
+        description "It's a squat black metal safe, about two feet on each side. It's open and the combination lock has been 
+        drilled out. ",
+        before [;
+            take:
+            "It's far too heavy. ";
+        ],
+    has scenery;
+
+Object jorry_desk "desk" jorry_office
+    with 
+        name 'desk',
+        description "It's a standard executive desk, wooden with a glass top. A dead body is currently sprawled across it.",
+    has scenery; 
 
 Object aquarium "aquarium" jorry_office
     with name 'aquarium' 'tank',
@@ -1565,20 +1550,10 @@ Room elevator_lobby_2 "elevator_lobby_2"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "hallway_2_3" 
-    with description "This long dim hallway continues east towards the radiology suite and west 
+    with description "This long dim hallway continues east towards ward B and west 
         toward the elevators. ",
     w_to elevator_lobby_2,
-    e_to radiology,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room radiology "Radiology"
-    with description "This is the eastern end of a long east-west hallway. There's an open archway to the south with a large sign 
-        above reading ~Imaging~. An open doorwary leads north as well. A sign posted above to it reads ~MRI.~. ",
-    w_to hallway_2_3,
-    n_to mri_anteroom,
-    s_to x_ray,
+    e_to b_ward_1,
     class Tiles DropCeiling
     has light;
 
@@ -1862,7 +1837,7 @@ Object metal_cart "cart" central_supply
     has supporter;
 
 Object oxygen "oxygen cannisters" metal_cart
-    with name 'oxygen' 'cannister' 'cannisters//p',
+    with name 'oxygen' 'cannister' 'cannisters',
         article "a bunch of",
         description [;
             print"You see a collection of maybe 20 large metal oxygen cannisters ";
@@ -1880,7 +1855,7 @@ Room x_ray "X-Ray Suite"
         hanging down from rails in the ceiling. White translucent viewing boxes are mounted to one wall; these
         are currently turned off. The exit lies through an 
         open arch to the north. ",
-        n_to radiology,
+        s_to basement_hallway_east,
     class Tiles DropCeiling
     has light;
 

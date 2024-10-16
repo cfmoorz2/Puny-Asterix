@@ -867,7 +867,7 @@ Object elliot "Elliot" hallway_2_3
         talk_array talk_array_elliot,
         npc_walk [; print"rolls";],
         npc_wander_delay 3,
-        npc_avoid radiology stairwell_2 room_21 room_22 room_23,
+        npc_avoid stairwell_2 room_21 room_22 room_23,
     class Mover MyNPC
     has animate proper transparent; 
 

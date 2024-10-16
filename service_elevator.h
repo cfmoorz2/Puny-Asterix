@@ -174,11 +174,6 @@ Object sub_basement_exterior_panel "panel" sub_basement_02
         description"It's a small panel embedded in the wall next to the elevator door. It contains a single button. ",
     has scenery;
 
-Object service_third_service_x_panel "panel" hallway_3_1
-    with name 'panel' 'buttons',
-        description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
-    has scenery;
-
 Object service_exterior_panel "panel"
     with name 'panel',
         description [;
@@ -198,7 +193,7 @@ ServiceButton  service_exterior_up_button
 ServiceButton  service_exterior_down_button
     with name 'down' 'button',
         short_name "down button",
-        found_in service_exterior_panel service_third_service_x_panel;
+        found_in service_exterior_panel;
 
 ServiceButton  sb_service_exterior_up_button
     with name 'up' 'button',
