@@ -12,9 +12,9 @@ Class ServiceButton
                 switch(real_location)   {
                     sub_basement_02: self.call_level = -1;
                     basement_hallway_west: self.call_level = 0;
-                    hallway_m1: self.call_level = 1;
+                    !hallway_m1: self.call_level = 1;
                     hallway_2_1: self.call_level = 2;
-                    hallway_3_1: self.call_level = 3;
+                    !hallway_3_1: self.call_level = 3;
                     !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
                 if (service_elevator_level == self.call_level)   {
@@ -75,15 +75,16 @@ Object service_elevator_door "service elevator door"
                 switch(service_elevator_level)  {
                     -1: return sub_basement_02;
                     0:  return basement_hallway_west;
-                    1:  return hallway_m1;
+                    !1:  return hallway_m1;
                     2:  return hallway_2_1;
-                    3:  return hallway_3_1;
+                    !3:  return hallway_3_1;
                     }
                 } else {
                     return service_elevator;
             }
         ],
-    found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+    !found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+    found_in service_elevator basement_hallway_west hallway_2_1 sub_basement_02,
     has scenery door ~open; 
 
 Object service_elevator_ext "service elevator"
@@ -93,7 +94,8 @@ Object service_elevator_ext "service elevator"
             open_or_closed(service_elevator_door);
             " There's a small panel embedded in the wall next to it. ";
         ],
-        found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+        !found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+        found_in basement_hallway_west hallway_2_1 sub_basement_02,
     has scenery;
 
 Object service_interior_panel "panel" service_elevator
@@ -216,10 +218,18 @@ Object service_elevator_daemon
             service_elevator_active = false;
             "^With a 'ding' the elevator door opens. ";
             }
-        if (service_elevator_call_level < service_elevator_level)   { service_elevator_level--;}
-        if (service_elevator_call_level > service_elevator_level)   { service_elevator_level++;}
-        !print"^elevator level =",elevator_level;
-        !print"^call level = ",elevator_call_level,"^";
+        if (service_elevator_call_level < service_elevator_level) 
+        {
+            if (service_elevator_level == 2) { service_elevator_level = 0; rtrue; }
+            service_elevator_level--;
+        }
+        if (service_elevator_call_level > service_elevator_level)
+        {
+            !print"^elevator level =",service_elevator_level,"^";
+            !print"^call level = ",service_elevator_call_level,"^";
+            if (service_elevator_level == 0) { service_elevator_level = 2; rtrue; }
+           service_elevator_level++;
+        }        
         ];
 
 Object service_close_door_timer 
