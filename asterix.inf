@@ -20,7 +20,9 @@ Constant MANUAL_PRONOUNS;
 
 Constant Story	  "The Candy Striper of St. Asterix";
 Constant Headline   "^A basic IF demonstration.^";
+#Ifv5;
 Constant OPTIONAL_PROVIDE_UNDO;
+#Endif;
 Constant DEATH_MENTION_UNDO;
 Constant MAX_CARRIED 40;
 Constant OPTIONAL_EXTENDED_METAVERBS;
