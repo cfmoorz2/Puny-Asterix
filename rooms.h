@@ -514,19 +514,9 @@ Room stairwell_m "stairwell_m"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_2 "stairwell_2"
     with description "This is a dark stairwell just off the main hallway which lies to the south. 
-        A large number 2 is painted on the wall. Concrete stairs zig-zag up and down to the floors above and below. ",
+        A large number 2 is painted on the wall. Concrete stairs zig-zag downward to the floor below. ",
         d_to stairwell_m,
         s_to elevator_lobby_2,
-        u_to stairwell_3,
-    class Tiles StairRoom
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room stairwell_3 "stairwell_3"
-    with description "This is a dark stairwell just off the main hallway which lies to the south. 
-        A large number 3 is painted on the wall. Concrete stairs zig-zag down to the floors below. ",
-        d_to stairwell_2,
-        s_to elevator_lobby_3,
     class Tiles StairRoom
     has light;
 
@@ -540,7 +530,6 @@ Room elevator_lobby_3 "elevator_lobby_3"
         see ~Ward B~ posted in large black letters above an arrow pointing west and a blue line on the floor starts here 
         and leads in that direction as well. ";
     ],
-    n_to stairwell_3,
     e_to hallway_3_3,
     s_to elevator_doors,
     in_to elevator_doors,

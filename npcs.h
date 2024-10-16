@@ -699,7 +699,7 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array winston_avoid_array --> storage break_room stairwell_3 room_32 room_33 room_34;
+Array winston_avoid_array --> storage break_room room_32 room_33 room_34;
 Object winston "Mr. Winston" hallway_3_4
     with 
         name 'mr' 'winston',

@@ -268,13 +268,10 @@
             <mxPoint x="770" y="1560" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tPwMybB11Bxk-xAltd_m-51" value="stairwell_3" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="560" y="1280" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="tPwMybB11Bxk-xAltd_m-52" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="tPwMybB11Bxk-xAltd_m-49" target="tPwMybB11Bxk-xAltd_m-51" edge="1">
+        <mxCell id="tPwMybB11Bxk-xAltd_m-52" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="tPwMybB11Bxk-xAltd_m-49" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="680" y="1410" as="sourcePoint" />
-            <mxPoint x="730" y="1360" as="targetPoint" />
+            <mxPoint x="600" y="1360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="tPwMybB11Bxk-xAltd_m-53" value="hallway_3_1" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
