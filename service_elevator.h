@@ -148,13 +148,13 @@ ServiceButton  service_interior_m_button
         found_in service_interior_panel;     
 
 ServiceButton  service_interior_2_button 
-    with name '2//' 'two' 'second' 'floor' 'button',
+    with name '2//' 'two' 'second' 'button',
         call_level 2,
         short_name "second floor button",
         found_in service_interior_panel;  
 
 ServiceButton  service_interior_3_button 
-    with name '3//' 'three' 'third' 'floor' 'button',
+    with name '3//' 'three' 'third' 'button',
         call_level 3,
         short_name "third floor button",
         found_in service_interior_panel;  
