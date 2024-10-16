@@ -258,8 +258,14 @@ Room central_supply "Central Supply"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room environmental_services "Environmental Services"
-    with description "This small cement-lined space is filled with various containers of cleaning solvents, brushes, 
-        and brooms. A small wooden desk is shoved into one corner and the exit is to the south. ",
+    with description [; 
+        print"This is a cluttered storage room. The walls are lined with shelves stocked with 
+        cleaning supplies, brushes, and brooms; most of which you don't need to concern yourself with. 
+        A tall but narrow brown metal cabinet stands in one corner. ";
+        if (player notin storage_locker) print"A battered full-length metal locker faces it on the 
+        other side of the room. ";
+        "A black telephone is mounted on the wall. The exit lies to the south. ";
+    ],
         cheap_scenery
         4 'containers' 'solvents' 'container' 'solvent' [;
             examine: 
@@ -274,7 +280,7 @@ Room environmental_services "Environmental Services"
             "Ew. You don't need a dirty broom. ";
         ],
         s_to hallway_b2,
-    class Tiles DropCeiling
+    class Tiles
     has light;
 
 Object environmental_desk "desk" environmental_services
@@ -284,6 +290,171 @@ Object environmental_desk "desk" environmental_services
         if(PrintContents("On the desk you can see ", self)) "."; else "";
         ],
     has supporter scenery;
+
+Object storage_cabinet "cabinet" environmental_services
+    with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'cabinet' or 'brown' or 'metal' or 'tall' or 'narrow') return 1;
+        ],
+        description [ ;
+            print"It's a tall brown metal cabinet, currently ";
+            if(self has open) print"open. "; else print"closed. ";
+            "A scratched metal handle is embedded in the door. ";
+        ],
+        before [;
+            if (player in storage_locker) "You can't do that from inside the locker. ";
+            open:
+            if (self has open) "It's already open. ";
+            "The cabinet door won't open. It seems to be jammed. ";
+            knock:
+            <<knock cabinet_door>>;
+            enter:
+        ],
+        max_capacity 30,
+    has scenery container openable locked ~open;
+
+Object cabinet_door "cabinet door" environmental_services
+    with
+        description"It's a metal door with a handle. ", 
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if((w1 == 'cabinet' or 'metal') && w2 == 'door') return 2;
+            if (w1 == 'door' && w2 == 0) return 1;
+        ],
+        before [;
+            open: 
+            <<open storage_cabinet>>;
+            close:
+            <<close storage_cabinet>>;
+            knock:
+            if (FlagIsSet(F_SAW_KNOCK_SPOT)) 
+            {
+                give storage_cabinet open;
+                "With a fist you hit the spot that you saw Nurse Retch hit. The cabinet door pops open. ";
+            }
+            "You thump on the door but nothing seems to happen. ";
+        ],
+    has scenery;
+
+Object storage_handle "handle" environmental_services 
+    with 
+        name 'handle',
+        description "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
+        pushed. It looks old and cantenkerous. ",
+        before [;
+            pull:
+            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
+        ],
+    has scenery locked;
+
+Object storage_locker "locker" environmental_services
+    with
+        name 'locker' 'metal',
+        description"It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ",
+        inside_description"You're crouched in a battered metal locker peering out through a crack in the door. ",
+        react_before [;
+            if(parent(player) == self ) 
+            {
+                if (action == ##go) rfalse;
+                !print "noun = ",(name)noun,"^";
+                !print "second = ",(name)second,"^";
+                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
+                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
+            }
+            enter:
+            if(ladder in player) "Not with the ladder. ";
+            receive:
+            if(noun == ladder) "The ladder is too large to fit. ";
+        ],
+        after [;
+            enter:
+            "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
+            the storage room. ";
+        ],
+        max_capacity 30,
+    class MyContainer
+    has open enterable scenery;
+
+Object telephone "telephone" environmental_services
+    with name 'black' 'phone' 'telephone',
+        description [;
+            print"It's a black phone. The base is mounted to the wall and the rotary dial is embedded in the handset. ";
+            if (handset in self) "The handset is in the cradle. "; else "";
+            ],
+        mass 0,
+        before [;
+            DialObj:
+                <<dialobj handset>>;
+            Take:
+                <<take handset>>;
+            Drop:
+                <<drop handset>>;
+            receive:
+            "You can't put things in the phone. ";
+        ],  
+        describe [;
+            rtrue;
+        ],
+    has scenery container open transparent;
+
+Object handset "handset" telephone 
+    with name 'handset',
+        description "It's a black phone handset. It has a rotary dial and is attached to the wall unit by a black coiled cord. ",
+        mass 0,
+        before [;
+            DialObj:
+                if (self notin player) print "(first taking the handset)^";
+                DialPhone();
+                move self to telephone;
+                "^You hang up the phone. "; 
+            Drop:
+                if (self in player) {
+                    move self to telephone;
+                    "You hang up the phone. ";
+                }   else "You're not holding the handset. "; 
+        ],
+        after [;
+            Take:
+                "You hold it to your ear and hear a dial tone. ";
+        ],
+        describe [;
+            rtrue;
+        ],
+        react_before [;
+            Go:
+                if (self in player)   {
+                    move self to telephone;
+                    print"(first hanging up the phone)^";
+                };
+            DialNumber:
+                if (self notin player) print "(first taking the handset)^";
+                DialPhone();
+                move self to telephone;
+                "^You hang up the phone. ";  
+        ],
+    has concealed;
+
+Object dial "dial" environmental_services
+    with name 'rotary' 'dial',
+        description "It's a plastic rotary phone dial. ",
+        before [;
+            Take:
+                "It's part of the handset. ";
+        ],
+        mass 0,
+    has scenery;
+
+Object phone_cord "phone cord" environmental_services
+    with name 'black' 'coiled' 'cord',
+        description "It's a black coil of phone cord. ",
+    before [;
+            Take:
+                "That's attached to the phone.";
+    ],
+    mass 0,
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room engineering "Engineering"
@@ -2003,84 +2174,10 @@ Room hallway_3_3 "hallway_3_3"
     with description "Here the hallway continues east and west. There's a door to the north. A sign next to it reads ~Conference~. 
         A sign next to to an open doorway to the south reads ~Employees Only~. ",
         w_to elevator_lobby_3,
-        n_to conference_door,
         s_to break_room,
         e_to hallway_3_4,
     class Tiles DropCeiling
     has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor conference_door "door"
-     with name 'north' 'door',
-        description [;
-            print"It's an unassuming door, currently ";open_or_closed(self);".";
-        ],
-        door_to [;
-            if (parent(self) == hallway_3_3) return conference_room; return hallway_3_3;
-        ],
-        door_dir [;
-            if (parent(self) == hallway_3_3) return n_to; return s_to;
-        ],
-        found_in hallway_3_3 conference_room,
-    has scenery door openable ~open; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room conference_room "Conference Room"
-    with description "This is a quiet carpeted room, typically used for family conferences or for delivering bad news. 
-        An overstuffed chair is pushed again the wall and a fish tank sits on a wooden pedestal. Everything is beige and very 
-        soothing. ",
-        s_to conference_door,
-        before [;
-            examine:
-            if(selected_direction == d_to) "You see worn beige carpet. ";
-        ],
-        cheap_scenery
-        2 'wooden' 'pedestal' [ ;
-            examine:
-            "It's a wooden stand holding up the fish tank. ";
-            take:
-            "No can do. ";
-        ]
-        2 'carpet' 'rug' "It's a standard beige carpet. ",
-    class DropCeiling
-    has light;
-
-Object fish_tank "aquarium" conference_room
-    with article "an",
-        description"It's a large fish tank perched on a wooden pedestal. It's occupied by a handful of 
-        goldfish. ",
-        before [;
-            receive:
-            "The fish kindly request that you refrain from trashing their tank. ";
-        ],
-    parse_name [w1 w2;
-        w1 = NextWord();
-        w2 = NextWord();
-        if ((w1 == 'fish' or 'goldfish') && w2 == 'tank') return 2;
-        if (w1 == 'tank' or 'aquarium') return 1;
-    ],
-    has scenery container transparent open;
-
-Object goldfish "goldfish" fish_tank
-    with name 'fish' 'goldfish' 'fishes',
-    description "You see a half-dozen goldfish slowly swimming in the tank. ",
-    article "a half-dozen",
-    before [;
-        take:
-        "You once had a goldfish named Petey but you overfed him and found him floating belly-up
-        after school one day. So, maybe leave the fish alone. ";
-        ],
-    has scenery;
-
-InChair conference_chair "overstuffed chair" conference_room
-    with name 'overstuffed' 'chair',
-        article "an",
-        description "It's a beige overstuffed chair. ",
-    before [;
-        take:
-            "It's way too heavy. ";
-    ],
-    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_4 "hallway_3_4"
@@ -2142,170 +2239,7 @@ Room storage "Storage"
     class Tiles DropCeiling
     has light;
 
-Object storage_cabinet "cabinet" storage
-    with 
-        parse_name [ w1;
-            w1 = NextWord();
-            if (w1 == 'cabinet' or 'brown' or 'metal' or 'tall' or 'narrow') return 1;
-        ],
-        description [ ;
-            print"It's a tall brown metal cabinet, currently ";
-            if(self has open) print"open. "; else print"closed. ";
-            "A scratched metal handle is embedded in the door. ";
-        ],
-        before [;
-            if (player in storage_locker) "You can't do that from inside the locker. ";
-            open:
-            if (self has open) "It's already open. ";
-            "The cabinet door won't open. It seems to be jammed. ";
-            knock:
-            <<knock cabinet_door>>;
-            enter:
-        ],
-        max_capacity 30,
-    has scenery container openable locked ~open;
 
-Object cabinet_door "cabinet door" storage
-    with
-        description"It's a metal door with a handle. ", 
-        parse_name [ w1 w2 ;
-            w1 = NextWord();
-            w2 = NextWord();
-            if((w1 == 'cabinet' or 'metal') && w2 == 'door') return 2;
-            if (w1 == 'door' && w2 == 0) return 1;
-        ],
-        before [;
-            open: 
-            <<open storage_cabinet>>;
-            close:
-            <<close storage_cabinet>>;
-            knock:
-            if (FlagIsSet(F_SAW_KNOCK_SPOT)) 
-            {
-                give storage_cabinet open;
-                "With a fist you hit the spot that you saw Nurse Retch hit. The cabinet door pops open. ";
-            }
-            "You thump on the door but nothing seems to happen. ";
-        ],
-    has scenery;
-
-Object storage_handle "handle" storage 
-    with 
-        name 'handle',
-        description "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
-        pushed. It looks old and cantenkerous. ",
-        before [;
-            pull:
-            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
-        ],
-    has scenery locked;
-
-Object storage_locker "locker" storage
-    with
-        name 'locker' 'metal',
-        description"It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ",
-        inside_description"You're crouched in a battered metal locker peering out through a crack in the door. ",
-        react_before [;
-            if(parent(player) == self ) 
-            {
-                if (action == ##go) rfalse;
-                !print "noun = ",(name)noun,"^";
-                !print "second = ",(name)second,"^";
-                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
-                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
-            }
-            enter:
-            if(ladder in player) "Not with the ladder. ";
-            receive:
-            if(noun == ladder) "The ladder is too large to fit. ";
-        ],
-        after [;
-            enter:
-            "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
-            the storage room. ";
-        ],
-        max_capacity 30,
-    class MyContainer
-    has open enterable scenery;
-
-Object telephone "telephone" storage
-    with name 'black' 'phone' 'telephone',
-        description [;
-            print"It's a black phone. The base is mounted to the wall and the rotary dial is embedded in the handset. ";
-            if (handset in self) "The handset is in the cradle. "; else "";
-            ],
-        mass 0,
-        before [;
-            DialObj:
-                <<dialobj handset>>;
-            Take:
-                <<take handset>>;
-            Drop:
-                <<drop handset>>;
-            receive:
-            "You can't put things in the phone. ";
-        ],  
-        describe [;
-            rtrue;
-        ],
-    has scenery container open transparent;
-
-Object handset "handset" telephone 
-    with name 'handset',
-        description "It's a black phone handset. It has a rotary dial and is attached to the wall unit by a black coiled cord. ",
-        mass 0,
-        before [;
-            DialObj:
-                if (self notin player) print "(first taking the handset)^";
-                DialPhone();
-                move self to telephone;
-                "^You hang up the phone. "; 
-            Drop:
-                if (self in player) {
-                    move self to telephone;
-                    "You hang up the phone. ";
-                }   else "You're not holding the handset. "; 
-        ],
-        after [;
-            Take:
-                "You hold it to your ear and hear a dial tone. ";
-        ],
-        describe [;
-            rtrue;
-        ],
-        react_before [;
-            Go:
-                if (self in player)   {
-                    move self to telephone;
-                    print"(first hanging up the phone)^";
-                };
-            DialNumber:
-                if (self notin player) print "(first taking the handset)^";
-                DialPhone();
-                move self to telephone;
-                "^You hang up the phone. ";  
-        ],
-    has concealed;
-
-Object dial "dial" storage
-    with name 'rotary' 'dial',
-        description "It's a plastic rotary phone dial. ",
-        before [;
-            Take:
-                "It's part of the handset. ";
-        ],
-        mass 0,
-    has scenery;
-
-Object phone_cord "phone cord" storage
-    with name 'black' 'coiled' 'cord',
-        description "It's a black coil of phone cord. ",
-    before [;
-            Take:
-                "That's attached to the phone.";
-    ],
-    mass 0,
-    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"

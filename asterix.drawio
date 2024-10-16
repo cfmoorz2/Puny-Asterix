@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="ifslNYAoz_acobLtJExe">
-    <mxGraphModel dx="2971" dy="3151" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="3533" dy="3501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -529,13 +529,10 @@
             <mxPoint x="820" y="1210" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RnkapRIIYIxoiKLD8Jqy-2" value="conference_&lt;div&gt;room&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="720" y="1280" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="RnkapRIIYIxoiKLD8Jqy-3" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ojAPTfj_48tojyx00VVH-1" target="RnkapRIIYIxoiKLD8Jqy-2" edge="1">
+        <mxCell id="RnkapRIIYIxoiKLD8Jqy-3" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ojAPTfj_48tojyx00VVH-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="890" y="1390" as="sourcePoint" />
-            <mxPoint x="940" y="1340" as="targetPoint" />
+            <mxPoint x="760" y="1360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="RnkapRIIYIxoiKLD8Jqy-4" value="break_room" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
@@ -556,13 +553,10 @@
             <mxPoint x="920" y="1320" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nvGIP2nRPo87HuLbEJSP-3" value="storage" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="880" y="1280" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="nvGIP2nRPo87HuLbEJSP-5" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="nvGIP2nRPo87HuLbEJSP-1" target="nvGIP2nRPo87HuLbEJSP-3" edge="1">
+        <mxCell id="nvGIP2nRPo87HuLbEJSP-5" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="nvGIP2nRPo87HuLbEJSP-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="890" y="1200" as="sourcePoint" />
-            <mxPoint x="940" y="1150" as="targetPoint" />
+            <mxPoint x="920" y="1360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Se65NE5hqtVho5Owk1Go-1" value="room_31&lt;div&gt;(winston)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
@@ -712,7 +706,7 @@
         <mxCell id="Jl3BJ8tSFotL6OoS965q-39" value="northrup_office" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="840" y="498" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="bXn8dek6GAgBmN7YtIxG-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="qfG-5sboeh_dWvt4FY1i-17" target="qfG-5sboeh_dWvt4FY1i-18">
+        <mxCell id="bXn8dek6GAgBmN7YtIxG-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="qfG-5sboeh_dWvt4FY1i-17" target="qfG-5sboeh_dWvt4FY1i-18" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="620" as="sourcePoint" />
             <mxPoint x="670" y="-50" as="targetPoint" />

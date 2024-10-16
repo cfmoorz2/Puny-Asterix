@@ -531,7 +531,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         npc_arrived [;
-            if(parent(self)== storage) 
+            if(parent(self)== environmental_services) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
@@ -540,7 +540,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         each_turn [;
-            if (self in storage && player in storage_locker)
+            if (self in environmental_services && player in storage_locker)
             {
                 print"^Through the crack in the locker door you see her move to the phone on the wall. She punches an 
                 extension and waits a moment.^^
@@ -568,7 +568,7 @@ Object retch_timer
         time_left,
         time_out [;
             nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = storage;
+	        nurse_retch.target_room = environmental_services;
             StartDaemon(nurse_retch);
         ];
 
@@ -699,7 +699,7 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array winston_avoid_array --> storage conference_room break_room stairwell_3 room_32 room_33 room_34;
+Array winston_avoid_array --> storage break_room stairwell_3 room_32 room_33 room_34;
 Object winston "Mr. Winston" hallway_3_4
     with 
         name 'mr' 'winston',
