@@ -150,11 +150,12 @@ Object morgue_table "metal table" morgue
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway"
     with description "This is the eastern end of a long sterile hallway that continues far to the west. Linoleum tiles cover the floor. A door
-                    leads east, a placard next to it reads ~Morgue~.",
-        cheap_scenery  
-            'sign' 'placard' "It's a sign posted on the wall next to the door. It reads ~Morgue~.",
+                leads east, a placard next to it reads ~Morgue~. Open doorways lead north and south. A sign above the former reads ~Imaging~. 
+                A placard next to the latter reads ~MRI.~.",
         e_to morgue_door,
         w_to elevator_lobby_b,
+        n_to x_ray,
+        s_to mri_anteroom,
     class Tiles DropCeiling
     has light; 
 
@@ -1655,8 +1656,8 @@ Room radiology "Radiology"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room mri_anteroom "MRI Anteroom"
     with description "This small room serves as the prep area and control room for the hospital's MRI scanner. 
-        The west wall contains a window of thick safety glass. Beneath the window squats a large control desk and monitor. 
-        A red warning sign is fixed to the wall. A metal and reinforced-glass door leads west into the MRI suite itself. ",
+        The east wall contains a window of thick safety glass. Beneath the window squats a large control desk and monitor. 
+        A red warning sign is fixed to the wall. A metal and reinforced-glass door leads east into the MRI suite itself. ",
         cheap_scenery
         'warning' 'sign' [;
             examine:
@@ -1664,16 +1665,21 @@ Room mri_anteroom "MRI Anteroom"
             read:
             print_ret (string)MRI_WARNING;
         ],
-         after [;
+        before [;
             go:
-            if (selected_direction == e_to) 
+            if (selected_direction == e_to)
+                give scanner_door open;
+        ],
+        after [;
+            go:
+            if (selected_direction == w_to) 
             {
                 give scanner_door ~open;
                 print"The glass door swings closed behind you.^^";
             }
         ],
-        s_to radiology,
-        w_to scanner_door,
+        n_to basement_hallway_east,
+        e_to scanner_door,
         class Tiles DropCeiling
         has light;
 
@@ -1780,11 +1786,16 @@ Room mri_scanner "MRI Suite"
         ],
         before [;
             go:
-            if (selected_direction == e_to && player in mri_hatch)
+            if (selected_direction == w_to && player in mri_hatch)
             {
                 print"(first leaving the compartment)^";
                 PlayerTo(mri_scanner, 1);
-                <<go FAKE_E_OBJ>>;
+                give scanner_door open;
+                <<go FAKE_W_OBJ>>;
+            }
+            if (selected_direction == w_to)
+            {
+                give scanner_door open;
             }
             if (selected_direction == u_to or out_to && player in mri_hatch)
             {
@@ -1797,7 +1808,7 @@ Room mri_scanner "MRI Suite"
                 if (mri_hatch hasnt open) "The hatch is closed. ";
                 <<enter mri_hatch>>;
             }
-            if (selected_direction == e_to && trio in self) 
+            if (selected_direction == w_to && trio in self) 
             {
                 if (ledger in player)
                 {
@@ -1817,13 +1828,13 @@ Room mri_scanner "MRI Suite"
         ],
         after [;
             go:
-            if (selected_direction == w_to) 
+            if (selected_direction == e_to) 
             {
                 give scanner_door ~open;
                 print"The glass door swings closed behind you.^^";
             }
         ],
-        e_to scanner_door,
+        w_to scanner_door,
     class Tiles
     has light;
 
