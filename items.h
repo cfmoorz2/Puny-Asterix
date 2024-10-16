@@ -1,3 +1,5 @@
+Class Item;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
     with name 'card' 'swipe' 'security',
@@ -35,7 +37,7 @@ Object swipe_card "security card" security_desk
             Achieved(1);
             SetFlag(F_HAS_SWIPE_CARD);
         ],
-        has item;
+        class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" mabel
@@ -51,7 +53,8 @@ Object flashlight "flashlight" mabel
             switchoff:
                 give self ~ light;
         ],
-    has switchable item;
+    class Item
+    has switchable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dummy_headphones "headphones" 
@@ -75,7 +78,8 @@ Object dummy_headphones "headphones"
             remove dummy_walkman;
             "You plug the headphones into the walkman. ";
         ]
-    has item clothing;
+        class Item
+    has clothing;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dummy_walkman "your walkman" 
@@ -144,7 +148,8 @@ Object dummy_walkman "your walkman"
                     obj.tape_advance++;
                 }   
         ],
-    has container proper transparent openable item clothing;
+    class Item
+    has container proper transparent openable clothing;
 
 Object dw_eject_button "walkman eject button" dummy_walkman
     with
@@ -377,7 +382,8 @@ Object walkman "your walkman"
                     obj.tape_advance++;
                 }   
         ],
-    has clothing container proper transparent openable item;
+    class Item
+    has clothing container proper transparent openable;
 
 Object wm_eject_button "walkman eject button" walkman
     with
@@ -583,7 +589,8 @@ Object boombox "boombox" admin_hallway
                     obj.tape_advance++;
                 }   
         ],
-    has container transparent openable item;
+    class Item
+    has container transparent openable;
 
 Object bb_eject_button "boombox eject button" boombox
     with 
@@ -854,7 +861,7 @@ Class Tape
         "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
         release the button. ";
     ],
-    has item;
+    class Item;
 
 Tape mixtape "casette tape with a yellow label" boombox
     with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow' 'tapes//p',
@@ -894,8 +901,7 @@ Tape mixtape "casette tape with a yellow label" boombox
         each_turn [;
             if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
-        ],
-        has item;
+        ];
 
 Tape thriller "casette tape with a red label" walkman
     with name 'thriller' 'tape' 'cassette' 'red' 'tapes//p',
@@ -932,8 +938,7 @@ Tape thriller "casette tape with a red label" walkman
         each_turn [;
             if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
-        ],
-        has item;  
+        ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object rock "rock" aquarium 
@@ -962,7 +967,7 @@ Object rock "rock" aquarium
                 "You lift the rock and find a casette tape under it. ";
             }
         ],
-    has item;
+    class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Tape jorry_tape "cassette tape with a green label" rock
@@ -996,8 +1001,7 @@ Tape jorry_tape "cassette tape with a green label" rock
         after [;
             take:
             Achieved(11);
-        ],
-    has item;
+        ];
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;
@@ -1063,8 +1067,7 @@ Tape air_supply_tape "cassette tape with a blue label" environmental_desk
         each_turn [;
             if(self in boombox && boombox_playing && TestScope(self)) self.playback(boombox);
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
-        ],
-        has item;
+        ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp_bowl "bowl" security_desk
@@ -1088,7 +1091,8 @@ Object shrimp_bowl "bowl" security_desk
                 take:
                     give self ~concealed;
         ],
-    has container open item;
+    class Item
+    has container open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object cocktail_shrimp "bowlful of shrimp" shrimp_bowl
@@ -1117,7 +1121,8 @@ Object shrimp "rotten shrimp" !garbage_can
             if (self in shrimp_bowl) "Buzz smacks your hand away. ~Get your own.~";
         ],
         describe [; if(self in garbage_can) rtrue;],
-        has edible item;
+    class Item
+    has edible;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object band_aid "band-aid" sid_jorry
@@ -1138,7 +1143,7 @@ Object band_aid "band-aid" sid_jorry
             "Putting a band-aid back on never works. ";
         ],
         mass 0,
-    has item;
+    class Item;
 
 Object puncture_mark "puncture mark" 
     with name 'puncture' 'wound' 'mark',
@@ -1154,7 +1159,8 @@ Object denim_jacket "denim jacket" boiler_room
             search:
                 <<search jacket_pocket>>;
         ],
-    has clothing item transparent;
+    class Item
+    has clothing transparent;
 
 MyContainer jacket_pocket "jacket pocket" denim_jacket
     with 
@@ -1183,7 +1189,7 @@ Object syringe "syringe" jacket_pocket
             ActivateTopic(nurse_retch, 300);
             Achieved(2);
     ],
-    has item;
+    class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
@@ -1199,8 +1205,9 @@ Object ladder "ladder" engineering
             if (self hasnt open) "You need to unfold the ladder first. ";
             PlayerTo(self, 1);
             "You climb up onto the aluminum ladder. ";
-        ]
-    has openable supporter enterable item;
+        ],
+    class Item
+    has openable supporter enterable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object kcl_bottle "plastic vial"
@@ -1215,7 +1222,7 @@ Object kcl_bottle "plastic vial"
             Achieved(3);
         ],
         mass 2,
-    has item;
+    class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ledger "ledger" northrup_safe
@@ -1234,7 +1241,7 @@ Object ledger "ledger" northrup_safe
             Achieved(13);
         ],
         mass 10,
-    has item;
+    class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array signatures --> 12;
@@ -1263,7 +1270,7 @@ Object letter "letter"
             rtrue;
         ],
         mass 2,
-    has item;
+    class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object pen "ballpoint pen" 
@@ -1271,4 +1278,4 @@ Object pen "ballpoint pen"
         name 'pen' 'ballpoint',
         description "It's a standard ballpoint pen. ",
         mass 0,
-    has item;
+    class Item;

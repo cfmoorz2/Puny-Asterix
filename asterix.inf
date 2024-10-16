@@ -47,7 +47,6 @@ Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?";
 
 Attribute valuable;
 Attribute encountered;
-Attribute item;
 
 Release 3;
 Serial "221116";
@@ -355,7 +354,7 @@ Include "VerbLib";
 ];
 
 [MyTakeRule count i x ;
-    if (action ~= ##take || noun hasnt item)   rfalse;
+    if (action ~= ##take || ~~noun ofclass Item)   rfalse;
     count = 0;
     x = noun.mass;
     objectloop(i in player) {
