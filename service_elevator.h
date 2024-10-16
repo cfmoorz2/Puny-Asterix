@@ -12,7 +12,6 @@ Class ServiceButton
                 switch(real_location)   {
                     sub_basement_02: self.call_level = -1;
                     basement_hallway_west: self.call_level = 0;
-                    hallway_m1: self.call_level = 1;
                     hallway_2_1: self.call_level = 2;
                     !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
@@ -74,37 +73,13 @@ Object service_elevator_door "service elevator door"
                 switch(service_elevator_level)  {
                     -1: return sub_basement_02;
                     0:  return basement_hallway_west;
-                    1:  return hallway_m1;
                     2:  return hallway_2_1;
                     }
                 } else {
                     return service_elevator;
             }
         ],
-    found_in basement_hallway_west hallway_m1 hallway_2_1 sub_basement_02,
-    has scenery door ~open; 
-
-Object extra_service_elevator_door "service elevator door" service_elevator
-    with name 'door',
-        description [;
-            print"It's a single metal sliding door. It's currently ";
-            open_or_closed(self);". ";
-        ],
-        door_dir [;
-            if (self in service_elevator) return s_to; else return n_to;
-        ],
-        door_to [;
-            if (self in service_elevator) {
-                switch(service_elevator_level)  {
-                    -1: return sub_basement_02;
-                    0:  return basement_hallway_west;
-                    1:  return hallway_m1;
-                    2:  return hallway_2_1;
-                    }
-                } else {
-                    return service_elevator;
-            }
-        ],
+    found_in service_elevator basement_hallway_west hallway_2_1 sub_basement_02,
     has scenery door ~open; 
 
 Object service_elevator_ext "service elevator"
@@ -114,14 +89,14 @@ Object service_elevator_ext "service elevator"
             open_or_closed(service_elevator_door);
             " There's a small panel embedded in the wall next to it. ";
         ],
-        found_in basement_hallway_west hallway_m1 hallway_2_1 sub_basement_02,
+        found_in basement_hallway_west  hallway_2_1 sub_basement_02,
     has scenery;
 
 Object service_interior_panel "panel" service_elevator
     with name 'panel' 'buttons',
         description [; 
             print"It's a panel next to the door. You see 4 buttons. One is labeled with two horizontal arrows pointing away from each other. 
-                The others are labeled: ~B~,  ~M~, and ~2~. ";
+                The others are labeled: ~B~ and ~2~. ";
             if (service_elevator_active == false) print"None of the buttons are lit. ";
             print"Below the buttons there's a magnetic swipe card reader. Next to this it reads 'Sub-Basement'.^";
             ShowServiceButtons();
@@ -158,13 +133,7 @@ Object service_interior_open_button "open button"
                 }
         ],
         found_in service_interior_panel,
-        has scenery;   
-
-ServiceButton  service_interior_m_button 
-    with name 'm//' 'main' 'button',
-        call_level 1,
-        short_name "main button",
-        found_in service_interior_panel;     
+        has scenery;      
 
 ServiceButton  service_interior_2_button 
     with name '2//' 'two' 'second' 'button',
@@ -194,7 +163,7 @@ Object service_second_service_x_panel "panel" hallway_2_1
         description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
     has scenery;
 
-Object service_exterior_panel "panel"
+Object service_exterior_panel "panel" basement_hallway_west
     with name 'panel',
         description [;
             print"It's a panel embedded in the wall next to the elevator door. It contains 'Up' and 
@@ -202,7 +171,6 @@ Object service_exterior_panel "panel"
             if (service_elevator_active == false)    "None of the buttons are lit. ";
             ShowServiceButtons();
         ],
-    found_in basement_hallway_west hallway_m1,
     has container transparent scenery;
 
 ServiceButton  service_exterior_up_button 
