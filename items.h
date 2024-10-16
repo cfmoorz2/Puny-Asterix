@@ -41,7 +41,7 @@ Object swipe_card "security card" security_desk
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" mabel
-    with name 'flashlight' 'light' 'torch' 'black' 'plastic',
+    with name 'flashlight' 'light' 'torch',
         description [;
             print"It's a standard black plastic flashlight, ";
             if(self has on) "currently on. "; "currently off. ";
@@ -864,7 +864,11 @@ Class Tape
     class Item;
 
 Tape mixtape "casette tape with a yellow label" boombox
-    with name 'mix' 'mixtape' 'tape' 'cassette' 'yellow' 'tapes//p',
+    with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'mix' or 'mixtape' or 'tape' or 'cassette' or 'yellow' or 'tapes//p') return 1;
+        ],
         description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -904,7 +908,11 @@ Tape mixtape "casette tape with a yellow label" boombox
         ];
 
 Tape thriller "casette tape with a red label" walkman
-    with name 'thriller' 'tape' 'cassette' 'red' 'tapes//p',
+    with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'thriller' or 'tape' or 'cassette' or 'red' or 'tapes//p') return 1;
+        ],
         description"It's a cassette tape with a red label that reads ~Thriller~.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -1024,7 +1032,13 @@ Tape jorry_tape "cassette tape with a green label" rock
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Tape air_supply_tape "cassette tape with a blue label" environmental_desk
-    with name 'air' 'supply' 'tape' 'cassette' 'blue' 'tapes//p',
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'tape' or 'cassette' or 'blue' or 'tapes//p') return 1;
+            if (w1 == 'air' && w2 == 'supply') return 2;
+        ],
         description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
@@ -1212,7 +1226,7 @@ Object ladder "ladder" engineering
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object kcl_bottle "plastic vial"
     with 
-        name 'kcl' 'potassium' 'plastic' 'bottle' 'vial',
+        name 'kcl' 'potassium' 'bottle' 'vial',
         description "It's a small plastic bottle labelled ~Potassium Chloride~. The seal 
         on top has been broken and the vial is half-empty. ",
         after [;

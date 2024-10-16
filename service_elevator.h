@@ -81,7 +81,7 @@ Object service_elevator_door "service elevator door"
                     return service_elevator;
             }
         ],
-    found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 sub_basement_02,
+    found_in basement_hallway_west hallway_m1 hallway_2_1 sub_basement_02,
     has scenery door ~open; 
 
 Object extra_service_elevator_door "service elevator door" service_elevator
@@ -167,7 +167,7 @@ ServiceButton  service_interior_m_button
         found_in service_interior_panel;     
 
 ServiceButton  service_interior_2_button 
-    with name '2//' 'two' 'second' 'floor' 'button',
+    with name '2//' 'two' 'second' 'button',
         call_level 2,
         short_name "second floor button",
         found_in service_interior_panel;  

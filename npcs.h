@@ -729,7 +729,7 @@ Object winston "Mr. Winston" hallway_3_4
                 default:
                 "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
             }
-        ]
+        ],
         npc_walk [; print"pushes his IV pole";],
         npc_wander_delay 1,
         npc_avoid winston_avoid_array, 

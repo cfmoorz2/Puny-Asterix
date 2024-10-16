@@ -119,7 +119,7 @@ Button interior_m_button
         found_in interior_panel;     
 
 Button interior_2_button 
-    with name 'two' 'second' 'floor' '2//' 'button',
+    with name 'two' 'second' '2//' 'button',
         call_level 2,
         parse_name [w1 w2;
             w1 = NextWord();
