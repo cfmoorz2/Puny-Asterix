@@ -204,12 +204,13 @@ Object sid_jorry "Sid Jorry" jorry_chair
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array eugene_avoid_array --> stairwell_b environmental_services;
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
         and is whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
-        npc_avoid stairwell_b environmental_services,
+        npc_avoid eugene_avoid_array,
         npc_walk [; print"pushes the mop bucket";],
         describe [;  
             print"^Eugene is here. ";
@@ -435,6 +436,7 @@ Object sphygmomanometer "sphygmomanometer" becky
     has scenery; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array linda_avoid_array --> hallway_2_3 stairwell_m hallway_3_3;
 Object linda "Linda" station_a
     with name 'aide' 'linda',
         description "She's the super-cheery nurse's aide on duty this evening. She's in her 40s and is 
@@ -472,7 +474,7 @@ Object linda "Linda" station_a
             "~Sure thing I'll sign. I had to go to summer school once; wouldn't wish it on anybody.~";
         ],
         npc_wander_delay 3,
-        npc_avoid hallway_2_3 stairwell_m hallway_3_3,
+        npc_avoid linda_avoid_array,
         talk_array talk_array_linda, 
     class Mover MyNPC
     has animate female proper transparent; 
@@ -729,7 +731,7 @@ Object winston "Mr. Winston" hallway_3_4
             }
         ]
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 4,
+        npc_wander_delay 1,
         npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 

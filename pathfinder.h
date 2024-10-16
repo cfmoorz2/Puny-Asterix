@@ -302,14 +302,13 @@ Class Mover
     {
         !if (direction == self.npc_last_wander) continue;
         test_room = npc_at.(direction.door_dir);
-        !print"test_room = ",(name)test_room,"^";
         if (~~test_room ofclass Room) continue;
         if(assess_no_go(self, test_room)) continue;
         !print"test_room HERE = ",(name)test_room,"^";
         i++;
     }
     !print"i == ",i,"^";
-    if (i ==0 ) rfalse;
+    if (i == 0 ) rfalse;
     if (i == 1) self.npc_last_wander = 0;
     i = 0;
     !print"after first pass avoid direction = ",(name)self.npc_last_wander,"^";
@@ -352,12 +351,14 @@ Class Mover
     }
 ];
 
-[assess_no_go npc test_room i;
-    !print"in assess_no_go room = ",(name)test_room,"^";
-    for ( i=0: i < 32: i++)
+[assess_no_go npc test_room i x;
+    !print"in assess_no_go TEST ROOM = ",(name)test_room,"^";
+    for ( i=0: i < 12: i++)
     {
-        !print"avoiding ",(name)npc.&npc_avoid-->i,"^";
-        if (npc.&npc_avoid-->i == test_room) rtrue; 
+        x = npc.npc_avoid-->i;
+        if (x == 0) continue;
+        !print"avoiding ",(name)x,"^";
+        if (x == test_room) rtrue; 
     }
     rfalse;        
 ];
