@@ -13,7 +13,7 @@ Class Button
                 switch(real_location)   {
                     elevator_lobby_m: self.call_level = 1;
                     elevator_lobby_2: self.call_level = 2;
-                    elevator_lobby_3: self.call_level = 3;
+                    !elevator_lobby_3: self.call_level = 3;
                     !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
                 if (elevator_level == self.call_level)   {
@@ -60,7 +60,7 @@ Object main_elevator "Main Elevator"
 Object main_elevator_ext "elevator" 
     with name 'elevator',
         description"It's a standard elevator with a pair of sliding doors. There's a small panel embedded in the wall next to it. ",
-    found_in elevator_lobby_b elevator_lobby_m elevator_lobby_2 elevator_lobby_3,
+    found_in elevator_lobby_b elevator_lobby_m elevator_lobby_2,
     has scenery;
 
 Object elevator_doors "elevator doors"
@@ -78,20 +78,19 @@ Object elevator_doors "elevator doors"
                     0:  return elevator_lobby_b;
                     1:  return elevator_lobby_m;
                     2:  return elevator_lobby_2;
-                    3:  return elevator_lobby_3;
                     }
                 } else {
                     return main_elevator;
             }
         ],
-    found_in main_elevator elevator_lobby_b elevator_lobby_m elevator_lobby_2 elevator_lobby_3,
+    found_in main_elevator elevator_lobby_b elevator_lobby_m elevator_lobby_2,
     has scenery door ~open pluralname; 
 
 Object interior_panel "panel" main_elevator
     with name 'panel' 'buttons',
         description [; 
             print"It's a panel next to the door. You see five buttons. One is labeled with two horizontal arrows pointing away from each other. 
-                The others are labeled: ~B~,  ~M~,  ~2~, and ~3~. ";
+                The others are labeled: ~B~,  ~M~, and ~2~. ";
             if (elevator_active == false)    "None of the buttons are lit. ";
             ShowButtons();
         ],
@@ -131,12 +130,6 @@ Button interior_2_button
         !short_name "second floor button",
         found_in interior_panel;  
 
-Button interior_3_button 
-    with name '3//' 'three' 'third' 'floor' 'button',
-        call_level 3,
-        !short_name "third floor button",
-        found_in interior_panel;  
-
 Button interior_b_button 
     with name 'b//' 'basement' 'button',
         call_level 0,
@@ -148,12 +141,12 @@ Object basement_exterior_panel "panel" elevator_lobby_b
         description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
     has scenery;
 
-Object third_floor_exterior_panel "panel" elevator_lobby_3
+Object second_floor_exterior_panel "panel" elevator_lobby_2
     with name 'panel' 'buttons',
         description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
     has scenery;
 
-Object exterior_panel "panel"
+Object exterior_panel "panel" elevator_lobby_m
     with name 'panel',
         description [;
             print"It's a panel embedded in the wall next to the elevator doors. It contains 'Up' and 
@@ -161,7 +154,6 @@ Object exterior_panel "panel"
             if (elevator_active == false)    "None of the buttons are lit. ";
             ShowButtons();
         ],
-    found_in elevator_lobby_m elevator_lobby_2,
     has container transparent scenery;
 
 Button exterior_up_button 
@@ -172,7 +164,7 @@ Button exterior_up_button
 Button exterior_down_button
     with name 'down' 'button',
         short_name "down button",
-        found_in exterior_panel third_floor_exterior_panel;
+        found_in exterior_panel second_floor_exterior_panel;
 
 Button basement_exterior_up_button
     with name 'up' 'button',

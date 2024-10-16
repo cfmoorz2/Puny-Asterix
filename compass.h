@@ -28,9 +28,9 @@ CompassDirection -> se_obj with short_name "southeast", door_dir se_to,
 CompassDirection -> sw_obj with short_name "southwest", door_dir sw_to,
                                 name 'sw'  'southwest';
 CompassDirection -> u_obj  with short_name "up above",  door_dir u_to,
-                                name 'u//' 'up' 'ceiling' 'above' 'sky';
+                                name 'u//' 'up' 'ceiling' 'above';
 CompassDirection -> d_obj  with short_name "ground",    door_dir d_to,
-                                name 'd//' 'down' 'floor' 'below' 'ground';
+                                name 'd//' 'down' 'floor' 'below';
 
 CompassDirection -> in_obj  with short_name "inside",  door_dir in_to;
 CompassDirection -> out_obj with short_name "outside", door_dir out_to;

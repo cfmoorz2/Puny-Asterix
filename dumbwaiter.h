@@ -9,7 +9,7 @@
              } else {
                 print"closed. ";
             }
-            "A chain hangs down along the left and right sides of the shaft. ";
+            "A ccable hangs down along the left and right sides of the shaft. ";
         ],
         before [;
             open:
@@ -120,29 +120,6 @@ Object second_floor_dumbwaiter_door "dumbwaiter door" hallway_2_2
         ],
     has scenery;
 
-DumbwaiterShaft third_floor_dumbwaiter hallway_3_2;
-Object third_floor_dumbwaiter_door "dumbwaiter door" hallway_3_2
-    with
-        parse_name [ w1 w2 ;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'dumbwaiter' && w2 == 'door') return 2;
-            if (w1 == 'sliding' && w2 == 'door') return 2;
-            if (w1 == 'door' or 'sliding') return 1;
-        ],
-        description [;
-            print"It's a sliding metal door over the dumbwaiter shaft. It's currently ";
-            open_or_closed(third_floor_dumbwaiter);
-            ".";
-        ],
-        before [;
-            open:
-                <<open third_floor_dumbwaiter>>;
-            close:
-                <<close third_floor_dumbwaiter>>;
-        ],
-    has scenery;
-
 DumbwaiterShaft sub_basement_dumbwaiter sub_basement_01;
 Object sub_basement_dumbwaiter_door "dumbwaiter door" sub_basement_01
     with
@@ -213,19 +190,7 @@ Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
             dumbwaiter_level++;
             if(TestScope(dumbwaiter_cab, player)) "You pull the chain and the dumbwaiter cab rises into view. ";
             "You hear metallic grinding from within the dumbwaiter shaft. ";
-        2:  if (TestScope(dumbwaiter_cab, player))  {
-                print "You pull the chain and the dumbwaiter cab rises out of view.^";
-                move dumbwaiter_cab to third_floor_dumbwaiter; 
-                scope_modified = true;
-                dumbwaiter_level++;
-                rtrue;
-            }
-            move dumbwaiter_cab to third_floor_dumbwaiter; 
-            scope_modified = true;
-            dumbwaiter_level++;
-            if(TestScope(dumbwaiter_cab, player)) "You pull the chain and the dumbwaiter cab rises into view. ";
-            "You hear metallic grinding from within the dumbwaiter shaft. ";
-        3:  "There's no more give in the chain. ";
+        2:  "There's no more give in the chain. ";
         } 
 ];
 
@@ -268,19 +233,7 @@ Object dumbwaiter_cab "dumbwaiter cab" basement_dumbwaiter
             dumbwaiter_level--;
             if(TestScope(dumbwaiter_cab, player)) "You pull the chain and the dumbwaiter descends into view. ";
             "You hear metallic grinding from within the dumbwaiter shaft. ";
-        3:  if (TestScope(dumbwaiter_cab, player))  {
-                print "You pull the chain and the dumbwaiter cab descends out of view.^";
-                move dumbwaiter_cab to second_floor_dumbwaiter; 
-                scope_modified = true;
-                dumbwaiter_level--;
-                rtrue;
-            }
-            move dumbwaiter_cab to second_floor_dumbwaiter; 
-            scope_modified = true;
-            dumbwaiter_level--;
-            if(TestScope(dumbwaiter_cab, player)) "You pull the chain and the dumbwaiter descends into view. ";
-            "You hear metallic grinding from within the dumbwaiter shaft. ";
-        } 
+    }
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -292,7 +245,7 @@ Object left_chain "left chain"
                 DumbwaiterCabUp();
                 rtrue;
         ],
-        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
+        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter,
     has scenery;
 
 Object right_chain "right chain"
@@ -303,7 +256,7 @@ Object right_chain "right chain"
                 DumbwaiterCabDown();
                 rtrue;
         ],
-        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter third_floor_dumbwaiter,
+        found_in sub_basement_dumbwaiter basement_dumbwaiter main_dumbwaiter second_floor_dumbwaiter,
     has scenery;
 
 

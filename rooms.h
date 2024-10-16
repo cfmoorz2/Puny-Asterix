@@ -724,7 +724,7 @@ Room hallway_m1 "hallway_m1"
     has light;
 
 Object book_cart "book cart" station_b
-    with name 'cart' 'push' 'wooden' 'book' 'wheeled',
+    with name 'cart' 'wooden' 'book' 'wheeled',
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
         you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
         and old magazines currently on offer to any interested patients. ",
