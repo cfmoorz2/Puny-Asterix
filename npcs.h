@@ -173,7 +173,7 @@ Object buzz "Buzz" security_chair
     has animate proper transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sid_jorry "Sid Jorry" jorry_chair
+Object sid_jorry "Sid Jorry" jorry_office
     with name 'sid' 'jorry',
         description [;
             print"He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
@@ -436,7 +436,7 @@ Object sphygmomanometer "sphygmomanometer" becky
     has scenery; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array linda_avoid_array --> hallway_2_3 stairwell_m hallway_3_3;
+Array linda_avoid_array --> hallway_2_3 stairwell_m;
 Object linda "Linda" station_a
     with name 'aide' 'linda',
         description "She's the super-cheery nurse's aide on duty this evening. She's in her 40s and is 
@@ -553,7 +553,7 @@ Object nurse_retch "Nurse Retch" station_b
                 a specific spot on the door which pops open.^^
                 You see her take something from a pocket, put it in the cabinet, and push the door closed again.^^
                 Glancing around one last time, she hurries out of the room to the south.^";
-                move self to hallway_3_4;
+                move self to hallway_b2;
                 move kcl_bottle to storage_cabinet;
                 SetFlag(F_SAW_KNOCK_SPOT);
                 nurse_retch.hide = 1;
@@ -699,8 +699,8 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array winston_avoid_array --> storage break_room room_32 room_33 room_34;
-Object winston "Mr. Winston" hallway_3_4
+Array winston_avoid_array --> break_room room_32 room_33 room_34;
+Object winston "Mr. Winston" hallway_2_3
     with 
         name 'mr' 'winston',
         talk_array talk_array_winston,

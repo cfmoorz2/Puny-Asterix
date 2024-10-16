@@ -522,27 +522,9 @@ Room stairwell_2 "stairwell_2"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room elevator_lobby_3 "elevator_lobby_3" 
-    with description [;
-        print"This is the third-floor elevator lobby. The elevator doors lie to the south, the 'down' 
-        button is embedded in a small panel next to them. The elevator doors are currently ";
-        open_or_closed(elevator_doors);
-        ". A stairwell lies to the north through an open doorway. The hallway leads east and west. On the wall here you 
-        see ~Ward B~ posted in large black letters above an arrow pointing west and a blue line on the floor starts here 
-        and leads in that direction as well. ";
-    ],
-    e_to hallway_3_3,
-    s_to elevator_doors,
-    in_to elevator_doors,
-    w_to hallway_3_1,
-    class Tiles DropCeiling
-    has light; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_1 "hallway_3_1"
     with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
         A blue line is painted down the middle of the floor. ", 
-        e_to elevator_lobby_3,
         w_to hallway_3_2,
         n_to service_elevator_door,
         in_to service_elevator_door,
@@ -870,7 +852,7 @@ Room hallway_m1 "hallway_m1"
                 on the ledger you're carrying. The other two follow close behind.^^";
             }
         ],
-        s_to lobby_west,
+        s_to main_lobby,
         w_to hallway_m2,
         e_to elevator_lobby_m,
     class Tiles DropCeiling
@@ -970,24 +952,6 @@ Room hallway_m2 "hallway_m2"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room lobby_west "Lobby West"
-    with description "This is the western extension of the main lobby which lies to the east. Decorative tile murals cover
-        the walls and a corridor begins here and extends to the north. A glass door to the west is labeled ~Security~. ",
-    n_to hallway_m1,
-    cheap_scenery
-        'mural' 'murals//p' [;
-            take:
-            "I think you would need to take the whole wall. ";
-            examine:
-            "They're made of tiny pieces of colored glass tiles. They depict scenes of doctors and nurses standing over 
-            grateful bedridden patients. ";
-        ],
-    e_to main_lobby,
-    w_to security_door,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room security_office "Security Office" 
     with description [;
             print"This cluttered office smells vaguely of old pizza and sour-cream potato chips. A bank of 
@@ -1050,12 +1014,12 @@ OnChair security_chair "metal chair" security_office
             print"It's an unassuming metal door, currently ";open_or_closed(self);".";
         ],
         door_to [;
-            if (parent(self) == lobby_west) return security_office; return lobby_west;
+            if (parent(self) == main_lobby) return security_office; return main_lobby;
         ],
         door_dir [;
-            if (parent(self) == lobby_west) return w_to; return e_to;
+            if (parent(self) == main_lobby) return w_to; return e_to;
         ],
-        found_in lobby_west security_office,
+        found_in main_lobby security_office,
     has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1076,8 +1040,9 @@ Room main_lobby "Main Lobby"
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
         3 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
             intermittently catch a glimpse of the blizzard outside. ",
-        w_to lobby_west,
+        n_to hallway_m1,
         s_to main_lobby_doors,
+        w_to security_door,
         each_turn [;
             if (book_cart in self && FlagIsClear(F_HAVE_FLASHLIGHT)) 
             {
@@ -1219,8 +1184,8 @@ OnChair folding_chair "metal folding chair" admin_hallway
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room jorry_office "Office" 
     with description [;
-        print"This is a typical office befitting a less-than-top-level executive. A desk stands here";
-        if (jorry_chair in self) { print " as well as a rolling leather executive chair"; }
+        print"This is a typical office befitting a less-than-top-level executive. A desk stands here 
+        as well as a rolling leather executive chair";
         print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
         a stand directly behind the desk. Sand covers the bottom and a snake is coiled around a bleached twisted 
         branch at one end. A squat black safe sits in one corner.
@@ -1235,7 +1200,7 @@ Room jorry_office "Office"
             if(selected_direction == d_to) "You see blue carpet. ";
         ],
     cheap_scenery
-    4 'painting' 'paintings//p' 'picture' 'pictures//p' [;
+    3 'painting' 'paintings' 'picture' [;
         examine:
         "They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ";
         take:
@@ -1260,7 +1225,23 @@ Room jorry_office "Office"
         "It's a tortuous piece of bleached wood. There's currently a snake wrapped around and sleeping on it. ";
         take:
         "Not with the snake there, nosirree. ";
+    ]
+    4 'chair' 'seat' 'rolling' 'leather' [;
+        examine:
+        "It's a faux-leather rolling executive chair. ";
+        take:
+        "It's too heavy what with the dead body in it. ";
+        enter:
+        "There's currently a deceased administrator in it. ";
     ],
+    !1 'safe' [;
+    !    examine:
+    !    "It's a squat black metal safe, about two feet on each side. It's open and the combination lock has been 
+    !    drilled out. ";
+    !    take:
+    !    "It's far too heavy. ";
+    !]
+    !'office' 'desk' "It's a standard executive desk, wooden with a glass top. A dead body is currently sprawled across it. ",
     each_turn [;
         print (string) random("^Louanne, curious, flicks her forked tongue at you.^",
             "^Louanne stares at you through yellow reptillian eyes.^", "", "");
@@ -1278,58 +1259,6 @@ Object aquarium "aquarium" jorry_office
         max_capacity 20,
     class MyContainer
     has scenery transparent open;
-
-InChair jorry_chair "office chair" jorry_office
-    with name 'chair' 'seat' 'rolling' 'leather',
-        description "It's a faux-leather rolling executive chair. ",
-        mass 24,
-        describe [;
-            if (self in jorry_office) rtrue;
-        ],
-        before [;
-            take:
-                "It's too heavy what with the dead body in it. ";
-            pushdir:
-                "Between the carpet and the dead body you're not rolling the chair anywhere. ";
-        ],
-    has supporter enterable static;
-
-Object jorry_safe "safe" jorry_office 
-    with name 'safe',
-        description [ ;
-            print"It's a squat black metal safe, about two feet on each side. It's currently ";
-            open_or_closed(self); " and there's a large hole drilled through the combination lock. ";
-        ],
-        before [;
-            take:
-                "It's far too heavy. ";
-        ],
-        max_capacity 15,
-    class MyContainer
-    has openable scenery open;
-
-Object jorry_desk "office desk" jorry_office
-    with name 'desk' 'office',
-        description "It's a standard executive desk, wooden with a glass top. A single drawer runs across the knee well. ",
-        before [;
-            open:
-                <<open jorry_drawer>>;
-            close:
-                <<close jorry_drawer>>;
-        ],
-    has supporter scenery;
-
-Object jorry_drawer "desk drawer" jorry_office  
-    with name 'drawer',
-        description [;
-            print"It's a long narrow drawer, currently "; 
-            open_or_closed(self);
-            ".";
-        ],
-        max_capacity 12,
-        describe [; rtrue; ],
-    class MyContainer
-    has scenery openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room northrup_anteroom "Anteroom"
@@ -2029,10 +1958,11 @@ Room hallway_2_1 "hallway_2_1"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_2 "hallway_2_2" 
     with description "This is the entrance to 'A' Ward which lies down the hallway to the west. The wallpaper here is red, 
-        matching the red line running down the middle of the floor. The hallway returns to the east and 
-        an old service dumbwaiter is here, embedded in the south wall. ",
+        matching the red line running down the middle of the floor. A sign next to to an open doorway to the north reads ~Employees Only~.
+        The hallway returns to the east and an old service dumbwaiter is here, embedded in the south wall. ",
         e_to hallway_2_1,
         w_to a_ward_1,
+        n_to break_room,
     class Tiles DropCeiling
     has light;
 
@@ -2170,83 +2100,11 @@ Bed room_22_bed "patient bed" room_22
         ];  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_3_3 "hallway_3_3"
-    with description "Here the hallway continues east and west. There's a door to the north. A sign next to it reads ~Conference~. 
-        A sign next to to an open doorway to the south reads ~Employees Only~. ",
-        w_to elevator_lobby_3,
-        s_to break_room,
-        e_to hallway_3_4,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_3_4 "hallway_3_4"
-    with description "This is the east end of a long east-west corridor. The linoleum-
-    lined hallway returns west under yellow fluorescent light. There's a swinging door to the north. A sign next to it 
-    reads ~Storage~. ",
-        before [;
-            go:
-            if (selected_direction == n_to) print"You push through the door and it swings closed behind you.^^";
-        ],
-        w_to hallway_3_3,
-        n_to storage_door,
-    class Tiles DropCeiling
-    has light;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor storage_door "swinging door"
-     with name 'swinging' 'metal' 'door',
-        description [;
-            "It's a swinging metal door. ";
-        ],
-        !parse_name [ w1 w2 ;
-        !    w1 = NextWord();
-        !    if (w1 == 'swinging') return 1;
-        !    if (w1 == 'swinging' or 'metal' && w2 == 'door') return 2;
-        !    if (w1 == 'swinging' && w2 == 'door') return 2;
-        !],
-        door_to [;
-            if (parent(self) == hallway_3_4) return storage; return hallway_3_4;
-        ],
-        door_dir [;
-            if (parent(self) == hallway_3_4) return n_to; return s_to;
-        ],
-        found_in hallway_3_4 storage,
-    has scenery door openable open; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room storage "Storage"
-    with description [; 
-        print"This is a cluttered storage room. The walls are lined with shelves stocked with 
-        medical supplies and miscellaneous items that you don't need to concern yourself with. 
-        A tall but narrow brown metal cabinet stands in one corner. ";
-        if (player notin storage_locker) print"A battered full-length metal locker faces it on the 
-        other side of the room. ";
-        "A black telephone is mounted on the wall. The exit lies through a metal door to the south. ";
-    ],
-        before [;
-            go:
-            if (selected_direction == s_to && player in storage_locker)
-            {
-                print"(first leaving the locker)^";
-                PlayerTo(storage, 1);
-                <<go FAKE_S_OBJ>>;
-            }
-            if (selected_direction == in_to && player in self) <<enter storage_locker>>;
-            if (selected_direction == out_to && player in storage_locker) { PlayerTo(storage); rtrue; }
-        ],
-        s_to hallway_3_4,
-    class Tiles DropCeiling
-    has light;
-
-
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"
     with 
         description "This is an employee break room. There's a white plastic table here with matching chairs and a 
         refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
-        n_to hallway_3_3,
+        s_to hallway_2_2,
     class Tiles DropCeiling
     has light;
 
