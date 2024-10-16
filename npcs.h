@@ -333,7 +333,7 @@ Object vic "Vic"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
-    with name 'dr' 'northrup' 'doctor' 'walt' 'walter',  
+    with name 'dr' 'northrup' 'doctor' 'walter',  
         description [;
         if(FlagIsSet(F_BADDIES_FOLLOWING)) "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
             and a red face. ";
@@ -697,6 +697,7 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array winston_avoid_array --> storage conference_room break_room stairwell_3 room_32 room_33 room_34;
 Object winston "Mr. Winston" hallway_3_4
     with 
         name 'mr' 'winston',
@@ -729,7 +730,7 @@ Object winston "Mr. Winston" hallway_3_4
         ]
         npc_walk [; print"pushes his IV pole";],
         npc_wander_delay 4,
-        npc_avoid storage conference_room break_room stairwell_3 room_32 room_33 room_34,
+        npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
 

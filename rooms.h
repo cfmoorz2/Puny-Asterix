@@ -377,12 +377,6 @@ Room elevator_lobby_3 "elevator_lobby_3"
     class Tiles DropCeiling
     has light; 
 
-Object blue_line "blue line"
-    with name 'blue' 'line',
-        description "It's a thick blue line painted down the middle of the hallway. ",
-        found_in elevator_lobby_3 hallway_3_1 hallway_3_2 b_ward_1 station_b,
-    has scenery;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_3_1 "hallway_3_1"
     with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
@@ -757,7 +751,7 @@ Object book_cart "book cart" station_b
     has supporter;
 
 Object novels "novels" book_cart
-    with name 'novels//p' 'novel' 'book' 'books//p' 'romance',
+    with name 'novels//p' 'novel' 'book' 'books//p',
         description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
         before [;
             read:
@@ -768,7 +762,8 @@ Object novels "novels" book_cart
     has scenery pluralname;
 
 Object magazines "magazines" book_cart
-    with name 'magazines//p' 'magazine' 'time' 'people' 'newsweek',
+    with 
+        name 'magazines' 'magazine' 'journal',            
         description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
             and 'Newsweek' among the stacks.",
         before [;
@@ -1313,7 +1308,11 @@ Room northrup_office "Northrup's Office"
     has light;
 
 Object file_cabinet "file cabinet" northrup_office
-    with name 'metal' 'gray' 'file' 'cabinet' 'drawer' 'drawers//p',
+    with 
+        parse_name [ w1 ;
+            w1 = NextWord();
+            if (w1 == 'metal' or 'gray' or 'file' or 'cabinet' or 'drawer' or 'drawers') return 1;
+        ],
         description"It's a standard gray metal file cabinet with three large drawers. ",
         react_before [;
             go:
@@ -1476,12 +1475,6 @@ Room elevator_lobby_2 "elevator_lobby_2"
     class Tiles DropCeiling
     has light;
 
-Object red_line "red line"
-    with name 'red' 'line',
-        description "It's a thick red line painted down the middle of the hallway. ",
-        found_in elevator_lobby_2 hallway_2_1 hallway_2_2 a_ward_1 station_a,
-    has scenery;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "hallway_2_3" 
     with description "This long dim hallway continues east towards the radiology suite and west 
@@ -1536,7 +1529,11 @@ Object control_desk "control desk" mri_anteroom
     has supporter scenery transparent;
 
 Object crt_terminal "terminal" control_desk
-    with name 'crt' 'tv' 'video' 'crt' 'terminal' 'monitor' 'screen',
+    with 
+    parse_name [ w1;
+        w1 = NextWord();
+        if (w1 == 'crt' or 'tv' or 'video' or 'crt' or 'terminal' or 'monitor' or 'screen') return 1;
+    ],
         description [;
             print"It's a standard amber CRT monitor. You don't understand anything that's currently displayed on the screen";
             if (green_button.time_left > 0) " but you do see what appears to be a countdown with the number ",green_button.time_left," displayed. ";
@@ -1673,7 +1670,8 @@ Room mri_scanner "MRI Suite"
     has light;
 
 Object mri_machine "MRI machine" mri_scanner
-    with name 'mri' 'tube' 'm.r.i.' 'MRI' 'machine' 'scanner',
+    with 
+        name 'mri' 'tube' 'scanner' 'machine',
         description "It's a large white box with a large white tube attached. The bore of the tube is about two feet across. ",
         before [;
             enter:
@@ -2148,7 +2146,10 @@ Room storage "Storage"
 
 Object storage_cabinet "cabinet" storage
     with 
-        name 'cabinet' 'brown' 'metal' 'tall' 'narrow',
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'cabinet' or 'brown' or 'metal' or 'tall' or 'narrow') return 1;
+        ],
         description [ ;
             print"It's a tall brown metal cabinet, currently ";
             if(self has open) print"open. "; else print"closed. ";
@@ -2541,6 +2542,25 @@ Object ceiling_01 "In The Ceiling"
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see the hallway and a ladder below. ";
         ],
+        cheap_scenery
+        "pipe" "pipes" [;
+            examine:
+            "It's a network of black pipes running through the ceiling. ";
+            take:
+            "Actually, no. ";
+        ]
+        "bracket" "brackets" [;
+            examine:
+            "It's a box structure of metal brackets holding up the drop ceiling below. ";
+            take:
+            "They're currently holding you up. ";
+        ]
+        3 "duct" "ducts" "air" [;
+            examine:
+            "They're boxy aluminum ducts coated with dust. ";
+            take:
+            "You definitely don't need that. ";
+        ],
         w_to ceiling_02,
     has light;
 
@@ -2552,7 +2572,7 @@ Object ceiling_pipes "pipes"
             take:
             "Actually, no. ";
         ],
-        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
     has scenery pluralname;
 
 Object brackets "brackets"
@@ -2563,7 +2583,7 @@ Object brackets "brackets"
             take:
             "They're currently holding you up. ";
         ],
-        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
     has scenery pluralname;
 
 Object ceiling_ducts "air ducts"
@@ -2574,7 +2594,7 @@ Object ceiling_ducts "air ducts"
             take:
             "You definitely don't need that. ";
         ],
-        found_in ceiling_01 ceiling_02 ceiling_03 ceiling_04 ceiling_05,
+        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
     has scenery pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
