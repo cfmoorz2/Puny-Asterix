@@ -90,6 +90,8 @@ Class Bed
         ],
     has supporter enterable scenery;
 
+Class StairRoom;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object lost;
 
@@ -181,8 +183,8 @@ Room stairwell_b "stairwell_b"
         Concrete stairs zig-zag upward to the floor above.",
         s_to elevator_lobby_b,
         u_to stairwell_m,
-    class Tiles 
-    has light stairs,
+    class Tiles StairRoom
+    has light,
     ;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -335,8 +337,8 @@ Room stairwell_m "stairwell_m"
     d_to stairwell_b,
     s_to elevator_lobby_m,
     u_to stairwell_2,
-    has light stairs,
-    class Tiles;
+    class Tiles StairRoom
+    has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_2 "stairwell_2"
@@ -345,8 +347,8 @@ Room stairwell_2 "stairwell_2"
         d_to stairwell_m,
         s_to elevator_lobby_2,
         u_to stairwell_3,
-    class Tiles
-    has light stairs;
+    class Tiles StairRoom
+    has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_3 "stairwell_3"
@@ -354,8 +356,8 @@ Room stairwell_3 "stairwell_3"
         A large number 3 is painted on the wall. Concrete stairs zig-zag down to the floors below. ",
         d_to stairwell_2,
         s_to elevator_lobby_3,
-    class Tiles
-    has light stairs;
+    class Tiles StairRoom
+    has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_3 "elevator_lobby_3" 

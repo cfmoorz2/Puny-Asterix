@@ -46,7 +46,6 @@ Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocki
 Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?";
 
 Attribute valuable;
-Attribute stairs;
 Attribute encountered;
 Attribute item;
 
@@ -184,6 +183,7 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     print"^CAN'T WIN^^";
 ];
 
+#Ifv5;
 [ BeforeParsing x local_parse;
     local_parse = parse;
     for (wn=2 : wn<local_parse->1 : wn++)
@@ -195,6 +195,7 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     }
     if (x) @tokenise buffer parse;
     ];
+#Endif;
 
 Global following = false;
 
