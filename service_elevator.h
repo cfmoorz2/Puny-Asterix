@@ -13,7 +13,7 @@ Class ServiceButton
                     sub_basement_02: self.call_level = -1;
                     basement_hallway_west: self.call_level = 0;
                     hallway_2_1: self.call_level = 2;
-                    !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
+                    print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
                 if (service_elevator_level == self.call_level)   {
                     give service_elevator_door open;
@@ -24,6 +24,7 @@ Class ServiceButton
                 }   else    {
                     give self on;
                     service_elevator_call_level = self.call_level;
+                    print"call level == ",self.call_level,"^";
                     StartDaemon(service_elevator_daemon);
                     service_elevator_active = true;
                     StopTimer(service_close_door_timer);
@@ -69,7 +70,7 @@ Object service_elevator_door "service elevator door"
             if (self in service_elevator) return s_to; else return n_to;
         ],
         door_to [;
-            if (self in service_elevator) {
+            if (real_location == service_elevator) {
                 switch(service_elevator_level)  {
                     -1: return sub_basement_02;
                     0:  return basement_hallway_west;
@@ -158,7 +159,7 @@ Object sub_basement_exterior_panel "panel" sub_basement_02
         description"It's a small panel embedded in the wall next to the elevator door. It contains a single button. ",
     has scenery;
 
-Object service_second_service_x_panel "panel" hallway_2_1
+Object second_service_x_panel "panel" hallway_2_1
     with name 'panel' 'buttons',
         description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
     has scenery;
@@ -178,10 +179,10 @@ ServiceButton  service_exterior_up_button
         short_name "up button",
         found_in service_exterior_panel;
 
-ServiceButton  service_exterior_down_button
+ServiceButton  service_exterior_down_button service_exterior_panel
     with name 'down' 'button',
         short_name "down button",
-        found_in service_exterior_panel service_second_service_x_panel;
+        ;
 
 ServiceButton  sb_service_exterior_up_button
     with name 'up' 'button',
@@ -191,18 +192,19 @@ ServiceButton  sb_service_exterior_up_button
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object service_elevator_daemon 
     with daemon [ ;
-        if (service_elevator_call_level == service_elevator_level) {
+        if (service_elevator_call_level == service_elevator_level) 
+        {
             give service_elevator_door open;
             StopDaemon(self);
             StartTimer(service_close_door_timer,3);
             ResetServiceButtons();
             service_elevator_active = false;
             "^With a 'ding' the elevator door opens. ";
-            }
+        }
         if (service_elevator_call_level < service_elevator_level)   { service_elevator_level--;}
         if (service_elevator_call_level > service_elevator_level)   { service_elevator_level++;}
-        !print"^elevator level =",elevator_level;
-        !print"^call level = ",elevator_call_level,"^";
+        print"^elevator level =",service_elevator_level;
+        print"^call level = ",service_elevator_call_level,"^";
         ];
 
 Object service_close_door_timer 

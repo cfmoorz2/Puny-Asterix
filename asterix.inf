@@ -1,4 +1,4 @@
-!% -~S
+!!% -~S
 !% $OMIT_UNUSED_ROUTINES=1
 !% $ZCODE_LESS_DICT_DATA=1
 
@@ -65,7 +65,7 @@ Global elevator_call_level;
 Global elevator_active = false;
 Global dumbwaiter_level = 0;
 Global service_elevator_level = 0;
-Global service_elevator_call_level;
+Global service_elevator_call_level = 2;
 Global service_elevator_active = false;
 Global SAFE_1;
 Global SAFE_2;
@@ -231,7 +231,6 @@ Include "puny.h";
     !mixtape.current_track = FIRST_TRACK;
     !thriller.current_track = FIRST_TRACK;
     !jorry_confession.current_track = FIRST_TRACK;
-    StartDaemon(master_timer);
     winston.move_mode = WANDER_PATH;
     StartDaemon(winston);
     !elliot.move_mode = WANDER_PATH;
