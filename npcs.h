@@ -684,7 +684,7 @@ Object winston "Mr. Winston" hallway_2_3
             }
         ],
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 1,
+        npc_wander_delay 3,
         npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
