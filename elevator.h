@@ -28,8 +28,12 @@ Class Button
                     StartDaemon(main_elevator_daemon);
                     elevator_active = true;
                     StopTimer(close_door_timer);
-                    if (elevator_doors has open)  { print(string) MAIN_ELEVATOR_PROSE; rtrue; }
+                    if (elevator_doors has open)  { print(string) MAIN_ELEVATOR_PROSE; rtrue; } 
+                    else
+                    {
+                        "The button lights and you hear mechanical humming from the elevator shaft. ";
                     }
+                }
         ],
     has scenery;
 
