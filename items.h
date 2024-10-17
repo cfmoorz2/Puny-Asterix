@@ -750,7 +750,7 @@ Object syringe "syringe" jacket_pocket
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
     with name 'ladder' 'metal' 'folding',
-    mass 31,
+    mass 25,
         description [;
             print"It's a six-foot aluminum folding ladder, it's currently ";
             if (self has open) "unfolded. "; "collapsed. ";

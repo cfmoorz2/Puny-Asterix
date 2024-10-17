@@ -1035,7 +1035,7 @@ Room admin_hallway "Administration"
         here by round light fixtures and the floor is covered with blue carpet. There's a plain wooden door 
         to the north and a fancy mahogany door to the south. Each has a small brass placard mounted on it. ";
         if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE) && northrup_door hasnt open) "There's a crack of light under the door 
-        to the south. "; else "."; 
+        to the south. "; else ""; 
     ],
     cheap_scenery
     2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
@@ -1222,7 +1222,9 @@ Room northrup_office "Northrup's Office"
             go:
             if (selected_direction == u_to)
             {
-                if (player notin file_cabinet) "You can't reach the ceiling from down here. ";
+                print"You pull yourself awkwardly up onto the file cabinet and, from there, back up into the 
+                dark dirty ceiling. You're actually starting to wonder if summer school wouldn't be so bad after all.^^";
+                rfalse;
             }
             examine:
             if(selected_direction == u_to) "You see a tile drop ceiling. ";
@@ -1254,6 +1256,7 @@ Room northrup_office "Northrup's Office"
             }
         ],
     n_to northrup_door,
+    u_to ceiling_05,
     has light;
 
 Object file_cabinet "file cabinet" northrup_office
@@ -1276,6 +1279,9 @@ Object file_cabinet "file cabinet" northrup_office
             {
                 PlayerTo(northrup_office, 1);
                 print"(first getting down from the file cabinet)^";
+                <look>;
+                if (selected_direction ~= d_to) "^You can't go that way. ";
+                rtrue;
             }
         ],
         before [;
@@ -2195,12 +2201,12 @@ Object ceiling_01 "In The Ceiling"
 Object ceiling_03 "In The Ceiling"
     with 
         description "You are perched in the service space above the hallway and drop ceiling, surrounded by 
-        dusty ducts and pipes. You can maneuver east and west, balancing yourself on the metal brackets holding up
-        the drop ceiling below. ",
+        dusty ducts and pipes. The dusty passage takes a ninety-degree turn here and you can go east or south, balancing yourself on the metal brackets holding up
+        the drop ceiling tiles below. ",
         cheap_scenery
             CS_ADD_LIST ceiling_01 (inside_scenery),
         e_to ceiling_01,
-        w_to ceiling_05;
+        s_to ceiling_05;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_05 "In The Ceiling"
@@ -2219,8 +2225,8 @@ Object ceiling_05 "In The Ceiling"
             if (selected_direction == d_to) 
             {
                 print"Grunting and dust-covered, you lower yourself from the pipes through the drop ceiling, 
-                stepping down onto a tall metal file cabinet standing in the corner of the room.^^";
-                PlayerTo(file_cabinet, 1);
+                stepping down first onto a tall metal file cabinet standing in the corner of the room, then down onto 
+                the plush carpet.^^";
                 if (northrup in northrup_office) 
                 {
                     print"A seething Dr. Walter Northrup is here to meet you, furious in equal parts at the cloud of dust you've
@@ -2229,13 +2235,13 @@ Object ceiling_05 "In The Ceiling"
                     deadflag = 6;
                     rtrue;
                 }
-                rtrue;
             }
             examine:
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
-                Through the gap you can see an office and a cile cabint below. ";
+                Through the gap you can see an office and a file cabinet below. ";
         ],
         n_to ceiling_03,
+        d_to northrup_office,
     has light;
 
 

@@ -43,11 +43,11 @@ Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
             with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
             metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~. ";
-Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
-Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?";
+            injury or property damage may result~.^";
+Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill.^";
+Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?^";
 Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on the card reader turns green and you feel the
-    elevator moving beneath you. ";
+    elevator moving beneath you.^";
 Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
 Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ He hands back your walkman.^";
@@ -104,11 +104,11 @@ Constant MSG_WEAR_DEFAULT 1000;
 COnstant MSG_PARSER_NEW_SCORE 1001;
 
 [ DeathMessage; 
-    if (deadflag == 3) print"You are doomed to summer school. ";
-    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism. ";
-    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism. ";
+    if (deadflag == 3) print"You are doomed to summer school.";
+    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism.";
+    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism.";
     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
-        summer school. ";
+        summer school.";
     !print "You have lost"; 
 ];
 
