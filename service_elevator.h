@@ -12,9 +12,9 @@ Class ServiceButton
                 switch(real_location)   {
                     sub_basement_02: self.call_level = -1;
                     basement_hallway_west: self.call_level = 0;
-                    hallway_m1: self.call_level = 1;
+                    !hallway_m1: self.call_level = 1;
                     hallway_2_1: self.call_level = 2;
-                    hallway_3_1: self.call_level = 3;
+                    !hallway_3_1: self.call_level = 3;
                     !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
                 if (service_elevator_level == self.call_level)   {
@@ -75,15 +75,16 @@ Object service_elevator_door "service elevator door"
                 switch(service_elevator_level)  {
                     -1: return sub_basement_02;
                     0:  return basement_hallway_west;
-                    1:  return hallway_m1;
+                    !1:  return hallway_m1;
                     2:  return hallway_2_1;
-                    3:  return hallway_3_1;
+                    !3:  return hallway_3_1;
                     }
                 } else {
                     return service_elevator;
             }
         ],
-    found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+    !found_in service_elevator basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+    found_in service_elevator basement_hallway_west hallway_2_1 sub_basement_02,
     has scenery door ~open; 
 
 Object service_elevator_ext "service elevator"
@@ -93,14 +94,15 @@ Object service_elevator_ext "service elevator"
             open_or_closed(service_elevator_door);
             " There's a small panel embedded in the wall next to it. ";
         ],
-        found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+        !found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
+        found_in basement_hallway_west hallway_2_1 sub_basement_02,
     has scenery;
 
 Object service_interior_panel "panel" service_elevator
     with name 'panel' 'buttons',
         description [; 
             print"It's a panel next to the door. You see five buttons. One is labeled with two horizontal arrows pointing away from each other. 
-                The others are labeled: ~B~,  ~M~,  ~2~, and ~3~. ";
+                The others are labeled: ~B~,  ~M~, and ~2~. ";
             if (service_elevator_active == false) print"None of the buttons are lit. ";
             print"Below the buttons there's a magnetic swipe card reader. Next to this it reads 'Sub-Basement'.^";
             ShowServiceButtons();
@@ -146,15 +148,9 @@ ServiceButton  service_interior_m_button
         found_in service_interior_panel;     
 
 ServiceButton  service_interior_2_button 
-    with name '2//' 'two' 'second' 'floor' 'button',
+    with name '2//' 'two' 'second' 'button',
         call_level 2,
         short_name "second floor button",
-        found_in service_interior_panel;  
-
-ServiceButton  service_interior_3_button 
-    with name '3//' 'three' 'third' 'floor' 'button',
-        call_level 3,
-        short_name "third floor button",
         found_in service_interior_panel;  
 
 ServiceButton  service_interior_b_button 
@@ -167,16 +163,15 @@ ServiceButton  service_interior_sb_button
     with name 'sb' 'sub-basement' 'button' 'subbasement',
         call_level -1,
         short_name "sub-basement button",
+        before [;
+            push:
+            "It flashes on then off. Nothing otherwise seems to happen. ";
+        ],
         found_in service_interior_panel;     
 
 Object sub_basement_exterior_panel "panel" sub_basement_02
     with name 'panel' 'buttons',
         description"It's a small panel embedded in the wall next to the elevator door. It contains a single button. ",
-    has scenery;
-
-Object service_third_service_x_panel "panel" hallway_3_1
-    with name 'panel' 'buttons',
-        description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
     has scenery;
 
 Object service_exterior_panel "panel"
@@ -198,7 +193,7 @@ ServiceButton  service_exterior_up_button
 ServiceButton  service_exterior_down_button
     with name 'down' 'button',
         short_name "down button",
-        found_in service_exterior_panel service_third_service_x_panel;
+        found_in service_exterior_panel;
 
 ServiceButton  sb_service_exterior_up_button
     with name 'up' 'button',
@@ -216,10 +211,18 @@ Object service_elevator_daemon
             service_elevator_active = false;
             "^With a 'ding' the elevator door opens. ";
             }
-        if (service_elevator_call_level < service_elevator_level)   { service_elevator_level--;}
-        if (service_elevator_call_level > service_elevator_level)   { service_elevator_level++;}
-        !print"^elevator level =",elevator_level;
-        !print"^call level = ",elevator_call_level,"^";
+        if (service_elevator_call_level < service_elevator_level) 
+        {
+            if (service_elevator_level == 2) { service_elevator_level = 0; rtrue; }
+            service_elevator_level--;
+        }
+        if (service_elevator_call_level > service_elevator_level)
+        {
+            !print"^elevator level =",service_elevator_level,"^";
+            !print"^call level = ",service_elevator_call_level,"^";
+            if (service_elevator_level == 0) { service_elevator_level = 2; rtrue; }
+           service_elevator_level++;
+        }        
         ];
 
 Object service_close_door_timer 

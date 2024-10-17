@@ -70,22 +70,6 @@ Array talk_array_becky-->
   00 306 "Ms. Parsons" TM_NO_LINE "She's 103 years old, so she doesn't say much. But she has moments of lucidity and, I think, 
   hears conversations around her sometimes."
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
-  00 308 "Elliot" TM_NO_LINE "He had knee surgery a couple days ago. He's quite the athlete, apparently."
-  TM_END;
-
-Array talk_array_linda-->
-  30 "herself" TM_NO_LINE "I was planning on being a nurse someday. But then I wound up in summer school and here 
-  I am. Ha!"
-  30 "Nurse Retch" TM_NO_LINE "She's not one for small-talk, I'll tell you that."
-  00 300 "Nurse Becky" TM_NO_LINE "She's a joy to work with."
-  00 301 "Mrs. Chen" TM_NO_LINE "I think she's here with pneumonia. Nobody has been able to talk to her but she seems 
-  pretty laid-back about the whole thing."
-  00 302 "Ms. Parsons" TM_NO_LINE "She's 103 years old, they say. Don't sneak up on her. Ha!"
-  00 303 "Mr. Johnson" TM_NO_LINE "Nice enough fellow. Had a joint replacement I think."
-  00 304 "Elliot" TM_NO_LINE "He likes to flirt with me so I think his knee is feeling better."
-  00 305 "Winston" TM_NO_LINE "He's a regular around here. Poor guy's been sickly for a while."
-  00 306 "Larry" TM_NO_LINE "Don't drink too much. That's all I'll say about that."
-  00 307 "Edith" TM_NO_LINE "Such a sweet lady. Hope her urinary tract infection clears up."
   TM_END;
 
 Array talk_array_eugene-->
@@ -105,7 +89,6 @@ Array talk_array_retch-->
   00 301 "potassium vial" TM_NO_LINE TM_NO_LINE TM_retch_vial
   30 "herself" TM_NO_LINE "I really don't think that's any of your business."
   30 "Dr. Northup" TM_NO_LINE "He's a great man and deserves your utmost respect."
-  00 302 "Edith" TM_NO_LINE "I don't discuss patients with the candy stripers."
   00 303 "Winston" TM_NO_LINE "I don't see how that's any of your business."
   00 304 "Larry" TM_NO_LINE "You'd best keep to your books, candy striper."
   00 305 "Vic" TM_NO_LINE TM_NO_LINE TM_retch_vic
@@ -163,15 +146,6 @@ Array talk_array_larry-->
   00 300 "Dr. Northrup" TM_NO_LINE "He takes over struggling hospitals and then when they inevitably go under, he gets a nice little golden parachute. I think 
   the guy they found dead tonight, Jorry? He's his CFO and right-hand man." 301
   00 301 "Sid Jorry" TM_NO_LINE "These people are snakes. It wouldn't shock me if this Jorry guy was offed because he had information on somebody."
-  TM_END;
-
-Array talk_array_elliot-->
-  30 "himself" TM_NO_LINE "I'm here because of an old footbal injury. I don't really know what they did to my knee. 
-  They said they 'cleaned it out' and repaired some ligaments."
-  30 "knee" TM_NO_LINE "It hurts but I can go home once the swelling goes down and the blizzard moves through."
-  30 "wheelchair" TM_NO_LINE "I'm trying to keep my upper body strength up pushing this thing around."
-  00 300 "Nurse Becky" TM_NO_LINE "I got no complaints with the nursing. She's prety cute."
-  00 301 "Linda" TM_NO_LINE "I think she's been flirting with me. Although maybe she does that with everybody."
   TM_END;
 
 

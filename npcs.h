@@ -95,7 +95,6 @@ Object freddy "Freddy" admin_hallway
             {
                 letter: add_signature(self); rtrue;
                 walkman: "~My boombox is better.~";
-                dummy_walkman: "~My boombox is better.~";
                 mixtape: "~You can keep it. Just don't tell my girlfriend.~";
                 thriller: "~My girlfriend plays that thing non-stop.~";
                 air_supply_tape: "~That's old person naptime music.~";
@@ -173,7 +172,7 @@ Object buzz "Buzz" security_chair
     has animate proper transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sid_jorry "Sid Jorry" jorry_chair
+Object sid_jorry "Sid Jorry" jorry_office
     with name 'sid' 'jorry',
         description [;
             print"He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
@@ -183,6 +182,7 @@ Object sid_jorry "Sid Jorry" jorry_chair
             if (band_aid in self) "You notice a band_aid stuck to the right side of his neck. "; 
                 else "You notice a tiny puncure wound on the right side of his neck. ";
         ],
+        hide true,
         before [;
             push, pull:
             "You're too creeped out to mess with him. ";
@@ -204,12 +204,13 @@ Object sid_jorry "Sid Jorry" jorry_chair
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array eugene_avoid_array --> stairwell_b environmental_services engineering central_supply x_ray morgue mri_anteroom;
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
         and is whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
-        npc_avoid stairwell_b environmental_services,
+        npc_avoid eugene_avoid_array,
         npc_walk [; print"pushes the mop bucket";],
         describe [;  
             print"^Eugene is here. ";
@@ -227,7 +228,7 @@ Object eugene "Eugene" hallway_b2
             {
                 letter: add_signature(self); rtrue;
                 swipe_card: "~That'll let you down into the sub-basement. But I wouldn't go down there. It's dark and dangerous.~";
-                walkman, dummy_walkman: "~Hey, you can listen to your new tape right here.~";
+                walkman: "~Hey, you can listen to your new tape right here.~";
                 thriller: "~'Thriller'? Never heard of it.~";
                 air_supply_tape: "~That's for you. It's real music.~";
                 shrimp: "~Ohh, that's bad.~";
@@ -294,7 +295,7 @@ Object vic "Vic"
             {
                 swipe_card: remove swipe_card; "He plucks the card from you. ~I don't think you're supposed to have that, 
                     little lady. Can't have you getting in trouble down here.~ He smiles a sickly leer. ";
-                walkman, dummy_walkman: "~Sure, little lady. You play your music.~";
+                walkman: "~Sure, little lady. You play your music.~";
                 book_cart: "~Yeah, you keep to your books, candy striper. ";
                 default:
                     "Vic smiles a lupine grin. ~Yeah, that's super.~";
@@ -333,7 +334,7 @@ Object vic "Vic"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
-    with name 'dr' 'northrup' 'doctor' 'walt' 'walter',  
+    with name 'dr' 'northrup' 'doctor' 'walter',  
         description [;
         if(FlagIsSet(F_BADDIES_FOLLOWING)) "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
             and a red face. ";
@@ -366,7 +367,7 @@ Object mabel "Mabel" main_lobby
                 syringe: "~Oh my, girl. That ain't right. You should report that to somebody.~";
                 swipe_card: "She smiles. ~Now how'd you finagle that?~";
                 flashlight: "~That's for you tonight, girl.~";
-                walkman, dummy_walkman: "She smiles. ~Ooh, my grandkids all have those, too.";
+                walkman: "She smiles. ~Ooh, my grandkids all have those, too.";
                 thriller: "~I actually prefer 'Off The Wall'.~";
                 air_supply_tape: "~My husband George sure does like those boys.~";
                 shrimp: "~Ooh, girl. You need to throw that rotten thing away before somebody gets sick.~";
@@ -396,8 +397,6 @@ Object becky "Becky" station_a
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(mabel, 304);
-            ActivateTopic(linda, 300);
-            ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         life [;
@@ -433,49 +432,6 @@ Object sphygmomanometer "sphygmomanometer" becky
             "It's nearly unpronounceable, so you don't need it. ";
         ],
     has scenery; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object linda "Linda" station_a
-    with name 'aide' 'linda',
-        description "She's the super-cheery nurse's aide on duty this evening. She's in her 40s and is 
-        perpetually smiling. She has bright red hair curled into a tight perm and wears green scrubs. ",
-        describe [; 
-            print"^Linda is here, ", (string) random( "twirling a curl of hair with an index finger. ",
-            "smiling. ", "humming to herself. ");
-            if (self has encountered) "";
-            give self encountered;
-            ActivateTopic(becky, 300);
-            ActivateTopic(winston, 300);
-            ActivateTopic(larry, 302);
-            ActivateTopic(elliot, 301);
-            "She's the perpetually chipper nursing assistant on duty this evening. ";
-        ],
-        life [;
-            give, show:
-            switch(noun)
-            {
-                letter: add_signature(self); rtrue;
-                kcl_bottle: "~That's probably for one of the patients?~";
-                syringe: "~Hm. That's odd. I wonder who injected who.~";
-                swipe_card: "~Hey! You found a security card. That'll let you into the sub-basement. I've never been down 
-                there. It's creepy down there in the boiler room.~";
-                thriller: "~I've bought that album, like, three times.~";
-                shrimp: "~Ew, that is nasty.~";
-                book_cart: "~No thanks. I haven't finished that 'TV Guide' yet.~";
-                metal_cart: "~OOh, be careful. I got in BIG trouble once when I took a metal oxygen tank into the MRI scanner 
-                place.~";
-                default:
-                    print_ret"~",(The)noun," is terrific.~";
-            }
-        ],
-        signature_desc [;
-            "~Sure thing I'll sign. I had to go to summer school once; wouldn't wish it on anybody.~";
-        ],
-        npc_wander_delay 3,
-        npc_avoid hallway_2_3 stairwell_m hallway_3_3,
-        talk_array talk_array_linda, 
-    class Mover MyNPC
-    has animate female proper transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object nurse_retch "Nurse Retch" station_b
@@ -529,7 +485,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         npc_arrived [;
-            if(parent(self)== storage) 
+            if(parent(self)== environmental_services) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
@@ -538,7 +494,7 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         each_turn [;
-            if (self in storage && player in storage_locker)
+            if (self in environmental_services && player in storage_locker)
             {
                 print"^Through the crack in the locker door you see her move to the phone on the wall. She punches an 
                 extension and waits a moment.^^
@@ -551,7 +507,7 @@ Object nurse_retch "Nurse Retch" station_b
                 a specific spot on the door which pops open.^^
                 You see her take something from a pocket, put it in the cabinet, and push the door closed again.^^
                 Glancing around one last time, she hurries out of the room to the south.^";
-                move self to hallway_3_4;
+                move self to hallway_b2;
                 move kcl_bottle to storage_cabinet;
                 SetFlag(F_SAW_KNOCK_SPOT);
                 nurse_retch.hide = 1;
@@ -566,7 +522,7 @@ Object retch_timer
         time_left,
         time_out [;
             nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = storage;
+	        nurse_retch.target_room = environmental_services;
             StartDaemon(nurse_retch);
         ];
 
@@ -697,7 +653,8 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object winston "Mr. Winston" hallway_3_4
+Array winston_avoid_array --> stairwell_2 room_31 room room_32 room_33 room_34 room_21 room_22 room_24;
+Object winston "Mr. Winston" hallway_2_3
     with 
         name 'mr' 'winston',
         talk_array talk_array_winston,
@@ -708,7 +665,6 @@ Object winston "Mr. Winston" hallway_3_4
             print"^Mr. Winston is here. ";
             if(self has encountered) "";
             give self encountered;
-            ActivateTopic(linda, 305);
             ActivateTopic(nurse_retch, 303);
             "He's a bored patient pushing an IV pole up and down the wards. ";
         ],
@@ -726,10 +682,10 @@ Object winston "Mr. Winston" hallway_3_4
                 default:
                 "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
             }
-        ]
+        ],
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 4,
-        npc_avoid storage conference_room break_room stairwell_3 room_32 room_33 room_34,
+        npc_wander_delay 3,
+        npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
 
@@ -744,35 +700,6 @@ Object winston_pole "IV pole" winston
     has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object edith "Edith" room_32
-    with name 'edith',
-        description "She's a thin elderly woman resting on the bed. Her gray hair is messily sprawled across her pillow 
-        and she's covered by a threadbare green blanket. Her eyes are closed. ",
-        !talk_array talk_array_edith, 
-        describe [;
-            if (self hasnt encountered) 
-            {
-                give self encountered;
-                ActivateTopic(nurse_retch, 302);
-                ActivateTopic(linda, 307);
-                "^Edith, a frial elderly patient is lying in the bed. ";
-            }
-            "^Edith is lying in the bed. ";
-        ],
-        before [;
-            talk:
-            "She seems to be asleep. ";
-            wakeother:
-            "Let the poor woman sleep. ";
-        ],
-        life [;
-            give, show:
-            "She's asleep. ";
-        ],
-    class Mover MyNPC
-    has animate female proper transparent;  
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ms_parsons "Ms. Parsons" room_22
     with name 'ms' 'parsons',
         description "She's a small pouch of wrinkled skin and scant white hair. She's nearly swallowed up
@@ -783,7 +710,6 @@ Object ms_parsons "Ms. Parsons" room_22
             {
                 give self encountered;
                 ActivateTopic(becky, 306);
-                ActivateTopic(linda, 302);
                 "^Ms. Parsons, a frail hyper-elderly lady is lying in the bed. She's recognized as the oldest resident of the 
                 Tri-state area. The best guess is that she's 103 years old. She has dementia and doesn't talk much but is always 
                 smiling. She once claimed that the secret to her longevity was that she never married. ";
@@ -810,7 +736,6 @@ Object larry "Larry" room_33
             if (self hasnt encountered) 
             {
                 give self encountered;
-                ActivateTopic(linda, 306);
                 ActivateTopic(nurse_retch, 304);
                 "^Larry, a corpulent gentleman is lying in the bed. ";
             }
@@ -836,51 +761,6 @@ Object larry "Larry" room_33
     has animate proper transparent;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object elliot "Elliot" hallway_2_3
-    with name 'elliot',
-        description "He's an athletic-appearing blonde gentleman in his 30s. He's rolling idly up and 
-        down the hallways in a wheelchair, his right leg bandaged and propped in front of him on a padded strut. ",
-        describe [;  
-            print"^Elliot is here. ";
-            if(self has encountered) "";
-            give self encountered;
-            ActivateTopic(becky, 308);
-            ActivateTopic(linda, 304);
-            "He's rolling up and down the hallway in his wheelchair. ";
-        ],
-        signature_desc [;
-            "~Sure thing, little lady. I suppose this letter is your ticket out of here.~";
-        ],
-        life [;
-            give, show:
-            switch(noun)
-            {
-                letter: add_signature(self); rtrue;
-                thriller, air_supply_tape, mixtape: "~Sweet tunes, dude.~";
-                shrimp: "~Dude, you have to throw that away.~";
-                default: "He's distracted and doesn't care about ",(the)noun,".";
-            }
-        ],
-        talk_array talk_array_elliot,
-        npc_walk [; print"rolls";],
-        npc_wander_delay 3,
-        npc_avoid radiology stairwell_2 room_21 room_22 room_23,
-    class Mover MyNPC
-    has animate proper transparent; 
-
-Object wheelchair "wheelchair" elliot
-    with
-        name 'wheelchair' 'chair' 'wheels',
-        description "It's a standard wheelchair. Elliot is occupying it currently. ",
-        before [;
-            take:
-            "It's currently in use. ";
-            push:
-            "Elliot waves off your assistance. ";
-        ],
-    has scenery;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object mrs_chen "Mrs. Chen" room_21
     with 
         name 'mrs' 'chen',
@@ -891,7 +771,6 @@ Object mrs_chen "Mrs. Chen" room_21
             {
                 give self encountered;
                 ActivateTopic(becky, 305);
-                ActivateTopic(linda, 301);
                 "^Mrs. Chen, a small Chinese lady is lying in the bed. ";
             }
             "^Mrs. Chen is lying in the bed. ";
