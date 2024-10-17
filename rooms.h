@@ -872,7 +872,7 @@ Object book_cart "book cart" station_b
     has supporter;
 
 Object novels "novels" book_cart
-    with name 'novels//p' 'novel' 'book' 'books//p',
+    with name 'novels' 'novel' 'book' 'books',
         description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
         before [;
             read:
