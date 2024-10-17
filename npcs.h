@@ -204,7 +204,7 @@ Object sid_jorry "Sid Jorry" jorry_office
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array eugene_avoid_array --> stairwell_b environmental_services;
+Array eugene_avoid_array --> stairwell_b environmental_services engineering central_supply x_ray morgue mri_anteroom;
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
@@ -653,7 +653,7 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array winston_avoid_array --> break_room room_32 room_33 room_34;
+Array winston_avoid_array --> stairwell_2 room_31 room room_32 room_33 room_34 room_21 room_22 room_24;
 Object winston "Mr. Winston" hallway_2_3
     with 
         name 'mr' 'winston',
