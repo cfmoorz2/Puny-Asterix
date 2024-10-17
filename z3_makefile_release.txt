@@ -3,5 +3,3 @@ cd GitHub
 cd Puny-Asterix
 ./inform -v3  -s asterix.inf 
 
-./inform asterix.inf -v3u > abbreviations.txt
-

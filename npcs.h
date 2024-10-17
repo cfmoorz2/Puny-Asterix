@@ -111,6 +111,8 @@ Object freddy "Freddy" hallway_m2
                 if (thriller in walkman)
                 {
                     walkman_playing = 0;
+                    if (FlagIsSet(F_FREDDY_HAS_HEARD_THRILLER)) "~Yeah, I've heard it.~ He presses the 'stop' button and hands your walkman back. ";
+                    SetFlag(F_FREDDY_HAS_HEARD_THRILLER);
                     "~Oh, yeah, ~ (he's talking inappropriately loudly with the headphones on). ~My little sister and 
                     my grandmother love this album.~ He presses the 'stop' button and hands your walkman back. ";
                 } 
