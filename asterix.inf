@@ -1,4 +1,4 @@
-!!% -~S
+!% -~S
 !% $OMIT_UNUSED_ROUTINES=1
 !% $ZCODE_LESS_DICT_DATA=1
 
@@ -33,6 +33,7 @@ Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 Constant OPTIONAL_FULL_SCORE;
 Constant TASKS_PROVIDED;
+Constant RUNTIME_ERRORS 0;
 Constant NUMBER_TASKS = 16;
 Constant MAX_SCORE = 80;
 Array task_scores -> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
@@ -44,6 +45,10 @@ Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograp
             injury or property damage may result~. ";
 Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill. ";
 Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?";
+Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on the card reader turns green and you feel the
+    elevator moving beneath you. ";
+Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
+Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
 
 Attribute valuable;
 Attribute encountered;
@@ -74,7 +79,6 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global boombox_playing = true;
-Global dummy_walkman_playing = false;
 
 Constant FLAG_COUNT 14;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
@@ -121,6 +125,9 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
 			print "down";
 		}
 		" by 5 points.]";
+    MSG_DISROBE_DEFAULT:
+        if (noun == walkman) "You remove the headphones. ";
+        "You take off ", (the) noun, ".";
     }
 ];
 
@@ -144,14 +151,15 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     obj = obj;
     if (code == 2)
     {
+        if (action == ##wear && obj == walkman) return 0;
+        if (action == ##plugin && obj == dummy_headphones) return 2;
         if (action == ##flip && obj in boombox && obj ofclass tape) return 2;
         if (action == ##flip && obj in walkman && obj ofclass tape) return 2; 
-        if (action == ##flip && obj in dummy_walkman && obj ofclass tape) return 2; 
         if (action == ##push && (IndirectlyContains(player, obj)) == true) return 0;
         if (action == ##push && (~~obj ofclass Button)) return 0;
     }
 
-    if(code == 0)   {
+    if(code < 2)   {
         if(action == ##drop or ##insert or ##puton) if(obj notin actor) return 2;
         if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
@@ -237,8 +245,6 @@ Include "puny.h";
     !StartDaemon(elliot);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
-    linda.move_mode = WANDER_PATH;
-    StartDaemon(linda);
     StartDaemon(nurse_retch);
     player.orders = MyTakeRule;
     !oliver.move_mode = TARGET_PATH;

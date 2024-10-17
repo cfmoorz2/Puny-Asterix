@@ -1009,19 +1009,11 @@ Room main_lobby "Main Lobby"
             leading out. The windows are partially iced over and through them you can see gales of wind-driven snow blowing sideways. 
             The lobby continues back to the west. An information desk occupies the north wall.^";
         ],
-        after [;
-            go:
-                if (selected_direction == n_to) {
-                    give main_lobby_doors ~open;
-                    print"You push through the doors and with a hiss they close behind you.^";
-                }
-        ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
         3 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
             intermittently catch a glimpse of the blizzard outside. ",
         n_to hallway_m1,
-        s_to main_lobby_doors,
         w_to security_door,
         each_turn [;
             if (book_cart in self && FlagIsClear(F_HAVE_FLASHLIGHT)) 
@@ -1039,62 +1031,33 @@ Room main_lobby "Main Lobby"
                 out of here and home before they closed the roads.~^";
             }
         ],
+        before [;
+            go:
+                if (selected_direction == s_to)
+                "The main entrance doors seem to have been locked for the night. ";
+            open:
+                "They're locked for the night. ";
+        ],
     class Tiles DropCeiling
     has light;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor main_lobby_doors "lobby doors"
+ myDoor main_lobby_doors "lobby doors" main_lobby
      with name 'lobby' 'double' 'doors' 'door',
         description "They're a pair of glass doors. ",
-        door_to [;
-            if (parent(self) == main_lobby) return outside; return main_lobby;
-        ],
-        door_dir [;
-            if (parent(self) == main_lobby) return s_to; return n_to;
-        ],
-        found_in main_lobby outside,
-    has scenery door openable ~open pluralname;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Global outside_timer = 0;
-Room outside "Outside"
-    with description "You're standing outside the main hospital entrance. The freezing wind bites into your skin and flecks of ice 
-        sand-blast your cheeks. You're having a difficult time catching a breath in the intensely cold air. ",
-        after [;
-            go:
-                if (selected_direction == s_to) {
-                    print"You push through the doors and with a hiss they close behind you.^";
-                    give main_lobby_doors ~open;
-                    outside_timer = 0;
-                }
-        ],
-        each_turn [;
-            switch(outside_timer)   {
-                1:  print"You're not sure how long you can stand the cold.^";
-                2:  print"You notice that your fingers seem to be turning blue.^";
-                3:  print"Unable to stand the cold any longer, you surrender and push through the doors, 
-                scrambling back into the relative warmth of the lobby.^"; PlayerTo(main_lobby); 
-                }
-                outside_timer++;
-            ],
-    n_to main_lobby_doors,
-    has light; 
+    has scenery door openable locked pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room admin_hallway "Administration"
-    with description "This is the western end of a long east-west hallway. It's a bit better maintained 
+    with description [;
+        print"This is the western end of a long east-west hallway. It's a bit better maintained 
         than the others and warmer colors accentuate the walls. The overhead fluorescent tubes are replaced 
         here by round light fixtures and the floor is covered with blue carpet. There's a plain wooden door 
-        to the north with a small placard mounted next to it and a set of french glass doors lie to the west. ",
+        to the north and a fancy mahogany door to the south. Each has a small brass placard mounted on it. ";
+        if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE) && northrup_door hasnt open) "There's a crack of light under the door 
+        to the south. "; else "."; 
+    ],
     cheap_scenery
-    3 'brass' 'placard' 'sign' [;
-        take:
-        "If you want one, you should get an MBA. ";
-        read:
-        "~Sid Jorry, VP/CFO~";
-        examine:
-        "It's a small brass placard mounted next to the door. It reads ~Sid Jorry, VP/CFO~.";
-    ]
     2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. "
     3 'metal' 'folding' 'chair' [;
@@ -1115,38 +1078,21 @@ Room admin_hallway "Administration"
     ],
     e_to hallway_m2,
     n_to jorry_door,
-    w_to french_doors,
+    s_to northrup_door,
     has light;
 
- !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor french_doors "french doors" 
-    with name 'french' 'double' 'doors',
-        description [;
-            print"They're a pair of glass french doors, currently ";
-            open_or_closed(self);
-            print ".";
-        ],
-        door_to [;
-            if (parent(self) == admin_hallway) return northrup_anteroom; return admin_hallway;
-        ],
-        door_dir [;
-            if (parent(self) == admin_hallway) return w_to; return e_to;
-        ],
-        found_in admin_hallway northrup_anteroom,
-    has scenery door openable ~open pluralname;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor jorry_door "office door" 
-    with name 'door' 'wooden' 'office',
+ myDoor jorry_door "plain wooden door" 
+    with name 'door' 'wooden' 'plain',
         description [;
             print"It's a plain wooden office door, currently ";
             open_or_closed(self);
-            print ".";
+            if (real_location == admin_hallway) ". A brass placard on the door reads: ~Sid Jorry, VP/CFO~"; "";
         ],
         before [;
             open:
             if (real_location == admin_hallway && FlagIsClear(F_FREDDY_ASLEEP)) 
-            "Freddy stops you. ~Sorry, dude. Nobody goes in until the cops get here. ";
+            "Freddy stops you. ~Sorry, dude. Nobody goes in until the cops get here.~";
         ],
         door_to [;
             if (parent(self) == admin_hallway) return jorry_office; return admin_hallway;
@@ -1245,75 +1191,34 @@ Object aquarium "aquarium" jorry_office
     class MyContainer
     has scenery transparent open;
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room northrup_anteroom "Anteroom"
-    with description [;
-        print"This is a small secretarial space off of the main office to the south. A small desk ";
-        if (secretary_chair in self) print"and chair are here"; else print "is here";
-        print". Glass french doors lead back east to the hallway and a standard wooden door, currently ";
-        open_or_closed(northrup_door);
-        print", leads south. There's a brass placard next to the door "; 
-        if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE) && northrup_door hasnt open) "and light coming from under it. "; else ".";
-        ],
-        cheap_scenery
-        3 'brass' 'placard' 'sign' [;
-            examine:
-            "It's a brass placard. It reads ~Walter Northrup, M.D., President/CEO~.";
-            take:
-            "It's firmly fixed to the wall. ";
-            read:
-            "~Walt Northrup, M.D., President/CEO~";
-        ],
-        before [;
-            examine:
-            if(selected_direction == u_to) "You see a tile drop ceiling. ";
-            if(selected_direction == d_to) "You see blue carpet. ";
-        ],
-        e_to french_doors,
-        s_to northrup_door,
-    has light;
-
-Object secretary_desk "office desk" northrup_anteroom
-    with name 'wooden' 'secretary' 'desk',
-        description"It's an unassuming wooden desk. ",
-    has supporter scenery;
-
-OnChair secretary_chair "secretary chair" northrup_anteroom
-    with name 'office' 'chair',
-        description "It's a standard office chair.",
-        mass 20,
-        describe [;
-            if (self in northrup_anteroom) rtrue;
-        ];
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor northrup_door "office door" 
-    with name 'door' 'dark' 'wooden' 'office',
+ myDoor northrup_door "fancy mahogany door" 
+    with name 'fancy' 'mahogany' 'door',
         description [;
-            print"It's a thick dark wooden door, currently  ";
+            print"It's a thick dark wooden door, currently ";
             open_or_closed(self);
-            ".";
+            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~"; "";
         ],
         door_to [;
-            if (parent(self) == northrup_anteroom) return northrup_office; return northrup_anteroom;
+            if (parent(self) == northrup_office) return admin_hallway; return northrup_office;
         ],
         door_dir [;
-            if (parent(self) == northrup_anteroom) return s_to; return n_to;
+            if (parent(self) == northrup_office) return n_to; return s_to;
         ],
         before [;
             knock:
-            if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE)) "You could swear you hear breathing coming from the other side 
-            but nothing otherwise seems to happen. "; "No one seems to be home. ";
+            if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE)) "There's no reply, even though you could swear you hear breathing 
+            coming from the other side. "; "No one seems to be home. ";
         ],
-        found_in northrup_anteroom northrup_office,
+        found_in admin_hallway northrup_office,
     has scenery door openable ~open locked;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room northrup_office "Northrup's Office"
     with description[;
         print"This is a large office belonging to Dr. Walter Northrup, the president and CEO of the hospital. 
-        An imposing mahogany desk dominates the room and large wooden bookshelves line the walls. A heavy brass floor lamp 
-        stands in one corner. The walls are adorned with the requisite paintings and the floor is covered in thick beige carpet.
+        An imposing mahogany desk dominates the room and large wooden bookshelves line the walls. The walls are adorned 
+        with the requisite paintings and the floor is covered in thick beige carpet.
         A black safe squats in one corner and a file cabinet in another. The room smells vaguely of pipe smoke";
         if (northrup_chair in self) " and a plush leather executive chair is here next to the desk. "; else ".";
         ],
@@ -1338,6 +1243,12 @@ Room northrup_office "Northrup's Office"
             "They're boring pictures of landscapes and seascapes. ";
             take:
             "They're lovely but you don't need them. ";
+        ]
+        'mahogany' 'desk' [;
+            examine:
+            "It's carved from mahogany and looks very old and very expensive. ";
+            take:
+            "You're just begging for a hernia. ";
         ]
         3 'thick' 'beige' 'carpet' "It's a standard low pile beige carpet. ",
         before [;
@@ -1374,7 +1285,7 @@ Room northrup_office "Northrup's Office"
                 give northrup_door ~open;
                 give northrup_door locked;
                 SetFlag(F_NORTHRUP_OUT_OF_OFFICE);
-                PlayerTo(northrup_anteroom); 
+                PlayerTo(admin_hallway); 
             }
         ],
     n_to northrup_door,
@@ -1416,16 +1327,6 @@ Object file_cabinet "file cabinet" northrup_office
         ],
     has supporter scenery enterable;
 
-Object northrup_desk "desk" northrup_office
-    with name 'mahogany' 'desk',
-        description"It's carved from mahogany and looks very old and very expensive. ",
-        before [;
-            if (player in file_cabinet) "You can't reach that from up here. ";
-            take:
-                "You're just begging for a hernia. ";
-        ],
-    has supporter scenery;
-
 InChair northrup_chair "leather chair" northrup_office
     with name 'plush' 'leather' 'executive' 'chair',
         description"It's a large plush executive leather chair. ",
@@ -1438,19 +1339,6 @@ InChair northrup_chair "leather chair" northrup_office
             if (self in northrup_office) rtrue;
         ],
     has scenery;
-
-Object northrup_lamp "floor lamp" northrup_office
-    with name 'lamp' 'floor',
-        description [;
-            print"It's a hefty floor lamp, currently ";
-            if (self has on) "on."; else "off.";
-        ],
-        before [;
-            if (player in file_cabinet) "You can't reach that from up here. ";
-            take:
-                "It's not a battered trusty portable light source. ";   
-        ],
-    has scenery switchable;
 
 Object northrup_safe "safe" northrup_office 
     with name 'safe',

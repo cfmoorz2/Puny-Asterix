@@ -28,8 +28,7 @@ Class Button
                     StartDaemon(main_elevator_daemon);
                     elevator_active = true;
                     StopTimer(close_door_timer);
-                    if (elevator_doors has open) print"The elevator doors slide closed. ";
-                    "The button lights and you hear mechanical humming from the elevator shaft. ";
+                    if (elevator_doors has open) print(string) { MAIN_ELEVATOR_PROSE; rtrue; }
                     }
         ],
     has scenery;
@@ -138,12 +137,12 @@ Button interior_b_button
 
 Object basement_exterior_panel "panel" elevator_lobby_b
     with name 'panel' 'buttons',
-        description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
+        description [; print(string)SINGLE_BUTTON_PANEL; ],
     has scenery;
 
 Object second_floor_exterior_panel "panel" elevator_lobby_2
     with name 'panel' 'buttons',
-        description"It's a small panel embedded in the wall next to the elevator doors. It contains a single button. ",
+        description [; print(string)SINGLE_BUTTON_PANEL; ],
     has scenery;
 
 Object exterior_panel "panel" elevator_lobby_m
