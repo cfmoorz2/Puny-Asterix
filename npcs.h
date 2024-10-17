@@ -91,10 +91,16 @@ Object freddy "Freddy" admin_hallway
         ],
         life [;
             show, give:
+            if (noun == walkman)
+            {
+                if (air_supply_tape in walkman && walkman_playing && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED)) "HE FALLS ASLEEP";
+                if (thriller in walkman && walkman_playing && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED)) "THRILLER";
+
+
+            }
             switch (noun)
             {
                 letter: add_signature(self); rtrue;
-                walkman: "~My boombox is better.~";
                 mixtape: "~You can keep it. Just don't tell my girlfriend.~";
                 thriller: "~My girlfriend plays that thing non-stop.~";
                 air_supply_tape: "~That's old person naptime music.~";
@@ -103,8 +109,6 @@ Object freddy "Freddy" admin_hallway
             }
             wakeother:
             if (FlagIsClear(F_FREDDY_ASLEEP)) "He's already awake. Barely. But awake. ";
-            if (air_supply_tape in boombox && boombox_playing) "He briefly stirs. But then the lush soothing tones of 'Air Supply' wash over him again and 
-                he's down for the count. ";
         ],
         signature_desc [;
             "~What? You don't work here, dude? Sure I suppose I can sign your petition.~";
