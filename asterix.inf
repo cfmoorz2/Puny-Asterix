@@ -50,7 +50,7 @@ Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on th
     elevator moving beneath you. ";
 Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
-Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out to the Aussies?~ He hands back your walkman.^";
+Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ He hands back your walkman.^";
 
 Attribute valuable;
 Attribute encountered;
@@ -315,6 +315,7 @@ Include "VerbLib";
     ClearFlag(F_FREDDY_ASLEEP);
     SetFlag(F_FREDDY_WALKMAN_SHY);
     move walkman to player;
+    scope_modified = true;
     StartDaemon(freddy);
 ];
 

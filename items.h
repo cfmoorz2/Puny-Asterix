@@ -127,11 +127,12 @@ Object walkman "your walkman"
         before [ ;
             take:
             if(FlagIsSet(F_FREDDY_ASLEEP)) print"You purloin your walkman from the sleeping security guard.^^ 
-            Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out to the Aussies?~^"; 
+            Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~^"; 
             ClearFlag(F_FREDDY_ASLEEP);
             SetFlag(F_FREDDY_WALKMAN_SHY);
             StartDaemon(freddy);
             move walkman to player;
+            scope_modified = true;
             rtrue;
             open:
                 <<push wm_eject_button>>;
@@ -461,7 +462,8 @@ Tape mixtape "yellow cassette tape"
                 ".";
         ],
         each_turn [;
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
+            if(self in walkman && walkman has worn && walkman_playing && walkman in player && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED))
+             { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ];
 
 Tape thriller "red cassette tape" walkman
@@ -497,7 +499,8 @@ Tape thriller "red cassette tape" walkman
                 ".";
         ],
         each_turn [;
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
+            if(self in walkman && walkman has worn && walkman_playing && walkman in player && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED))
+             { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -555,7 +558,8 @@ Tape jorry_tape "green cassette tape" rock
                 ".";
         ],
         each_turn [;
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
+            if(self in walkman && walkman has worn && walkman_playing && walkman in player && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED))
+             { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ],
         after [;
             take:
@@ -617,7 +621,8 @@ Tape air_supply_tape "blue cassette tape" environmental_desk
                 print".^";
         ],
         each_turn [;
-            if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
+        if(self in walkman && walkman has worn && walkman_playing && walkman in player && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED))
+             { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

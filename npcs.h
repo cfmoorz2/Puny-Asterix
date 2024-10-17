@@ -108,7 +108,9 @@ Object freddy "Freddy" hallway_m2
                 {
                     SetFlag(F_FREDDY_ASLEEP);
                     move walkman to freddy;
+                    give walkman ~worn;
                     move dull_key to freddy;
+                    scope_modified = true;
                     StopDaemon(freddy);
                     "The tuneful adult contemporary strains of 'Air Aupply' wash over the 
                     narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 

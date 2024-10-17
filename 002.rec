@@ -4,14 +4,41 @@ e
 n
 d
 s
+show letter to eugene
 w
 w
 w
 n
-take blue tape
-scope
 take tape
 blue
-drop blue tape
-q
-y
+s
+open door
+s
+push cart n
+push cart e
+g
+g
+g
+g
+g
+push cart s
+push cart e
+open hatch
+w
+n
+press eject
+take red tape
+put blue tape in walkman
+close walkman
+wear headphones
+press play
+w
+n
+u
+s
+w
+s
+give walkman to freddy
+search freddy
+take key
+recording off
