@@ -1043,12 +1043,12 @@ Object ledger "ledger" northrup_safe
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array signatures --> 12;
+Array signatures --> 7;
 Object letter "letter" 
     with 
         name 'letter' 'confirmation' 'paper',
         description [ x ;
-            print"It's a typed letter on your high school's letterhead. Below the text there are 7 lines 
+            print"It's a typed letter on your high school's letterhead. Below the text there are 8 lines 
             for signatures. Currently, there ";
             x = signature_count();
             if (x==1) print"is one signature currently"; else print"are ",x," signatures currently";
@@ -1060,7 +1060,7 @@ Object letter "letter"
         before [ x ;
             read:
             print"~Thank you for allowing this student to volunteer at your facility. To confirm the 
-            student's participation, this letter must be signed by 6 patients or staff and 1 hospital 
+            student's participation, this letter must be signed by 7 patients or staff and 1 hospital 
             administrator.~^^There ";
             x = signature_count();
             if (x==1) print"is one signature currently: "; else print"are ",x," signatures currently: ";

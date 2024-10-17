@@ -1,9 +1,20 @@
+gonear oliver 
+show letter to oliver
+read letter
 gonear freddy
-e
-purloin ladder
-drop ladder
-open ladder
-purloin torch
-turn on torch
-u
+give letter to freddy
+read letter
+gonear eugene
+show letter to eugene
+gonear mabel
+give letter to mabel
+read letter
+gonear becky
+show letter to becky
+gonear winston
+give letter to winston
+read letter
+gonear larry
+show letter to larry
+read letter
 recording off
