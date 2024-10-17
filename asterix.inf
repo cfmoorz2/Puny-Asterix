@@ -325,6 +325,7 @@ Include "VerbLib";
     ClearFlag(F_FREDDY_ASLEEP);
     SetFlag(F_FREDDY_WALKMAN_SHY);
     move walkman to player;
+    StartDaemon(freddy);
 ];
 
 [ show_signatures x i k;

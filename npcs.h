@@ -10,6 +10,10 @@ Class MyNPC
             ask, tell, order:
             "You can 'talk to ",(name)self,"'.";
         ],
+        before [;
+            search:
+            "Leave the pat-downs to the professionals. ";
+        ],
         react_before [ x;
             take:
             if (noun has scenery || noun has static) rfalse;
@@ -104,6 +108,8 @@ Object freddy "Freddy" hallway_m2
                 {
                     SetFlag(F_FREDDY_ASLEEP);
                     move walkman to freddy;
+                    move dull_key to freddy;
+                    StopDaemon(freddy);
                     "The tuneful adult contemporary strains of 'Air Aupply' wash over the 
                     narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 
                     realize that he's fallen dead asleep on his feet. ";
@@ -139,6 +145,12 @@ Object freddy "Freddy" hallway_m2
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's currently asleep. ";
             push:
             if (FlagIsSet(F_FREDDY_ASLEEP)) "Don't tip a sleeping Freddy. ";
+            search:
+            if (FlagIsSet(F_FREDDY_ASLEEP))
+            {
+                move dull_key to player;
+                "You awkwardly search the snoozing security guard. In a pocket you find and take a dull steel key. ";
+            }
         ],
         describe [;  
             print"^Freddy is here. ";

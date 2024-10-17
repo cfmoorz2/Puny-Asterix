@@ -1053,6 +1053,7 @@ Room admin_hallway "Administration"
         door_dir [;
             if (parent(self) == admin_hallway) return n_to; return s_to;
         ],
+        with_key dull_key,
         found_in admin_hallway jorry_office,
     has scenery door openable ~open lockable locked;
 
@@ -1067,7 +1068,7 @@ Room jorry_office "Office"
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
         His eyes, thankfully, are closed.^";
         if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
-            There's no trace of any papers or documents, including your completion letter. ";
+            There's no trace of any papers or documents. ";
     ],
         before [;
             examine:

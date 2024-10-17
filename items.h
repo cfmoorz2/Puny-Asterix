@@ -130,6 +130,7 @@ Object walkman "your walkman"
             Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out to the Aussies?~^"; 
             ClearFlag(F_FREDDY_ASLEEP);
             SetFlag(F_FREDDY_WALKMAN_SHY);
+            StartDaemon(freddy);
             move walkman to player;
             rtrue;
             open:
@@ -840,3 +841,11 @@ Object pen "ballpoint pen"
         description "It's a standard ballpoint pen. ",
         mass 0,
     class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object dull_key "dull steel key" !freddy !unlocks jorry's office
+    with 
+        name 'dull' 'steel' 'key',
+        description "It's a standard steel key. ",
+        mass 0,
+    class item;
