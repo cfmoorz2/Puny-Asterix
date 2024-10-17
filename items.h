@@ -610,14 +610,6 @@ Tape air_supply_tape "cassette tape with a blue label" environmental_desk
                     }
                 }
                 print".^";
-                if (FlagIsClear(F_FREDDY_ASLEEP))
-                {
-                    print"^The tuneful adult contemporary strains of 'Air Supply' wash over the already-significantly 
-                    drowsy security guard. Freddy's head bobs once or twice and then his chin hits his chest and he 
-                    begins to snore.^";
-                    SetFlag(F_FREDDY_ASLEEP);
-                    Achieved(4);
-                }
         ],
         each_turn [;
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }

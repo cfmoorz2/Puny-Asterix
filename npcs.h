@@ -82,21 +82,33 @@ Object oliver "Oliver" morgue
 Object freddy "Freddy" admin_hallway
     with name 'freddy' 'security' 'guard',
         description [;
-            print"He's the third-shift security guard who's been tasked with guarding Sid Jorry's office until the police can 
-            make it here through the blizzard. He's in his early 20s. He wears a blue uniform shirt, partially untucked, and dark blue 
+            print"He's the third-shift security guard. He's in his early 20s and wears a blue uniform shirt, partially untucked, and dark blue 
             pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
-            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's leaning back in a folding chair snoring and deeply asleep. "; else 
-            "He's leading back against the wall in a metal folding chair. His lids are heavy and
-            he's struggling to stay awake. ";
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's standing here, deeply asleep. "; else 
+            "He's making his rounds up and down the dark hallways. ";
         ],
         life [;
             show, give:
             if (noun == walkman)
             {
-                if (air_supply_tape in walkman && walkman_playing && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED)) "HE FALLS ASLEEP";
-                if (thriller in walkman && walkman_playing && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED)) "THRILLER";
-
-
+                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) "He's not interested since the headphones are unplugged. ";
+                print"He takes the walkman and headphones. ~Ooh.  Whatcha listenin' to, little dudette?~^^
+                He puts the headphones over his ears. ";
+                if (walkman has open) print"He closes the tape compartment. ";
+                if (~~walkman_playing) print "He presses the 'play' button. ";
+                if (air_supply_tape in walkman)
+                {
+                    SetFlag(F_FREDDY_ASLEEP);
+                    "The tuneful adult contemporary strains of 'Air Aupply' wash over the 
+                    narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 
+                    realize that he's fallen dead asleep on his feet. ";
+                }
+                if (thriller in walkman)
+                {
+                    walkman_playing = 0;
+                    "~Oh, yeah, ~ (he's talking inappropriately loudly with the headphones on). ~My little sister and 
+                    my grandmother love this album.~ He presses the 'stop' button and hands your walkman back. ";
+                } 
             }
             switch (noun)
             {
@@ -120,13 +132,11 @@ Object freddy "Freddy" admin_hallway
         ],
         describe [;  
             print"^Freddy is here. ";
-            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's tipped back in his chair deeply asleep. ";
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's literally asleep on his feet. ";
             if(self has encountered) "";
             give self encountered;
             "He's one of the third-shift security guards. He's been tasked with guarding Sid Jorry's office until the police can 
-            make it here through the blizzard. He's grossly unqualified but rumor is his uncle is on the hospital board. 
-            He's leading back against the wall in a metal folding chair. His lids are heavy and he's having a tough 
-            time staying awake. ";
+            make it here through the blizzard. He's grossly unqualified but rumor is his uncle is on the hospital board. ";
         ],
     class Mover MyNPC
     has animate proper transparent;   
