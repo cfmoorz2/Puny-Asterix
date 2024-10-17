@@ -79,26 +79,31 @@ Object oliver "Oliver" morgue
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object freddy "Freddy" admin_hallway
+Array freddy_avoid_array --> admin_hallway hallway_b2 basement_hallway_east cafeteria a_ward_1 b_ward_1;
+Object freddy "Freddy" hallway_m2
     with name 'freddy' 'security' 'guard',
         description [;
             print"He's the third-shift security guard. He's in his early 20s and wears a blue uniform shirt, partially untucked, and dark blue 
             pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's standing here, deeply asleep. "; else 
-            "He's making his rounds up and down the dark hallways. ";
+            "He's making his rounds up and down the hallways. ";
         ],
         life [;
             show, give:
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's currently asleep. ";
             if (noun == walkman)
             {
+                if (FlagIsSet(F_FREDDY_WALKMAN_SHY)) "~Whoah, dude, no way. I can't get caught napping. My uncle's already thinking about firing me.~";
                 if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) "He's not interested since the headphones are unplugged. ";
                 print"He takes the walkman and headphones. ~Ooh.  Whatcha listenin' to, little dudette?~^^
                 He puts the headphones over his ears. ";
                 if (walkman has open) print"He closes the tape compartment. ";
                 if (~~walkman_playing) print "He presses the 'play' button. ";
+                walkman_playing = true;
                 if (air_supply_tape in walkman)
                 {
                     SetFlag(F_FREDDY_ASLEEP);
+                    move walkman to freddy;
                     "The tuneful adult contemporary strains of 'Air Aupply' wash over the 
                     narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 
                     realize that he's fallen dead asleep on his feet. ";
@@ -120,7 +125,8 @@ Object freddy "Freddy" admin_hallway
                 default: "He yawns and is thoroughly uninterested. ";
             }
             wakeother:
-            if (FlagIsClear(F_FREDDY_ASLEEP)) "He's already awake. Barely. But awake. ";
+            if (FlagIsClear(F_FREDDY_ASLEEP)) "He's already awake. ";
+            "He's too deep in the gauzy pop music. ";
         ],
         signature_desc [;
             "~What? You don't work here, dude? Sure I suppose I can sign your petition.~";
@@ -128,16 +134,22 @@ Object freddy "Freddy" admin_hallway
         talk_array talk_array_freddy,
         before [;
             talk:
-            print"He yawns and briefly sits up.^";
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "He's currently asleep. ";
+            push:
+            if (FlagIsSet(F_FREDDY_ASLEEP)) "Don't tip a sleeping Freddy. ";
         ],
         describe [;  
             print"^Freddy is here. ";
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's literally asleep on his feet. ";
             if(self has encountered) "";
             give self encountered;
-            "He's one of the third-shift security guards. He's been tasked with guarding Sid Jorry's office until the police can 
-            make it here through the blizzard. He's grossly unqualified but rumor is his uncle is on the hospital board. ";
+            "He's the narcoleptic third-shift security guard. Hiring someone with a sleep-disorder who could nod off at any 
+            moment to work the overnight shift seems less than ideal. His uncle is on the hospital board but that's probably just 
+            coincidence. ";
         ],
+        npc_avoid freddy_avoid_array,
+        npc_walk [; print"slacks";],
+        npc_wander_delay 3,
     class Mover MyNPC
     has animate proper transparent;   
 

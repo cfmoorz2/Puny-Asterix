@@ -125,6 +125,13 @@ Object walkman "your walkman"
             }
         ],
         before [ ;
+            take:
+            if(FlagIsSet(F_FREDDY_ASLEEP)) print"You purloin your walkman from the sleeping security guard.^^ 
+            Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out to the Aussies?~^"; 
+            ClearFlag(F_FREDDY_ASLEEP);
+            SetFlag(F_FREDDY_WALKMAN_SHY);
+            move walkman to player;
+            rtrue;
             open:
                 <<push wm_eject_button>>;
 
@@ -146,6 +153,8 @@ Object walkman "your walkman"
 
             plugin, pluginto:
             "The headphones are already plugged into the walkman. ";
+            take:
+            if (FlagIsSet(F_FREDDY_ASLEEP)) move self to parent(freddy);
         ],
         invent [;
             if (inventory_stage == 2) 
@@ -196,11 +205,13 @@ Object wm_eject_button "walkman eject button" walkman
         description"It's a chunky black button with the 'eject' symbol on the top. ",
         before [;
             push:
-                if (walkman has open) "The walkman is already open. ";
-                walkman_playing = false;
-                ClearFlag(F_WALKMAN_BLOCKING);
-                give walkman open;
-                "You press the 'eject' button and the tape compartment springs open with a ~clatter~.";
+            if (walkman has open) "The walkman is already open. ";
+            walkman_playing = false;
+            ClearFlag(F_WALKMAN_BLOCKING);
+            give walkman open;
+            print"You press the 'eject' button and the tape compartment springs open with a ~clatter~.^";
+            if(walkman in freddy) freddy_wakes_up();
+            rtrue;
         ],
     has scenery;
 
@@ -247,10 +258,12 @@ Object wm_stop_button "walkman stop button" walkman
         description"It's a chunky black button with the 'stop' square on the top. ",
         before [;
             push:
-                if(~~walkman_playing) "It's already stopped. ";
-                walkman_playing = false;
-                ClearFlag(F_WALKMAN_BLOCKING);
-                "You press the button and the 'play' button disengages with a ~clunk~. ";
+            if(~~walkman_playing) "It's already stopped. ";
+            walkman_playing = false;
+            ClearFlag(F_WALKMAN_BLOCKING);
+            print"You press the button and the 'play' button disengages with a ~clunk~.^";
+            if(walkman in freddy) freddy_wakes_up();
+            rtrue;
         ],
     has scenery;  
 
@@ -274,12 +287,13 @@ Object wm_fast_forward_button "walkman fast-forward button" walkman
                 if(obj)
                 {
                     obj.fast_forward(walkman);
+                    if(walkman in freddy) freddy_wakes_up();
                 } 
                 else
                 {
                     walkman_playing = false;
-                    "You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
-                    release the button.";
+                    print"You press the button down and with a ~whir~ the little spools spin rapidly. After a moment you 
+                    release the button.^";
                 }
                 rtrue;    
         ],
@@ -304,6 +318,7 @@ Object wm_rewind_button "walkman rewind button" walkman
                 if(obj)
                 {
                     obj.rewind(walkman);
+                    if(walkman in freddy) freddy_wakes_up();
                 } 
                 else
                 {

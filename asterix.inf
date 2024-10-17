@@ -50,6 +50,7 @@ Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on th
     elevator moving beneath you. ";
 Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
+Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out to the Aussies?~ He hands back your walkman.^";
 
 Attribute valuable;
 Attribute encountered;
@@ -80,7 +81,7 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 
-Constant FLAG_COUNT 15;
+Constant FLAG_COUNT 16;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -96,6 +97,7 @@ Constant F_HAS_PARSONS_SPOKEN 12; !has ms. parsons given her clue.
 Constant F_HAS_SWIPE_CARD 13; !does the player have the  security card
 Constant F_SAFE_IS_OPEN 14; !is jorry's safe open
 Constant F_HEADPHONES_ARE_UNPLUGGED 15; ! headphones are NOT plugged in
+Constant F_FREDDY_WALKMAN_SHY 16; !freddy won't take the walkman a second time
 
 Constant MSG_WEAR_DEFAULT 1000;
 COnstant MSG_PARSER_NEW_SCORE 1001;
@@ -236,13 +238,10 @@ Include "puny.h";
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
-    !mixtape.current_track = FIRST_TRACK;
-    !thriller.current_track = FIRST_TRACK;
-    !jorry_confession.current_track = FIRST_TRACK;
     winston.move_mode = WANDER_PATH;
     StartDaemon(winston);
-    !elliot.move_mode = WANDER_PATH;
-    !StartDaemon(elliot);
+    freddy.move_mode = WANDER_PATH;
+    StartDaemon(freddy);
     eugene.move_mode = WANDER_PATH;
     StartDaemon(eugene);
     StartDaemon(nurse_retch);
@@ -250,9 +249,6 @@ Include "puny.h";
     !oliver.move_mode = TARGET_PATH;
 	!oliver.target_room = conference_room;
     !StartDaemon(oliver);
-    !move swipe_card to player;
-    !move syringe to player;
-    !move ledger to player;
     move letter to player;
     move pen to player;
     init_safe();
@@ -321,6 +317,13 @@ Include "VerbLib";
         if (i ofclass MyNPC) y++;
     }
     return y;
+];
+
+[ freddy_wakes_up ;
+    print(string)FREDDY_WAKES;
+    ClearFlag(F_FREDDY_ASLEEP);
+    SetFlag(F_FREDDY_WALKMAN_SHY);
+    move walkman to player;
 ];
 
 [ show_signatures x i k;

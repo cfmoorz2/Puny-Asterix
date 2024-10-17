@@ -1028,19 +1028,8 @@ Room admin_hallway "Administration"
     ],
     cheap_scenery
     2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
-    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. "
-    3 'metal' 'folding' 'chair' [;
-        examine:
-        "It's a standard metal folding chair. ";
-        take:
-        "Freddy is sitting on it. ";
-        enter:
-        "The chair is already occupied. ";
-    ],
+    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
     before [;
-        go:
-        if (selected_direction == n_to && FlagIsClear(F_FREDDY_ASLEEP)) "Freddy stops you. ~Whoa, dude. Nobody goes in there until the cops get here. 
-        Northrup's orders.~";
         examine:
         if (selected_direction == u_to) "You see a tile drop ceiling and light fixtures hanging down. ";
         if (selected_direction == d_to) "You see blue carpeting. ";
@@ -1058,11 +1047,6 @@ Room admin_hallway "Administration"
             open_or_closed(self);
             if (real_location == admin_hallway) ". A brass placard on the door reads: ~Sid Jorry, VP/CFO~"; "";
         ],
-        before [;
-            open:
-            if (real_location == admin_hallway && FlagIsClear(F_FREDDY_ASLEEP)) 
-            "Freddy stops you. ~Sorry, dude. Nobody goes in until the cops get here.~";
-        ],
         door_to [;
             if (parent(self) == admin_hallway) return jorry_office; return admin_hallway;
         ],
@@ -1070,7 +1054,7 @@ Room admin_hallway "Administration"
             if (parent(self) == admin_hallway) return n_to; return s_to;
         ],
         found_in admin_hallway jorry_office,
-    has scenery door openable ~open;
+    has scenery door openable ~open lockable locked;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room jorry_office "Office" 
