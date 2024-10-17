@@ -148,8 +148,9 @@ Object freddy "Freddy" hallway_m2
             search:
             if (FlagIsSet(F_FREDDY_ASLEEP))
             {
-                move dull_key to player;
-                "You awkwardly search the snoozing security guard. In a pocket you find and take a dull steel key. ";
+                move dull_key to real_location;
+                "You awkwardly search the snoozing security guard. While mucking around in his pockets, a key 
+                falls out and hits the floor with a ~clink~. ";
             }
         ],
         describe [;  

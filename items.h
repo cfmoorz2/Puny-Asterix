@@ -848,4 +848,8 @@ Object dull_key "dull steel key" !freddy !unlocks jorry's office
         name 'dull' 'steel' 'key',
         description "It's a standard steel key. ",
         mass 0,
+        after[;
+            take:
+            Achieved(4);
+        ],
     class item;

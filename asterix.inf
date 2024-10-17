@@ -20,7 +20,7 @@ Constant CUSTOM_ABBREVIATIONS;
 #Endif;
 
 Constant Story	  "The Candy Striper of St. Asterix";
-Constant Headline   "^A basic IF demonstration.^";
+Constant Headline   "^A Totally Tubular 80s IF Game by Charles Moore, Jr.^";
 #Ifv5;
 Constant OPTIONAL_PROVIDE_UNDO;
 #Endif;
@@ -138,10 +138,10 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
 [ PrintTaskName task_number;
   switch (task_number) {
       0: "- getting the flashlight";
-      1: "- getting the swipe care";
+      1: "- getting the swipe cars";
       2: "- finding the syringe";
       3: "- getting the potassium vial";
-      4: "- lulling Freddy to sleep";
+      4: "- getting the key to Jorry's office";
       5,6,7,8,9,10,11: "- getting a signature";
       12: "- finding Sid Jorry's tape";
       13: "- opening the safe";
@@ -378,13 +378,14 @@ Include "VerbLib";
 ];
 
 [ intro;
-    "One more night. One more cold winter night. It's been a painful four weeks but you're so close you can taste it. And then 
+    "One more night. One more cold winter night. It's been a painful four weeks but you're SO close you can taste it. And then 
     Mr. Rogers, your Ethics teacher can suck it.^^
     You're going to be a senior and you have BIG plans coming up this summer. Tiffany is going to be life-guarding at the pool 
     and she's promised to get you a cushy job at the snack bar. You'll spend your working days surrounded by cute boy lifeguards and your 
     off-time at the mall.^^
-    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this at all costs, 
-    you took Ethics this semester, an easy ~A~. But, in order to pass, you have to perform some sort of volunteer activity for three weeks. 
+    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this at all cost, 
+    you took Ethics 101 this semester, an easy ~A~. But, in order to pass, you have to perform some sort of volunteer activity for four long
+    painful weeks. 
     The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
     Hospital, the oldest and most run-down hospital in the city.^^
     It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
