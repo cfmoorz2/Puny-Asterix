@@ -1389,12 +1389,13 @@ Object combo_dial "dial" northrup_office
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_2 "elevator_lobby_2" 
     with description [;
-        print"This is the second-floor elevator lobby. The elevator doors lie to the south, the 'up' and 'down' 
-        buttons embedded in a small panel next to them. The elevator doors are currently ";
+        print"This is the second-floor elevator lobby. The elevator doors lie to the south, a small panel next to 
+        them. The elevator doors are currently ";
         open_or_closed(elevator_doors); 
-        ". A stairwell lies to the north through an open doorway. On the wall 
-        here you see ~Radiology~ posted in large black letters above an arrow pointing east. Above an arrow 
-        pointing west you see a large red 'A' and a red line on the floor starts here and leads in that direction as well. ";
+        ". A stairwell lies to the north through an open doorway. You see a red sign here that reads ~Ward A~ above an 
+        arrow pointing down the hallway to the west and a blue sign reading ~Ward B~ above an arrow pointing east. 
+        To assist the confused or dense, a red line starts here on the floor and leads west and a similar blue 
+        line leads east. ";
     ],
     n_to stairwell_2,
     e_to hallway_2_3,
@@ -1405,10 +1406,24 @@ Room elevator_lobby_2 "elevator_lobby_2"
     class Tiles DropCeiling
     has light;
 
+Object red_line "red line" 
+    with 
+        name 'red' 'line',
+        description "It's a thick red line painted on the floor down the middle of the hallway. ",
+        found_in elevator_lobby_2 hallway_2_1 hallway_2_2 a_ward_1,
+    has scenery;
+
+Object blue_line "blue line" 
+    with 
+        name 'blue' 'line',
+        description "It's a thick blue line painted on the floor down the middle of the hallway. ",
+        found_in elevator_lobby_2 hallway_2_3 b_ward_1 station_b,
+    has scenery;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "hallway_2_3" 
     with description "This long dim hallway continues east towards ward B and west 
-        toward the elevators. ",
+        toward the elevators. A thick blue line is painted down the middle of the floor. ",
     w_to elevator_lobby_2,
     e_to b_ward_1,
     class Tiles DropCeiling
@@ -2157,91 +2172,52 @@ Object ceiling_01 "In The Ceiling"
                 Through the gap you can see the hallway and a ladder below. ";
         ],
         cheap_scenery
-        "pipe" "pipes" [;
+            CS_ADD_LIST ceiling_01 (inside_scenery),
+        inside_scenery
+            'pipe' 'pipes' [;
             examine:
             "It's a network of black pipes running through the ceiling. ";
             take:
             "Actually, no. ";
-        ]
-        "bracket" "brackets" [;
+            ]
+            'bracket' 'brackets' [;
             examine:
-            "It's a box structure of metal brackets holding up the drop ceiling below. ";
+            "It's a boxy structure of metal brackets holding up the drop ceiling below. ";
             take:
             "They're currently holding you up. ";
-        ]
-        3 "duct" "ducts" "air" [;
+            ]
+        3 'duct' 'ducts' 'air' [;
             examine:
             "They're boxy aluminum ducts coated with dust. ";
             take:
             "You definitely don't need that. ";
-        ],
-        w_to ceiling_02,
+        ],    
+        w_to ceiling_03,
     has light;
-
-Object ceiling_pipes "pipes"
-    with
-        name 'pipe' 'pipes',
-        description "It's a network of black pipes running through the ceiling. ",
-        before [;
-            take:
-            "Actually, no. ";
-        ],
-        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
-    has scenery pluralname;
-
-Object brackets "brackets"
-    with
-        name 'brackets' 'bracket',
-        description "It's a box structure of metal brackets holding up the drop ceiling below. ",
-        before [;
-            take:
-            "They're currently holding you up. ";
-        ],
-        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
-    has scenery pluralname;
-
-Object ceiling_ducts "air ducts"
-    with
-        name 'ducts' 'duct' 'air',
-        description "They're boxy aluminum ducts coated with dust. ",
-        before [;
-            take:
-            "You definitely don't need that. ";
-        ],
-        found_in ceiling_02 ceiling_03 ceiling_04 ceiling_05,
-    has scenery pluralname;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ceiling_02 "In The Ceiling"
-    with description "You are crouched in the ceiling, separated from the hallway below by tiling. It's dark, dusty, and 
-        claustrophic up here. You can crawl east or west along thick pipes and conduits. ",
-        e_to ceiling_01,
-        w_to ceiling_03;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_03 "In The Ceiling"
-    with description "You are perched in the service space above the hallway and drop ceiling. Here, it makes a nintey-degree 
-        turn and continues to the east and south. ",
-        e_to ceiling_02,
-        s_to ceiling_04;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ceiling_04 "In The Ceiling"
-    with description "You are crawling in the close and dusty crawl space above the drop ceiling. The piping and 
-    brackets supporting you continue to the north and south. ",
-        n_to ceiling_03,
-        s_to ceiling_05;
+    with 
+        description "You are perched in the service space above the hallway and drop ceiling, surrounded by 
+        dusty ducts and pipes. You can maneuver east and west, balancing yourself on the metal brackets holding up
+        the drop ceiling below. ",
+        cheap_scenery
+            CS_ADD_LIST ceiling_01 (inside_scenery),
+        e_to ceiling_01,
+        w_to ceiling_05;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_05 "In The Ceiling"
     with description [;
         print"You are perched in the dark service space within the ceiling. The passage dead-ends here, 
-        and movement to the south is blocked by a large duct. You can crawl north along a network of 
+        and movement to the south is blocked by a large duct. You can crawl east along a network of 
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
         lower yourself down onto.^";
         if (northrup in northrup_office) "^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
         ],
+        cheap_scenery
+            CS_ADD_LIST ceiling_01 (inside_scenery),
         before [;
             go:
             if (selected_direction == d_to) 
@@ -2263,7 +2239,7 @@ Object ceiling_05 "In The Ceiling"
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see an office and a cile cabint below. ";
         ],
-        n_to ceiling_04,
+        n_to ceiling_03,
     has light;
 
 
