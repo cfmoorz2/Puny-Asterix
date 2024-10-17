@@ -19,14 +19,6 @@ CompassDirection -> e_obj  with short_name "east",      door_dir e_to,
                                 name 'e//' 'east';
 CompassDirection -> w_obj  with short_name "west",      door_dir w_to,
                                 name 'w//' 'west';
-CompassDirection -> ne_obj with short_name "northeast", door_dir ne_to,
-                                name 'ne'  'northeast';
-CompassDirection -> nw_obj with short_name "northwest", door_dir nw_to,
-                                name 'nw'  'northwest';
-CompassDirection -> se_obj with short_name "southeast", door_dir se_to,
-                                name 'se'  'southeast';
-CompassDirection -> sw_obj with short_name "southwest", door_dir sw_to,
-                                name 'sw'  'southwest';
 CompassDirection -> u_obj  with short_name "up above",  door_dir u_to,
                                 name 'u//' 'up' 'ceiling' 'above';
 CompassDirection -> d_obj  with short_name "ground",    door_dir d_to,

@@ -14,6 +14,7 @@
 #Iftrue (#version_number == 8);
 Constant USEINFORM;
 Constant MANUAL_PRONOUNS;
+Constant CUSTOM_ABBREVIATIONS;
 
 
 #Endif;
@@ -260,6 +261,7 @@ Include "puny.h";
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
 
+Include "abbreviations.h";
 Include "my_grammar.h";
 Include "compass.h";
 Include "pathfinder.h";

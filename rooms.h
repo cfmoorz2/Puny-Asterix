@@ -115,15 +115,18 @@ Room morgue "Morgue"
 				examine: "You see a bank of six metal doors with metal handles. ";
                 open: "You hesitantly open one a crack and peek inside. Luckily, it's empty. ";
 				Take, Remove, Turn, Pull, Push: "You decide you don't really need morgue refrigerators. ";
-			],
+			]
+            'morgue' 'table' [;
+                examine:
+                "It's a narrow stainless steel table that stands about waist level. ";
+                take:
+                "It's bolted to the floor. ";
+                enter:
+                "Ew! No. ";
+            ],
         w_to morgue_door,
     class Tiles DropCeiling
     has light;
-
-Object morgue_table "metal table" morgue
-    with name 'metal' 'table',
-        description "It's a narrow stainless steel table that stands about waist level. ",
-    has scenery supporter;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
@@ -279,6 +282,25 @@ Room environmental_services "Environmental Services"
             "They're neatly organized by size and type. ";
             take:
             "Ew. You don't need a dirty broom. ";
+        ]
+        1 'handle' [;
+            examine: 
+            "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
+            pushed. It looks old and cantankerous. ";
+            pull:
+            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
+        ]
+        1 'dial' [;
+            examine:
+            "It's a plastic rotary phone dial. ";
+            Take:
+                "It's part of the handset. ";
+        ]
+        1 'cord' [;
+            examine:
+            "It's a black coil of phone cord. ";
+            Take:
+            "That's attached to the phone.";
         ],
         s_to hallway_b2,
     class Tiles
@@ -338,17 +360,6 @@ Object cabinet_door "cabinet door" environmental_services
             "You thump on the door but nothing seems to happen. ";
         ],
     has scenery;
-
-Object storage_handle "handle" environmental_services 
-    with 
-        name 'handle',
-        description "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
-        pushed. It looks old and cantenkerous. ",
-        before [;
-            pull:
-            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
-        ],
-    has scenery locked;
 
 Object storage_locker "locker" environmental_services
     with
@@ -436,26 +447,6 @@ Object handset "handset" telephone
                 "^You hang up the phone. ";  
         ],
     has concealed;
-
-Object dial "dial" environmental_services
-    with name 'rotary' 'dial',
-        description "It's a plastic rotary phone dial. ",
-        before [;
-            Take:
-                "It's part of the handset. ";
-        ],
-        mass 0,
-    has scenery;
-
-Object phone_cord "phone cord" environmental_services
-    with name 'black' 'coiled' 'cord',
-        description "It's a black coil of phone cord. ",
-    before [;
-            Take:
-                "That's attached to the phone.";
-    ],
-    mass 0,
-    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room engineering "Engineering"
@@ -565,15 +556,6 @@ Room room_34 "Room 34"
     class Tiles DropCeiling
     has light;
 
-Bed room_34_bed "patient bed" room_34
-    with name 'patient' 'bed',
-        description "It's a standard hospital bed. ",
-        before [;
-            enter:
-                "You lie down in the bed but in your mind you see Jenny Twill flirting with the cute boy lifeguards at the pool
-                while you're in class and you hop back to your feet. ";
-        ]; 
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
     with description "This is a single-occupancy room. The walls are blue and a single bed is pushed against the wall.
@@ -600,16 +582,7 @@ Room room_32 "Room 32"
         ],
         n_to b_ward_1,
     class Tiles DropCeiling
-    has light;
-
-Bed room_32_bed "bed" room_32 
-    with 
-        name 'bed',
-        description "It's a standard hospital bed. ",
-        before [;
-            enter:
-                "I don't think Edith wants to spoon. ";
-        ];    
+    has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_b "Ward B - Station"
@@ -645,10 +618,6 @@ Room room_31 "Room 31"
         ],
     class Tiles DropCeiling
     has light;
-
-Bed room_31_bed "patient bed" room_31
-    with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_m "Main Elevator Lobby"
@@ -1860,10 +1829,6 @@ Room room_23 "Room 23"
     class Tiles DropCeiling
     has light;
 
-Bed room_23_bed "patient bed" room_23
-    with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_24 "Room 24"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
@@ -1879,10 +1844,6 @@ Room room_24 "Room 24"
         ],
     class Tiles DropCeiling
     has light;
-
-Bed room_24_bed "patient bed" room_24
-    with name 'patient' 'bed',
-        description "It's a standard hospital bed. ";
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_a "Ward A - Station"

@@ -1,8 +1,3 @@
-Inform 6.42 (10th February 2024)
-Beginning calculation of optimal abbreviations...
-
-Chosen abbreviations (in Inform syntax):
-
 Abbreviate ". ";
 Abbreviate ", ";
 Abbreviate " the ";
