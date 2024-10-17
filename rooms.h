@@ -130,7 +130,13 @@ Room morgue "Morgue"
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor morgue_door "morgue door" 
-    with name 'door',
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'morgue' && w2 == 'door') return 2;
+            if (w1 == 'door') return 1;
+        ],
         description [;
             print"It's an unremarkable door, currently ";
             open_or_closed(self);
