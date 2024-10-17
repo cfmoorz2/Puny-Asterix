@@ -426,13 +426,10 @@ Class Tape
     ],
     class Item;
 
-Tape mixtape "casette tape with a yellow label"
+Tape mixtape "yellow cassette tape"
     with 
-        parse_name [ w1;
-            w1 = NextWord();
-            if (w1 == 'mix' or 'mixtape' or 'tape' or 'cassette' or 'yellow' or 'tapes//p') return 1;
-        ],
-        description"It's a cassette tape with a yellow label. You see ~mixtape~ handwritten on it.",
+        name 'yellow' 'cassette' 'tape' 'mixtape',
+        description"It's a yellow cassette tape. You see ~mixtape~ handwritten on it.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [ ;
@@ -467,13 +464,10 @@ Tape mixtape "casette tape with a yellow label"
             if(self in walkman && walkman_playing && walkman has worn) { SetFlag(F_WALKMAN_BLOCKING); self.playback(walkman); }
         ];
 
-Tape thriller "casette tape with a red label" walkman
+Tape thriller "red cassette tape" walkman
     with 
-        parse_name [ w1;
-            w1 = NextWord();
-            if (w1 == 'thriller' or 'tape' or 'cassette' or 'red' or 'tapes//p') return 1;
-        ],
-        description"It's a cassette tape with a red label that reads ~Thriller~.",
+        name 'red' 'tape' 'cassette' 'thriller',
+        description"It's a red cassette tape. The label reads ~Thriller~.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [ ;
@@ -536,9 +530,9 @@ Object rock "rock" aquarium
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Tape jorry_tape "cassette tape with a green label" rock
-    with name 'tape' 'cassette' 'green' 'tapes//p',
-        description"It's a cassette tape with a greenlabel. Written on the label you see ~S.J.~",
+Tape jorry_tape "green cassette tape" rock
+    with name 'green' 'cassette' 'tape',
+        description"It's a green cassette tape. Written on it you see ~S.J.~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [;
@@ -588,15 +582,10 @@ Tape jorry_tape "cassette tape with a green label" rock
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Tape air_supply_tape "cassette tape with a blue label" environmental_desk
+Tape air_supply_tape "blue cassette tape" environmental_desk
     with 
-        parse_name [ w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'tape' or 'cassette' or 'blue' or 'tapes//p') return 1;
-            if (w1 == 'air' && w2 == 'supply') return 2;
-        ],
-        description"It's a cassette tape with a blue label. It's labelled ~Air Supply - Greatest Hits~",
+        name 'blue' 'tape' 'air' 'supply',
+        description"It's a blue cassette tape. It's labelled ~Air Supply - Greatest Hits~",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [;

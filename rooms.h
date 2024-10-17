@@ -976,7 +976,7 @@ Room main_lobby "Main Lobby"
     with description [;
             print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large double doors 
             leading out. The windows are partially iced over and through them you can see gales of wind-driven snow blowing sideways. 
-            The lobby continues back to the west. An information desk occupies the north wall.^";
+            An information desk occupies the north wall.^";
         ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
@@ -1004,15 +1004,20 @@ Room main_lobby "Main Lobby"
             go:
                 if (selected_direction == s_to)
                 "The main entrance doors seem to have been locked for the night. ";
-            open:
-                "They're locked for the night. ";
-        ],
+            ],
     class Tiles DropCeiling
     has light;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor main_lobby_doors "lobby doors" main_lobby
-     with name 'lobby' 'double' 'doors' 'door',
+     with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'lobby' or 'double' && w2 == 'doors') return 2;
+            if (w1 == 'lobby') return 1;
+            if (w1 == 'doors') return 1;
+        ],
         description "They're a pair of glass doors. ",
     has scenery door openable locked pluralname;
 
@@ -1683,7 +1688,7 @@ Object metal_cart "cart" central_supply
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
                 <Go dirobj>;
 			    move self to real_location;
-                print"Wheels grinding and squeaking, you shove the heavy cart ";
+                print"^Wheels grinding and squeaking, you shove the heavy cart ";
                 if (dirobj == FAKE_OUT_OBJ) "out. ";
                 if (dirobj == FAKE_IN_OBJ) "inside. ";
                 print (string) direction_name_array-->selected_direction_index;
