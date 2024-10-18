@@ -106,7 +106,6 @@ Constant F_FREDDY_HAS_HEARD_THRILLER 17; !he's already heard it
 Constant F_SAFE_COMBO_IS_SET 18; ! safe combination has been set
 
 Constant MSG_WEAR_DEFAULT 1000;
-COnstant MSG_PARSER_NEW_SCORE 1001;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school";
@@ -124,16 +123,6 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
     MSG_WEAR_DEFAULT:
         if(noun == walkman) "You slip the headphones over your ears. ";
         print_ret "You are now wearing ",(the)noun,".";
-    MSG_PARSER_NEW_SCORE:
-        print "^[Your score has just gone ";
-		if(p_arg_1 < score) {
-			p_arg_2 = score - p_arg_1;
-			print "up";
-		} else {
-			p_arg_2 = p_arg_1 - score;
-			print "down";
-		}
-		" by 5 points.]";
     MSG_DISROBE_DEFAULT:
         if (noun == walkman) "You remove the headphones. ";
         "You take off ", (the) noun, ".";
@@ -146,9 +135,9 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
       1: "- getting the swipe card";
       2: "- finding the syringe";
       3: "- getting the potassium vial";
-      4: "- getting the key to Jorry's office";
+      4: "- getting the dull steel key";
       5,6,7,8,9,10,11,12: "- getting a signature";
-      13: "- finding Sid Jorry's tape";
+      13: "- finding the green cassette tape";
       14: "- opening the safe";
       15: "- getting the ledger";
       16: "- incapacitating the baddies in the MRI suite";

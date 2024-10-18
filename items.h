@@ -126,14 +126,17 @@ Object walkman "your walkman"
         ],
         before [ ;
             take:
-            if(FlagIsSet(F_FREDDY_ASLEEP)) print"You purloin your walkman from the sleeping security guard.^^ 
-            Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~^"; 
-            ClearFlag(F_FREDDY_ASLEEP);
-            SetFlag(F_FREDDY_WALKMAN_SHY);
-            StartDaemon(freddy);
-            move walkman to player;
-            scope_modified = true;
-            rtrue;
+            if(FlagIsSet(F_FREDDY_ASLEEP))
+            {
+                print"You purloin your walkman from the sleeping security guard.^^Freddy stirs and wakes in a daze.
+                ^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~^"; 
+                ClearFlag(F_FREDDY_ASLEEP);
+                SetFlag(F_FREDDY_WALKMAN_SHY);
+                StartDaemon(freddy);
+                move walkman to player;
+                scope_modified = true;
+                rtrue;
+            }
             open:
                 <<push wm_eject_button>>;
 
