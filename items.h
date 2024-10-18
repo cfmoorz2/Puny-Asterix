@@ -716,6 +716,7 @@ Object denim_jacket "denim jacket" boiler_room
     with name 'denim' 'jacket',
         mass 12,
         description "It's a large men's denim jacket with a single pocket. ",
+        initial "There's a denim jacket here balled up on the ground. ",
         before [;
             search:
                 <<search jacket_pocket>>;
@@ -853,3 +854,32 @@ Object dull_key "dull steel key" !freddy !unlocks jorry's office
             Achieved(4);
         ],
     class item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+OnChair folding_chair "folding chair" boiler_room
+    with 
+        name 'folding' 'chair',
+        description "It's a standard metal folding chair. ",
+        mass 15,
+    class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object ashtray "ashtray" boiler_room
+    with 
+        id, ! 0 = ashtray, 1 = butts and ashes 
+        parse_name [ w1 ;
+            w1 = NextWord();
+            if (w1 == 'ashtray') { self.id = 0; return 1; }
+            if (w1 == 'cigarettes' or 'cigarette' or 'butt' or 'butts' or 'ashes') { self.id = 1; return 1; }
+        ],
+        article "an",
+        description [;
+            if (self.id == 0 ) "It's a dirty ashtray. ";
+                "It's a collection of ashes and half-smoked and crushed out cigarette butts. ";
+        ],
+        before [;
+            take:
+            "You reach for the ashtray then recoil in disgust.  Just ~Yuck!~ ";
+        ],
+        mass 3,
+    class Item;

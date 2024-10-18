@@ -112,7 +112,7 @@ Object freddy "Freddy" hallway_m2
                     move dull_key to freddy;
                     scope_modified = true;
                     StopDaemon(freddy);
-                    "The tuneful adult contemporary strains of 'Air Aupply' wash over the 
+                    "The tuneful adult contemporary strains of 'Air Supply' wash over the 
                     narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 
                     realize that he's fallen dead asleep on his feet. ";
                 }
@@ -409,12 +409,11 @@ Object vic "Vic"
         each_turn [;
             if(real_location == sub_basement_02)
             {
-                if (syringe in player || denim_jacket in player) print"^Vic eyes you suspiciously. ~Hey there, 
+                if (syringe in player || denim_jacket in player || ladder in player) print"^Vic eyes you suspiciously. ~Hey there, 
             little lady. Whatcha got there now?~^";
-                if (syringe in player && denim_jacket notin player) { print "He plucks the syringe from you.^"; remove syringe; }
-                if (denim_jacket in player && syringe notin player) { print "He plucks the jacket from you.^"; remove denim_jacket; }
-                if (syringe in player && denim_jacket in player) { print "He plucks the jacket and syringe from you.^"; remove denim_jacket;
-                    remove syringe; }  
+                if (syringe in player) { print "He plucks the syringe from you.^"; remove syringe; }
+                if (denim_jacket in player) { print "He takes the jacket from you.^"; remove denim_jacket; }
+                if (folding_chair in player) { print "He relieves you of the folding chair.^"; remove folding_chair; }  
             }          
         ],     
     class Mover MyNPC

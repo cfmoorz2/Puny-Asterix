@@ -4,6 +4,7 @@
         description "It's an old dumbwaiter built into the wall here. A cable hangs down along the left and right sides of the shaft. ",
         before [;
             receive:
+                if (noun == ladder or folding_chair) print_ret(The)noun," won't fit in the dumbwaiter. ";
                 if (dumbwaiter_cab in self) {
                     <<insert noun dumbwaiter_cab>>;
                 }   else    {

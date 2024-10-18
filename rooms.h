@@ -361,7 +361,7 @@ Object cabinet_door "cabinet door" environmental_services
             if (FlagIsSet(F_SAW_KNOCK_SPOT)) 
             {
                 give storage_cabinet open;
-                "With a fist you hit the spot that you saw Nurse Retch hit. The cabinet door pops open. ";
+                "With a fist you hit the exact spot that you saw Nurse Retch hit. The cabinet door pops open. ";
             }
             "You thump on the door but nothing seems to happen. ";
         ],
@@ -1921,6 +1921,16 @@ Room break_room "Break Room"
         description "This is an employee break room. There's a white plastic table here with matching chairs and a 
         refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
         s_to hallway_2_2,
+    cheap_scenery
+    'formica' 'counter' "It's a standard formica counter. It's adorned with years of stains and scorch marks. "
+    4 'white' 'plastic' 'chair' 'chairs' [;
+        examine:
+        "You see a number of cheaply-made white plastic chairs. ";
+        take:
+        "You don't need one of those. ";
+        enter:
+        "You notice the food stains and decide to remain standing. ";
+    ],
     class Tiles DropCeiling
     has light;
 
@@ -1932,26 +1942,6 @@ Object break_room_table "table" break_room
                 "You don't need the cheaply-made plastic table. ";
         ],
     has supporter scenery;
-
-Object break_room_chairs "chairs" break_room
-    with name 'white' 'plastic' 'chairs//p' 'chair',
-        description "You see a number of cheaply-made white plastic chairs. ",
-        before [;
-            take:
-                "You don't need one of those. ";
-            enter:
-                "You notice the food stains and decide to remain standing. ";
-        ],
-        has scenery;
-
-Object counter "counter" break_room 
-    with name 'counter',
-        description "It's a standard formica counter. It's adorned with years of stains and scorch marks. ",
-        before [;
-            take:
-                "Nope. ";
-        ],
-        has scenery supporter;
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
@@ -2107,22 +2097,30 @@ Object boiler_room "Boiler Room"
     with description "You're standing in a high arched stone and cement-lined space populated buy massive black 
     boilers, squatting against the walls like sleeping dinosaurs. They're all closed and covered with thick coats of dust. 
     A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
-    A dented thick metal door leads east. ",
-    cheap_scenery
-    'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. "
-    5 'metal' 'lamp' 'lamps' 'light' 'lights' "They're dusty black lamps hanging from the darkness above. ",
-    after [;
-        go:
-        if (selected_direction == w_to) print"In the distance down the hall you hear what sounds like the 
-        service elevator opening.^";
-    ],
-    before [;
+    A dented thick metal door leads east. It looks like someone has been killing time here and it smells like your Uncle Vincent. ",
+        cheap_scenery
+        'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. "
+        5 'metal' 'lamp' 'lamps' 'light' 'lights' "They're dusty black lamps hanging from the darkness above. ",
+        after [;
+            go:
+            if (selected_direction == w_to && vic notin sub_basement_02)
+            {
+                move vic to sub_basement_02;
+                print"^In the distance down the hall you hear what sounds like the service elevator opening.^^";
+            }
+        ],
+        before [;
+            smell:
+            "It smells like aftershave and cigarettes. ";
             examine:
             if(selected_direction == u_to)  "You see a tangle of pipes and ducts. ";
             if(selected_direction == d_to)  "The floor is gray cement. ";
         ],
     e_to boiler_door,
     has light;  
+
+
+
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_01 "In The Ceiling"

@@ -72,4 +72,42 @@ open door
 e
 show letter to oliver
 read letter
+w
+w
+show letter to eugene
+read letter
+w
+w
+w
+n
+take tape
+blue
+s
+open door
+s
+push cart n
+push cart e
+g
+g
+g
+push cart s
+open door
+push cart e
+open hatch
+open door
+w
+n
+press eject
+take red
+put blue in walkman
+close walkman
+w
+n
+u
+s
+give walkman to freddy
+search freddy
+take key
+full
+take walkman
 recording off

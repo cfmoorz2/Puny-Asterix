@@ -177,7 +177,6 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
 ];
 
 [ GamePreRoutine ;
-    reset_position_array();
     if (action == ##give || action == ##show) 
     {
         if (IndirectlyContains(real_location, second) == false)
@@ -376,6 +375,7 @@ Include "VerbLib";
 ];
 
 [MyTakeRule count i x ;
+    reset_position_array();
     if (action ~= ##take || ~~noun ofclass Item)   rfalse;
     count = 0;
     x = noun.mass;
