@@ -247,6 +247,51 @@ Object sid_jorry "Sid Jorry" jorry_office
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Array elliot_avoid_array --> room_21 room_22 room_23 stairwell_2 break_room room_31 room_32 room_33 room_34;
+Object elliot "Elliot" a_ward_1
+    with name 'elliot',
+        description "He's an athletic-appearing blonde gentleman in his 30s. He's rolling idly up and 
+        down the hallways in a wheelchair, his right leg bandaged and propped in front of him on a padded strut. ",
+        describe [;  
+            print"^Elliot is here. ";
+            if(self has encountered) "";
+            give self encountered;
+            ActivateTopic(becky, 308);
+            "He's rolling up and down the hallway in his wheelchair. ";
+        ],
+        signature_desc [;
+            "~Sure thing, little lady. I suppose this letter is your ticket out of here.~";
+        ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                letter: add_signature(self); rtrue;
+                thriller, air_supply_tape, mixtape: "~Sweet tunes, dude.~";
+                shrimp: "~Dude, you have to throw that away.~";
+                default: "He's distracted and doesn't care about ",(the)noun,".";
+            }
+        ],
+        !talk_array talk_array_elliot, 
+        npc_walk [; print"rolls";],
+        npc_wander_delay 3,
+        npc_avoid elliot_avoid_array, 
+    class Mover MyNPC
+    has animate proper transparent; 
+
+Object wheelchair "wheelchair" elliot
+    with
+        name 'wheelchair' 'chair' 'wheels',
+        description "It's a standard wheelchair. Elliot is occupying it currently. ",
+        before [;
+            take:
+            "It's currently in use. ";
+            push:
+            "Elliot waves off your assistance. ";
+        ],
+    has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array eugene_avoid_array --> stairwell_b environmental_services engineering central_supply x_ray morgue mri_anteroom;
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
