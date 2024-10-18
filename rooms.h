@@ -1359,7 +1359,7 @@ Object combo_dial "dial" northrup_office
                     if (SAFE_CYCLE == 3)
                     {
                         give northrup_safe ~locked;
-                        Achieved(12);
+                        Achieved(14);
                         SetFlag(F_SAFE_IS_OPEN);
                         "You hear a faint ~click~ from within the safe door. ";
                     } 

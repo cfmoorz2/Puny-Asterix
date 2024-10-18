@@ -1,0 +1,1089 @@
+Start of a transcript of
+
+The Candy Striper of St. Asterix
+A Totally Tubular 80s IF Game by Charles Moore, Jr.
+Release 3 / Serial number 221116 / Inform v6.42 PunyInform v5.6 D
+
+> random
+The random seed is set to 100.
+
+> e
+Ward B - Station
+This is the Ward 'B' nurses' station, lying at the eastern end of a long east-
+west corridor. To aid in visitor and patient navigation, the walls here are
+painted blue and a blue line runs to the west down the middle of the hall
+towards the main elevators. Open doorways lead to patient rooms to the north and
+south a sign next to the former read "33", the latter "34". A large wide waist-
+high desk occupies the center of the room, allowing space for medical staff to
+chart and dictate. 
+
+Nurse Retch is here. 
+
+Larry is off to the north.
+
+> n
+Room 33
+This is an unassuming patient room. The walls are blue and a bed is pushed head-
+first against the wall. A cast-iron radiator drips and hisses under the window.
+A doorway leads south back out to the hallway. 
+
+Larry, a corpulent gentleman is lying in the bed. 
+
+Nurse Retch is off to the south.
+
+> show letter to larry
+"Yeah, sure. It's too bad they're forcing you to do volunteer work."
+
+Nurse Retch is off to the south.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+     5 - getting a signature
+
+     5 total (out of 200)
+
+> s
+Ward B - Station
+This is the Ward 'B' nurses' station, lying at the eastern end of a long east-
+west corridor. To aid in visitor and patient navigation, the walls here are
+painted blue and a blue line runs to the west down the middle of the hall
+towards the main elevators. Open doorways lead to patient rooms to the north and
+south a sign next to the former read "33", the latter "34". A large wide waist-
+high desk occupies the center of the room, allowing space for medical staff to
+chart and dictate. 
+
+Nurse Retch is here. 
+
+Larry is off to the north.
+Mr. Winston is off to the west.
+
+> w
+Ward B - East
+The hallway continues east and west. Here the walls are blue to match the line
+running down the middle of the floor. Patient rooms lie north and south through
+open doorways. A sign next to the former reads "31", one next to the latter
+reads "32".
+
+Mr. Winston is here. He's a bored patient pushing an IV pole up and down the
+wards. 
+
+You can also see a book cart here.
+
+Nurse Retch is off to the east.
+
+> push cart w
+Wheels grinding and squeaking, you push the cart west.
+
+hallway_2_3
+This long dim hallway continues east towards ward B and west toward the
+elevators. A thick blue line is painted down the middle of the floor. 
+
+Mr. Winston is off to the east.
+
+> g
+Wheels grinding and squeaking, you push the cart west.
+
+elevator_lobby_2
+This is the second-floor elevator lobby. The elevator doors lie to the south, a
+small panel next to them. The elevator doors are currently closed. A stairwell
+lies to the north through an open doorway. You see a red sign here that reads
+"Ward A" above an arrow pointing down the hallway to the west and a blue sign
+reading "Ward B" above an arrow pointing east. To assist the confused or dense,
+a red line starts here on the floor and leads west and a similar blue line leads
+east. 
+
+> w
+hallway_2_1
+Here the hallway continues east and west. A service elevator is here in the
+north wall. A red line is painted down the middle of the floor. 
+
+Elliot is off to the west.
+
+> w
+hallway_2_2
+This is the entrance to 'A' Ward which lies down the hallway to the west. The
+wallpaper here is red, matching the red line running down the middle of the
+floor. A sign next to to an open doorway to the north reads "Employees Only".
+The hallway returns to the east and an old service dumbwaiter is here, embedded
+in the south wall. 
+
+Elliot is here. He's rolling up and down the hallway in his wheelchair. 
+
+> show letter to elliot
+"Sure thing, little lady. I suppose this letter is your ticket out of here."
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+     5 - getting a signature
+     5 - getting a signature
+
+    10 total (out of 200)
+
+> w
+Ward A - East
+The hallway continues east and west. Here the walls are red to match the line
+running down the middle of the floor. Patient rooms lie north and south through
+open doorways. A sign next to the former reads "23-A", one next to the latter
+reads "24-A".
+
+Elliot is off to the east.
+Becky is off to the west.
+
+> w
+Ward A - Station
+This is the western end of a long red east-west corridor. Open doorways to the
+north and south lead to patient rooms, signs next to the former read "21-A", the
+latter "22-A". The nurses' station is here. It's a large square waist-high desk
+used for charting and note-taking. 
+
+Nurse Becky is here charting some vital signs. She's the nurse on duty tonight
+on Ward A. 
+
+Mrs. Chen is off to the north.
+Ms. Parsons is off to the south.
+
+> show letter to becky
+"Oh, ok. Yeah, I guess I can sign your form."
+
+Mrs. Chen is off to the north.
+Ms. Parsons is off to the south.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    15 total (out of 200)
+
+> n
+Room 21
+This is an unassuming patient room. The wallpaper is an unsoothing red and a bed
+is pushed head-first against the wall. A cast-iron radiator drips and hisses
+under the window. A doorway leads south back out to the hallway. 
+
+Mrs. Chen, a small Chinese lady is lying in the bed. 
+
+Becky is off to the south.
+
+> show letter to chen
+She seems unsure what you want from her but she takes the pen and scrawls
+something, anyway. Smiling sweetly, she hands it back and nods. 
+
+Becky is off to the south.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    20 total (out of 200)
+
+> s
+Ward A - Station
+This is the western end of a long red east-west corridor. Open doorways to the
+north and south lead to patient rooms, signs next to the former read "21-A", the
+latter "22-A". The nurses' station is here. It's a large square waist-high desk
+used for charting and note-taking. 
+
+Nurse Becky is here charting some vital signs. 
+
+Mrs. Chen is off to the north.
+Ms. Parsons is off to the south.
+
+> e
+Ward A - East
+The hallway continues east and west. Here the walls are red to match the line
+running down the middle of the floor. Patient rooms lie north and south through
+open doorways. A sign next to the former reads "23-A", one next to the latter
+reads "24-A".
+
+Becky is off to the west.
+
+> e
+hallway_2_2
+This is the entrance to 'A' Ward which lies down the hallway to the west. The
+wallpaper here is red, matching the red line running down the middle of the
+floor. A sign next to to an open doorway to the north reads "Employees Only".
+The hallway returns to the east and an old service dumbwaiter is here, embedded
+in the south wall. 
+
+> e
+hallway_2_1
+Here the hallway continues east and west. A service elevator is here in the
+north wall. A red line is painted down the middle of the floor. 
+
+Elliot is off to the east heading to the east.
+
+Mr. Winston is off to the east.
+
+> e
+elevator_lobby_2
+This is the second-floor elevator lobby. The elevator doors lie to the south, a
+small panel next to them. The elevator doors are currently closed. A stairwell
+lies to the north through an open doorway. You see a red sign here that reads
+"Ward A" above an arrow pointing down the hallway to the west and a blue sign
+reading "Ward B" above an arrow pointing east. To assist the confused or dense,
+a red line starts here on the floor and leads west and a similar blue line leads
+east. 
+
+Mr. Winston is here. 
+
+You can also see a book cart here.
+
+Elliot is off to the east.
+
+> show letter to winston
+"Yeah, I'll sign it. I think you brought me a book once, I think?"
+
+Elliot is off to the east.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    25 total (out of 200)
+
+> read letter
+"Thank you for allowing this student to volunteer at your facility. To confirm
+the student's participation, this letter must be signed by 8 patients or staff
+and 1 hospital administrator."
+
+There are 5 signatures currently: Larry, Elliot, Becky, Mrs. Chen, Mr. Winston.
+
+
+Elliot is off to the east heading to the east.
+
+> e
+hallway_2_3
+This long dim hallway continues east towards ward B and west toward the
+elevators. A thick blue line is painted down the middle of the floor. 
+
+Mr. Winston is off to the west heading to the west.
+
+Elliot is off to the east heading to the east.
+
+> e
+Ward B - East
+The hallway continues east and west. Here the walls are blue to match the line
+running down the middle of the floor. Patient rooms lie north and south through
+open doorways. A sign next to the former reads "31", one next to the latter
+reads "32".
+
+Elliot is off to the east.
+Nurse Retch is off to the east.
+
+> w
+hallway_2_3
+This long dim hallway continues east towards ward B and west toward the
+elevators. A thick blue line is painted down the middle of the floor. 
+
+Elliot is off to the east.
+
+> w
+elevator_lobby_2
+This is the second-floor elevator lobby. The elevator doors lie to the south, a
+small panel next to them. The elevator doors are currently closed. A stairwell
+lies to the north through an open doorway. You see a red sign here that reads
+"Ward A" above an arrow pointing down the hallway to the west and a blue sign
+reading "Ward B" above an arrow pointing east. To assist the confused or dense,
+a red line starts here on the floor and leads west and a similar blue line leads
+east. 
+
+You can see a book cart here.
+
+Mr. Winston is off to the west.
+
+> push down button
+The button lights and you hear mechanical humming from the elevator shaft. 
+
+Mr. Winston is off to the west heading to the west.
+
+> z
+Time passes.
+
+Elliot is off to the east.
+
+> z
+Time passes.
+
+With a 'ding' the elevator doors open. 
+
+Elliot is off to the east.
+
+> push cart s
+Wheels grinding and squeaking, you push the cart south.
+
+Main Elevator
+This is the cramped and dingy main elevator. The floor is worn carpet. The walls
+are linoleum and fluorescent lights filter down from above through plastic
+panels. There's a panel of buttons next to the elevator doors which are
+currently open.
+
+> push m
+The elevator doors slide closed. The button lights and you hear mechanical
+humming from the elevator shaft.
+
+> z
+Time passes.
+
+With a 'ding' the elevator doors open. 
+
+> push cart n
+Wheels grinding and squeaking, you push the cart north.
+
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently open, lie to the
+south, the 'up' and 'down' buttons are embedded in a small panel next to them.
+An open doorway leads into a stairwell to the north and an open double doorway
+leads to the east. A sign across the top reads "Cafeteria". A long corridor
+begins here and leads west. 
+
+> e
+Cafeteria
+This is the hospital cafeteria, dark and empty this time of night. Tables are
+arranged in rows, inverted chairs stacked on top of them. A long stainless steel
+buffet serving station lies against one wall, an abandoned cashier station
+against the other. An open doorway leads north into the kitchen and the exit to
+the main hallway lies to the west. 
+
+> n
+Kitchen
+Stainless steel prep tables occupy the center of this large room with ovens and
+stoves arranged along the walls. The overhead fluorescent lights are off and
+it's nearly pitch dark in here, save for the faint green light coming from an
+'exit' sign over the door to the south. There's a garbage can sitting next to
+one of the prep tables. 
+
+> look in can
+The garbage can contains a rotten shrimp.
+
+> take shrimp
+Taken.
+
+> s
+Cafeteria
+This is the hospital cafeteria, dark and empty this time of night. Tables are
+arranged in rows, inverted chairs stacked on top of them. A long stainless steel
+buffet serving station lies against one wall, an abandoned cashier station
+against the other. An open doorway leads north into the kitchen and the exit to
+the main hallway lies to the west. 
+
+> w
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently closed, lie to
+the south, the 'up' and 'down' buttons are embedded in a small panel next to
+them. An open doorway leads into a stairwell to the north and an open double
+doorway leads to the east. A sign across the top reads "Cafeteria". A long
+corridor begins here and leads west. 
+
+You can see a book cart here.
+
+> push cart w
+Wheels grinding and squeaking, you push the cart west.
+
+hallway_m1
+Two corridors meet here. A dark wide hallway continues east and west and a short
+wood-panelled corridor begins here and leads south. 
+
+Mabel is off to the south.
+
+> push cart s
+Wheels grinding and squeaking, you push the cart south.
+
+Main Lobby
+This is the main lobby and hospital entrance. The wall to the south is mostly
+glass including the large double doors leading out. The windows are partially
+iced over and through them you can see gales of wind-driven snow blowing
+sideways. An information desk occupies the north wall.
+
+Mabel is here, occupying the information desk. She's an elderly lady who
+volunteers at St. Asterix. Currently, she's manning the information desk. She
+would have gone home hours ago but the blizzard left her stuck here. She sees
+you enter and waves with a smile. 
+
+Mabel sees the cart you're pushing. "Let's see here. Which one of these trashy
+things haven't I read?" She giggles a bit and plucks one from the cart. "Ooh,
+look at the pecs on that hunk of sugar," She picks up a book titled 'Throbbing
+Loins of Nantucket'.
+
+"Ooh, I almost forgot. Take this."
+She pulls a flashlight from the folds of her layers and hands it to you.
+
+"You may need this tonight if the blizzard causes a brown-out. I sure do wish
+I'd gotten myself out of here and home before they closed the roads."
+
+[The score has just gone up by 10 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    35 total (out of 200)
+
+> open door
+You open the security door.
+
+> w
+Security Office
+This cluttered office smells vaguely of old pizza and sour-cream potato chips. A
+bank of closed-circuit monitors lines one wall, although none of them are turned
+on or seem to be functional. A long desk fronts the monitors. It's ringed with
+water stains and burger wrappers. The exit lies to the east.
+
+Buzz, the head of security, is sitting at the desk. He's engrossed in the
+newspaper and intermittently reaches over and blindly plucks a shrimp from a
+bowl and plops it into his mouth.
+
+On the security desk you can also see a security card and a bowl (which contains
+a bowlful of shrimp). 
+
+Mabel is off to the east.
+
+> show shrimp to buzz
+Buzz's eyes widen at the sight of the shrimp.
+"Ooh, thought you could get away, huh?"
+Before you can react, he plops the shrimp in the bowl with the others. 
+
+Buzz plucks a shrimp from the bowl and plops it into his mouth.
+
+Suddenly, he freezes and beads of sweat break out on his expansive forehead. A
+loud wet gurgling sound emanates from his large stomach. Frantically, he bolts
+up and with shocking dexterity, dashes out of the room and disappears.
+
+Mabel is off to the east.
+
+> take card
+Taken.
+
+Mabel is off to the east.
+
+[The score has just gone up by 10 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    45 total (out of 200)
+
+> e
+Main Lobby
+This is the main lobby and hospital entrance. The wall to the south is mostly
+glass including the large double doors leading out. The windows are partially
+iced over and through them you can see gales of wind-driven snow blowing
+sideways. An information desk occupies the north wall.
+
+Mabel is here, occupying the information desk. 
+
+You can also see a book cart here.
+
+> n
+hallway_m1
+Two corridors meet here. A dark wide hallway continues east and west and a short
+wood-panelled corridor begins here and leads south. 
+
+Mabel is off to the south.
+
+> e
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently closed, lie to
+the south, the 'up' and 'down' buttons are embedded in a small panel next to
+them. An open doorway leads into a stairwell to the north and an open double
+doorway leads to the east. A sign across the top reads "Cafeteria". A long
+corridor begins here and leads west. 
+
+Freddy is off to the north.
+
+> n
+stairwell_m
+This is a dark stairwell just off the main hallway which lies to the south. The
+word "Main" is painter in large letters on the wall here. Concrete stairs zig-
+zag up and down to the floors above and below.
+
+Freddy is here. He's the narcoleptic third-shift security guard. Hiring someone
+with a sleep-disorder who could nod off at any moment to work the overnight
+shift seems less than ideal. His uncle is on the hospital board but that's
+probably just coincidence. 
+
+> d
+stairwell_b
+This is a dark stairwell just off the main hallway which lies to the south. A
+large "B" is painted on the wall. Concrete stairs zig-zag upward to the floor
+above.
+
+Freddy is up above heading to the south.
+
+> s
+elevator_lobby_b
+This is a spartan fluorescent-lit hallway that continues to the east and west. 
+A stairwell lies to the north through an open doorway. Opposite the stairwall in
+the south wall stands the main elevator. Next to it you see a sign reading
+"Morgue" above an arrow pointing east and one reading "Central Supply" above one
+pointing west. The elevator doors are currently closed. The call button is
+embedded in a small panel next to the door.
+
+> w
+basement_hallway_west
+This is nearly the midpoint of a long dank east-west hallway. A service elevator
+is here to the north. A sign next to it reads "Employees Only".
+
+> w
+hallway_b1
+The corridor here continues east and west. Embedded here in the wall to the
+south you see an old dumbwaiter, presumably once used to deliver needed items to
+the patient floors above.
+
+In the dumbwaiter you can see a dumbwaiter cab. 
+
+Eugene is off to the west.
+
+> w
+hallway_b2
+This is the western end of a long corridor that stretches to the east under
+flickering fluorescent lights. There's an open doorway to the north, a sign next
+to it reads "Environmental Services". A second doorway lies to the west. A sign
+next to it reads "Engineering". Finally, a substantial metal door lies to the
+south, a placard on it reads "Central Supply".
+
+Eugene is here. He's the overnight custodian. He waves and stops when he sees
+you. "Hey, Candy. I brought a tape for your little tape player. It's on my desk.
+You kids today don't appreciate real artistry."
+
+> show letter to eugene
+"Sure, I'll sign. Nobody ever asks the janitor to sign anything."
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    50 total (out of 200)
+
+> read letter
+"Thank you for allowing this student to volunteer at your facility. To confirm
+the student's participation, this letter must be signed by 8 patients or staff
+and 1 hospital administrator."
+
+There are 6 signatures currently: Larry, Elliot, Becky, Mrs. Chen, Mr. Winston,
+Eugene.
+
+
+> n
+Environmental Services
+This is a cluttered storage room. The walls are lined with shelves stocked with
+cleaning supplies, brushes, and brooms; most of which you don't need to concern
+yourself with. A tall but narrow brown metal cabinet stands in one corner. A
+battered full-length metal locker faces it on the other side of the room. A
+black telephone is mounted on the wall. The exit lies to the south. 
+
+On the desk you can see a blue cassette tape. 
+
+Eugene is off to the south.
+
+> take tape
+Taken.
+
+Eugene is off to the south heading to the east.
+
+> s
+hallway_b2
+This is the western end of a long corridor that stretches to the east under
+flickering fluorescent lights. There's an open doorway to the north, a sign next
+to it reads "Environmental Services". A second doorway lies to the west. A sign
+next to it reads "Engineering". Finally, a substantial metal door lies to the
+south, a placard on it reads "Central Supply".
+
+Eugene is off to the east.
+
+> open door
+You open the door.
+
+Eugene is off to the east.
+
+> s
+Central Supply
+This is a large basement filled with dusty crates and defunct antique equipment.
+There are scattered low-wattage lamps hanging from the ceiling but most of these
+have long ago burned out, leaving the room quite dark with grotesque shadows
+projected onto the cement walls. An impossible tangle of pipes and conduits
+hangs from above. The only exit lies through a metal door to the north.
+
+You can see a cart here.
+
+> push cart n
+hallway_b2
+This is the western end of a long corridor that stretches to the east under
+flickering fluorescent lights. There's an open doorway to the north, a sign next
+to it reads "Environmental Services". A second doorway lies to the west. A sign
+next to it reads "Engineering". Finally, a substantial metal door lies to the
+south, a placard on it reads "Central Supply".
+
+Wheels grinding and squeaking, you shove the heavy cart north.
+
+Eugene is off to the east.
+
+> push cart e
+hallway_b1
+The corridor here continues east and west. Embedded here in the wall to the
+south you see an old dumbwaiter, presumably once used to deliver needed items to
+the patient floors above.
+
+Eugene is here. 
+
+In the dumbwaiter you can also see a dumbwaiter cab. 
+
+Wheels grinding and squeaking, you shove the heavy cart east.
+
+> g
+basement_hallway_west
+This is nearly the midpoint of a long dank east-west hallway. A service elevator
+is here to the north. A sign next to it reads "Employees Only".
+
+Wheels grinding and squeaking, you shove the heavy cart east.
+
+Eugene is off to the west.
+
+> g
+elevator_lobby_b
+This is a spartan fluorescent-lit hallway that continues to the east and west. 
+A stairwell lies to the north through an open doorway. Opposite the stairwall in
+the south wall stands the main elevator. Next to it you see a sign reading
+"Morgue" above an arrow pointing east and one reading "Central Supply" above one
+pointing west. The elevator doors are currently closed. The call button is
+embedded in a small panel next to the door.
+
+Wheels grinding and squeaking, you shove the heavy cart east.
+
+> g
+Basement Hallway
+This is the eastern end of a long sterile hallway that continues far to the
+west. Linoleum tiles cover the floor. A door leads east, a placard next to it
+reads "Morgue". Open doorways lead north and south. A sign above the former
+reads "Imaging". A placard next to the latter reads "MRI.".
+
+Wheels grinding and squeaking, you shove the heavy cart east.
+
+> push cart s
+MRI Anteroom
+This small room serves as the prep area and control room for the hospital's MRI
+scanner. The east wall contains a window of thick safety glass. Beneath the
+window squats a large control desk and monitor. A red warning sign is fixed to
+the wall. A metal and reinforced-glass door leads east into the MRI suite
+itself. 
+
+Wheels grinding and squeaking, you shove the heavy cart south.
+
+> open door
+You open the thick glass door.
+
+> push cart s
+You can't go that way.
+
+Wheels grinding and squeaking, you shove the heavy cart south.
+
+> push cart e
+The glass safety door shuts behind you.
+MRI Suite
+This white sterile room is largely empty save for the large white cylinder of
+the MRI machine. A similarly white long narrow table is positioned at the
+opening, the bore of which is about two feet across. As in the other room, a
+large red warning sign is posted to the wall warning of the dangers of the
+strong metallic field. A thick window in the east wall allows a view into the
+control room. There's a small hatch in the floor next to the scanner, presumably
+to allow service access. You can return west to the control anteroom.
+
+Wheels grinding and squeaking, you shove the heavy cart east.
+
+> open hatch
+You open the metal grating. 
+
+> open door
+You open the thick glass door.
+
+> w
+The glass safety door shuts behind you.
+MRI Anteroom
+This small room serves as the prep area and control room for the hospital's MRI
+scanner. The east wall contains a window of thick safety glass. Beneath the
+window squats a large control desk and monitor. A red warning sign is fixed to
+the wall. A metal and reinforced-glass door leads east into the MRI suite
+itself. 
+
+> n
+Basement Hallway
+This is the eastern end of a long sterile hallway that continues far to the
+west. Linoleum tiles cover the floor. A door leads east, a placard next to it
+reads "Morgue". Open doorways lead north and south. A sign above the former
+reads "Imaging". A placard next to the latter reads "MRI.".
+
+Eugene is off to the west.
+
+> e
+You can't, since the morgue door is closed.
+
+Eugene is off to the west.
+
+> open door
+You open the morgue door.
+
+Oliver is off to the east.
+Eugene is off to the west.
+
+> e
+Morgue
+This is the hospital's small morgue. The white tiled floor is scuffed and gently
+slopes toward a drain in the center of the room. The walls are also clad in
+featureless tiling and a pair of flickering fluorescent tubes above you impart a
+sickly green ambiance. A stainless steel table sits in the center of the room
+and one wall is occupied by a bank of refrigerated lockers. A door, currently
+open lies to the west. 
+
+Oliver is here. He's the morgue assistant assigned to the night shift. 
+
+> show letter to oliver
+"Sure, whatever. I'll sign whatever you need. I wish I had a letter that'd get
+ME out of here."
+
+Eugene is off to the west.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    55 total (out of 200)
+
+> read letter
+"Thank you for allowing this student to volunteer at your facility. To confirm
+the student's participation, this letter must be signed by 8 patients or staff
+and 1 hospital administrator."
+
+There are 7 signatures currently: Larry, Elliot, Becky, Mrs. Chen, Mr. Winston,
+Eugene, Oliver.
+
+
+Eugene is off to the west.
+
+> w
+Basement Hallway
+This is the eastern end of a long sterile hallway that continues far to the
+west. Linoleum tiles cover the floor. A door leads east, a placard next to it
+reads "Morgue". Open doorways lead north and south. A sign above the former
+reads "Imaging". A placard next to the latter reads "MRI.".
+
+Eugene is here. 
+
+Oliver is off to the east.
+
+> w
+elevator_lobby_b
+This is a spartan fluorescent-lit hallway that continues to the east and west. 
+A stairwell lies to the north through an open doorway. Opposite the stairwall in
+the south wall stands the main elevator. Next to it you see a sign reading
+"Morgue" above an arrow pointing east and one reading "Central Supply" above one
+pointing west. The elevator doors are currently closed. The call button is
+embedded in a small panel next to the door.
+
+Eugene is off to the east.
+
+> n
+stairwell_b
+This is a dark stairwell just off the main hallway which lies to the south. A
+large "B" is painted on the wall. Concrete stairs zig-zag upward to the floor
+above.
+
+> u
+stairwell_m
+This is a dark stairwell just off the main hallway which lies to the south. The
+word "Main" is painter in large letters on the wall here. Concrete stairs zig-
+zag up and down to the floors above and below.
+
+> s
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently closed, lie to
+the south, the 'up' and 'down' buttons are embedded in a small panel next to
+them. An open doorway leads into a stairwell to the north and an open double
+doorway leads to the east. A sign across the top reads "Cafeteria". A long
+corridor begins here and leads west. 
+
+Freddy is off to the west.
+
+> w
+hallway_m1
+Two corridors meet here. A dark wide hallway continues east and west and a short
+wood-panelled corridor begins here and leads south. 
+
+Freddy is here. 
+
+Mabel is off to the south.
+
+> s
+Main Lobby
+This is the main lobby and hospital entrance. The wall to the south is mostly
+glass including the large double doors leading out. The windows are partially
+iced over and through them you can see gales of wind-driven snow blowing
+sideways. An information desk occupies the north wall.
+
+Mabel is here, occupying the information desk. 
+
+You can also see a book cart here.
+
+Freddy is off to the north.
+
+> show letter to mabel
+"Sure thing I'll sign, dear. Don't forget, you promised to come back and visit
+sometime."
+
+Freddy is off to the north.
+
+[The score has just gone up by 5 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    60 total (out of 200)
+
+> n
+hallway_m1
+Two corridors meet here. A dark wide hallway continues east and west and a short
+wood-panelled corridor begins here and leads south. 
+
+Freddy is here. 
+
+Mabel is off to the south.
+
+> open pack
+You open the backpack, revealing your walkman, a red cassette tape and a yellow
+cassette tape.
+
+Mabel is off to the south.
+
+> take walkman
+Taken.
+
+Freddy slacks off to the east.
+
+Mabel is off to the south.
+
+> e
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently closed, lie to
+the south, the 'up' and 'down' buttons are embedded in a small panel next to
+them. An open doorway leads into a stairwell to the north and an open double
+doorway leads to the east. A sign across the top reads "Cafeteria". A long
+corridor begins here and leads west. 
+
+Freddy is here. 
+
+Freddy slacks off to the north.
+
+> n
+stairwell_m
+This is a dark stairwell just off the main hallway which lies to the south. The
+word "Main" is painter in large letters on the wall here. Concrete stairs zig-
+zag up and down to the floors above and below.
+
+Freddy is here. 
+
+> press eject
+You press the 'eject' button and the tape compartment springs open with a
+"clatter".
+
+> put blue in walkman
+You put the blue cassette tape into your walkman.
+
+> give walkman to freddy
+He takes the walkman and headphones. "Ooh.  Whatcha listenin' to, little
+dudette?"
+
+He puts the headphones over his ears. He closes the tape compartment. He presses
+the 'play' button. The tuneful adult contemporary strains of 'Air Supply' wash
+over the narcoleptic security guard. His eyes close and he smiles. In another
+moment he snores and you realize that he's fallen dead asleep on his feet. 
+
+> search freddy
+You awkwardly search the snoozing security guard. While mucking around in his
+pockets, a key falls out and hits the floor with a "clink". 
+
+> take key
+Taken.
+
+[The score has just gone up by 10 points.]
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+    10 - getting the dull steel key
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    70 total (out of 200)
+
+> take walkman
+You purloin your walkman from the sleeping security guard.
+
+Freddy stirs and wakes in a daze. 
+
+"Dude, what happened? Man, did I stroke out grooving to the Aussies?"
+
+> s
+Main Elevator Lobby
+This is the main elevator lobby. The elevator doors, currently closed, lie to
+the south, the 'up' and 'down' buttons are embedded in a small panel next to
+them. An open doorway leads into a stairwell to the north and an open double
+doorway leads to the east. A sign across the top reads "Cafeteria". A long
+corridor begins here and leads west. 
+
+Freddy is off to the north heading downstairs. 
+
+> w
+hallway_m1
+Two corridors meet here. A dark wide hallway continues east and west and a short
+wood-panelled corridor begins here and leads south. 
+
+Mabel is off to the south.
+
+> w
+hallway_m2
+The hallway here continues east and west. An old dumbwaiter is embedded in the
+south wall. You notice that one of the tiles in the drop ceiling is ajar and you
+can see darkness behind it. 
+
+> w
+Administration
+This is the western end of a long east-west hallway. It's a bit better
+maintained than the others and warmer colors accentuate the walls. The overhead
+fluorescent tubes are replaced here by round light fixtures and the floor is
+covered with blue carpet. There's a plain wooden door to the north and a fancy
+mahogany door to the south. Each has a small brass placard mounted on it.
+There's a crack of light under the door to the south. 
+
+> unlock plain door with key
+You unlock the plain wooden door.
+
+> open plain door
+You open the plain wooden door.
+
+> n
+Office
+This is a typical office befitting a less-than-top-level executive. A desk
+stands here as well as a rolling leather executive chair. Non-threatening
+paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium
+sits on a stand directly behind the desk. Sand covers the bottom and a snake is
+coiled around a bleached twisted branch at one end. A squat black safe sits in
+one corner. 
+
+The former Sid Jorry is sitting in the chair and slumped over the desk. His
+eyes, thankfully, are closed.
+
+It appears that somone has been in here already and cleaned out the room.
+There's no trace of any papers or documents. 
+
+In the aquarium you can see a rock. 
+
+Louanne, curious, flicks her forked tongue at you.
+
+> take rock
+You steel yourself to reach into the tank. Lifting up the rock, you find a green
+cassette tape lying under it. 
+
+> take green
+Taken.
+
+Louanne, curious, flicks her forked tongue at you.
+
+> full
+
+The score is made up as follows:
+    10 - getting the flashlight
+    10 - getting the swipe card
+    10 - getting the dull steel key
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+     5 - getting a signature
+
+    70 total (out of 200)
+
+> recording off
+[Command recording off.]
+
+> transcript off
+
+End of transcript.

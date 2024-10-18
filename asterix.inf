@@ -502,7 +502,7 @@ Object baddie_mri_delay
         StopDaemon(trio);
         move injured_trio to mri_scanner;
         StopTimer(baddie_mri_delay);
-        Achieved(14);
+        Achieved(16);
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
@@ -530,7 +530,7 @@ Object baddie_mri_delay
         remove trio;
         StopDaemon(trio);
         StopTimer(baddie_mri_delay);
-        Achieved(14);
+        Achieved(16);
         move injured_trio to mri_scanner;
         rtrue; 
     }

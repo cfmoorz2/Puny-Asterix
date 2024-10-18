@@ -566,7 +566,7 @@ Tape jorry_tape "green cassette tape" rock
         ],
         after [;
             take:
-            Achieved(11);
+            Achieved(13);
         ];
 
 [ jorry_confession ;
@@ -803,7 +803,7 @@ Object ledger "ledger" northrup_safe
         ],
         after [;
             take:
-            Achieved(13);
+            Achieved(15);
         ],
         mass 10,
     class Item;
