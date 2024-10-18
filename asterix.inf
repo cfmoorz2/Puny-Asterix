@@ -58,7 +58,7 @@ Attribute encountered;
 Release 3;
 Serial "221116";
 
-Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = mri_scanner;
 !Constant INITIAL_LOCATION_VALUE = jorry_office;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
