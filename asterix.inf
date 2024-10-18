@@ -81,7 +81,7 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 
-Constant FLAG_COUNT 17;
+Constant FLAG_COUNT 18;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -98,7 +98,8 @@ Constant F_HAS_SWIPE_CARD 13; !does the player have the  security card
 Constant F_SAFE_IS_OPEN 14; !is jorry's safe open
 Constant F_HEADPHONES_ARE_UNPLUGGED 15; ! headphones are NOT plugged in
 Constant F_FREDDY_WALKMAN_SHY 16; !freddy won't take the walkman a second time
-Constant F_FREDDY_HAS_HEARD_THRILLER 17; 
+Constant F_FREDDY_HAS_HEARD_THRILLER 17; !he's already heard it
+Constant F_SAFE_COMBO_IS_SET 18; ! safe combination has been set
 
 Constant MSG_WEAR_DEFAULT 1000;
 COnstant MSG_PARSER_NEW_SCORE 1001;
@@ -252,7 +253,7 @@ Include "puny.h";
     !StartDaemon(oliver);
     move letter to player;
     move pen to player;
-    init_safe();
+    !init_safe();
     move walkman to player;
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
@@ -426,7 +427,7 @@ Include "VerbLib";
     !SAFE_1 = 1;
     !SAFE_2 = 2;
     !SAFE_3 = 3;
-    "combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".";
+    "^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;
@@ -454,7 +455,7 @@ Object baddie_mri_delay
     with   
         time_left, 
         time_out [;
-            if (player in mri_hatch)
+            if (player in mri_compartment)
                 print"Suddenly, the hatch swings open and you look up to see the snarling grin of Vic. He pull you 
                 up into the MRI suite.^^";
             if (ledger in player)

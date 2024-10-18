@@ -517,7 +517,7 @@ Object rock "rock" aquarium
                 give aquarium open;
                 move self to player;
                 move jorry_tape to aquarium;
-                "You steel yourself to reach into the tank. Lifting up the rock, you find a casette tape with a green label lying under
+                "You steel yourself to reach into the tank. Lifting up the rock, you find a green cassette tape lying under
                 it. ";
 
             } 
@@ -568,6 +568,11 @@ Tape jorry_tape "green cassette tape" rock
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;
+    if (FlagIsClear(F_SAFE_COMBO_IS_SET))
+    {
+        init_safe();
+        SetFlag(F_SAFE_COMBO_IS_SET);
+    }
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
     into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I plan to mail this to you 
     because I have information you may find interesting pertaining to possible financial misdealings perpetrated by 

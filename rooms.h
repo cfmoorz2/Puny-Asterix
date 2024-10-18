@@ -1445,8 +1445,11 @@ Room mri_anteroom "MRI Anteroom"
         ],
         before [;
             go:
-            if (selected_direction == e_to)
+            if (selected_direction == e_to && scanner_door hasnt open)
+            {
                 give scanner_door open;
+                print"(first opening the reinforced glass door)^";
+            }       
         ],
         after [;
             go:
@@ -1512,8 +1515,8 @@ Object green_button "green button" mri_anteroom
         time_out [;
             if (metal_cart notin mri_scanner) { mri_no_cart(); rtrue; }
             if (real_location == mri_anteroom) { mri_cart_anteroom(); rtrue; }
-            if (player in mri_hatch && mri_hatch has open) { mri_cart_hatch_open(); rtrue; }
-            if (player in mri_hatch && mri_hatch hasnt open) { mri_cart_hatch_closed(); rtrue; }
+            if (player in mri_compartment && mri_compartment has open) { mri_cart_hatch_open(); rtrue; }
+            if (player in mri_compartment && mri_compartment hasnt open) { mri_cart_hatch_closed(); rtrue; }
             if (player in mri_scanner) { mri_cart_unprotected(); rtrue; }
             print"^^Suddenly, from somewhere in the building you hear a horrible cacophany of metal smashing metal 
             and glass shattering. It's quickly discovered that the MRI machine has been broken beyond repair. 
@@ -1564,28 +1567,12 @@ Room mri_scanner "MRI Suite"
         ],
         before [;
             go:
-            if (selected_direction == w_to && player in mri_hatch)
+            if (selected_direction == d_to && mri_hatch hasnt open)
             {
-                print"(first leaving the compartment)^";
-                PlayerTo(mri_scanner, 1);
-                give scanner_door open;
-                <<go FAKE_W_OBJ>>;
+                give mri_hatch open;
+                print"(first opening the metal hatch)^";
             }
-            if (selected_direction == w_to)
-            {
-                give scanner_door open;
-            }
-            if (selected_direction == u_to or out_to && player in mri_hatch)
-            {
-                if (mri_hatch hasnt open) "The hatch is closed. ";
-                PlayerTo(mri_scanner);
-                rtrue;
-            }
-            if (selected_direction == d_to or in_to && player in self)
-            {
-                if (mri_hatch hasnt open) "The hatch is closed. ";
-                <<enter mri_hatch>>;
-            }
+            
             if (selected_direction == w_to && trio in self) 
             {
                 if (ledger in player)
@@ -1600,7 +1587,12 @@ Room mri_scanner "MRI Suite"
                 neck. And then you feel nothing.^";
                 deadflag = true;
                 rtrue;  
-            }            
+            }
+            if (selected_direction == w_to && scanner_door hasnt open)
+            {
+                give scanner_door open;
+                print"(first opening the reinforced glass door)^";
+            }           
             examine:
             if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
@@ -1613,6 +1605,7 @@ Room mri_scanner "MRI Suite"
             }
         ],
         w_to scanner_door,
+        d_to mri_hatch,
     class Tiles
     has light;
 
@@ -1632,55 +1625,6 @@ Bed mri_table "exam table" mri_scanner
     with name 'exam' 'table' 'white',
         description "It's a white exam table that would typically slide into the MRI tube. ",
     has scenery; 
-
-Object mri_hatch "compartment" mri_scanner
-    with 
-        parse_name [ w1 w2 ;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'compartment' && w2 == 'door') return 2;
-            if (w1 == 'hatch' or 'door') return 1;
-            if (w1 == 'hatch' && w2 == 'door') return 2;
-            if (w1 == 'compartment' or 'space') return 1;
-        ],
-        name 'hatch' 'compartment',
-        inside_description [;
-            if (self has open) "You're sitting in a small compartment under the floor of the MRI suite, surrounded 
-            by wiring conduits and pipes. ";
-            "You're crouched in a small dark compartment beneath the floor of the MRI suite, hemmed in by wiring conduits
-            and pipes. ";
-        ],
-        react_before [;
-            if(parent(player) == self ) 
-            {
-                if (action == ##go) rfalse;
-                !print "noun = ",(name)noun,"^";
-                !print "second = ",(name)second,"^";
-                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
-                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
-            }
-        ],
-        before [;
-            open:
-            if (self has open) "It's already open. ";
-            give self open;
-            if (player in mri_scanner) "You open the hatch, revealing a compartment surrounded by wires and pipes. ";
-                "You open the hatch. ";
-            enter:
-            if(ladder in player) "Not with the ladder. ";
-            print"You climb down, squeezing yourself into the small compartment.^";
-            PlayerTo(self, 1);
-            rtrue;
-            receive:
-            if(noun == ladder) "The ladder is too large to fit. ";
-        ],
-        description [;
-            if (self has open) "Through an open hatch in the floor you can see a small dark space full of wires
-            and pipes. ";
-            "It's a closed hatch in the floor next to the MRI scanner. ";
-        ],
-        max_capacity 30,
-    has scenery light container enterable openable ~open; 
 
 Object metal_cart "cart" central_supply
     with name 'metal' 'cart',
@@ -1722,6 +1666,43 @@ Object oxygen "oxygen cannisters" metal_cart
                 "Each cannister on its own is too heavy and awkward. ";
         ],
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object mri_compartment "Service Access"
+    with 
+        description [;
+            print"This is a small compartment in the floor next to the MRI scanner. It's crowded in here with bundles of 
+            wiring conduits and pipes taking up most of the space. A hinged metal grate, currently ";
+            if (mri_hatch has open) print"open";
+            if (mri_hatch hasnt open) print"closed"; 
+            ", leads back up to the MRI suite. ";
+        ],
+        before [;
+            go:
+            if (mri_hatch hasnt open) 
+            {
+                give mri_hatch open;
+                print"(first opening the metal hatch)^";
+            }
+        ],
+        u_to mri_hatch,     
+    has light; 
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor mri_hatch "hinged metal grate"
+     with 
+        name 'hinged' 'metal' 'grate' 'hatch',
+        description [;
+            print"It's a hinged metal grate covering an access compartment in the floor. It's currently ";open_or_closed(self);".";
+        ],
+        door_to [;
+            if (parent(self) == mri_compartment) return mri_scanner; return mri_compartment;
+        ],
+        door_dir [;
+            if (parent(self) == mri_compartment) return u_to; return d_to;
+        ],
+        found_in mri_scanner mri_compartment,
+    has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
