@@ -810,26 +810,26 @@ Object letter "letter"
     with 
         name 'letter' 'confirmation' 'paper',
         description [ x ;
-            print"It's a typed letter on your high school's letterhead. Below the text there are 8 lines 
-            for signatures. Currently, there ";
+            print"It's a typed letter on your high school's letterhead. Below the text there are 7 lines 
+            for staff signatures and one for an administrator. Currently, there ";
             x = signature_count();
-            if (x == 0) "are currently no signatures. ";
+            if (x == 0) "are currently no signatures.^";
             if (x == 1) { print"is one signature currently: "; }
             else { print"are ",x," signatures currently: "; }
             show_signatures();
-            ".";
+            ".^";
         ],
         before [ x ;
             read, examine:
             print"~Thank you for allowing this student to volunteer at your facility. To confirm the 
-            student's participation, this letter must be signed by 7 patients or staff and 1 hospital 
+            student's participation, this letter must be signed by 8 patients or staff and 1 hospital 
             administrator.~^^There ";
             x = signature_count();
-            if (x == 0) "are currently no signatures. ";
+            if (x == 0) "are currently no signatures.^";
             if (x == 1) { print"is one signature currently: "; }
             else { print"are ",x," signatures currently: "; }
             show_signatures();
-            ".";
+            ".^";
         ],
         mass 2,
     class Item;

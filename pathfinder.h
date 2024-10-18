@@ -50,17 +50,11 @@ Class Room
                         if(obj has animate && obj.hide == false)
                         {
                             add_to_position_array(obj, direction);
-                            
-                            
-                            !~print"^",(The)obj;
-                            !~if(obj has pluralname) { print" are ";}  else { print " is "; }
-                            !~if(direction == u_obj) "up above. ";
-                            !~if(direction == d_obj) "down below. ";
-                            !~print"off to the ",(name)direction,".^";
                         }
                     }
                 }
             }
+            if (position_narrate_array-->0 ~= 0) print"^";
             for (x=0 : x<24: x++) 
             {
                 _i = position_narrate_array-->x;

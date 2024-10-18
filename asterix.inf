@@ -344,7 +344,7 @@ Include "VerbLib";
     {
         i = signatures-->x;
         k = signatures-->(x+1);
-        if (k==0) { print(name)i; rtrue; }
+        if (k==0) { print(name)i; rtrue;}
         print(name)i,", ";
     }
 ];
@@ -360,7 +360,7 @@ Include "VerbLib";
 
 [ add_signature npc x i o; 
     x = signature_count();
-    if (x == 7) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
+    if (x == 8) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
     for (i=5 : i < 13: i++)
@@ -401,7 +401,7 @@ Include "VerbLib";
     Hospital, the oldest and most run-down hospital in the city.^^
     It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
     your sponsor at the hospital, Mr. Jorry, was supposed to sign your letter tonight confirming your volunteer hours after you get 
-    the signatures of 7 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
+    the signatures of 9 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
     blizzard blew in tonight and now it doesn't seem like you can even get home.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
     you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures. ";
