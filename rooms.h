@@ -1445,14 +1445,6 @@ Room mri_anteroom "MRI Anteroom"
             read:
             print_ret (string)MRI_WARNING;
         ],
-        before [;
-            go:
-            if (selected_direction == e_to && scanner_door hasnt open)
-            {
-                give scanner_door open;
-                print"(first opening the reinforced glass door)^";
-            }       
-        ],
         after [;
             go:
             if (selected_direction == w_to) 
@@ -1569,16 +1561,6 @@ Room mri_scanner "MRI Suite"
         ],
         before [;
             go:
-            if (selected_direction == d_to)
-            {
-                if (mri_hatch hasnt open)
-                {
-                give mri_hatch open;
-                print"(first opening the metal hatch)^";
-                }
-                PlayerTo(mri_compartment);
-                rtrue;
-            }
             if (selected_direction == w_to && trio in self) 
             {
                 if (ledger in player)
@@ -1593,17 +1575,7 @@ Room mri_scanner "MRI Suite"
                 neck. And then you feel nothing.^";
                 deadflag = true;
                 rtrue;  
-            }
-            if (selected_direction == w_to)
-            {
-                if (scanner_door hasnt open)
-                {
-                    give scanner_door open;
-                    print"(first opening the reinforced glass door)^";
-                } 
-                PlayerTo(mri_anteroom);
-                rtrue;
-            }          
+            }        
             examine:
             if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
@@ -1687,14 +1659,6 @@ Room mri_compartment "Service Access"
             if (mri_hatch has open) print"open";
             if (mri_hatch hasnt open) print"closed"; 
             ", leads back up to the MRI suite. ";
-        ],
-        before [;
-            go:
-            if (mri_hatch hasnt open) 
-            {
-                give mri_hatch open;
-                print"(first opening the metal hatch)^";
-            }
         ],
         u_to mri_hatch,     
     has light; 

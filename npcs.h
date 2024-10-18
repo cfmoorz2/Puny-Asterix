@@ -602,12 +602,12 @@ Object trio "Retch, Northrup, and Vic"
             }
         ],
         npc_post_follow [;
-            if (self in real_location && real_location == mri_scanner)
-            {
-                StartTimer(baddie_mri_delay, 4);
-                if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
-            }
-            if (self in real_location && real_location ~= mri_scanner)
+        !if (self in real_location && real_location == mri_scanner)
+            !{
+            !    StartTimer(baddie_mri_delay, 4);
+            !    if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
+            !}
+            if (self in real_location)
             {
                 print"^Unfortunately, the baddies have caught up with you. ";
                 if (ledger in player)
@@ -625,7 +625,7 @@ Object trio "Retch, Northrup, and Vic"
             }
         ],
         npc_arrived [;
-            if (parent(self) == mri_scanner)
+            if (parent(self) == real_location)
             {
                 StopDaemon(self); 
                 self.move_mode = 0;
