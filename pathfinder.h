@@ -5,12 +5,35 @@ Constant FOLLOW_PATH = 3;
 
 
 Array queue --> 64;
-Array position_narrate_array -> 0 0 0 0 0 0 0 0 0 0 0 0;
+Array position_narrate_array --> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+
+[ reset_position_array x;
+    for (x=0 : x<24: x++) 
+    {
+    position_narrate_array-->x = 0;
+    }
+];
+
+[ add_to_position_array obj dir x y;
+    for (x=0 : x<24: x++) 
+    {
+        if (position_narrate_array-->x == 0)
+        {
+            !print"adding ",(name)obj," at index ",x,"^";
+            position_narrate_array-->x = obj;
+            y = x + 1;
+            !print"adding ",(name)dir," at index ",y,"^";
+            position_narrate_array-->y = dir;
+            rtrue;
+        }
+    }
+    "ERROR_POSITION_ERROR_OVERRUN";
+];
 
 Class Room 
     with hop,
          hop_direction,
-         each_turn [obj direction one_out npc;
+         each_turn [obj direction one_out npc x y _i _d;
             objectloop (direction in compass)
             {
                 one_out = real_location.(direction.door_dir);
@@ -26,14 +49,30 @@ Class Room
                     {
                         if(obj has animate && obj.hide == false)
                         {
-                            print"^",(The)obj;
-                            if(obj has pluralname) { print" are ";}  else { print " is "; }
-                            if(direction == u_obj) "up above. ";
-                            if(direction == d_obj) "down below. ";
-                            print"off to the ",(name)direction,".^";
+                            add_to_position_array(obj, direction);
+                            
+                            
+                            !~print"^",(The)obj;
+                            !~if(obj has pluralname) { print" are ";}  else { print " is "; }
+                            !~if(direction == u_obj) "up above. ";
+                            !~if(direction == d_obj) "down below. ";
+                            !~print"off to the ",(name)direction,".^";
                         }
                     }
                 }
+            }
+            for (x=0 : x<24: x++) 
+            {
+                _i = position_narrate_array-->x;
+                if (_i == 0) break;
+                y = x + 1;
+                _d = position_narrate_array-->y;
+                print(The)_i;
+                if(_i has pluralname) { print" are ";}  else { print " is "; }
+                if(_d == u_obj) "up above. ";
+                if(_d == d_obj) "down below. ";
+                print"off to the ",(name)_d,".^";
+                x++;                
             }
             objectloop (npc && npc ofclass Mover)
             {

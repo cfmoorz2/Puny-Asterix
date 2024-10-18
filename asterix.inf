@@ -177,6 +177,7 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
 ];
 
 [ GamePreRoutine ;
+    reset_position_array();
     if (action == ##give || action == ##show) 
     {
         if (IndirectlyContains(real_location, second) == false)
