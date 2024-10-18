@@ -101,9 +101,8 @@ Object freddy "Freddy" hallway_m2
                 if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) "He's not interested since the headphones are unplugged. ";
                 print"He takes the walkman and headphones. ~Ooh.  Whatcha listenin' to, little dudette?~^^
                 He puts the headphones over his ears. ";
-                if (walkman has open) print"He closes the tape compartment. ";
-                if (~~walkman_playing) print "He presses the 'play' button. ";
-                walkman_playing = true;
+                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
+                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
                 if (air_supply_tape in walkman)
                 {
                     SetFlag(F_FREDDY_ASLEEP);

@@ -36,7 +36,7 @@ Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
 Constant NUMBER_TASKS = 17;
-Constant MAX_SCORE 200;
+Constant MAX_SCORE 160;
 Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
@@ -527,6 +527,7 @@ Object baddie_mri_delay
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
         MRI scanner and the screeching winds down and then you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
+        give mri_compartment ~open;
         remove trio;
         StopDaemon(trio);
         StopTimer(baddie_mri_delay);
