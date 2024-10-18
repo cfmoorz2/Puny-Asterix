@@ -1563,17 +1563,16 @@ Room mri_scanner "MRI Suite"
             go:
             if (selected_direction == w_to && trio in self) 
             {
+                print"Unfortunately, you are intercepted on your way. ";
                 if (ledger in player)
                 {
                     print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
-                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                    ~Thank you, my dear, for delivering this to us. ";
                 } else {
-                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
-                    you are a loose end.~^^";
+                    print"^^~Sorry, my dear,~ Northrup begins. ~Trust me, we'll find the ledger.";
                 }
-                print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
-                neck. And then you feel nothing.^";
-                deadflag = true;
+                print(string)NORTHRUP_SPEECH;
+                deadflag = 3;
                 rtrue;  
             }  
             if (selected_direction == d_to) <<enter mri_compartment>>;
@@ -1699,7 +1698,7 @@ Object mri_compartment "service compartment" mri_scanner
             rtrue;
             exit:
             if (self hasnt open) { give self open; print"(first opening the metal grate)^"; }
-            print"You hoist yourself up and out of the access compartment.^^";
+            print"You hoist yourself up and out of the access compartment.^";
             PlayerTo(mri_scanner, 1);
             rtrue;
         ],

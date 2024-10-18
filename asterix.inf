@@ -50,7 +50,11 @@ Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on th
     elevator moving beneath you.^";
 Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
-Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ He hands back your walkman.^";
+Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ 
+    He hands back your walkman.^";
+Constant NORTHRUP_SPEECH "Of course, now you have no actual evidence that anything at all suspicious has happened here this evening. 
+    And, of course, no one is going to take the word of a teenaged candy striper over a respected physician and pillar of the 
+    community. And, of course, you will not be geting your letter signed.~^^";
 
 Attribute valuable;
 Attribute encountered;
@@ -461,15 +465,13 @@ Object baddie_mri_delay
             if (ledger in player)
                 {
                     print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
-                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                    ~Thank you, my dear, for delivering this to us. ";
                 } else {
-                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
-                    you are a loose end.~^^";
+                    print"Northrup begins. ~Trust me, my dear, we'll find the ledger. ";
                 }
-            print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
-            neck. And then you feel nothing.^";
-            deadflag = true;
-            rtrue;  
+            print(string)NORTHRUP_SPEECH;
+            deadflag = 3;
+            rtrue;   
         ];
 
 [ mri_no_cart ;
@@ -503,6 +505,7 @@ Object baddie_mri_delay
         remove trio;
         StopDaemon(trio);
         move injured_trio to mri_scanner;
+        StopTimer(baddie_mri_delay);
         Achieved(14);
         rtrue; 
     }
@@ -530,6 +533,7 @@ Object baddie_mri_delay
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
         StopDaemon(trio);
+        StopTimer(baddie_mri_delay);
         Achieved(14);
         move injured_trio to mri_scanner;
         rtrue; 

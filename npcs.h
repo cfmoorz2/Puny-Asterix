@@ -602,25 +602,23 @@ Object trio "Retch, Northrup, and Vic"
             }
         ],
         npc_post_follow [;
-        !if (self in real_location && real_location == mri_scanner)
-            !{
-            !    StartTimer(baddie_mri_delay, 4);
-            !    if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
-            !}
+        if (self in real_location && real_location == mri_scanner)
+            {
+                StartTimer(baddie_mri_delay, 3);
+                if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
+            }
             if (self in real_location)
             {
                 print"^Unfortunately, the baddies have caught up with you. ";
                 if (ledger in player)
                 {
                     print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
-                    ~Sorry, my dear,~ he clucks portentously. ~But now you are a loose end.~^^";
+                    ~Thank you, my dear, for delivering this to us. ";
                 } else {
-                    print"~Sorry, my dear,~ Northrup begins. ~We'll find the ledger. But right now, 
-                    you are a loose end.~^^";
+                    print"Northrup begins. ~Trust me, my dear, we'll find the ledger.";
                 }
-                print"Nurse Retch hands Vic a syringe. Before you can react he lunges forward and you feel a sharp pain in your 
-                neck. And then you feel nothing.^";
-                deadflag = true;
+                print(string)NORTHRUP_SPEECH;
+                deadflag = 3;
                 rtrue;   
             }
         ],
