@@ -485,6 +485,7 @@ Object becky "Becky" station_a
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(mabel, 304);
+            ActivateTopic(elliot, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         life [;
