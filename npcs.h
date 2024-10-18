@@ -250,7 +250,7 @@ Object sid_jorry "Sid Jorry" jorry_office
 Array elliot_avoid_array --> room_21 room_22 room_23 stairwell_2 break_room room_31 room_32 room_33 room_34;
 Object elliot "Elliot" a_ward_1
     with name 'elliot',
-        description "He's an athletic-appearing blonde gentleman in his 30s. He's rolling idly up and 
+        description "He's a muscular tan gentleman in his 30s with spiky black hair. He's rolling idly up and 
         down the hallways in a wheelchair, his right leg bandaged and propped in front of him on a padded strut. ",
         describe [;  
             print"^Elliot is here. ";
@@ -267,8 +267,8 @@ Object elliot "Elliot" a_ward_1
             switch(noun)
             {
                 letter: add_signature(self); rtrue;
-                thriller, air_supply_tape, mixtape: "~Sweet tunes, dude.~";
-                shrimp: "~Dude, you have to throw that away.~";
+                thriller, air_supply_tape, mixtape: "~Sweet tunes, man.~";
+                shrimp: "~Man, you have to throw that away.~";
                 default: "He's distracted and doesn't care about ",(the)noun,".";
             }
         ],
@@ -862,12 +862,17 @@ Object mrs_chen "Mrs. Chen" room_21
             }
             "^Mrs. Chen is lying in the bed. ";
         ],
+        signature_desc [;
+            "She seems unsure what you want from her but she takes the pen and scrawls something, anyway. Smiling sweetly, 
+            she hands it back and nods. ";
+        ],
         before [;
             talk:
             "She smiles but doesn't seem to speak english. ";
         ],
         life [;
             give, show:
+            if (noun == letter) { add_signature(self); rtrue; }
             "She just smiles sweetly and nods. ";
         ],
     class Mover MyNPC

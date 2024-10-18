@@ -1239,13 +1239,11 @@ Room northrup_office "Northrup's Office"
                 ~Ahh, the candystriper I've heard about. The one poking around into things that have nothing to do with her;
                 things she doesn't understand; things she may be misinterpreting?~^^
                 He smiles for a moment and then his face hardens.^^
-                ~I don't know what you think is happening here, young lady.~ He pulls a piece of paper from a pocket
-                and holds it up. You squint and see that it's on Mr. Jorry's letterhead and seems to be your letter verifying 
-                the successful completion of your volunteer assignment. ~But I believe you need a letter. And now that poor Mr. Jorry 
-                has passed away, that letter would come from me. So if I were you, I'd finish out my time this evening and 
-                be done with it.~^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend. 
-                And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the anteroom. He and 
-                Nurse Retch follow and Northrup closes the locks the office door behind him. He and Retch quickly leave 
+                ~I don't know what you think is happening here, young lady. But I believe you need a letter signed. And now that poor 
+                Mr. Jorry has passed away, that signature comes from me. Currently, I'm not feeling much like signing anything.~
+                ^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend. 
+                And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the hallway. He and 
+                Nurse Retch follow and Northrup closes and locks the office door behind him. He and Retch quickly leave 
                 to the east and disappear down the dark hallway.^^";
                 remove nurse_retch;
                 StopDaemon(nurse_retch);

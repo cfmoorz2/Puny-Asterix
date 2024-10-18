@@ -149,12 +149,11 @@ Array talk_array_larry-->
   TM_END;
 
 Array talk_array_elliot-->
-  30 "himself" TM_NO_LINE "I'm here because of an old footbal injury. I don't really know what they did to my knee. 
-  They said they 'cleaned it out' and repaired some ligaments."
-  30 "knee" TM_NO_LINE "It hurts but I can go home once the swelling goes down and the blizzard moves through."
+  30 "himself" TM_NO_LINE "I'm here getting my knee cleaned out. I hurt it years ago playing football. These days I work as a bouncer and I 
+  tore something throwing a big fat drunk guy out one night. "
+  30 "knee" TM_NO_LINE "It hurts but they say I can go home once the swelling goes down and the blizzard moves through."
   30 "wheelchair" TM_NO_LINE "I'm trying to keep my upper body strength up pushing this thing around."
-  00 300 "Nurse Becky" TM_NO_LINE "I got no complaints with the nursing. She's prety cute."
-  00 301 "Linda" TM_NO_LINE "I think she's been flirting with me. Although maybe she does that with everybody."
+  00 300 "Nurse Becky" TM_NO_LINE "She's nice. No complaints with the nursing around here. "
   TM_END;
 
 

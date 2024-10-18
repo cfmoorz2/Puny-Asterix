@@ -36,8 +36,8 @@ Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
 Constant NUMBER_TASKS = 17;
-Constant MAX_SCORE 85;
-Array task_scores -> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
+Constant MAX_SCORE 200;
+Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
 Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
@@ -147,12 +147,12 @@ COnstant MSG_PARSER_NEW_SCORE 1001;
       2: "- finding the syringe";
       3: "- getting the potassium vial";
       4: "- getting the key to Jorry's office";
-      5,6,7,8,9,10,11: "- getting a signature";
-      12: "- finding Sid Jorry's tape";
-      13: "- opening the safe";
-      14: "- getting the ledger";
-      15: "- incapacitating the baddies in the MRI suite";
-      16: "- getting Northrup's signature";
+      5,6,7,8,9,10,11,12: "- getting a signature";
+      13: "- finding Sid Jorry's tape";
+      14: "- opening the safe";
+      15: "- getting the ledger";
+      16: "- incapacitating the baddies in the MRI suite";
+      17: "- getting Northrup's signature";
   }
 ];
 
@@ -328,7 +328,7 @@ Include "VerbLib";
 
 !!! THE SIGNATURE ARRAY HAS 17 SLOTS TO MATCH THE ACHIEVEMENT ARRAY. 5-11 ARE DEVOTED TO SIGNATURES
 [ signature_count  x y i;
-    for (x=5 : x < 12: x++)
+    for (x=5 : x < 13: x++)
     {
         i = signatures-->x;
         !print"here i = ",(name)i,"^";
@@ -338,7 +338,7 @@ Include "VerbLib";
 ];
 
 [ show_signatures x i k;
-    for (x=5 : x<12: x++)
+    for (x=5 : x<13: x++)
     {
         i = signatures-->x;
         k = signatures-->(x+1);
@@ -348,7 +348,7 @@ Include "VerbLib";
 ];
 
 [ check_signature npc x i;
-    for (x=5 : x < 12: x++)
+    for (x=5 : x < 13: x++)
     {
         i = signatures-->x;
         if (i == npc) { print(The)npc," has already signed your letter.^"; return true; }
@@ -361,7 +361,7 @@ Include "VerbLib";
     if (x == 7) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
-    for (i=5 : i < 12: i++)
+    for (i=5 : i < 13: i++)
     {
         o = signatures-->i;
         if (o == 0) 
