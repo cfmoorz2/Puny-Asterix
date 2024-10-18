@@ -409,10 +409,10 @@ Object vic "Vic"
         each_turn [;
             if(real_location == sub_basement_02)
             {
-                if (syringe in player || denim_jacket in player || ladder in player) print"^Vic eyes you suspiciously. ~Hey there, 
+                if (IndirectlyContains(player, syringe) || IndirectlyContains(player, denim_jacket) || folding_chair in player) print"^Vic eyes you suspiciously. ~Hey there, 
             little lady. Whatcha got there now?~^";
-                if (syringe in player) { print "He plucks the syringe from you.^"; remove syringe; }
-                if (denim_jacket in player) { print "He takes the jacket from you.^"; remove denim_jacket; }
+                if (IndirectlyContains(player, syringe)) { print "He plucks the syringe from you.^"; remove syringe; }
+                if (IndirectlyContains(player, denim_jacket) ) { print "He takes the jacket from you.^"; remove denim_jacket; }
                 if (folding_chair in player) { print "He relieves you of the folding chair.^"; remove folding_chair; }  
             }          
         ],     

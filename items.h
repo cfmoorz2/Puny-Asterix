@@ -883,3 +883,26 @@ Object ashtray "ashtray" boiler_room
         ],
         mass 3,
     class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object backpack "backpack" 
+    with 
+        name 'backpack' 'bag' 'sack' 'pack',
+        description "It's your neon teal Jansport backpack. ",
+        before [;
+            receive:
+            if (noun == ladder or folding_chair) "That's too big to fit. ";
+            if (noun == shrimp_bowl) "Ew! And get gross slimy shrimp all over your backpack? No way. ";
+            if ((self.is_holding() + noun.mass) > 20 ) "That won't fit in your backpack. ";
+        ],
+        is_holding [i total;
+            total = 0;
+            objectloop(i in self)
+            {
+                total = total + i.mass;
+            }
+            return total;
+        ],
+    has container openable ~open clothing;
+
+

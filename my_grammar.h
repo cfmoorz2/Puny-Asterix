@@ -171,12 +171,14 @@ Verb 'follow'
 Verb meta 'capacity' * -> Capacity;
 [ CapacitySub  i count; 
     print"You can carry a total of ",MAX_CARRIED," poorly-defined units based on weight, mass, 
-    and 'awkwardness'. You are currently holding ";
+    and 'awkwardness'. Worn items do not count against your total. You are currently holding ";
     count = 0;
-    objectloop(i in player) {
+    objectloop(i in player && i hasnt worn) {
         count = count + i.mass;
     }
-    print_ret count," units. ";    
+    print count," units.^^";  
+    print"Your backpack can hold 20 poorly-defined units and is currently holding ";
+    print_ret backpack.is_holding()," units. ";   
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

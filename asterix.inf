@@ -259,9 +259,11 @@ Include "puny.h";
     !StartDaemon(oliver);
     move letter to player;
     move pen to player;
-    move mixtape to player;
+    move mixtape to backpack;
     !init_safe();
-    move walkman to player;
+    move walkman to backpack;
+    move backpack to player;
+    give backpack worn;
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
 
@@ -376,15 +378,15 @@ Include "VerbLib";
 
 [MyTakeRule count i x ;
     reset_position_array();
-    if (action ~= ##take || ~~noun ofclass Item)   rfalse;
+    if (action ~= ##take) rfalse;
     count = 0;
     x = noun.mass;
-    objectloop(i in player) {
+    objectloop(i in player && i hasnt worn) {
         count = count + i.mass;
     }
     !print"carrying = ",count,"^";
     !print"mass = ",x,"^";
-    if(count + x > MAX_CARRIED) "That's too much for you to carry. ";
+    if((count + x) > MAX_CARRIED) "That's too much for you to carry. ";
     rfalse;
 ];
 
