@@ -1079,7 +1079,7 @@ Room jorry_office "Office"
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
         His eyes, thankfully, are closed.^";
         if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
-            There's no trace of any papers or documents. ";
+            There's no trace of any papers, documents, or your letter of completion. ";
     ],
         before [;
             examine:
@@ -1236,13 +1236,14 @@ Room northrup_office "Northrup's Office"
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"^(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"^You seem to have interupted the start of an animated conversation between Dr. Northrup and 
                 Nurse Retch. They abuptly clam up as you enter.^^
-                ~Ahh, the candystriper I've heard about. The one poking around into things that have nothing to do with her;
+                ~Ahh, the candy striper I've heard about. The one poking around into things that have nothing to do with her;
                 things she doesn't understand; things she may be misinterpreting?~^^
                 He smiles for a moment and then his face hardens.^^
-                ~I don't know what you think is happening here, young lady. But I believe you need a letter signed. And now that poor 
-                Mr. Jorry has passed away, that signature comes from me. Currently, I'm not feeling much like signing anything.~
-                ^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend. 
-                And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the hallway. He and 
+                ~I don't know what you think is happening here, young lady. But I believe you need a letter.~ He pulls a piece of paper 
+                halfway out of a breast pocket. ~This was found in poor Mr. Jorry's office. If I were you, I would peacefully finish out 
+                my time here, take my letter and leave.~ He slips the letter back into his pocket.
+                ^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend.~ He turns back to you.
+                ~And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the hallway. He and 
                 Nurse Retch follow and Northrup closes and locks the office door behind him. He and Retch quickly leave 
                 to the east and disappear down the dark hallway.^^";
                 remove nurse_retch;

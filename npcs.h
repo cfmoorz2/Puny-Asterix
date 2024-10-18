@@ -63,7 +63,7 @@ Object oliver "Oliver" morgue
             give, show:
             switch (noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 syringe: "~Huh, that's odd.~";
                 kcl_bottle: "~That's strange. That shouldn't be out for you to find.~";
                 walkman: "~Yes, you have a walkman.~";
@@ -83,7 +83,7 @@ Object oliver "Oliver" morgue
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array freddy_avoid_array --> admin_hallway hallway_b2 basement_hallway_east cafeteria a_ward_1 b_ward_1;
+Array freddy_avoid_array --> admin_hallway hallway_b2 basement_hallway_east cafeteria a_ward_1 b_ward_1 ceiling_01;
 Object freddy "Freddy" hallway_m2
     with name 'freddy' 'security' 'guard',
         description [;
@@ -126,7 +126,7 @@ Object freddy "Freddy" hallway_m2
             }
             switch (noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 mixtape: "~You can keep it. Just don't tell my girlfriend.~";
                 thriller: "~My girlfriend plays that thing non-stop.~";
                 air_supply_tape: "~That's old person naptime music.~";
@@ -265,7 +265,7 @@ Object elliot "Elliot" a_ward_1
             give, show:
             switch(noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 thriller, air_supply_tape, mixtape: "~Sweet tunes, man.~";
                 shrimp: "~Man, you have to throw that away.~";
                 default: "He's distracted and doesn't care about ",(the)noun,".";
@@ -313,7 +313,7 @@ Object eugene "Eugene" hallway_b2
             give, show:
             switch (noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 swipe_card: "~That'll let you down into the sub-basement. But I wouldn't go down there. It's dark and dangerous.~";
                 walkman: "~Hey, you can listen to your new tape right here.~";
                 thriller: "~'Thriller'? Never heard of it.~";
@@ -448,7 +448,7 @@ Object mabel "Mabel" main_lobby
             give, show:
             switch(noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 kcl_bottle: "~Ooh, girl. That looks like something that shouldn't be.~";
                 syringe: "~Oh my, girl. That ain't right. You should report that to somebody.~";
                 swipe_card: "She smiles. ~Now how'd you finagle that?~";
@@ -490,7 +490,7 @@ Object becky "Becky" station_a
             give, show:
             switch(noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 kcl_bottle: "~Huh. Where'd you get that? That shouldn't be outside the pharmacy.~";
                 syringe: "~Ooh, that's definitely odd. You should show that to Nurse Retch. She's in charge 
                 tonight.~";
@@ -698,39 +698,8 @@ Object injured_trio "Retch, Northrup, and Vic"
                 3: "His face is bruised and swollen and he groans painfully. ";
             }
         ],
-        life [ x;
-            show, give:
-            if (noun == letter)
-            {
-                if (pen notin player) "You need a pen. ";
-                if (self.id == 2) 
-                {
-                    if (check_signature(nurse_retch)) "Nurse Retch has already signed your letter. ";
-                        "She doesn't seem to be in any shape to sign your letter. ";
-                }
-                if (self.id == 3) "He doesn't seem to be in any condition to sign your letter. Nor is he connected to the hospital 
-                    in any legal way. ";
-                x = signature_count();
-                
-                print"Northrup blearily and incredulously stares at the letter you hold before him. He winces in pain and sighs.
-                ~Fine, whatever. Just never come into this hospital again.~ Resigned, he scrawls his signature and hands it back to you.^^";
-                Achieved(17);
-                print"Serendipitously, several police officers enter the room, powered snow still dusting their caps and coats. Soon, thanks to 
-                your sleuthing, Retch, Vic, and Northrup are handcuffed and led away, charged with the murder of Sid Jorry.";
-                
-                if (x>5)
-                {
-                    print"^^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
-                    go on to have your best summer ever at the pool.^";
-                    deadflag = 2;
-                    rtrue;
-                }
-                print"^^Unfortunately, you weren't able to obtain all the necessary signatures on your confirmation letter. You would think that, 
-                considering the circumstances there would be some leniency. But Mr. Rogers is a hard man and it IS an ethics class. Unfortunately, 
-                your summer is ruined as you are stuck in summer school.^";
-                deadflag = 3;
-            }
-            rtrue;
+        life [ ;
+            "None of them are in any condition. ";
         ],
         describe [;
             "Dr. Northrup, Nurse Retch, and Vic are here, incapacitated on the floor. ";
@@ -760,7 +729,7 @@ Object winston "Mr. Winston" hallway_2_3
             give, show:
             switch(noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
                 shrimp: "~I think your dinner has turned.~";
                 book_cart: "~Naw, I don't think there's anything left on that cart for me.~";
@@ -833,7 +802,7 @@ Object larry "Larry" room_33
             give, show:
             switch(noun)
             {
-                letter: add_signature(self); rtrue;
+                form: add_signature(self); rtrue;
                 walkman, mixtape, thriller, air_supply_tape: "~Yeah, I'm not really much into music.~";
                 book_cart: "~No thanks. I'm just gonna listen to the game.~";
                 ledger: "~Hm. That looks like something the police may be interested in.~";
@@ -870,7 +839,7 @@ Object mrs_chen "Mrs. Chen" room_21
         ],
         life [;
             give, show:
-            if (noun == letter) { add_signature(self); rtrue; }
+            if (noun == form) { add_signature(self); rtrue; }
             "She just smiles sweetly and nods. ";
         ],
     class Mover MyNPC

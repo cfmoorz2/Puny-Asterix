@@ -1,7 +1,7 @@
 random
 e
 n
-show letter to larry
+show form to larry
 full
 s
 w
@@ -9,23 +9,23 @@ push cart w
 g
 w
 w
-show letter to elliot
+show form to elliot
 full
 w
 w
-show letter to becky
+show form to becky
 full
 n
-show letter to chen
+show form to chen
 full
 s
 e
 e
 e
 e
-show letter to winston
+show form to winston
 full
-read letter
+read form
 e
 e
 w
@@ -60,9 +60,9 @@ s
 w
 w
 w
-show letter to eugene
+show form to eugene
 full
-read letter
+read form
 n
 take tape
 s
@@ -84,9 +84,9 @@ n
 e
 open door
 e
-show letter to oliver
+show form to oliver
 full
-read letter
+read form
 w
 w
 n
@@ -94,7 +94,7 @@ u
 s
 w
 s
-show letter to mabel
+show form to mabel
 full
 n
 open pack
@@ -179,7 +179,7 @@ hit cabinet door
 look in cabinet
 take vial
 full
-read letter
+read form
 s
 e
 e

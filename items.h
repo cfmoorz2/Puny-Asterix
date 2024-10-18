@@ -810,32 +810,61 @@ Object ledger "ledger" northrup_safe
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array signatures --> 17;
-Object letter "letter" 
+Object form "signature form" 
     with 
-        name 'letter' 'confirmation' 'paper',
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'signature' && w2 == 'form') return 2;
+            if (w1 == 'form') return 1;
+        ],
         description [ x ;
-            print"It's a typed letter on your high school's letterhead. Below the text there are 7 lines 
-            for staff signatures and one for an administrator. Currently, there ";
+            print"It's a signature form on your high school's letterhead. Below the text there are eight lines 
+            for staff or patient signatures. Currently, there ";
             x = signature_count();
-            if (x == 0) "are currently no signatures.";
-            if (x == 1) { print"is one signature currently: "; }
-            else { print"are ",x," signatures currently: "; }
+            if (x == 0) "are no signatures. ";
+            if (x == 1) { print"is one signature: "; }
+            else { print"are ",x," signatures: "; }
             show_signatures();
             ".";
         ],
-        before [ x ;
-            read, examine:
-            print"~Thank you for allowing this student to volunteer at your facility. To confirm the 
-            student's participation, this letter must be signed by 8 patients or staff and 1 hospital 
-            administrator.~^^There ";
-            x = signature_count();
-            if (x == 0) "are currently no signatures.";
-            if (x == 1) { print"is one signature currently: "; }
-            else { print"are ",x," signatures currently: "; }
-            show_signatures();
-            ".";
+        before [ ;
+            read:
+            <<examine self>>;            
         ],
         mass 2,
+    class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object letter "piece of paper" 
+    with 
+        name 'letter' 'paper',
+        description "It's a letter signed by Sid Jorry confirming your successful participation in 
+        and completion of your volunteer experience at St. Asterix. ",
+        initial [;
+            print"You see a piece of paper here fluttering to the floor. ";
+            give self moved;
+        ],
+        mass 1,
+        after [;
+            take:
+            Achieved(17);
+            print"You take the letter and, thrilled, see that it is indeed your letter of completion.^^
+            Serendipitously, several police officers enter the room, powdered snow still dusting their caps and coats. Soon, thanks to 
+            your sleuthing, Retch, Vic, and Northrup are handcuffed and led away, charged with the murder of Sid Jorry.^^";
+            if (signature_count() > 7)
+            {
+                print"And having obtained all your necessary signatures, you happily end your time as a candy striper and 
+                go on to have your best summer ever at the pool.^";
+                deadflag = 2;
+                rtrue;
+            }
+            print"Unfortunately, you did not obtain all the necessary signatures on your signature form. You would think that, 
+                considering the circumstances there would be some leniency. But Mr. Rogers is a hard man and it IS an ethics class. 
+                Unfortunately, your summer is ruined as you are stuck in summer school.^";
+                deadflag = 3;
+                rtrue;
+        ],
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

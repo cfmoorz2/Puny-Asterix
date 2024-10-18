@@ -68,6 +68,7 @@ Class Room
                 print"off to the ",(name)_d,".^";
                 x++;                
             }
+            reset_position_array();
             objectloop (npc && npc ofclass Mover)
             {
                 npc.hide = false;

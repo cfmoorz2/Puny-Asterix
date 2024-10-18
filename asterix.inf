@@ -246,7 +246,7 @@ Include "puny.h";
     !oliver.move_mode = TARGET_PATH;
 	!oliver.target_room = conference_room;
     !StartDaemon(oliver);
-    move letter to player;
+    move form to player;
     move pen to player;
     move mixtape to backpack;
     move thriller to backpack;
@@ -344,14 +344,14 @@ Include "VerbLib";
     for (x=5 : x < 13: x++)
     {
         i = signatures-->x;
-        if (i == npc) { print(The)npc," has already signed your letter.^"; return true; }
+        if (i == npc) { print(The)npc," has already signed your form.^"; return true; }
     }
     return false;
 ];
 
 [ add_signature npc x i o; 
     x = signature_count();
-    if (x == 8) "You don't need any more signatures from staff or patients. You need an administrator to sign off. ";
+    if (x == 8) "Your signature form is complete. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
     for (i=5 : i < 13: i++)
@@ -367,7 +367,6 @@ Include "VerbLib";
 ];
 
 [MyTakeRule count i x ;
-    reset_position_array();
     if (action ~= ##take) rfalse;
     count = 0;
     x = noun.mass;
@@ -392,11 +391,12 @@ Include "VerbLib";
     The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
     Hospital, the oldest and most run-down hospital in the city.^^
     It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
-    your sponsor at the hospital, Mr. Jorry, was supposed to sign your letter tonight confirming your volunteer hours after you get 
-    the signatures of 9 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
+    your sponsor at the hospital, Mr. Jorry, was going to give you a letter tonight confirming your volunteer hours after you also get 
+    the signatures of 8 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
     blizzard blew in tonight and now it doesn't seem like you can even get home.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
-    you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures. ";
+    you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures and 
+    that letter. ";
 ];   
 
 [read_news i;
@@ -501,6 +501,7 @@ Object baddie_mri_delay
         remove trio;
         StopDaemon(trio);
         move injured_trio to mri_scanner;
+        move letter to mri_scanner;
         StopTimer(baddie_mri_delay);
         Achieved(16);
         rtrue; 
@@ -533,6 +534,7 @@ Object baddie_mri_delay
         StopTimer(baddie_mri_delay);
         Achieved(16);
         move injured_trio to mri_scanner;
+        move letter to mri_scanner;
         rtrue; 
     }
     print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
