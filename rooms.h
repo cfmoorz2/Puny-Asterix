@@ -1248,7 +1248,9 @@ Room northrup_office "Northrup's Office"
                 Nurse Retch follow and Northrup closes the locks the office door behind him. He and Retch quickly leave 
                 to the east and disappear down the dark hallway.^^";
                 remove nurse_retch;
+                StopDaemon(nurse_retch);
                 remove northrup;
+                StopDaemon(northrup);
                 give northrup_door ~open;
                 give northrup_door locked;
                 SetFlag(F_NORTHRUP_OUT_OF_OFFICE);
@@ -1515,8 +1517,8 @@ Object green_button "green button" mri_anteroom
         time_out [;
             if (metal_cart notin mri_scanner) { mri_no_cart(); rtrue; }
             if (real_location == mri_anteroom) { mri_cart_anteroom(); rtrue; }
-            if (player in mri_compartment && mri_compartment has open) { mri_cart_hatch_open(); rtrue; }
-            if (player in mri_compartment && mri_compartment hasnt open) { mri_cart_hatch_closed(); rtrue; }
+            if (player in mri_compartment && mri_hatch has open) { mri_cart_hatch_open(); rtrue; }
+            if (player in mri_compartment && mri_hatch hasnt open) { mri_cart_hatch_closed(); rtrue; }
             if (player in mri_scanner) { mri_cart_unprotected(); rtrue; }
             print"^^Suddenly, from somewhere in the building you hear a horrible cacophany of metal smashing metal 
             and glass shattering. It's quickly discovered that the MRI machine has been broken beyond repair. 
@@ -1567,12 +1569,16 @@ Room mri_scanner "MRI Suite"
         ],
         before [;
             go:
-            if (selected_direction == d_to && mri_hatch hasnt open)
+            if (selected_direction == d_to)
             {
+                if (mri_hatch hasnt open)
+                {
                 give mri_hatch open;
                 print"(first opening the metal hatch)^";
+                }
+                PlayerTo(mri_compartment);
+                rtrue;
             }
-            
             if (selected_direction == w_to && trio in self) 
             {
                 if (ledger in player)
@@ -1588,11 +1594,16 @@ Room mri_scanner "MRI Suite"
                 deadflag = true;
                 rtrue;  
             }
-            if (selected_direction == w_to && scanner_door hasnt open)
+            if (selected_direction == w_to)
             {
-                give scanner_door open;
-                print"(first opening the reinforced glass door)^";
-            }           
+                if (scanner_door hasnt open)
+                {
+                    give scanner_door open;
+                    print"(first opening the reinforced glass door)^";
+                } 
+                PlayerTo(mri_anteroom);
+                rtrue;
+            }          
             examine:
             if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
@@ -1604,7 +1615,7 @@ Room mri_scanner "MRI Suite"
                 print"The glass door swings closed behind you.^^";
             }
         ],
-        w_to scanner_door,
+        w_to mri_anteroom,
         d_to mri_hatch,
     class Tiles
     has light;
@@ -1668,7 +1679,7 @@ Object oxygen "oxygen cannisters" metal_cart
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object mri_compartment "Service Access"
+Room mri_compartment "Service Access"
     with 
         description [;
             print"This is a small compartment in the floor next to the MRI scanner. It's crowded in here with bundles of 

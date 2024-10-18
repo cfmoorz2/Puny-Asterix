@@ -105,11 +105,11 @@ Constant MSG_WEAR_DEFAULT 1000;
 COnstant MSG_PARSER_NEW_SCORE 1001;
 
 [ DeathMessage; 
-    if (deadflag == 3) print"You are doomed to summer school.";
-    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism.";
-    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism.";
+    if (deadflag == 3) print"You are doomed to summer school";
+    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism";
+    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism";
     if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
-        summer school.";
+        summer school";
     !print "You have lost"; 
 ];
 
@@ -526,9 +526,10 @@ Object baddie_mri_delay
         missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
         you duck down into the compartment, shutting the hatch behind you. Above you, you hear screaming and 
         the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
-        MRI scanner and the screeching winds down and the you hear only eerie silence.^";
+        MRI scanner and the screeching winds down and then you hear only eerie silence.^";
         SetFlag(F_MRI_SUITE_DESTROYED);
         remove trio;
+        StopDaemon(trio);
         Achieved(14);
         move injured_trio to mri_scanner;
         rtrue; 
