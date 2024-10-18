@@ -817,11 +817,11 @@ Object letter "letter"
             print"It's a typed letter on your high school's letterhead. Below the text there are 7 lines 
             for staff signatures and one for an administrator. Currently, there ";
             x = signature_count();
-            if (x == 0) "are currently no signatures.^";
+            if (x == 0) "are currently no signatures.";
             if (x == 1) { print"is one signature currently: "; }
             else { print"are ",x," signatures currently: "; }
             show_signatures();
-            ".^";
+            ".";
         ],
         before [ x ;
             read, examine:
@@ -829,11 +829,11 @@ Object letter "letter"
             student's participation, this letter must be signed by 8 patients or staff and 1 hospital 
             administrator.~^^There ";
             x = signature_count();
-            if (x == 0) "are currently no signatures.^";
+            if (x == 0) "are currently no signatures.";
             if (x == 1) { print"is one signature currently: "; }
             else { print"are ",x," signatures currently: "; }
             show_signatures();
-            ".^";
+            ".";
         ],
         mass 2,
     class Item;
