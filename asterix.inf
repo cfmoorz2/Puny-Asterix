@@ -259,6 +259,7 @@ Include "puny.h";
     !StartDaemon(oliver);
     move letter to player;
     move pen to player;
+    move mixtape to player;
     !init_safe();
     move walkman to player;
     temp = UUID_ARRAY; !to quiet a compiler warning

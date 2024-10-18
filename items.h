@@ -430,7 +430,7 @@ Class Tape
 Tape mixtape "yellow cassette tape"
     with 
         name 'yellow' 'cassette' 'tape' 'mixtape',
-        description"It's a yellow cassette tape. You see ~mixtape~ handwritten on it.",
+        description"It's a mixtape your friend Jennifer lent you. ",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [ ;

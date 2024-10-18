@@ -813,7 +813,7 @@ Room hallway_m1 "hallway_m1"
     class Tiles DropCeiling
     has light;
 
-Object book_cart "book cart" station_b
+Object book_cart "book cart" b_ward_1
     with name 'cart' 'wooden' 'book' 'wheeled',
         description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
         you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
@@ -1955,7 +1955,7 @@ Object counter "counter" break_room
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
-        description "It's an old off-white refrigerator. A helpful handwritten sign taped to the front helpfully reminds the reader 
+        description "It's an old off-white refrigerator. A helpful handwritten note taped to the front helpfully reminds the reader 
             that their mother doesn't work here and that one should only eat ones own food. ",
         before [;
             take:

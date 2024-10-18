@@ -5,6 +5,7 @@ Constant FOLLOW_PATH = 3;
 
 
 Array queue --> 64;
+Array position_narrate_array -> 0 0 0 0 0 0 0 0 0 0 0 0;
 
 Class Room 
     with hop,
