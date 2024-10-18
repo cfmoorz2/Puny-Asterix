@@ -148,4 +148,13 @@ Array talk_array_larry-->
   00 301 "Sid Jorry" TM_NO_LINE "These people are snakes. It wouldn't shock me if this Jorry guy was offed because he had information on somebody."
   TM_END;
 
+Array talk_array_elliot-->
+  30 "himself" TM_NO_LINE "I'm here because of an old footbal injury. I don't really know what they did to my knee. 
+  They said they 'cleaned it out' and repaired some ligaments."
+  30 "knee" TM_NO_LINE "It hurts but I can go home once the swelling goes down and the blizzard moves through."
+  30 "wheelchair" TM_NO_LINE "I'm trying to keep my upper body strength up pushing this thing around."
+  00 300 "Nurse Becky" TM_NO_LINE "I got no complaints with the nursing. She's prety cute."
+  00 301 "Linda" TM_NO_LINE "I think she's been flirting with me. Although maybe she does that with everybody."
+  TM_END;
+
 

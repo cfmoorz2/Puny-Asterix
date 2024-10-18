@@ -272,7 +272,7 @@ Object elliot "Elliot" a_ward_1
                 default: "He's distracted and doesn't care about ",(the)noun,".";
             }
         ],
-        !talk_array talk_array_elliot, 
+        talk_array talk_array_elliot, 
         npc_walk [; print"rolls";],
         npc_wander_delay 3,
         npc_avoid elliot_avoid_array, 
