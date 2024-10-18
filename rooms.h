@@ -1447,10 +1447,10 @@ Room mri_anteroom "MRI Anteroom"
         ],
         after [;
             go:
-            if (selected_direction == w_to) 
+            if (selected_direction == w_to)
             {
                 give scanner_door ~open;
-                print"The glass door swings closed behind you.^^";
+                print"The glass safety door shuts behind you.^";
             }
         ],
         n_to basement_hallway_east,
@@ -1532,11 +1532,7 @@ Object green_button "green button" mri_anteroom
             if (parent(self) == mri_anteroom) return mri_scanner; return mri_anteroom;
         ],
         door_dir [;
-            if (parent(self) == mri_anteroom) return w_to; return e_to;
-        ],
-        react_after [;
-            go:
-                if (noun == e_obj || noun == w_obj)  { give self ~open; print"As you pass through the door it swings closed behind you.^"; }
+            if (parent(self) == mri_anteroom) return e_to; return w_to;
         ],
         found_in mri_scanner mri_anteroom,
     has scenery door openable ~open;
@@ -1580,15 +1576,15 @@ Room mri_scanner "MRI Suite"
             examine:
             if (selected_direction == u_to) "Pipes and ducts cover the ceiling and funnel down to the MRI scanner. ";
         ],
-        after [;
+         after [;
             go:
-            if (selected_direction == e_to) 
+            if (selected_direction == e_to)
             {
                 give scanner_door ~open;
-                print"The glass door swings closed behind you.^^";
+                print"The glass safety door shuts behind you.^";
             }
         ],
-        w_to mri_anteroom,
+        w_to scanner_door,
     class Tiles
     has light;
 
