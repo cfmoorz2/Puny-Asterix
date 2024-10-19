@@ -937,4 +937,19 @@ Object backpack "backpack"
         ],
     has container openable ~open clothing;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object plastic "round piece of plastic" engineering
+    with 
+        name 'round' 'piece' 'plastic',
+        short_name "round piece of plastic",
+        description "You can't really make out any details while it's inside the fusebox. ",
+        mass 1,
+        noticed 0,
+        describe [; if (self hasnt moved) rtrue; ],
+        before [;
+            take:
+            if (self.noticed == false) "You can't see any such thing. ";
+        ],
+    class Item;
+
 

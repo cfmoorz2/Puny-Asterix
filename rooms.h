@@ -474,15 +474,33 @@ Room engineering "Engineering"
 Object fusebox "fusebox" engineering 
     with 
         name 'fusebox' 'box' 'fuses',
-        description "It's a large gray metal box. Wires and electrical conduits sprout from it and climb upward to the ceiling. 
-        A plaque on the front reads ~WARNING - HIGH VOLTAGE~",
+        description [;
+            print"It's a large gray metal box. Wires and electrical conduits sprout from it and climb upward to the ceiling. 
+            A plaque on the front reads ~WARNING - HIGH VOLTAGE~. ";
+            if(self has open)
+            {
+                print"It's currently open, revealing a tangle of switches and connectors. ";
+                if (plastic hasnt moved)   "There's a small round piece of plastic wedged between two of the contacts."; "";
+            }
+            "";
+        ],
         before [;
+            search:
+            if (self hasnt open) "The fusebox is closed. ";
+            print"The fusebox is full of switches and connectors. ";
+            if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
+            receive:
+            "You shouldn't put things in the high-voltage fusebox. ";
             take:
             "Rubbish.";
             open:
-            "A high-schooler trying to open a high-voltage metal fusebox? What could go wrong?";
+            if (self has open) "It's already open. ";
+            give self open;
+            plastic.noticed = true;
+            print"You open it to reveal a confusing jumble of switches and connectors. ";
+            if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
         ],
-    has scenery;
+    has scenery container openable ~open;
 
 Object bench "workbench" engineering 
     with 

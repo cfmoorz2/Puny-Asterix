@@ -62,8 +62,8 @@ Attribute encountered;
 Release 3;
 Serial "221116";
 
-Constant INITIAL_LOCATION_VALUE = b_ward_1;
-!Constant INITIAL_LOCATION_VALUE = jorry_office;
+!Constant INITIAL_LOCATION_VALUE = b_ward_1;
+Constant INITIAL_LOCATION_VALUE = engineering;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -85,7 +85,7 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 
-Constant FLAG_COUNT 18;
+Constant FLAG_COUNT 19;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -104,6 +104,7 @@ Constant F_HEADPHONES_ARE_UNPLUGGED 15; ! headphones are NOT plugged in
 Constant F_FREDDY_WALKMAN_SHY 16; !freddy won't take the walkman a second time
 Constant F_FREDDY_HAS_HEARD_THRILLER 17; !he's already heard it
 Constant F_SAFE_COMBO_IS_SET 18; ! safe combination has been set
+Constant F_SERVICE_ELEVATOR_ON 19; ! is the service elvator working?
 
 Constant MSG_WEAR_DEFAULT 1000;
 

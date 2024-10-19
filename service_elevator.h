@@ -7,6 +7,7 @@ Class ServiceButton
         ],
         before [;
             push:
+                if (FlagIsClear(F_SERVICE_ELEVATOR_ON)) "The service elevator doesn't seem to be working. ";
                 if (self has on) "Pressing it again won't speed things up. "; 
                 if (service_elevator_active) "Nothing seems to happen. ";
                 switch(real_location)   {
