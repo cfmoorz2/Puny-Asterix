@@ -49,7 +49,7 @@ Object flashlight "flashlight" mabel
             switchon:
                 give self light;
             switchoff:
-                give self ~ light;
+                give self ~light;
         ],
     class Item
     has switchable;

@@ -2143,6 +2143,8 @@ Object ceiling_01 "In The Ceiling"
                 PlayerTo(hallway_m2);
                 rtrue;
                 }
+            if (selected_direction == w_to && flashlight notin player && flashlight hasnt on)
+                "You can't seem to maneuver up here in the darkness. ";
             examine:
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see the hallway and a ladder below. ";
@@ -2168,8 +2170,7 @@ Object ceiling_01 "In The Ceiling"
             take:
             "You definitely don't need that. ";
         ],    
-        w_to ceiling_03,
-    has light;
+        w_to ceiling_03;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_03 "In The Ceiling"
@@ -2215,8 +2216,7 @@ Object ceiling_05 "In The Ceiling"
                 Through the gap you can see an office and a file cabinet below. ";
         ],
         n_to ceiling_03,
-        d_to northrup_office,
-    has light;
+        d_to northrup_office;
 
 
 

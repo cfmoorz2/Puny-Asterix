@@ -224,6 +224,10 @@ Global following = false;
     rfalse;
 ];
 
+[DarkToDark;
+    "You can't seem to maneuver up here in the darkness. ";
+];
+
 Include "ext_cheap_scenery.h";
 Include "ext_talk_menu.h";
 Include "puny.h";
