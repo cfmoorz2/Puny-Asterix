@@ -820,9 +820,9 @@ Room hallway_m1 "hallway_m1"
 
 Object book_cart "book cart" b_ward_1
     with name 'cart' 'wooden' 'book' 'wheeled',
-        description "It's the hospital's miniature lending library. A low wooden cart with shelves built into the sides, 
-        you've been pushing it from ward to ward for a month. The pickings are slim currently. There are a few romance novels, 
-        and old magazines currently on offer to any interested patients. ",
+        description "It's the hospital's miniature lending library, a rickety wooden cart with shelves built into the sides
+        that you've been pushing from ward to ward for a month. The selection is small currently. There are a few romance novels
+        and old magazines currently on offer to any interested patients or guests. ",
         mass 100,
         before [ dirobj x;
             take:

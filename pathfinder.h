@@ -19,10 +19,10 @@ Array position_narrate_array --> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     {
         if (position_narrate_array-->x == 0)
         {
-            print"adding ",(name)obj," at index ",x,", ";
+            !print"adding ",(name)obj," at index ",x,", ";
             position_narrate_array-->x = obj;
             y = x + 1;
-            print"adding ",(name)dir," at index ",y,"^";
+            !print"adding ",(name)dir," at index ",y,"^";
             position_narrate_array-->y = dir;
             rtrue;
         }

@@ -8,8 +8,7 @@
                 if (dumbwaiter_cab in self) {
                     <<insert noun dumbwaiter_cab>>;
                 }   else    {
-                    move noun to lost;
-                    "You drop ",(the)noun," into the dumbwaiter shaft and with a clatter it disappears into the darkness. ";
+                    "You peer down into the dark shaft and reconsider permanently parting with ",(the)noun,". ";
                 }
             ],
         after [;

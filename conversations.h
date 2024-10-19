@@ -69,9 +69,7 @@ Array talk_array_vic-->
 ];
 
 [ vic_coaster ;
-      remove coaster;
-      "He smiles an oily grin. ~I wouldn't know anything about that, little lady.~ Nonetheless, he takes the coaster and 
-      pockets it. ";
+      "He smiles an oily grin. ~I wouldn't know anything about that, little lady.~";
 ];
 
 Array talk_array_becky-->
@@ -109,9 +107,8 @@ Array talk_array_retch-->
   TM_END;
 
 [ retch_coaster ;
-            remove coaster;
             "Her eyes alight on the coaster. Her lips tighten and there's a brief flash of surprise in her eyes.^^
-            ~Why are you carryihg around garbage, dear?~ She takes the coaster and pockets it. ";
+            ~Why are you carryihg around garbage, dear?~";
 ];
 
 [ TM_retch_syringe ;
