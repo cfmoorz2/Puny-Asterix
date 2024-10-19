@@ -606,12 +606,12 @@ Tape air_supply_tape "blue cassette tape" environmental_desk
                 {
                     switch (self.current_track) 
                     {
-                    1:  print"~Love and Other Bruises~";
-                    2:  print"~Bring out the Magic~";
-                    3:  print"~The One That You Love~";
-                    4:  print"~Here I Am~";
-                    5:  print"~Sweet Dreams~";
-                    6:  print"~Lost in Love~";
+                    1:  print"~Lost In Love~";
+                    2:  print"~The One That You Love~";
+                    3:  print"~Here I Am~";
+                    4:  print"~Sweet Dreams~";
+                    5:  print"~Bring out the Magic~";
+                    6:  print"~Love and Other Bruises~";
                     }
                 }
                 if (self.current_side == SIDE_B)

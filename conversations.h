@@ -14,8 +14,8 @@ Array talk_array_mabel -->
   00 303 "Buzz" TM_NO_LINE "The security guy? He couldn't outrun me. And I'm 82 with a titanium hip."
   00 300 "'Throbbing Loins of Nantucket'" TM_NO_LINE "Ooh, girl. That one's a personal favorite. I do like my sea captains muscular and sweaty.
     It's almost as good as that one about the stable boys." 1 
-  00 301 "'Shirtless Stable Boys of Madison County'" TM_NO_LINE "She fans herself. Don't get me started, girl. And that book you brought me last week about 
-    the vampires? She gives a 'chef's kiss'." 302
+  00 301 "'Shirtless Stable Boys of Madison County'" TM_NO_LINE "She fans herself. Don't get me started, girl. And that book 
+    you brought me last week about the vampires? She gives a 'chef's kiss'." 302
   00 302 "'You Had Me at 'Blah''" TM_NO_LINE "Ooh, girl. I do like 'em pale and stringy."
   TM_END;
 
@@ -34,13 +34,10 @@ Array talk_array_freddy -->
   You've probably heard of us."
   30 "Dr. Northrup" TM_NO_LINE "I stay out of the big man's way and do what he tells me. Plus, that nurse friend of his scares 
   me." 304
-  30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in there. I didn't know him but I'm supposed to keep everybody out until the 
-  cops get here. The blizzard is slowing them down. I did see that nurse who hangs with Northrup go in there for a while."  304
-  30 "boombox" TM_NO_LINE "You like it? It takes, like, 12 'D' batteries, man. You could KILL a guy with this thing."
-  30 "mix tape" TM_NO_LINE "I dunno. My girlfriend gave it to me. Some songs are OK. At least they keep me 
-  awake."
+  30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in his office. I was told to lock the door and not to let anyone in until the 
+  cops can get here. The blizzard is slowing them down, I guess. I did see some mafia-looking guy rummaging around 
+  in there for a while, come to think of it."  304
   00 301 "Buzz" TM_NO_LINE "He's my boss. He's allright, I guess. He doesn't like to leave the security office."
-  00 304 "Nurse Retch" TM_NO_LINE "I'm pretty sure she's killed people, dude. And I hear she's mafia-connected."
   TM_END;
 
 Array talk_array_buzz -->

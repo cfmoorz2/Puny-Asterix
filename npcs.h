@@ -127,7 +127,6 @@ Object freddy "Freddy" hallway_m2
             switch (noun)
             {
                 form: add_signature(self); rtrue;
-                mixtape: "~You can keep it. Just don't tell my girlfriend.~";
                 thriller: "~My girlfriend plays that thing non-stop.~";
                 air_supply_tape: "~That's old person naptime music.~";
                 shrimp: "He covers his nose with his arm. ~Aw, man! That's rank!";
