@@ -37,6 +37,7 @@ Array talk_array_freddy -->
   30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in his office. I was told to lock the door and not to let anyone in until the 
   cops can get here. The blizzard is slowing them down, I guess. I did see some mafia-looking guy rummaging around 
   in there for a while, come to think of it."  304
+  30 "service elevator" TM_NO_LINE "Yeah, dude. It stopped working tonight right after they found Mr. Jorry dead."
   00 301 "Buzz" TM_NO_LINE "He's my boss. He's allright, I guess. He doesn't like to leave the security office."
   TM_END;
 
@@ -47,6 +48,7 @@ Array talk_array_buzz -->
   30 "shrimp" TM_NO_LINE "Have to keep my strength up. All hell could break loose at any moment."
   30 "Sid Jorry" TM_NO_LINE "We found him dead in his office. The cops are on the way although it was probably just 
   a heart attack. The blizzard has held them up and I'm not sure when they'll get here."
+  30 "service elevator" TM_NO_LINE "It went o nthe fritz earlier tonight. I guess maintenance will be in tomorrow."
   30 "Dr. Northrup" TM_NO_LINE "He's the hospital CEO. He always smells outstanding."
   00 300 "Mabel" TM_NO_LINE "The information desk is the front line of hospital security."
   TM_END;
@@ -56,8 +58,14 @@ Array talk_array_vic-->
   30 "boiler room" TM_NO_LINE "Little girls shouldn't be poking around in such places."
   30 "Sid Jorry" TM_NO_LINE "Is that the guy who had the heart attack? So sad."
   30 "Nurse Retch" TM_NO_LINE "Never met her."
+  30 "service elevator" TM_NO_LINE TM_NO_LINE TM_vic_service
   00 300 "syringe" TM_NO_LINE "Uh, well. Yeah. Hospitals are full of syringes, right?"
   TM_END;
+
+  [ TM_vic_service ;
+    "His lips narrow into a smile both ingratiating and accusing. ~You shouldn't be riding around in that, 
+      little lady. It's for employees only. You could get in trouble.~";
+  ];
 
 Array talk_array_becky-->
   30 "herself" TM_NO_LINE "Oh, gee. I'm the new nurse and super excited to be here."
@@ -89,6 +97,7 @@ Array talk_array_retch-->
   00 303 "Winston" TM_NO_LINE "I don't see how that's any of your business."
   00 304 "Larry" TM_NO_LINE "You'd best keep to your books, candy striper."
   00 305 "Vic" TM_NO_LINE TM_NO_LINE TM_retch_vic
+  30 "service elevator" TM_NO_LINE "It's for employees only and you should stay away from it."
   30 "Sid Jorry" TM_NO_LINE "He should have taken better care of himself; he'd have lived longer."
   TM_END;
 
