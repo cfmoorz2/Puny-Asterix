@@ -125,7 +125,7 @@ Room morgue "Morgue"
                 "Ew! No. ";
             ],
         w_to morgue_door,
-    class Tiles DropCeiling
+    class Tiles
     has light;
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,22 +158,22 @@ Room morgue "Morgue"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway"
-    with description "This is the eastern end of a long sterile hallway that continues far to the west. Linoleum tiles cover the floor. A door
+    with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
                 leads east, a placard next to it reads ~Morgue~. Open doorways lead north and south. A sign above the former reads ~Imaging~. 
                 A placard next to the latter reads ~MRI.~.",
         e_to morgue_door,
         w_to elevator_lobby_b,
         n_to x_ray,
         s_to mri_anteroom,
-    class Tiles DropCeiling
+    class Tiles
     has light; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_b "elevator_lobby_b" 
     with description [; 
         print"This is a spartan fluorescent-lit hallway that continues to the east and west.  A stairwell lies to the north through an 
-        open doorway. Opposite the stairwall in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue~ above an arrow 
-        pointing east and one reading ~Central Supply~ above one pointing west. The elevator doors are currently ";
+        open doorway. Opposite the stairwall in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue, 
+        Imaging~ above an arrow pointing east and one reading ~Central Supply~ above one pointing west. The elevator doors are currently ";
         open_or_closed(elevator_doors);
         ". The call button is embedded in a small panel next to the door.";
         ],

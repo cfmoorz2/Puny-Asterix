@@ -739,11 +739,13 @@ MyContainer jacket_pocket "jacket pocket" denim_jacket
         before [;
             examine:
             <<search self>>;
+            search:
+            if (syringe hasnt moved) move syringe to self;
         ],
         has open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object syringe "syringe" jacket_pocket
+Object syringe "syringe" !jacket_pocket
     with name 'syringe' 'needle',
         description"It's an empty syringe with a needle and cap on it. ",
         mass 1,

@@ -396,9 +396,7 @@ Object vic "Vic" bathroom
         describe [;  
             if (self has encountered)
             {
-                print"^Vic is here, ";
-                print_ret (string) random ("trying to act casual.", "watching you without trying to look too obvious. ",
-                "creepily staring at you when he thinks you're not looking. ", "lurking. ");
+                print"^Vic is here. ";
             }
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
@@ -413,7 +411,10 @@ Object vic "Vic" bathroom
             little lady. Whatcha got there now?~^";
                 if (IndirectlyContains(player, syringe)) { print "He plucks the syringe from you.^"; remove syringe; }
                 if (IndirectlyContains(player, denim_jacket) ) { print "He takes the jacket from you.^"; remove denim_jacket; }
-                if (folding_chair in player) { print "He relieves you of the folding chair.^"; remove folding_chair; }  
+                if (folding_chair in player) { print "He relieves you of the folding chair.^"; remove folding_chair; } 
+                print"^Vic is here ";
+                print_ret (string) random ("trying to act casual.", "watching you but trying to look like he's not watching you. ",
+                "creepily staring at you when he thinks you're not looking. ", "lurking. "); 
             }          
         ],     
     class Mover MyNPC
