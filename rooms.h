@@ -456,8 +456,8 @@ Object handset "handset" telephone
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room engineering "Engineering"
-    with description "This is a small cramped room that smells vaguely of ozone. A metal workbench 
-        takes up most of the available space and electrical conduits descend like a massive pipe organ from 
+    with description "This is a small cramped room that smells vaguely of ozone. Thick bundles of 
+        electrical conduits descend like a massive pipe organ from 
         the ceiling into a large fuse box on the wall. The only exit is east through a plain metal door. ",
         cheap_scenery
         2 'conduit' 'conduits' "You see tangles and bundles of wires leading into a fusebox. ",
@@ -501,19 +501,6 @@ Object fusebox "fusebox" engineering
             if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
         ],
     has scenery container openable ~open;
-
-Object bench "workbench" engineering 
-    with 
-        name 'workbench' 'bench' 'table',
-        description [ ;
-            print"It's a beat-up metal waist-high workbench. ";
-            if(PrintContents("On it you can see ", self)) "."; else "";
-        ],
-        before [;
-            take:
-            "Impossible. ";
-        ],
-    has supporter scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_m "stairwell_m" 
@@ -1149,8 +1136,7 @@ Room jorry_office "Office"
 Object jorry_safe "safe" jorry_office
     with 
         name 'safe',
-        description "It's a squat black metal safe, about two feet on each side. It's open and the combination lock has been 
-        drilled out. ",
+        description ,
         before [;
             take:
             "It's far too heavy. ";
@@ -1940,27 +1926,12 @@ Room break_room "Break Room"
         description "This is an employee break room. There's a white plastic table here with matching chairs and a 
         refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
         s_to hallway_2_2,
-    cheap_scenery
-    'formica' 'counter' "It's a standard formica counter. It's adorned with years of stains and scorch marks. "
-    4 'white' 'plastic' 'chair' 'chairs' [;
-        examine:
-        "You see a number of cheaply-made white plastic chairs. ";
-        take:
-        "You don't need one of those. ";
-        enter:
-        "You notice the food stains and decide to remain standing. ";
-    ],
+        cheap_scenery
+        'formica' 'counter' "It's a standard formica counter. It's adorned with years of stains and scorch marks. "
+        4 'white' 'plastic' 'chair' 'chairs' "You see a number of cheaply-made white plastic chairs. "
+        1 'table' "It's a white, dirty, poorly made plastic table. ",
     class Tiles DropCeiling
     has light;
-
-Object break_room_table "table" break_room
-    with name 'white' 'plastic' 'table',
-        description "It's a white plastic table. ",
-        before [;
-            take:
-                "You don't need the cheaply-made plastic table. ";
-        ],
-    has supporter scenery;
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
