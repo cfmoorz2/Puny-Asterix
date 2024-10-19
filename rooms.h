@@ -2116,8 +2116,12 @@ Object sub_basement_03 "Sub-Basement East"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object bathroom "Bathroom"
     with
-        description "It's a small minimal bathroom with a toilet and sink. It smells really bad in here and 
+        description "It's a small minimal bathroom with a toilet, faucets, and sink. It smells really bad in here and 
         you long for the relative fresh air of the hallway. ",
+        cheap_scenery
+        'sink' 'basin' "It's a chipped porcelain sink that was once white but has faded with time. "
+        'faucets' 'faucets' "They're standard metal handles, fairly rusted. "
+        1 'toilet' "Well, it's a toilet. There's nothing in it, thankfully. ",
         n_to bathroom_door,
         out_to bathroom_door,
     class Tiles DropCeiling
