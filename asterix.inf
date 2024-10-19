@@ -158,8 +158,9 @@ Constant MSG_WEAR_DEFAULT 1000;
     }
 
     if(code < 2)   {
-        if(action == ##drop or ##insert or ##puton) if(obj notin actor) return 2;
-        if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate || obj in player || obj == player || parent(obj) has container) return 2;
+        if(action == ##drop or ##insert or ##puton or ##drop) if(obj notin actor) return 2;
+        if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate) return 2;
+        if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
         !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;  

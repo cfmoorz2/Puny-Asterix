@@ -129,8 +129,9 @@ Object freddy "Freddy" hallway_m2
                 form: add_signature(self); rtrue;
                 thriller: "~My girlfriend plays that thing non-stop.~";
                 air_supply_tape: "~That's old person naptime music.~";
-                shrimp: "He covers his nose with his arm. ~Aw, man! That's rank!";
-                default: "He yawns and is thoroughly uninterested. ";
+                shrimp: "He covers his nose with his arm. ~Aw, man! That's rank!~";
+                coaster: "~Dude, they've got great lasagna. And if you ever need a handgun you can usually find one in one of the men's room stalls.~";
+                default: "He yawns and seems uninterested. ";
             }
             wakeother:
             if (FlagIsClear(F_FREDDY_ASLEEP)) "He's already awake. ";
@@ -377,6 +378,7 @@ Object vic "Vic"
         ],
         life [;
             give, show:
+            if (noun == coaster) { vic_coaster(); rtrue; }
             switch(noun)
             {
                 swipe_card: remove swipe_card; "He plucks the card from you. ~I don't think you're supposed to have that, 
@@ -546,6 +548,7 @@ Object nurse_retch "Nurse Retch" station_b
                 relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
                 have you sticking yourself now, can we?~";
             }
+            if (noun == coaster) { retch_coaster(); rtrue; }
             if (noun == kcl_bottle)
             {
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }

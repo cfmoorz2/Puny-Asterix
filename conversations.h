@@ -60,17 +60,23 @@ Array talk_array_vic-->
   30 "Nurse Retch" TM_NO_LINE "Never met her."
   30 "service elevator" TM_NO_LINE TM_NO_LINE TM_vic_service
   00 300 "syringe" TM_NO_LINE "Uh, well. Yeah. Hospitals are full of syringes, right?"
+  30 "coaster" TM_NO_LINE TM_NO_LINE vic_coaster
   TM_END;
 
-  [ TM_vic_service ;
+[ TM_vic_service ;
     "His lips narrow into a smile both ingratiating and accusing. ~You shouldn't be riding around in that, 
       little lady. It's for employees only. You could get in trouble.~";
-  ];
+];
+
+[ vic_coaster ;
+      remove coaster;
+      "He smiles an oily grin. ~I wouldn't know anything about that, little lady.~ Nonetheless, he takes the coaster and 
+      pockets it. ";
+];
 
 Array talk_array_becky-->
   30 "herself" TM_NO_LINE "Oh, gee. I'm the new nurse and super excited to be here."
   30 "Nurse Retch" TM_NO_LINE "She's, um, very experienced, I guess."
-  00 300 "Linda" TM_NO_LINE "She's really perky and the patients seem to love her."
   00 305 "Mrs. Chen" TM_NO_LINE "Such a sweet lady. I hope her pneumonia gets better soon."
   00 306 "Ms. Parsons" TM_NO_LINE "She's 103 years old, so she doesn't say much. But she has moments of lucidity and, I think, 
   hears conversations around her sometimes."
@@ -99,7 +105,14 @@ Array talk_array_retch-->
   00 305 "Vic" TM_NO_LINE TM_NO_LINE TM_retch_vic
   30 "service elevator" TM_NO_LINE "It's for employees only and you should stay away from it."
   30 "Sid Jorry" TM_NO_LINE "He should have taken better care of himself; he'd have lived longer."
+  00 306 "coaster" TM_NO_LINE TM_NO_LINE retch_coaster
   TM_END;
+
+[ retch_coaster ;
+            remove coaster;
+            "Her eyes alight on the coaster. Her lips tighten and there's a brief flash of surprise in her eyes.^^
+            ~Why are you carryihg around garbage, dear?~ She takes the coaster and pockets it. ";
+];
 
 [ TM_retch_syringe ;
   if(syringe in player)
@@ -140,14 +153,12 @@ Array talk_array_winston-->
   30 "Dr. Northrup" TM_NO_LINE "Seems competent. Looks like a TV doctor."
   30 "St. Asterix Hospital" TM_NO_LINE "It's the only hospital in this part of town. I hope it survives but that seems 
   less likely every week."
-  00 300 "Linda" TM_NO_LINE "She's super nice. Almost painfully perky, though."
   TM_END;
 
 Array talk_array_larry-->
   30 "himself" TM_NO_LINE "Ha! I'm here because I can't resist the finer things in life, good food and good drink. I'm in for a little 'buff and shine' 
   of the old liver."
   30 "Nurse Retch" TM_NO_LINE "She's downright terrifying. Don't ask her for an OJ."
-  00 302 "Linda" TM_NO_LINE "She's super-nice and almost makes up for that scary nurse."
   30 "St. Asterix Hospital" TM_NO_LINE "This place? Meh. They take my insurance so here I am. The place is run by a guy named Northrup." 300
   00 300 "Dr. Northrup" TM_NO_LINE "He takes over struggling hospitals and then when they inevitably go under, he gets a nice little golden parachute. I think 
   the guy they found dead tonight, Jorry? He's his CFO and right-hand man." 301

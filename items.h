@@ -935,6 +935,7 @@ Object backpack "backpack"
             }
             return total;
         ],
+        mass 10,
     has container openable ~open clothing;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -958,6 +959,9 @@ Object plastic "round piece of plastic" engineering
                 SetFlag(F_SERVICE_ELEVATOR_ON);
                 remove self;
                 move coaster to player;
+                scope_modified = true;
+                ActivateTopic(nurse_retch, 306);
+                ActivateTopic(vic, 301);
             }
         ], 
     class Item;
