@@ -2065,23 +2065,72 @@ Object microwave_dial "dial" break_room
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_02 "Sub-Basement"
-    with description "This is the eastern end of a short dimly lit hallway that continues to the west.  
-        Deep within the bowels of the building, the floor and walls here are dark gray cement and fluorescent
-        tubes flicker and buzz annoyingly from above. A service elevator lies to the north.",
+    with description "This is the middle of a short dimly lit corridor that continues to the west and west.  
+        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        A service elevator is here in the north wall.",
     n_to service_elevator_door,
     in_to service_elevator_door,
+    e_to sub_basement_03,
     w_to sub_basement_01,
+    has light;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object sub_basement_03 "Sub-Basement East"
+    with description [;
+        print"This is the eastern end of a short dimly lit corridor that returns to the west  
+        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        A plain door here to the south is labelled ~Restroom~. ";
+        if (vic in bathroom) print(string) BATHROOM_OCCUPIED; else print(string) BATHROOM_VACANT;
+        "";            
+    ],
+    w_to sub_basement_02,
+    s_to bathroom_door,
+    in_to bathroom_door,
+    has light;
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor bathroom_door "bathroom door"
+     with
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'bathroom' && w2 == "door") return 2;
+            if (w1 == 'restroom' && w2 == "door") return 2;
+            if (w1 == 'door') return 1;
+        ],
+        description [;
+            print"It's an unassuming bathroom door, currently ";open_or_closed(self);print". ";
+            if(real_location == sub_basement_03 && vic in bathroom) print(string) BATHROOM_OCCUPIED;
+            if(real_location == sub_basement_03 && vic notin bathroom) print(string) BATHROOM_VACANT;
+            "";
+        ],
+        door_to [;
+            if (parent(self) == sub_basement_03) return bathroom; return sub_basement_03;
+        ],
+        door_dir [;
+            if (parent(self) == sub_basement_03) return s_to; return n_to;
+        ],
+        found_in sub_basement_03 bathroom,
+    has scenery door openable ~open locked;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object bathroom "Bathroom"
+    with
+        description "It's a small minimal bathroom with a toilet and sink. It smells really bad in here and 
+        you long for the relative fresh air of the hallway. ",
+        n_to bathroom_door,
+        out_to bathroom_door,
     class Tiles DropCeiling
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sub_basement_01 "Hallway" 
+Object sub_basement_01 "Sub-Basement West" 
     with description "This is the western end of a depressingly dim gray hallway. It continues to the east and a
         battered metal door lies to the west. There's a red sign on the door, nearly rusted past 
         legibility. It reads ~Caution: Steam~. An old dumbwaiter is embedded in the wall to the south. ",
         after [;
             go:
-            if (selected_direction == e_to && vic notin sub_basement_02) move vic to sub_basement_02;
+            !if (selected_direction == e_to && vic notin sub_basement_02) move vic to sub_basement_02;
         ],
     e_to sub_basement_02,
     w_to boiler_door,
@@ -2125,7 +2174,8 @@ Object boiler_room "Boiler Room"
             if (selected_direction == w_to && vic notin sub_basement_02)
             {
                 move vic to sub_basement_02;
-                print"^In the distance down the hall you hear what sounds like the service elevator opening.^^";
+                give bathroom_door ~locked;
+                print"^You hear a door opening to the east down the hall.^^";
             }
         ],
         before [;

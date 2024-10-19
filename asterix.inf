@@ -55,6 +55,8 @@ Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? 
 Constant NORTHRUP_SPEECH "Of course, now you have no actual evidence that anything at all suspicious has happened here this evening. 
     And, of course, no one is going to take the word of a teenaged candy striper over a respected physician and pillar of the 
     community. And, of course, you will not be geting your letter signed.~^^";
+Constant BATHROOM_OCCUPIED "There's a turning bolt on this side of the door with a small red sign reading ~Occupied~.";
+Constant BATHROOM_VACANT "There's a turning bolt on this side of the door with a small green sign reading ~Vacant~.";
 
 Attribute valuable;
 Attribute encountered;
@@ -63,7 +65,7 @@ Release 3;
 Serial "221116";
 
 !Constant INITIAL_LOCATION_VALUE = b_ward_1;
-Constant INITIAL_LOCATION_VALUE = engineering;
+Constant INITIAL_LOCATION_VALUE = sub_basement_02;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 

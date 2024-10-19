@@ -367,7 +367,7 @@ Object wringer "wringer" bucket
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object vic "Vic"
+Object vic "Vic" bathroom
     with name 'vic',
         description [;
             if (FlagIsSet(F_BADDIES_FOLLOWING)) "He's smiling and seems to be enjoying himself. His right hand is 
