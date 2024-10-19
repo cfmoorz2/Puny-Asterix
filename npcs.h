@@ -83,7 +83,7 @@ Object oliver "Oliver" morgue
     has animate proper transparent;   
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array freddy_avoid_array --> admin_hallway hallway_b2 basement_hallway_east cafeteria a_ward_1 b_ward_1 ceiling_01;
+Array freddy_avoid_array --> admin_hallway hallway_b2 basement_hallway_east cafeteria a_ward_1 b_ward_1;
 Object freddy "Freddy" hallway_m2
     with name 'freddy' 'security' 'guard',
         description [;
@@ -740,7 +740,7 @@ Object winston "Mr. Winston" hallway_2_3
             }
         ],
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 4,
+        npc_wander_delay 5,
         npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 

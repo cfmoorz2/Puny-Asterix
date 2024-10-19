@@ -951,7 +951,7 @@ Object plastic "round piece of plastic" engineering
             if (self.noticed == false) "You can't see any such thing. ";
         ],
         after [;
-            take:
+            take, pull:
             if (self hasnt moved) 
             {
                 print"There's a tiny spark across the unblocked contact and you hear a deep electrical hum start somewhere in the 

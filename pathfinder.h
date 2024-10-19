@@ -19,15 +19,15 @@ Array position_narrate_array --> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     {
         if (position_narrate_array-->x == 0)
         {
-            !print"adding ",(name)obj," at index ",x,"^";
+            print"adding ",(name)obj," at index ",x,", ";
             position_narrate_array-->x = obj;
             y = x + 1;
-            !print"adding ",(name)dir," at index ",y,"^";
+            print"adding ",(name)dir," at index ",y,"^";
             position_narrate_array-->y = dir;
             rtrue;
         }
     }
-    "ERROR_POSITION_ERROR_OVERRUN";
+    !"ERROR_POSITION_ERROR_OVERRUN";
 ];
 
 Class Room 
@@ -54,7 +54,7 @@ Class Room
                     }
                 }
             }
-            if (position_narrate_array-->0 ~= 0) print"^";
+            !if (position_narrate_array-->0 ~= 0) print"^";
             for (x=0 : x<24: x++) 
             {
                 _i = position_narrate_array-->x;
@@ -63,8 +63,8 @@ Class Room
                 _d = position_narrate_array-->y;
                 print(The)_i;
                 if(_i has pluralname) { print" are ";}  else { print " is "; }
-                if(_d == u_obj) "up above. ";
-                if(_d == d_obj) "down below. ";
+                if(_d == u_obj) print"up above.^";
+                if(_d == d_obj) print"down below.^";
                 print"off to the ",(name)_d,".^";
                 x++;                
             }
@@ -251,7 +251,7 @@ Class Mover
                 }
                 else
                 {
-                if (self in real_location && way hasnt open) print(The)self," pushes open the door.^";
+                if (self in real_location && way hasnt open) print(The)self," opens the door.^";
                 give way open;
                 give way ~locked;
                 }
@@ -412,8 +412,8 @@ Class Mover
 [narrate_move npc direction rev_dir;
     if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
-        if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs."; }
-        if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs."; }
+        if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; }
+        if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs. "; }
         print"^",(The)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
     }
     if(npc.move_mode == FOLLOW_PATH)

@@ -599,8 +599,8 @@ Room room_32 "Room 32"
 Room station_b "Ward B - Station"
     with description "This is the Ward 'B' nurses' station, lying at the eastern end of a long east-west corridor. To aid in 
         visitor and patient navigation, the walls here are painted blue and a blue line runs to the west down the 
-        middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south 
-        a sign next to the former read ~33~, the latter ~34~. A large wide waist-high desk occupies the center of the room,
+        middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south. 
+        A sign next to the former reads ~33~, next to the latter ~34~. A large wide waist-high desk occupies the center of the room,
         allowing space for medical staff to chart and dictate. ",
         w_to b_ward_1,
         n_to room_33,
