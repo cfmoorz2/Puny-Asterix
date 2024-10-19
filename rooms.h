@@ -2143,8 +2143,6 @@ Object ceiling_01 "In The Ceiling"
                 PlayerTo(hallway_m2);
                 rtrue;
                 }
-            if (selected_direction == w_to && flashlight notin player && flashlight hasnt on)
-                "You can't seem to maneuver up here in the darkness. ";
             examine:
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see the hallway and a ladder below. ";

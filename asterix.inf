@@ -224,10 +224,6 @@ Global following = false;
     rfalse;
 ];
 
-[DarkToDark;
-    "You can't seem to maneuver up here in the darkness. ";
-];
-
 Include "ext_cheap_scenery.h";
 Include "ext_talk_menu.h";
 Include "puny.h";
@@ -371,6 +367,11 @@ Include "VerbLib";
 ];
 
 [MyTakeRule count i x ;
+    if (action == ##go && location == thedark)
+    {
+        if (real_location == ceiling_01 && selected_direction == d_to) rfalse;
+            "It's impossible to crawl around up here in the dark. ";
+    }
     if (action ~= ##take) rfalse;
     count = 0;
     x = noun.mass;
