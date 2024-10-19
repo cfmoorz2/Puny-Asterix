@@ -941,7 +941,6 @@ Object backpack "backpack"
 Object plastic "round piece of plastic" engineering
     with 
         name 'round' 'piece' 'plastic',
-        short_name "round piece of plastic",
         description "You can't really make out any details while it's inside the fusebox. ",
         mass 1,
         noticed 0,
@@ -950,6 +949,26 @@ Object plastic "round piece of plastic" engineering
             take:
             if (self.noticed == false) "You can't see any such thing. ";
         ],
+        after [;
+            take:
+            if (self hasnt moved) 
+            {
+                print"There's a tiny spark across the unblocked contact and you hear a deep electrical hum start somewhere in the 
+                bowels of the building around you. After a moment, the hum subsides.^";
+                SetFlag(F_SERVICE_ELEVATOR_ON);
+                remove self;
+                move coaster to player;
+            }
+        ], 
+    class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object coaster "coaster"
+    with
+        name 'coaster' 'round' 'piece' 'plastic',
+        description "It's a plastic coaster from 'Mama Leone's Ristorante and Legitimate 
+        Businessmen's Club'. Their catchphrase below reads:~We Ain't Seen Nothin'~",
+        mass 1,
     class Item;
 
 
