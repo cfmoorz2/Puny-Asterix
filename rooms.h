@@ -200,22 +200,22 @@ Room stairwell_b "stairwell_b"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_west "basement_hallway_west"
     with description
-        "This is nearly the midpoint of a long dank east-west hallway. A service elevator is here to the north. A sign next to it 
+        "This is nearly the midpoint of a long dreary east-west hallway. A service elevator is here to the north. A sign next to it 
         reads ~Employees Only~.",
         e_to elevator_lobby_b,
         w_to hallway_b1,
         n_to service_elevator_door,
         in_to service_elevator_door,
-    class Tiles DropCeiling
+    class Tiles
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_b1 "hallway_b1"
-    with description "The corridor here continues east and west. Embedded here in the wall to the south you see an 
+    with description "The corridor here continues east and west. Embedded in the wall to the south you see an 
     old dumbwaiter, presumably once used to deliver needed items to the patient floors above.",
     e_to basement_hallway_west,
     w_to hallway_b2,
-    class Tiles DropCeiling
+    class Tiles
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,12 +228,12 @@ Room hallway_b2 "hallway_b2"
         n_to environmental_services,
         s_to central_supply_door,
         w_to engineering,
-    class Tiles DropCeiling
+    class Tiles 
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room central_supply "Central Supply" 
-    with description "This is a large basement filled with dusty crates and defunct antique equipment. There are scattered low-wattage lamps 
+    with description "This is a large open space crowded with dusty crates and defunct antique equipment. There are scattered low-wattage lamps 
     hanging from the ceiling but most of these have long ago burned out, leaving the room quite dark with grotesque shadows 
     projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
     north.",
@@ -270,9 +270,9 @@ Room central_supply "Central Supply"
 Room environmental_services "Environmental Services"
     with description [; 
         print"This is a cluttered storage room. The walls are lined with shelves stocked with 
-        cleaning supplies, brushes, and brooms; most of which you don't need to concern yourself with. 
-        A tall but narrow brown metal cabinet stands in one corner. ";
-        if (player notin storage_locker) print"A battered full-length metal locker faces it on the 
+        cleaning supplies, brushes, and brooms, none of which you need to concern yourself with. 
+        A tall but narrow brown metal cabinet stands in one corner and a desk is pushed up against one wall. ";
+        if (player notin storage_locker) print"A battered full-length metal locker faces it from the 
         other side of the room. ";
         "A black telephone is mounted on the wall. The exit lies to the south. ";
     ],
@@ -456,7 +456,7 @@ Object handset "handset" telephone
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room engineering "Engineering"
-    with description "This is a small cramped room that smells vaguely of ozone. Thick bundles of 
+    with description "This is a small cramped room that smells like lightning. Thick bundles of 
         electrical conduits descend like a massive pipe organ from 
         the ceiling into a large fuse box on the wall. The only exit is east through a plain metal door. ",
         cheap_scenery
@@ -490,7 +490,7 @@ Object fusebox "fusebox" engineering
             print"The fusebox is full of switches and connectors. ";
             if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
             receive:
-            "You shouldn't put things in the high-voltage fusebox. ";
+            "You shouldn't poke around in high-voltage fusebox. ";
             take:
             "Rubbish.";
             open:
@@ -505,7 +505,7 @@ Object fusebox "fusebox" engineering
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_m "stairwell_m" 
     with description 
-        "This is a dark stairwell just off the main hallway which lies to the south. The word ~Main~ is painter in large letters 
+        "This is a dark stairwell just off the main hallway which lies to the south. The word ~Main~ is painted in large letters 
         on the wall here. Concrete stairs zig-zag up and down to 
         the floors above and below.",
     d_to stairwell_b,
@@ -517,7 +517,7 @@ Room stairwell_m "stairwell_m"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room stairwell_2 "stairwell_2"
     with description "This is a dark stairwell just off the main hallway which lies to the south. 
-        A large number 2 is painted on the wall. Concrete stairs zig-zag downward to the floor below. ",
+        A large number ~2~ is painted on the wall. Concrete stairs zig-zag downward to the floor below. ",
         d_to stairwell_m,
         s_to elevator_lobby_2,
     class Tiles StairRoom
@@ -616,7 +616,7 @@ Object ward_b_station "nurses' station" station_b
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_31 "Room 31"
-    with description "This is an unassuming patient room. The wallpaper is an unsoothing blue and a bed is pushed 
+    with description "This is an unassuming patient room. The wallpaper is an insitutional blue and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
         leads south back out to the hallway. ",
         s_to b_ward_1,
@@ -652,8 +652,8 @@ Room elevator_lobby_m "Main Elevator Lobby"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room cafeteria "Cafeteria"
     with description "This is the hospital cafeteria, dark and empty this time of night. Tables are arranged in rows, inverted chairs 
-        stacked on top of them. A long stainless steel buffet serving station lies against one wall, an abandoned cashier
-        station against the other. An open doorway leads north into the kitchen and the exit to the main hallway lies to the west. ",
+        stacked on top of them. A long stainless steel buffet serving station lines one wall, an abandoned cashier
+        station against another. An open doorway leads north into the kitchen and the exit to the main hallway lies to the west. ",
     w_to elevator_lobby_m,
         cheap_scenery
             'table' 'tables//p' [;
@@ -856,7 +856,7 @@ Object novels "novels" book_cart
         description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
         before [;
             read:
-                "You flip through one at random. There's a lot of swelling and heaving going on. ";
+                "You flip through one at random. There's seems to be a lot of ~swelling~ and ~heaving~ taking place. ";
             take:
                 "You have little interest in romance novels. ";
         ],
@@ -869,7 +869,7 @@ Object magazines "magazines" book_cart
             and 'Newsweek' among the stacks.",
         before [;
             take: 
-                "You don't need an old magaine that's not 'Teen Beat' or 'Seventeen'.";
+                "You don't need any magazine that's not 'Teen Beat' or 'Seventeen'.";
             read:
                 print"You flip through a random magazine. ";
                 read_news();
@@ -880,7 +880,7 @@ Object magazines "magazines" book_cart
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "hallway_m2"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. 
-    You notice that one of the tiles in the drop ceiling is ajar and you can see darkness behind it. ",
+    You notice that one of the tiles in the drop ceiling above is ajar and you can see darkness behind it. ",
         before [;
             go:
             if (selected_direction == u_to && ladder in self) 
@@ -888,9 +888,9 @@ Room hallway_m2 "hallway_m2"
                 else
                 {
                 print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
-                grab onto some sturdy pipes that you see through the gap in the askew tiling and pull yourself into the ceiling above. 
-                Victorious, you think back to P.E. class freshman year when you couldn't climb a knotted rope in gym class and 
-                Becky Harris laughed at you. Eat it Becky!^^";
+                grab onto some sturdy pipes that you see through the gap in the tiling and pull yourself into the ceiling above. 
+                Breathing heavily but victorious, you think back to P.E. class freshman year when you couldn't climb a knotted 
+                rope in gym class and Becky Harris laughed at you. Eat it Becky!^^";
                 PlayerTo(ceiling_01);
                 rtrue;
                 }
@@ -985,9 +985,9 @@ OnChair security_chair "metal chair" security_office
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room main_lobby "Main Lobby"
     with description [;
-            print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large double doors 
-            leading out. The windows are partially iced over and through them you can see gales of wind-driven snow blowing sideways. 
-            An information desk occupies the north wall.^";
+            print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large 
+            glass double doors leading out. The windows are partially iced over and through them you can see gales of 
+            wind-driven snow blowing sideways. An information desk occupies the north wall.^";
         ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
@@ -1078,9 +1078,10 @@ Room jorry_office "Office"
     with description [;
         print"This is a typical office befitting a less-than-top-level executive. A desk stands here 
         as well as a rolling leather executive chair";
-        print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. A large glass aquarium sits on 
+        print". Non-threatening paintings of flowers and bowls of fruit adorn the walls. 
+        A squat black safe sits in one corner of the room. and a large glass aquarium sits on 
         a stand directly behind the desk. Sand covers the bottom and a snake is coiled around a bleached twisted 
-        branch at one end. A squat black safe sits in one corner.
+        branch at one end. 
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
         His eyes, thankfully, are closed.^";
         if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
@@ -1238,7 +1239,7 @@ Room northrup_office "Northrup's Office"
             if (IndirectlyContains(self, northrup) && IndirectlyContains(self, nurse_retch)) 
             {
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"^(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
-                print"^You seem to have interupted the start of an animated conversation between Dr. Northrup and 
+                print"^You seem to have interupted the start of a hushed yet animated conversation between Dr. Northrup and 
                 Nurse Retch. They abuptly clam up as you enter.^^
                 ~Ahh, the candy striper I've heard about. The one poking around into things that have nothing to do with her;
                 things she doesn't understand; things she may be misinterpreting?~^^
@@ -1518,8 +1519,8 @@ Object green_button "green button" mri_anteroom
             print"^^Suddenly, from somewhere in the building you hear a horrible cacophany of metal smashing metal 
             and glass shattering. It's quickly discovered that the MRI machine has been broken beyond repair. 
             While there is no direct proof that this was your doing, you cannot risk being blamed for the destruction 
-            of a very expensive MRI scanner. You decide it's best to now worry about your volunteering letter and simply 
-            slip away. ";
+            of a very expensive MRI scanner. You decide it's best to not worry about your volunteering letter after all
+            and  you simply slip away. ";
             deadflag = 3;
             rtrue;
         ],
@@ -1543,11 +1544,11 @@ Object green_button "green button" mri_anteroom
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room mri_scanner "MRI Suite"
     with description [;
-        print"This white sterile room is largely empty save for the large white cylinder of the MRI machine. A similarly
+        print"This white sterile room is nearly empty save for the large white cylinder of the MRI machine. A similarly
         white long narrow table is positioned at the opening, the bore of which is about two feet across. As in the other room, 
-        a large red warning sign is posted to the wall warning of the dangers of the strong metallic field. 
-        A thick window in the east wall allows a view into the control room. There's a small hatch in the floor next to the scanner, presumably to 
-        allow service access. You can return west to the control anteroom.^";
+        a large red warning sign is posted to the wall warning of the dangers of the strong metallic field of the MRI machine. 
+        A thick window in the west wall allows a view into the control room. There's a small hatch in the floor next to the scanner, 
+        presumably to allow service access. You can return west to the control anteroom.^";
         if(FlagIsSet(F_MRI_SUITE_DESTROYED)) "^Dust fills the air and the MRI tube is smashed and broken. Similarly, the
         glass window into the control room is shattered. Oxygen cannisters are scattered on the floor.^";
         ],
@@ -1844,7 +1845,7 @@ Room room_24 "Room 24"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room station_a "Ward A - Station"
-    with description "This is the western end of a long red east-west corridor. Open doorways to the north and south 
+    with description "This is the western end of a long east-west corridor. The walls are red and open doorways to the north and south 
         lead to patient rooms, signs next to the former read ~21-A~, the latter ~22-A~. The nurses' station is here. 
         It's a large square waist-high desk used for charting and note-taking. ",
         cheap_scenery
@@ -1935,7 +1936,7 @@ Room break_room "Break Room"
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
-        description "It's an old off-white refrigerator. A helpful handwritten note taped to the front helpfully reminds the reader 
+        description "It's an old off-white refrigerator. A handwritten note taped to the front helpfully reminds the reader 
             that their mother doesn't work here and that one should only eat ones own food. ",
         before [;
             take:
@@ -2217,8 +2218,8 @@ Object ceiling_01 "In The Ceiling"
 Object ceiling_03 "In The Ceiling"
     with 
         description "You are perched in the service space above the hallway and drop ceiling, surrounded by 
-        dusty ducts and pipes. The dusty passage takes a ninety-degree turn here and you can go east or south, balancing yourself on the metal brackets holding up
-        the drop ceiling tiles below. ",
+        dusty ducts and pipes. The dusty passage takes a ninety-degree turn here and you can go east or south, balancing 
+        yourself on the metal brackets holding up the drop ceiling tiles below. ",
         cheap_scenery
             CS_ADD_LIST ceiling_01 (inside_scenery),
         e_to ceiling_01,
@@ -2228,7 +2229,7 @@ Object ceiling_03 "In The Ceiling"
 Object ceiling_05 "In The Ceiling"
     with description [;
         print"You are perched in the dark service space within the ceiling. The passage dead-ends here, 
-        and movement to the south is blocked by a large duct. You can crawl east along a network of 
+        and movement to the south is blocked by a large duct. You can crawl north along a network of 
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
         lower yourself down onto.^";
