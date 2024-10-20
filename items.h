@@ -10,10 +10,31 @@ Class Item
         if (noun == self) <<tie balloon self>>;
 
         insert:
+        if (second ofclass DumbwaiterShaft && real_location ~= sub_basement_01)
+        {
+            move self to sub_basement_dumbwaiter;
+            print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft";
+            if (balloon.tied_to == self) ", trailing the helium balloon behind it. ";
+        } 
         if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
+    ],
+    after [;
+        examine:
+        if (balloon.tied_to == self) "There's a helium ballon tied to it currently. ";
     ];
 
-Class Floatable;
+Class Floatable
+    with 
+        before [;
+            insert:
+            if (self == balloon.tied_to && second ofclass DumbwaiterShaft)
+            {
+                move self to second_floor_dumbwaiter;
+                if (real_location == hallway_2_2) "You put ",(the)self," in the dumbwaiter. It floats gently upward suspended 
+                from the balloon and bounces on the roof of the shaft here. ";
+                "You put ",(the)self," in the dumbwaiter. It rises up and out of sight, suspended from the helium balloon. ";
+            }
+            ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
@@ -50,7 +71,7 @@ Object swipe_card "security card" security_desk
             Achieved(1);
             SetFlag(F_HAS_SWIPE_CARD);
         ],
-        class Item;
+        class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object flashlight "flashlight" mabel
@@ -443,7 +464,7 @@ Class Tape
         "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
         release the button. ";
     ],
-    class Item;
+    class Floatable Item;
 
 Tape mixtape "yellow cassette tape"
     with 
@@ -700,7 +721,7 @@ Object shrimp "rotten shrimp" !garbage_can
             if (self in shrimp_bowl) "Buzz smacks your hand away. ~Get your own.~";
         ],
         describe [; if(self in garbage_can) rtrue;],
-    class Item
+    class Floatable Item
     has edible;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -722,7 +743,7 @@ Object band_aid "band-aid" sid_jorry
             "Putting a band-aid back on never works. ";
         ],
         mass 0,
-    class Item;
+    class Floatable Item;
 
 Object puncture_mark "puncture mark" 
     with name 'puncture' 'wound' 'mark',
@@ -771,7 +792,7 @@ Object syringe "syringe" !jacket_pocket
             ActivateTopic(nurse_retch, 300);
             Achieved(2);
     ],
-    class Item Floatable;
+    class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
@@ -890,7 +911,7 @@ Object pen "ballpoint pen"
         name 'pen' 'ballpoint',
         description "It's a standard ballpoint pen. ",
         mass 0,
-    class Item;
+    class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dull_key "dull steel key" !freddy !unlocks jorry's office
@@ -1035,6 +1056,7 @@ Object balloon "helium balloon" room_22
                 scope_modified = true;
                 "Taken. ";
             }
+            print"(first untying the balloon)^";
 
             insert:
             if (~~second ofclass DumbwaiterShaft) "It just floats back out. ";
