@@ -76,7 +76,6 @@ Global dial_setting = 0;
 Global elevator_level = 0;
 Global elevator_call_level;
 Global elevator_active = false;
-Global dumbwaiter_level = 0;
 Global service_elevator_level = 0;
 Global service_elevator_call_level = 2;
 Global service_elevator_active = false;

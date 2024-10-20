@@ -14,7 +14,7 @@ Class Item
         {
             move self to sub_basement_dumbwaiter;
             print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft";
-            if (balloon.tied_to == self) ", trailing the helium balloon behind it. ";
+            if (balloon.tied_to == self) ", trailing the helium balloon behind it. "; "";
         } 
         if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
     ],
@@ -1056,7 +1056,9 @@ Object balloon "helium balloon" room_22
                 scope_modified = true;
                 "Taken. ";
             }
-            print"(first untying the balloon)^";
+            move self to player;
+            "Taken.";
+            !print"(first untying the balloon)^";
 
             insert:
             if (~~second ofclass DumbwaiterShaft) "It just floats back out. ";
@@ -1067,12 +1069,16 @@ Object balloon "helium balloon" room_22
                 scope_modified = true;
                 if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
                 bounces on the roof of the shaft here. ";
-                "You put the balloon in the dumbwaiter. It floats upward and out of sight into the shaft. ";
+                "You release the balloon into the dumbwaiter. It rises up and out of sight. ";
             }
-            move balloon.tied_to to second_floor_dumbwaiter;
-            if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
-                bounces on the roof of the shaft here, ",(the)balloon.tied_to," dangling from it.";
-            "You release the balloon into the dumbwaiter. It rises up and out of sight, carrying ",(the)balloon.tied_to," with it.";
+            if (self.tied_to ofclass Floatable)
+            {
+                move balloon.tied_to to second_floor_dumbwaiter;
+                if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
+                    bounces on the roof of the shaft here, ",(the)balloon.tied_to," dangling from it.";
+                    "You release the balloon into the dumbwaiter. It rises up and out of sight, carrying ",(the)balloon.tied_to," with it.";
+            }
+            <<insert balloon.tied_to second>>;
             ], 
         after [;
             take:
