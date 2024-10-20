@@ -305,6 +305,15 @@ Include "VerbLib";
     if (door has open) print "open"; else print "closed";
 ];
 
+[ player_has_balloon obj;
+    if (balloon.tied_to == player) return true;
+    objectloop (obj in player)
+    {
+        if (balloon.tied_to == obj) return true;
+    }
+    rfalse;
+];
+
 [ freddy_wakes_up ;
     print(string)FREDDY_WAKES;
     ClearFlag(F_FREDDY_ASLEEP);

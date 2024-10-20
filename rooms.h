@@ -391,6 +391,10 @@ Object storage_locker "locker" environmental_services
             "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
             the storage room. ";
         ],
+        before [;
+            enter:
+            if (player_has_balloon()) "Not with the balloon in tow. ";
+        ],
         max_capacity 30,
     class MyContainer
     has open enterable scenery;

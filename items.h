@@ -4,8 +4,16 @@ Class Item
         if (inventory_stage == 2) {
             if(balloon.tied_to == self) print" (to which a balloon is tied)";
      }
-];
+    ],
+    before [;
+        tie:
+        if (noun == self) <<tie balloon self>>;
 
+        insert:
+        if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
+    ];
+
+Class Floatable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
@@ -763,7 +771,7 @@ Object syringe "syringe" !jacket_pocket
             ActivateTopic(nurse_retch, 300);
             Achieved(2);
     ],
-    class Item;
+    class Item Floatable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ladder "ladder" engineering
@@ -998,6 +1006,7 @@ Object balloon "helium balloon" room_22
             if (w1 == 'string') { self.id = 1; return 1; }
         ],
         tied_to 0,
+        mass 0,
         description [;
             if(self.id == 0)
             {
@@ -1026,6 +1035,22 @@ Object balloon "helium balloon" room_22
                 scope_modified = true;
                 "Taken. ";
             }
+
+            insert:
+            if (~~second ofclass DumbwaiterShaft) "It just floats back out. ";
+            if (balloon.tied_to == player)
+            {
+                balloon.tied_to = 0;
+                move balloon to second_floor_dumbwaiter;
+                scope_modified = true;
+                if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
+                bounces on the roof of the shaft here. ";
+                "You put the balloon in the dumbwaiter. It floats upward and out of sight into the shaft. ";
+            }
+            move balloon.tied_to to second_floor_dumbwaiter;
+            if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
+                bounces on the roof of the shaft here, ",(the)balloon.tied_to," dangling from it.";
+            "You release the balloon into the dumbwaiter. It rises up and out of sight, carrying ",(the)balloon.tied_to," with it.";
             ], 
         after [;
             take:

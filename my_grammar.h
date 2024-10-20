@@ -234,5 +234,10 @@ Verb 'untie'
         balloon.tied_to = player;
         "You untie the balloon from ",(the)noun,".^Taken. ";
     }
+    move noun to player;
+    move balloon to real_location;
+    scope_modified = true;
+    balloon.tied_to = 0;
+    "You untie the ",(the)noun," from the balloon. ^Taken. ";
 ];
 
