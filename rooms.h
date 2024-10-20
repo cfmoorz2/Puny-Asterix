@@ -1900,16 +1900,6 @@ Room room_22 "Room 22"
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
         ],
-        each_turn [;
-            if (random(2) == 1 && FlagIsClear(F_HAS_PARSONS_SPOKEN)) 
-            {
-                SetFlag(F_HAS_PARSONS_SPOKEN);
-                "^Suddenly, the dessicated figure on the bed stirs. She opens her eyes wide and stares at you with 
-                surprising clarity.^^
-                ~They're killing someone...with a hitman and an injection.~^^
-                After a moment her eyes close and she resumes her previous mien. ";
-            }
-        ],
     class Tiles DropCeiling
     has light;
 

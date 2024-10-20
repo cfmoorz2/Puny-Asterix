@@ -1,4 +1,11 @@
-Class Item;
+Class Item
+    with 
+    invent [;
+        if (inventory_stage == 2) {
+            if(balloon.tied_to == self) print" (to which a balloon is tied)";
+     }
+];
+
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object swipe_card "security card" security_desk
@@ -938,6 +945,7 @@ Object backpack "backpack"
             return total;
         ],
         mass 10,
+    class Item
     has container openable ~open clothing;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -989,25 +997,35 @@ Object balloon "helium balloon" room_22
             if (w1 == 'balloon' or 'helium' or 'mylar') { self.id = 0; return 1; }
             if (w1 == 'string') { self.id = 1; return 1; }
         ],
+        tied_to 0,
         description [;
             if(self.id == 0)
             {
-                if (self in player) print"It's a silver mylar helium balloon. It hovers in the air as you hold it by the string. ";
-                    else
-                    print"It hovers against the ceiling with the string hanging down within reach. ";
-                    "On the side of the balloon it reads ~Get Well Soon!~ in large cartoonish letters. ";
+                print"It's a silver mylar helium balloon. On the side it reads ~Get Well Soon!~ in large cartoonish letters. ";
+                if (self.tied_to == 0) "It's floating here, bumping against the ceiling. ";
+                if (self.tied_to == player) "It's floating here, held by the string. ";
+                "It's currently tied to ",(a)self.tied_to,".";
             }
             "The string hangs down from the balloon. ";
-        ],
+            ],
         before [;
-            drop:
-            if (real_location == stairwell_b or stairwell_m) 
+            tie:
+            if (self.tied_to == second) "It's already tied to ",(the)second,".";
+            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,"^";
+            if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
+            if (self.tied_to == 0 && self.tied_to ~= player) print"(first taking the balloon)^";
+            self.tied_to = second;
+            remove self;
+            "You tie the balloon to ",(the)second,".";
+
+            take:
+            if (self.tied_to == 0) 
             {
-                move self to stairwell_2;
-                "You release the balloon and it drifts and disappears upward. ";
+                self.tied_to = player;
+                move self to player;
+                scope_modified = true;
+                "Taken. ";
             }
-            move self to real_location;
-            "You release the balloon and it rises, bumping into the ceiling above. ";
         ], 
     class Item
     has transparent;
