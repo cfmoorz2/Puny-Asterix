@@ -799,7 +799,7 @@ Object worthless "Lt. Worthless" room_23
                     print"Unfortunately, Lt. Worthless apparently received some medication recently. He's quietly 
                     humming to himself while he smiles at his hands which are held out in front of him.^^
                     At that moment Lt. Rodriguez enters the room. He's wearing plain-clothes and is 
-                    accompanied by two uniformed officers. All three are dusted with snow. ";
+                    accompanied by two uniformed officers. All three are dusted with snow.^";
                     move rodriguez to room_23;
                     move cop_duo to room_23;
                     rtrue;
@@ -840,7 +840,7 @@ Object rodriguez "Lt. Rodriguez"
                 print"He puts on the headphones and starts to listen. ";
                 if (jorry_tape in walkman)
                 {
-                    print"His eyes widen as he listens. After a moment, he stops the walkman, removes the tape and 
+                    print"His eyes widen as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape and 
                     pockets it.^";
                     move jorry_tape to rodriguez;
                     self.evidence_count++;
@@ -853,7 +853,8 @@ Object rodriguez "Lt. Rodriguez"
                 kcl_bottle: move kcl_bottle to rodriguez; self.evidence_count++; "He holds up the vial and peers at it closely. ";
                 ledger: move ledger to rodriguez; self.evidence_count++; "He quietly flips through the ledger for a few moments. ";
             }
-            if (self.evidence_count == 4) "YOU WIN";
+            if (self.evidence_count == 4) you_win();
+            rtrue;
         ]
     has animate proper transparent;
 
@@ -864,6 +865,32 @@ Object cop_duo "uniformed officers"
         description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
         short, squat, and bald. ",
     has pluralname animate transparent;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object trio "Retch, Northrup, and Vic" 
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+        ],
+        description [;
+            switch (self.id)
+            {
+                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
+                and a red face. ";
+                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
+                veins lining her temples. ";
+                3: "He's staring at his feet. ";
+            }
+        ],
+
+    has animate proper pluralname transparent; 
 
 
 

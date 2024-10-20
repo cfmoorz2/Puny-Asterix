@@ -879,25 +879,24 @@ Object letter "piece of paper"
         name 'letter' 'paper',
         description "It's a letter signed by Sid Jorry confirming your successful participation in 
         and completion of your volunteer experience at St. Asterix. ",
-        initial [;
-            print"You see a piece of paper here fluttering to the floor. ";
-            give self moved;
-        ],
         mass 1,
+        before [;
+            take:
+            move self to real_location;
+        ],
         after [;
             take:
-            Achieved(17);
-            print"You take the letter and, thrilled, see that it is indeed your letter of completion.^^
-            Serendipitously, several police officers enter the room, powdered snow still dusting their caps and coats. Soon, thanks to 
-            your sleuthing, Retch, Vic, and Northrup are handcuffed and led away, charged with the murder of Sid Jorry.^^";
+            Achieved(16);
+            print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
+            You feel like you could kiss Mr. Jorry, if he weren't dead.^";
             if (signature_count() > 7)
             {
-                print"And having obtained all your necessary signatures, you happily end your time as a candy striper and 
+                print"^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
                 go on to have your best summer ever at the pool.^";
                 deadflag = 2;
                 rtrue;
             }
-            print"Unfortunately, you did not obtain all the necessary signatures on your signature form. You would think that, 
+            print"^Unfortunately, you did not obtain all the necessary signatures on your signature form. You would think that, 
                 considering the circumstances there would be some leniency. But Mr. Rogers is a hard man and it IS an ethics class. 
                 Unfortunately, your summer is ruined as you are stuck in summer school.^";
                 deadflag = 3;

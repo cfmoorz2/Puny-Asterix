@@ -437,6 +437,16 @@ Include "VerbLib";
     credit card yet. ",
     "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
 ];
+
+[ you_win ;
+    move trio to room_23;
+    move letter to room_23;
+    "Lt. Rodriguez turns to his partners. ~I've seen enough. This impressive young lady has clearly done our jobs for us this 
+    evening.~^^
+    He gives some orders and, soon, Vic, Retch, and Northrup have been located and brought into the room. Their rights are read and 
+    all three are handcuffed. They stand here, angry and defeated.^^
+    Suddenly, you see a letter fall out of Northrup's pocket. "; 
+];
         
 #Ifdef USEINFORM;
 Include "Grammar";
