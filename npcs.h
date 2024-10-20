@@ -72,7 +72,6 @@ Object oliver "Oliver" morgue
                 shrimp: "~Ugh! Get that out of my face.~";
                 ledger: "~That looks like it might be important to someone else.~";
                 book_cart: "~No thanks. I don't need any romance novels.~";
-                metal_cart: "~Why are you pushing that dumb thing around?~";
                 default: "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
             }
         ],
@@ -206,7 +205,6 @@ Object buzz "Buzz" security_chair
             } 
             switch (noun)
             {
-                metal_cart: "~You shouldn't be wheeling that around. Put it back.~";
                 default: "~Sweetie, I'm not interested in ",(the)noun,". I just want to be left alone.~";
             }   
         ],
@@ -291,7 +289,7 @@ Object wheelchair "wheelchair" elliot
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array eugene_avoid_array --> stairwell_b environmental_services engineering central_supply x_ray morgue mri_anteroom;
+Array eugene_avoid_array --> stairwell_b environmental_services engineering central_supply x_ray morgue;
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
@@ -320,7 +318,6 @@ Object eugene "Eugene" hallway_b2
                 air_supply_tape: "~That's for you. It's real music.~";
                 shrimp: "~Ohh, that's bad.~";
                 book_cart: "~No thanks. I've got enough books and the missus subscribes to 'People'.~";
-                metal_cart: "~You should probably put that back.~";
                 default: "Eugene politely feigns interest in ",(the)noun,".";
             }
         ],
@@ -463,7 +460,6 @@ Object mabel "Mabel" main_lobby
                 ledger: "She flips through the pages. ~You be careful now, girl. I don't know what this means but I 
                     have a feeling somebody might come after it.~";
                 book_cart: "~Girl, you know I like perusing the romance books.~";
-                metal_cart: "~Girl, why you draggin' that around?~";
                 default:
                     "Bemused, she smiles at ",(the)noun,".";
             }
@@ -502,7 +498,6 @@ Object becky "Becky" station_a
                 thriller: "~Oh, I LOVE that album.~";
                 shrimp: "She holds her nose. ~Oh, get that away.~";
                 book_cart: "She takes a quick peek at the books and magazines. ~No thanks. I think I'm caught up.~";
-                metal_cart: "~You should put that back in case someone needs oxygen.~";
                 default:
                     "She politely feigns interest in ",(the)noun,".";
             }
@@ -580,7 +575,6 @@ Object nurse_retch "Nurse Retch" station_b
                 supposed to have that.~ She plucks the card away. "; 
                 shrimp: "She grimaces and waves her hand. ";
                 book_cart: "~Yes, you should stick to your duties, candy striper.~";
-                metal_cart: "~You need to put that back right now. You're interfering in patient care.";
                 default:
                     print_ret"Annoyed, she ignores ",(the)noun,".";
             }
@@ -635,90 +629,6 @@ Object retch_timer_2
             nurse_retch.target_room = station_b;
             StartDaemon(nurse_retch);
         ];
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object trio "Retch, Northrup, and Vic" 
-    with 
-        id 0, ! 1 = northrup, 2 = retch, 3 = vic
-        parse_name [ w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
-            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
-            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
-            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
-            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
-        ],
-        description [;
-            switch (self.id)
-            {
-                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
-                and a red face. ";
-                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
-                veins lining her temples. ";
-                3: "He's smiling and seems to be enjoying himself. ";
-            }
-        ],
-        npc_post_follow [;
-        if (self in real_location && real_location == mri_scanner)
-            {
-                StartTimer(baddie_mri_delay, 3);
-                if(TestScope(trio)) "The trio cautiously step into the MRI suite, looking for the ledger. ";
-            }
-            if (self in real_location)
-            {
-                print"^Unfortunately, the baddies have caught up with you. ";
-                if (ledger in player)
-                {
-                    print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
-                    ~Thank you, my dear, for delivering this to us. ";
-                } else {
-                    print"Northrup begins. ~Trust me, my dear, we'll find the ledger.";
-                }
-                print(string)NORTHRUP_SPEECH;
-                deadflag = 3;
-                rtrue;   
-            }
-        ],
-        npc_arrived [;
-            if (parent(self) == real_location)
-            {
-                StopDaemon(self); 
-                self.move_mode = 0;
-                rtrue;
-            }
-        ],
-    class Mover MyNPC
-    has animate proper pluralname transparent; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object injured_trio "Retch, Northrup, and Vic" 
-    with 
-        id 0, ! 1 = northrup, 2 = retch, 3 = vic
-        parse_name [ w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
-            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
-            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
-            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
-            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
-        ],
-        description [;
-            switch (self.id)
-            {
-                1: "He's lying on the floor. He's moaning, battered, and bruised. ";
-                2: "She's grunting painfully and angrily, rolling around on the floor. ";
-                3: "His face is bruised and swollen and he groans painfully. ";
-            }
-        ],
-        life [ ;
-            "None of them are in any condition. ";
-        ],
-        describe [;
-            "Dr. Northrup, Nurse Retch, and Vic are here, incapacitated on the floor. ";
-        ],
-    has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array winston_avoid_array --> stairwell_2 room room_32 room_33 room_34 room_21 room_22 room_23 room_24;
@@ -884,13 +794,25 @@ Object worthless "Lt. Worthless" room_23
         ],
         life [;
             give, show:
+            if(noun == ledger)
+                {
+                    print"Unfortunately, Lt. Worthless apparently received some medication recently. He's quietly 
+                    humming to himself while he smiles at his hands which are held out in front of him.^^
+                    At that moment Lt. Rodriguez enters the room. He's wearing plain-clothes and is 
+                    accompanied by two uniformed officers. All three are dusted with snow. ";
+                    move rodriguez to room_23;
+                    move cop_duo to room_23;
+                    rtrue;
+                }  
             switch(noun)
-            {
+            {                  
                 syringe: "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Well, 
-                call the FBI...~";
-                kcl_bottle: "~You found a bottle of medicine? So what. I've been taking awesome medicine all day.~";
+                    call the FBI. Come see me when you have actual evidence.~";
+                kcl_bottle: "~You found a bottle of medicine? So what. I've been taking awesome medicine all day.
+                    Don't bother me with acutal evidence.~";
                 jorry_tape, walkman:
-                "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
+                "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.
+                    Look, little lady. If you think there's something going on, I need actual evidence.~";
                 coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
                 shrimp: "~Aw, man. That's rank. Get that outta here.~";
                 form: add_signature(self); rtrue;
@@ -900,5 +822,50 @@ Object worthless "Lt. Worthless" room_23
         ],
         talk_array talk_array_worthless,
     has animate transparent proper;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object rodriguez "Lt. Rodriguez"
+    with 
+        name 'rodriguez' 'cop',
+        evidence_count 0,
+        description "He's a short, trim, dark-skinned gentleman with shirt brown hair
+        and piercing dark eyes. ",
+        life [;
+            give, show:
+            if (noun == walkman)
+            {
+                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) "He plugs in the headphones. ";
+                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
+                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
+                print"He puts on the headphones and starts to listen. ";
+                if (jorry_tape in walkman)
+                {
+                    print"His eyes widen as he listens. After a moment, he stops the walkman, removes the tape and 
+                    pockets it.^";
+                    move jorry_tape to rodriguez;
+                    self.evidence_count++;
+                } else 
+                "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
+            }
+            switch(noun)
+            {
+                syringe: move syringe to rodriguez; self.evidence_count++; "He takes the syringe and silently examines it. ";
+                kcl_bottle: move kcl_bottle to rodriguez; self.evidence_count++; "He holds up the vial and peers at it closely. ";
+                ledger: move ledger to rodriguez; self.evidence_count++; "He quietly flips through the ledger for a few moments. ";
+            }
+            if (self.evidence_count == 4) "YOU WIN";
+        ]
+    has animate proper transparent;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object cop_duo "uniformed officers"
+    with 
+        name 'cops' 'police' 'uniformed' 'officers',
+        description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
+        short, squat, and bald. ",
+    has pluralname animate transparent;
+
+
+
 
 

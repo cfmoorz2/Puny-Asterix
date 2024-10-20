@@ -35,15 +35,11 @@ Constant MSG_WAIT_DEFAULT "Time passes.";
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
-Constant NUMBER_TASKS = 17;
-Constant MAX_SCORE 160;
-Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
+Constant NUMBER_TASKS = 16;
+Constant MAX_SCORE 150;
+Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
-Constant MRI_WARNING "~Danger, Strong Magnetic Field~. Below that is a pictograph of a horseshoe magnet
-            with intimidating lightning bolts coming out of it. Below that it reads ~This Magnet is Always ON - No loose 
-            metal objects. Objects made from or containing ferrous metals should not be taken into this room. Serious 
-            injury or property damage may result~.^";
 Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill.^";
 Constant RADIATOR_TOUCH "I guess third-degree burns are your thing?^";
 Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on the card reader turns green and you feel the
@@ -52,9 +48,6 @@ Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
 Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ 
     He hands back your walkman.^";
-Constant NORTHRUP_SPEECH "Of course, now you have no actual evidence that anything at all suspicious has happened here this evening. 
-    And, of course, no one is going to take the word of a teenaged candy striper over a respected physician and pillar of the 
-    community. And, of course, you will not be geting your letter signed.~^^";
 Constant BATHROOM_OCCUPIED "There's a turning bolt on this side of the door with a small red sign reading ~Occupied~.";
 Constant BATHROOM_VACANT "There's a turning bolt on this side of the door with a small green sign reading ~Vacant~.";
 
@@ -86,7 +79,7 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 
-Constant FLAG_COUNT 18;
+Constant FLAG_COUNT 17;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -94,17 +87,16 @@ Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
 Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 7; !baddies are following at endgame
-Constant F_MRI_SUITE_DESTROYED 8; 
-Constant F_FREDDY_ASLEEP 9;
-Constant F_WALKMAN_BLOCKING 10;
-Constant F_HAVE_MET_VIC 11; ! vic has been encountered?
-Constant F_HAS_SWIPE_CARD 12; !does the player have the  security card
-Constant F_SAFE_IS_OPEN 13; !is jorry's safe open
-Constant F_HEADPHONES_ARE_UNPLUGGED 14; ! headphones are NOT plugged in
-Constant F_FREDDY_WALKMAN_SHY 15; !freddy won't take the walkman a second time
-Constant F_FREDDY_HAS_HEARD_THRILLER 16; !he's already heard it
-Constant F_SAFE_COMBO_IS_SET 17; ! safe combination has been set
-Constant F_SERVICE_ELEVATOR_ON 18; ! is the service elvator working?
+Constant F_FREDDY_ASLEEP 8;
+Constant F_WALKMAN_BLOCKING 9;
+Constant F_HAVE_MET_VIC 10; ! vic has been encountered?
+Constant F_HAS_SWIPE_CARD 11; !does the player have the  security card
+Constant F_SAFE_IS_OPEN 12; !is jorry's safe open
+Constant F_HEADPHONES_ARE_UNPLUGGED 13; ! headphones are NOT plugged in
+Constant F_FREDDY_WALKMAN_SHY 14; !freddy won't take the walkman a second time
+Constant F_FREDDY_HAS_HEARD_THRILLER 15; !he's already heard it
+Constant F_SAFE_COMBO_IS_SET 16; ! safe combination has been set
+Constant F_SERVICE_ELEVATOR_ON 17; ! is the service elvator working?
 
 Constant MSG_WEAR_DEFAULT 1000;
 
@@ -143,8 +135,7 @@ Constant MSG_WEAR_DEFAULT 1000;
       13: "- finding the green cassette tape";
       14: "- opening the safe";
       15: "- getting the ledger";
-      16: "- incapacitating the baddies in the MRI suite";
-      17: "- getting Northrup's signature";
+      16: "- getting your letter";
   }
 ];
 
@@ -249,7 +240,6 @@ Include "puny.h";
     give backpack worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
-    show_items();
 ];
 
 Include "abbreviations.h";
@@ -298,13 +288,6 @@ Include "VerbLib";
 
 [open_or_closed door;
     if (door has open) print "open"; else print "closed";
-];
-
-[ show_items obj;
-    objectloop (obj ofclass Item)
-    {
-        print(name)obj,"^";
-    }
 ];
 
 [ player_has_balloon obj;
@@ -453,140 +436,6 @@ Include "VerbLib";
     "You seem to have reached an adult-oriented phone chat service. While somewhat curious, you, unfortunately, don't have a
     credit card yet. ",
     "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
-];
-Object follow_timer 
-    with
-        time_left,
-        time_out [;
-            move trio to hallway_m2;
-            trio.move_mode = FOLLOW_PATH;
-            StartDaemon(trio);
-        ];
-
-Object baddie_mri_delay
-    with   
-        time_left, 
-        time_out [;
-            if (player in mri_compartment)
-                print"Suddenly, the hatch swings open and you look up to see the snarling grin of Vic. He pull you 
-                up into the MRI suite.^^";
-            if (ledger in player)
-                {
-                    print"Vic rips the ledger from your hands and passes it to Dr. Northrup.^^
-                    ~Thank you, my dear, for delivering this to us. ";
-                } else {
-                    print"Northrup begins. ~Trust me, my dear, we'll find the ledger. ";
-                }
-            print(string)NORTHRUP_SPEECH;
-            deadflag = 3;
-            rtrue;   
-        ];
-
-[ mri_no_cart ;
-    if (real_location == mri_anteroom or mri_scanner)
-         "^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-        screech. The noise continues for a moment and then starts to wind down in pitch and intensity. In another moment, 
-        it's back to a mechanical ~chirping~ sound.^";
-    
-];
-
-[ mri_cart_anteroom; 
-    print"^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-    screech. Through the window you see the metal cart and the oxygen cannisters on it start to shake violently. As the 
-    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-    missile bashing into the white tube and smashing the safety glass of the door and window. With a pained moan, the scanner
-    winds down and stops and the room is eerily silent.^^You look over the carnage of the very expensive MRI machine, 
-    now shattered and in pieces and your heart sinks as you realize that you'll never get credit for your volunteer time now.^";
-    deadflag = 3;
-    rtrue;
-];
-
-[ mri_cart_hatch_closed;
-    ! cart in room, player in hatch, hatch closed
-    if (trio in mri_scanner) 
-    {
-        print"^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the walls surrounding you becomes a loud screech. 
-        Above you, you hear what sounds like metallic clattering followed by loud crashing and glass breaking. You also hear screaming and 
-        the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
-        MRI scanner and the screeching winds down and the you hear only eerie silence.^";
-        SetFlag(F_MRI_SUITE_DESTROYED);
-        remove trio;
-        StopDaemon(trio);
-        move injured_trio to mri_scanner;
-        move letter to mri_scanner;
-        StopTimer(baddie_mri_delay);
-        Achieved(16);
-        rtrue; 
-    }
-    print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
-    scanner becomes a loud whirring screech. Above you, you hear what sounds like metallic clattering followed by loud 
-    crashing and glass breaking. After a moment, there's a pained moan from the MRI scanner and the screeching winds 
-    down and the you hear only eerie silence.^^You peek out of the compartment and see the very expensive MRI machine 
-    shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
-    your volunteer time now.^";
-    deadflag = 3;
-    rtrue;
-];
-
-[ mri_cart_hatch_open;
-    ! cart in room, player in hatch, hatch closed
-    if (trio in mri_scanner) 
-    {
-        print"^Suddenly, you hear a loud ~clunk~ and the mechanical whining from the surrounding walls becomes a loud screech. 
-        The metal cart and the oxygen cannisters on it start to shake violently. As the noise crescendos, the cannisters 
-        take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-        missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
-        you duck down into the compartment, shutting the hatch behind you. Above you, you hear screaming and 
-        the dull ~thump~ of hard metallic things smacking into soft fleshy things. After a moment, there's a pained moan from the 
-        MRI scanner and the screeching winds down and then you hear only eerie silence.^";
-        SetFlag(F_MRI_SUITE_DESTROYED);
-        give mri_compartment ~open;
-        remove trio;
-        StopDaemon(trio);
-        StopTimer(baddie_mri_delay);
-        Achieved(16);
-        move injured_trio to mri_scanner;
-        move letter to mri_scanner;
-        rtrue; 
-    }
-    print"^Suddenly, you hear a loud ~clunk~ from within the walls around you and the mechanical whining from the MRI 
-    scanner becomes a loud whirring screech. The metal cart and the oxygen cannisters on it start to shake violently. As the 
-    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-    missile bashing into the white tube and smashing the safety glass of the door and window. Keeping your wits about you, 
-    you duck down into the compartment, shutting the hatch behind you. After a moment, there's a pained moan from the MRI 
-    scanner and the screeching winds down and the you hear only eerie silence.^^You peek out of the compartment and see
-    the very expensive MRI machine shattered and in pieces and your heart sinks as you realize that you'll never get credit for 
-    your volunteer time now.^";
-    deadflag = 3;
-    rtrue;
-];
-
-[ mri_cart_unprotected ; 
-    if (trio in mri_scanner)
-    {
-        print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-        screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
-        noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-        missile bashing into the white tube and smashing the safety glass of the door and window.^^
-        You, Ratchet, Northrup, and Vic try to shield yourselves but to no purpose as the flying debris slams into everyone.^^
-        Finally, the machine groans painfully to a halt, leaving you and your pursuers moaning on the floor.^^
-        Propitiously, however, the police have finally made it through the blizzard and have arrived to survey the scene. The good news is 
-        that you have unmasked the murderers to the thanks and gratitude of all. The bad news is that you are in no state to go back to 
-        school after your run-in with the MRI machine. You miss just enough classroom days that you are required to attend summer
-        school, despite your volunteer work.^";
-        deadflag = 3;
-        rtrue;
-    }
-    print"^^Suddenly, you hear a loud ~clunk~ from within the walls and the mechanical whining from the MRI scanner becomes a loud whirring
-    screech. You notice the metal cart and the oxygen cannisters on it start to shake violently. As the 
-    noise crescendos, the cannisters take flight and dart though the air toward and around the MRI scanner itself, each one a small 
-    missile bashing into the white tube and smashing the safety glass of the door and window.^^
-    You raise your arms in an effort to shield yourself but you are pummeled by the flying debris, knocking you unconscious. 
-    With a pained moan, the scanner winds down and stops and the room is eerily silent.^^
-    You come to and groggily look around. Seeing the very expensive MRI machine shattered and in pieces your heart sinks as 
-    you realize that you'll never get credit for your volunteer time now.^";
-    deadflag = 3;
-    rtrue;
 ];
         
 #Ifdef USEINFORM;

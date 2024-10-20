@@ -196,17 +196,6 @@ Verb 'swipe' 'slide'
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-!   PUSHING MRI BUTTONS
-[mri_button ;
-    if (noun == red_button or green_button) rtrue; rfalse;
-];
-Extend 'push' first 
-    * noun=mri_button -> pushbutt;
-[ PushButtSub ;
-    "heh, heh...";
-];
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   untie the balloon
 Verb 'untie' 
     * noun -> Untie
