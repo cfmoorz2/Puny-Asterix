@@ -159,12 +159,10 @@ Room morgue "Morgue"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway"
     with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
-                leads east, a placard next to it reads ~Morgue~. Open doorways lead north and south. A sign above the former reads ~Imaging~. 
-                A placard next to the latter reads ~MRI.~.",
+                leads east, a placard next to it reads ~Morgue~. An ooen doorway leads north, A sign above it reads ~Imaging~. ",
         e_to morgue_door,
         w_to elevator_lobby_b,
         n_to x_ray,
-        s_to mri_anteroom,
     class Tiles
     has light; 
 
