@@ -977,4 +977,39 @@ Object coaster "coaster"
         mass 1,
     class Item;
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object balloon "helium balloon" room_22
+    with 
+        id, ! 0 = balloon, 1 = string
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'helium' && w2 == 'balloon') { self.id = 0; return 2; }
+            if (w1 == 'mylar' && w2 == 'balloon') { self.id = 0; return 2; }
+            if (w1 == 'balloon' or 'helium' or 'mylar') { self.id = 0; return 1; }
+            if (w1 == 'string') { self.id = 1; return 1; }
+        ],
+        description [;
+            if(self.id == 0)
+            {
+                if (self in player) print"It's a silver mylar helium balloon. It hovers in the air as you hold it by the string. ";
+                    else
+                    print"It hovers against the ceiling with the string hanging down within reach. ";
+                    "On the side of the balloon it reads ~Get Well Soon!~ in large cartoonish letters. ";
+            }
+            "The string hangs down from the balloon. ";
+        ],
+        before [;
+            drop:
+            if (real_location == stairwell_b or stairwell_m) 
+            {
+                move self to stairwell_2;
+                "You release the balloon and it drifts and disappears upward. ";
+            }
+            move self to real_location;
+            "You release the balloon and it rises, bumping into the ceiling above. ";
+        ], 
+    class Item;
+
+
 

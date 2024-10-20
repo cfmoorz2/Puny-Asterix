@@ -64,8 +64,8 @@ Attribute encountered;
 Release 3;
 Serial "221116";
 
-Constant INITIAL_LOCATION_VALUE = b_ward_1;
-!Constant INITIAL_LOCATION_VALUE = sub_basement_02;
+!Constant INITIAL_LOCATION_VALUE = b_ward_1;
+Constant INITIAL_LOCATION_VALUE = room_22;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
