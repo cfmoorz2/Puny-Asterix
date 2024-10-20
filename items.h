@@ -1009,7 +1009,8 @@ Object balloon "helium balloon" room_22
             move self to real_location;
             "You release the balloon and it rises, bumping into the ceiling above. ";
         ], 
-    class Item;
+    class Item
+    has transparent;
 
 
 
