@@ -249,6 +249,7 @@ Include "puny.h";
     give backpack worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
+    show_items();
 ];
 
 Include "abbreviations.h";
@@ -264,11 +265,6 @@ Include "dumbwaiter.h";
 Include "service_elevator.h";
 Include "ext_flags.h";
 
-
-Object master_timer
-    with daemon [;
-        if (the_time == 420) "GAME OVER";
-];
 
 Object selfobj "you"
 	with
@@ -302,6 +298,13 @@ Include "VerbLib";
 
 [open_or_closed door;
     if (door has open) print "open"; else print "closed";
+];
+
+[ show_items obj;
+    objectloop (obj ofclass Item)
+    {
+        print(name)obj,"^";
+    }
 ];
 
 [ player_has_balloon obj;

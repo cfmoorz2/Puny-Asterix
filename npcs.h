@@ -879,6 +879,25 @@ Object worthless "Lt. Worthless" room_23
                 Around the station, he's known for his multiple divorces and not for his acumen as an investigator. ";
             }
         ],
+        signature_desc [;
+            "~Sure, I'll sign. If you promise to leave me alone and let me enjoy my morphine.~";
+        ],
+        life [;
+            give, show:
+            switch(noun)
+            {
+                syringe: "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Well, 
+                call the FBI...~";
+                kcl_bottle: "~You found a bottle of medicine? So what. I've been taking awesome medicine all day.~";
+                jorry_tape, walkman:
+                "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
+                coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
+                shrimp: "~Aw, man. That's rank. Get that outta here.~";
+                form: add_signature(self); rtrue;
+                default:
+                "The good Lieutenant is completely disinterested in ",(the)noun,".";
+            }
+        ],
         talk_array talk_array_worthless,
     has animate transparent proper;
 
