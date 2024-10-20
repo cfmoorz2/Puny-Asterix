@@ -1026,7 +1026,13 @@ Object balloon "helium balloon" room_22
                 scope_modified = true;
                 "Taken. ";
             }
-        ], 
+            ], 
+        after [;
+            take:
+            self.tied_to = player;
+            drop:
+            self.tied_to = 0;
+        ],
     class Item
     has transparent;
 

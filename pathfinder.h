@@ -54,7 +54,7 @@ Class Room
                     }
                 }
             }
-            !if (position_narrate_array-->0 ~= 0) print"^";
+            if (position_narrate_array-->0 ~= 0) print"^";
             for (x=0 : x<24: x++) 
             {
                 _i = position_narrate_array-->x;

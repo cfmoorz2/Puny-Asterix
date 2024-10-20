@@ -206,3 +206,33 @@ Extend 'push' first
     "heh, heh...";
 ];
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   untie the balloon
+Verb 'untie' 
+    * noun -> Untie
+    * noun 'from' noun -> Untie;
+
+[ UntieSub; 
+    if (noun == balloon && second == 0)
+    {
+        move balloon to player;
+        scope_modified = true;
+        balloon.tied_to = player;
+        "You untie and take the balloon. ";
+    }
+    if (noun == balloon)
+    {
+        move balloon to player;
+        scope_modified = true;
+        balloon.tied_to = player;
+        "You untie the balloon from ",(the)second,".^Taken. ";
+    }
+    if (second == balloon)
+    {
+        move balloon to player;
+        scope_modified = true;
+        balloon.tied_to = player;
+        "You untie the balloon from ",(the)noun,".^Taken. ";
+    }
+];
+
