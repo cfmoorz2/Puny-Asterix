@@ -246,7 +246,7 @@ Object sid_jorry "Sid Jorry" jorry_office
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array elliot_avoid_array --> room_21 room_22 room_23 stairwell_2 break_room room_31 room_32 room_33 room_34;
+Array elliot_avoid_array --> room_21;! room_22 room_23 stairwell_2 break_room room_31 room_32 room_33;
 Object elliot "Elliot" a_ward_1
     with name 'elliot',
         description "He's a muscular tan gentleman in his 30s with spiky black hair. He's rolling idly up and 
@@ -401,6 +401,7 @@ Object vic "Vic" bathroom
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
             ActivateTopic(nurse_retch, 305);
+            ActivateTopic(worthless, 301);
             "^Vic is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
             since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description. ";
         ],
@@ -486,6 +487,7 @@ Object becky "Becky" station_a
             give self encountered;
             ActivateTopic(mabel, 304);
             ActivateTopic(elliot, 300);
+            ActivateTopic(worthless, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         life [;
@@ -541,27 +543,36 @@ Object nurse_retch "Nurse Retch" station_b
             give, show:
             if (noun == syringe) 
             {
-                remove syringe;
                 SetFlag(F_RETCH_TRIGGERED);
                 StartTimer(retch_timer, 4);
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
-                "^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
-                relax into a saccharine smile. ~Wherever did you find that, dear?~ She takes it from you. ~Can't 
-                have you sticking yourself now, can we?~";
+                print"^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
+                relax into a saccharine smile. ~Wherever did you find that, dear? Do be careful, can't 
+                have you sticking yourself now, can we?~ ";
+                if (action == ##give)
+                {
+                    remove syringe;
+                    "She accepts the syringe from you and you suddenly have the feeling you maybe shouldn't have done that. ";
+                } else {"";}
             }
             if (noun == coaster) { retch_coaster(); rtrue; }
             if (noun == kcl_bottle)
             {
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
-                ~You are quite the persistent little thing, aren't you?~ She angrily swipes the vial from you.^^
-                ~You'd best be careful, candystriper, or you may not finish out your time here.~^";
-                remove kcl_bottle;
+                ~You are quite the persistent little thing, aren't you? You'd best be careful, candystriper, or you may not 
+                finish out your time here.~";
+                if (action == ##give)
                 SetFlag(F_RETCH_KCL);
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;
                 StartDaemon(nurse_retch);
-                rtrue;
+                if (action == ##give)
+                {
+                    remove kcl_bottle;
+                    " She swipes the offered vial from your hand and you suddenly have a sneaking suspicion that you shouldn't 
+                    have done that. ";
+                } else {"";}
             }
             switch(noun)
             {
@@ -710,7 +721,7 @@ Object injured_trio "Retch, Northrup, and Vic"
     has animate proper pluralname transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array winston_avoid_array --> stairwell_2 room_31 room room_32 room_33 room_34 room_21 room_22 room_24;
+Array winston_avoid_array --> stairwell_2 room room_32 room_33 room_34 room_21 room_22 room_23 room_24;
 Object winston "Mr. Winston" hallway_2_3
     with 
         name 'mr' 'winston',
@@ -847,4 +858,28 @@ Object mrs_chen "Mrs. Chen" room_21
         ],
     class Mover MyNPC
     has animate female proper transparent; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object worthless "Lt. Worthless" room_23 
+    with 
+        name 'worthless' 'cop',
+        description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
+        a blue patient gown. Somewhow he's attached his badge to the front of it. ",
+        hide,
+        describe [;
+            if (self has encountered)
+            {
+                "^Lt. Worthless is here, reclining in the bed. ";
+            }
+            else
+            {
+                give self encountered;
+                "^Lt. Worthless is here, lounging in the bed. He's a local homicide detective who happened to be 
+                admitted earlier today for a medical procedure and he's enjoying the attention and intermittent morphine.
+                Around the station, he's known for his multiple divorces and not for his acumen as an investigator. ";
+            }
+        ],
+        talk_array talk_array_worthless,
+    has animate transparent proper;
+
 

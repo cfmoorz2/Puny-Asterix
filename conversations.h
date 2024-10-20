@@ -79,6 +79,8 @@ Array talk_array_becky-->
   00 306 "Ms. Parsons" TM_NO_LINE "She's 103 years old, so she doesn't say much. But she has moments of lucidity and, I think, 
   hears conversations around her sometimes."
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
+  00 308 "Elliot" TM_NO_LINE "He's here getting his knee cleaned out. He's a bouncer and I think he hurt it 
+  tossing some overweight drunk to the curb."
   TM_END;
 
 Array talk_array_eugene-->
@@ -169,5 +171,30 @@ Array talk_array_elliot-->
   30 "wheelchair" TM_NO_LINE "I'm trying to keep my upper body strength up pushing this thing around."
   00 300 "Nurse Becky" TM_NO_LINE "She's nice. No complaints with the nursing around here. "
   TM_END;
+
+Array talk_array_worthless-->
+  30 "himself" TM_NO_LINE TM_NO_LINE TM_worthless_himself
+  30 "St. Asterix" TM_NO_LINE "Yeah, it's the only place that takes cop insurance. It's fine as long as they don't 
+  run out of morphine."
+  30 "Sid Jorry" TM_NO_LINE TM_NO_LINE TM_worthless_jorry 
+  00 300 "Nurse Becky" TM_NO_LINE "Yea, she's a sweetie. She's right on time with the pain pills."
+  00 301 "Vic" TM_NO_LINE "Vic? Vic Scarfaccio the mob enforcer is in the building? Huh. Must be getting a
+    colonoscopy." 1
+  00 "Nurse Retch" TM_NO_LINE "Yeah, I know her. Her maiden name is Scarfaccio, I think. Must be a 
+  coincidence."
+  TM_END;
+
+  [ TM_worthless_himself ;
+      "~I'm a cop, homicide. I'm here because of a kidney stone. They say it's the size of a golf ball.~ He sniffs 
+      proudly. ";
+  ];
+
+  [TM_worthless_jorry;
+      "~I heard about that guy. Found dead in his office? Heart attack, I heard. It's too bad how some people don't take 
+      care of themselves,~ he says as he pats his generous gut. ~One of my guys, Rodriguez, is coming in to investigate. 
+      But it's just a formality. The blizzard has held everybody up.~";
+  ];
+
+
 
 

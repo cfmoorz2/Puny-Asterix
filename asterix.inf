@@ -1,4 +1,4 @@
-!% -~S
+!!% -~S
 !% $OMIT_UNUSED_ROUTINES=1
 !% $ZCODE_LESS_DICT_DATA=1
 
@@ -34,7 +34,7 @@ Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
-Constant RUNTIME_ERRORS 0;
+Constant RUNTIME_ERRORS 2;
 Constant NUMBER_TASKS = 17;
 Constant MAX_SCORE 160;
 Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
@@ -65,7 +65,7 @@ Release 3;
 Serial "221116";
 
 !Constant INITIAL_LOCATION_VALUE = b_ward_1;
-Constant INITIAL_LOCATION_VALUE = room_22;
+Constant INITIAL_LOCATION_VALUE = room_23;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 

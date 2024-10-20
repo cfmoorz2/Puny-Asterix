@@ -1819,7 +1819,8 @@ Room a_ward_1 "Ward A - East"
 Room room_23 "Room 23"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
-        leads south back out to the hallway. ",
+        leads south back out to the hallway. A bed is pushed against one wall and the exit is through a doorway 
+        to the south. ",
         s_to a_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
@@ -1827,6 +1828,14 @@ Room room_23 "Room 23"
             print_ret(string)RADIATOR_DESC;
             take, touch, pull, push:
             print_ret(string)RADIATOR_TOUCH;
+        ]
+        'bed' 'hospital' [;
+            examine:
+            "It's a standard hospital bed, current occupied by Lt. Worthless. ";
+            take:
+            "To what purpose?";
+            enter:
+            "Lt. Worthless is already there. ";
         ],
     class Tiles DropCeiling
     has light;
