@@ -34,7 +34,7 @@ Array talk_array_freddy -->
   You've probably heard of us."
   30 "Dr. Northrup" TM_NO_LINE "I stay out of the big man's way and do what he tells me. Plus, that nurse friend of his scares 
   me." 304
-  30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in his office. I was told to lock the door and not to let anyone in until the 
+  30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in his office. I've got the key. I was told to lock the door and not to let anyone in until the 
   cops can get here. The blizzard is slowing them down, I guess. I did see some mafia-looking guy rummaging around 
   in there for a while, come to think of it."  304
   30 "service elevator" TM_NO_LINE "Yeah, dude. It stopped working tonight right after they found Mr. Jorry dead."
@@ -47,7 +47,8 @@ Array talk_array_buzz -->
   30 "monitors" TM_NO_LINE "These haven't worked in a while. A good security guard doesn't need all this tech stuff."
   30 "shrimp" TM_NO_LINE "Have to keep my strength up. All hell could break loose at any moment."
   30 "Sid Jorry" TM_NO_LINE "We found him dead in his office. The cops are on the way although it was probably just 
-  a heart attack. The blizzard has held them up and I'm not sure when they'll get here."
+  a heart attack. The blizzard has held them up and I'm not sure when they'll get here. The office is locked, Freddy has 
+  the key. "
   30 "service elevator" TM_NO_LINE "It went o nthe fritz earlier tonight. I guess maintenance will be in tomorrow."
   30 "Dr. Northrup" TM_NO_LINE "He's the hospital CEO. He always smells outstanding."
   00 300 "Mabel" TM_NO_LINE "The information desk is the front line of hospital security."
