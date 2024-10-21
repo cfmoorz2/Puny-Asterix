@@ -27,7 +27,9 @@ Array position_narrate_array --> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
             rtrue;
         }
     }
-    !"ERROR_POSITION_ERROR_OVERRUN";
+    #IfDef DEBUG;
+    "ERROR_POSITION_ERROR_OVERRUN";
+    #Endif;
 ];
 
 Class Room 

@@ -566,7 +566,7 @@ Object rock "rock" aquarium
                 give aquarium container;
                 give aquarium open;
                 move jorry_tape to aquarium;
-                "You lift the rock and find a casette tape under it. ";
+                "You lift the rock and find a green cassette tape lying under it. ";
             }
         ],
     class Item;
@@ -859,7 +859,7 @@ Object form "signature form"
         description [ x ;
             print"It's a signature form on your high school's letterhead. Below the text there are eight lines 
             for staff or patient signatures. Currently, there ";
-            x = signature_count();
+            x = SIGNATURE_COUNT;
             if (x == 0) "are no signatures. ";
             if (x == 1) { print"is one signature: "; }
             else { print"are ",x," signatures: "; }
@@ -891,7 +891,7 @@ Object letter "piece of paper"
             take:
             print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
             You feel like you could kiss Mr. Jorry, if he weren't dead.^";
-            if (signature_count() > 7)
+            if (SIGNATURE_COUNT > 7)
             {
                 print"^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
                 go on to have your best summer ever at the pool.^";

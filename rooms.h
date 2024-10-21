@@ -1503,8 +1503,8 @@ Object box_switch "switch" x_ray
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_1 "hallway_2_1"
-    with description "Here the hallway continues east and west. A service elevator is here in the north wall. 
-        A red line is painted down the middle of the floor. ",
+    with description "Here the hallway continues east and west. A service elevator is here to the north. A sign next to it 
+        reads ~Employees Only~. A red line is painted down the middle of the floor. ",
         e_to elevator_lobby_2,
         w_to hallway_2_2,
         n_to service_elevator_door,
@@ -1765,7 +1765,7 @@ Object microwave_dial "dial" break_room
 Object sub_basement_02 "Sub-Basement"
     with description "This is the middle of a short dimly lit corridor that continues to the west and west.  
         The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
-        A service elevator is here in the north wall.",
+        A service elevator is here to the north. A sign next to it reads ~Employees Only~.",
     n_to service_elevator_door,
     in_to service_elevator_door,
     e_to sub_basement_03,

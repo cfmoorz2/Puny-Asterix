@@ -838,12 +838,12 @@ Object worthless "Lt. Worthless" room_23
                 print"^Just then, Lt. Rodriguez, a plain-clothes office with a competent air enters the room, flanked by
                 two uniformed officers. All three are dusted with snow.^^
                 Lt. Worthless yawns and scratches as Lt. Rodriguez examines the evidence you've collected and listens to your
-                story:^^
+                story:^
                 Sid Jorry realized that Dr. Northup was bleeding money from the hospital so that he could cash out when the 
-                facility went under. Jorry recorded his findings in a ledger which, apparently, Northup found out about.^^
+                facility went under. Jorry recorded his findings in a ledger which, apparently, Northup found out about.^
                 Northrup, abetted by his loyal assistant Nurse Retch, hired Retch's brother Vic, a mafia hitman to do the deed. 
                 Retch passed him a syringe of potassium chloride, which stops the heart but isn't picked up on 
-                toxicology testing.^^
+                toxicology testing.^
                 Unfortunately for Vic, the blizzard trapped him in the hospital and he was forced to hide in the sub-basement. 
                 Retch sabotaged the service elevator so no one would find him down there, intending to restart the elevator after the
                 police had left.^^";
