@@ -3,10 +3,10 @@ Class MyContainer
         holding [counter i;
             objectloop(i in self)   {
                 counter = counter + i.mass;
-                print"counter = ",counter,".^";
-                print"added ",i.mass," to counter.^";
+                !print"counter = ",counter,".^";
+                !print"added ",i.mass," to counter.^";
             }
-            print"final counter = ",counter,"^";
+            !print"final counter = ",counter,"^";
             return counter;
         ],
         before [ x;
