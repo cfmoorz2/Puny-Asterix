@@ -768,7 +768,7 @@ Object mrs_chen "Mrs. Chen" room_21
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object worthless "Lt. Worthless" room_23 
     with 
-        name 'worthless' 'cop',
+        name 'worthless' 'cop' 'lieutenant',
         description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
         a blue patient gown. Somewhow he's attached his badge to the front of it. ",
         hide,
@@ -862,7 +862,7 @@ Object worthless_badge "badge" worthless
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object rodriguez "Lt. Rodriguez"
     with 
-        name 'rodriguez' 'cop',
+        name 'rodriguez' 'cop' 'lieutenant',
         description "He's a short, trim, dark-skinned gentleman with shirt brown hair
         and piercing dark eyes. ",
         before [;
