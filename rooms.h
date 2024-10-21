@@ -154,7 +154,7 @@ Room morgue "Morgue"
             if (parent(self) == morgue) return w_to; return e_to;
         ],
         found_in morgue basement_hallway_east,
-    has scenery door openable ~open;
+    has scenery door openable open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway East"
@@ -1596,18 +1596,35 @@ Object box_switch "switch" x_ray
             if (parent(self) == x_ray) return e_to; return w_to;
         ],
         found_in x_ray darkroom,
-    has scenery door openable ~open;
+    has scenery door openable open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room darkroom "Darkroom" 
     with 
-        description "This is a small darkroom off of the main x-ray suite. There's a metal basin and counter running 
-        along one wall and metal shelves stacked neatly with bottle of chemicals along another. There's a strong 
-        chemical smell in here and if you stay much longer you may get a headache. The exit lies through a door
-        to the west. ",
-        !w_to darkroom_door, 
+        description "This is a small darkroom off of the main x-ray suite. There's a metal basin and tiled counter running 
+            along one wall and metal shelves stacked neatly with bottle of chemicals along another. There's a strong 
+            chemical smell in here and if you stay much longer you may get a headache. The exit lies through a door
+            to the west. ",
+        w_to darkroom_door, 
+        before [;
+            smell:
+            "It smells like when your grandmother cleans her oven. ";
+        ],
     class Tiles DropCeiling
     has light;
+
+MyContainer darkroom_basin "basin" darkroom 
+    with 
+        name 'metal' 'basin',
+        description "It's a metal basin built into the counter. ",
+        max_capacity 20,
+    has scenery; 
+
+Object darkroom_counter "counter" darkroom
+    with 
+        name 'tiled' 'counter',
+        description "It's a tile counter, stained by years of chemical spills. ",
+    has scenery supporter;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_1 "Second Floor Hallway @@64 Service Elevator"

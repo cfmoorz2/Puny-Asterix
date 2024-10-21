@@ -1078,11 +1078,11 @@ Object balloon "helium balloon" room_22
     has transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object darkroom_flashlight "flashlight" darkroom 
+Object darkroom_flashlight "flashlight" darkroom_counter
     with 
         name 'light' 'flashlight' 'torch',
         description [;
-            print"It's a flashlight but with a special bulb installed for use in darkrooms. It's ";
+            print"It's a flashlight with a special bulb installed for use in darkrooms. It's ";
             if(self has on) "currently on and emitting a creepy red light. "; "currently off. ";
         ],
         mass 5,
