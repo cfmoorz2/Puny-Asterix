@@ -828,6 +828,16 @@ Object worthless "Lt. Worthless" room_23
         talk_array talk_array_worthless,
     has animate transparent proper;
 
+Object worthless_badge "badge" worthless
+    with 
+        name 'badge',
+        description "It's a gold shield incongruously stuck to the front of Lt. Worthless' hospital gown. ",
+        before [;
+            take:
+            "You shouldn't take a cop's badge.";
+        ],
+        mass 2;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object rodriguez "Lt. Rodriguez"
     with 
