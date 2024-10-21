@@ -883,10 +883,10 @@ Object letter "piece of paper"
         before [;
             take:
             move self to real_location;
+            Achieved(16);
         ],
         after [;
             take:
-            Achieved(16);
             print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
             You feel like you could kiss Mr. Jorry, if he weren't dead.^";
             if (signature_count() > 7)

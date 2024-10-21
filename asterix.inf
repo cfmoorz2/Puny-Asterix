@@ -79,7 +79,7 @@ Global SAFE_CURRENT;
 Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 
-Constant FLAG_COUNT 17;
+Constant FLAG_COUNT 18;
 Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
 Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
@@ -97,6 +97,7 @@ Constant F_FREDDY_WALKMAN_SHY 14; !freddy won't take the walkman a second time
 Constant F_FREDDY_HAS_HEARD_THRILLER 15; !he's already heard it
 Constant F_SAFE_COMBO_IS_SET 16; ! safe combination has been set
 Constant F_SERVICE_ELEVATOR_ON 17; ! is the service elvator working?
+Constant F_ENDGAME 18; ! in endgame
 
 Constant MSG_WEAR_DEFAULT 1000;
 
@@ -441,6 +442,7 @@ Include "VerbLib";
 [ you_win ;
     move trio to room_23;
     move letter to room_23;
+    SetFlag(F_ENDGAME);
     "Lt. Rodriguez turns to his partners. ~I've seen enough. This impressive young lady has clearly done our jobs for us this 
     evening.~^^
     He gives some orders and, soon, Vic, Retch, and Northrup have been located and brought into the room. Their rights are read and 

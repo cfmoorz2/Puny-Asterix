@@ -792,8 +792,13 @@ Object worthless "Lt. Worthless" room_23
         signature_desc [;
             "~Sure, I'll sign. If you promise to leave me alone and let me enjoy my morphine.~";
         ],
+        before [;
+            talk:
+            if (FlagIsSet(F_ENDGAME)) "He simply hums to himself and smiles. ";
+        ],
         life [;
             give, show:
+            if (FlagIsSet(F_ENDGAME)) "He's seems more interested in his hands. ";
             if(noun == ledger)
                 {
                     print"Unfortunately, Lt. Worthless apparently received some medication recently. He's quietly 
@@ -830,6 +835,11 @@ Object rodriguez "Lt. Rodriguez"
         evidence_count 0,
         description "He's a short, trim, dark-skinned gentleman with shirt brown hair
         and piercing dark eyes. ",
+        before [;
+            talk:
+            "He seems a man of few words. ";
+        ],
+        hide,
         life [;
             give, show:
             if (noun == walkman)
@@ -864,6 +874,14 @@ Object cop_duo "uniformed officers"
         name 'cops' 'police' 'uniformed' 'officers',
         description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
         short, squat, and bald. ",
+        hide,
+        before [;
+            talk:
+            "They don't seem very talkative. ";
+        ],
+        life [;
+            "They're pretty much just here for show. ";
+        ],
     has pluralname animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -878,6 +896,16 @@ Object trio "Retch, Northrup, and Vic"
             if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
             if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
             if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+        ],
+        hide,
+        before [;
+            talk:
+            if (self.id == 1 or 3)
+            "He's exercising his right to remain silent. "; "She's exercising her right to remain silent. ";
+        ],
+        life [;
+            if (self.id == 1 or 3)
+            "He sullenly ignores you. "; "She sullenly ignores you. ";
         ],
         description [;
             switch (self.id)
