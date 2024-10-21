@@ -842,7 +842,13 @@ Object book_cart "book cart" b_ward_1
     has supporter;
 
 Object novels "novels" book_cart
-    with name 'novels' 'novel' 'book' 'books',
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'romance' && w2 == 'novel' or 'novels' or 'book' or 'book') return 2;
+            if (w1 == 'novels' or 'novel' or 'book' or 'books') return 1;
+        ],
         description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
         before [;
             read:
@@ -854,12 +860,15 @@ Object novels "novels" book_cart
 
 Object magazines "magazines" book_cart
     with 
-        name 'magazines' 'magazine' 'journal',            
+        parse_name [ w1 ;
+            w1 = NextWord();
+            if (w1 == 'magazines' or 'magazine' or 'journal' or 'journals' or 'time' or 'people' or 'newsweek') return 1;
+        ],            
         description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
             and 'Newsweek' among the stacks.",
         before [;
             take: 
-                "You don't need any magazine that's not 'Teen Beat' or 'Seventeen'.";
+                "You're not really interested in any magazine that's not 'Teen Beat' or 'Seventeen'.";
             read:
                 print"You flip through a random magazine. ";
                 read_news();

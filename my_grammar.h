@@ -230,3 +230,18 @@ Verb 'untie'
     "You untie the ",(the)noun," from the balloon. ^Taken. ";
 ];
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   HELP
+
+Verb meta 'help'  * -> Help;
+[ HelpSub ;
+    "Find out who killed Sid Jorry and get your signature form signed along the way...^
+    Extra commands available:^
+    @@8'capacity' (helpful with inventory management)^
+    @@8'follow x'^ 
+    @@8'talk to x'";
+];
+
+
+
+
