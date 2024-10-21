@@ -157,7 +157,7 @@ Room morgue "Morgue"
     has scenery door openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room basement_hallway_east "Basement Hallway"
+Room basement_hallway_east "Basement Hallway East"
     with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
                 leads east, a placard next to it reads ~Morgue~. An ooen doorway leads north, A sign above it reads ~Imaging~. ",
         e_to morgue_door,
@@ -167,7 +167,7 @@ Room basement_hallway_east "Basement Hallway"
     has light; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room elevator_lobby_b "elevator_lobby_b" 
+Room elevator_lobby_b "Basement Elevator Lobby" 
     with description [; 
         print"This is a spartan fluorescent-lit hallway that continues to the east and west.  A stairwell lies to the north through an 
         open doorway. Opposite the stairwall in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue, 
@@ -185,7 +185,7 @@ Room elevator_lobby_b "elevator_lobby_b"
     ;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room stairwell_b "stairwell_b" 
+Room stairwell_b "Basement Stairwell" 
     with description
         "This is a dark stairwell just off the main hallway which lies to the south. A large ~B~ is painted on the wall. 
         Concrete stairs zig-zag upward to the floor above.",
@@ -196,7 +196,7 @@ Room stairwell_b "stairwell_b"
     ;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room basement_hallway_west "basement_hallway_west"
+Room basement_hallway_west "Basement Hallway @@64 Service Elevator"
     with description
         "This is nearly the midpoint of a long dreary east-west hallway. A service elevator is here to the north. A sign next to it 
         reads ~Employees Only~.",
@@ -208,7 +208,7 @@ Room basement_hallway_west "basement_hallway_west"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_b1 "hallway_b1"
+Room hallway_b1 "Basement Hallway @@64 Dumbwaiter"
     with description "The corridor here continues east and west. Embedded in the wall to the south you see an 
     old dumbwaiter, presumably once used to deliver needed items to the patient floors above.",
     e_to basement_hallway_west,
@@ -217,7 +217,7 @@ Room hallway_b1 "hallway_b1"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_b2 "hallway_b2"
+Room hallway_b2 "Basement Hallway West"
     with description "This is the western end of a long corridor that stretches to the east under flickering fluorescent lights. 
         There's an open doorway to the north, a sign next to it reads ~Environmental Services~.
         A second doorway lies to the west. A sign next to it reads ~Engineering~. Finally, a substantial metal door lies to the 
@@ -505,7 +505,7 @@ Object fusebox "fusebox" engineering
     has scenery container openable ~open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room stairwell_m "stairwell_m" 
+Room stairwell_m "Main Stairwell" 
     with description 
         "This is a dark stairwell just off the main hallway which lies to the south. The word ~Main~ is painted in large letters 
         on the wall here. Concrete stairs zig-zag up and down to 
@@ -517,7 +517,7 @@ Room stairwell_m "stairwell_m"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room stairwell_2 "stairwell_2"
+Room stairwell_2 "Second Floor Stairwell"
     with description "This is a dark stairwell just off the main hallway which lies to the south. 
         A large number ~2~ is painted on the wall. Concrete stairs zig-zag downward to the floor below. ",
         d_to stairwell_m,
@@ -598,7 +598,7 @@ Room room_32 "Room 32"
     has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room station_b "Ward B - Station"
+Room station_b "Ward B - West"
     with description "This is the Ward 'B' nurses' station, lying at the eastern end of a long east-west corridor. To aid in 
         visitor and patient navigation, the walls here are painted blue and a blue line runs to the west down the 
         middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south. 
@@ -799,7 +799,7 @@ Object garbage_can "garbage can" kitchen
     has scenery open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_m1 "hallway_m1"
+Room hallway_m1 "Junction"
     with description "Two corridors meet here. A dark wide hallway continues east and west and a short wood-panelled 
         corridor begins here and leads south. ",
         s_to main_lobby,
@@ -868,7 +868,7 @@ Object magazines "magazines" book_cart
     has scenery pluralname;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_m2 "hallway_m2"
+Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. 
     You notice that one of the tiles in the drop ceiling above is ajar and you can see darkness behind it. ",
         before [;
@@ -1068,7 +1068,7 @@ Room admin_hallway "Administration"
     has scenery door openable ~open lockable locked;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room jorry_office "Office" 
+Room jorry_office "Jorry's Office" 
     with description [;
         print"This is a typical office befitting a less-than-top-level executive. A desk stands here 
         as well as a rolling leather executive chair";
@@ -1389,7 +1389,7 @@ Object combo_dial "dial" northrup_office
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room elevator_lobby_2 "elevator_lobby_2" 
+Room elevator_lobby_2 "Second Floor Elevator Lobby" 
     with description [;
         print"This is the second-floor elevator lobby. The elevator doors lie to the south, a small panel next to 
         them. The elevator doors are currently ";
@@ -1423,7 +1423,7 @@ Object blue_line "blue line"
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_2_3 "hallway_2_3" 
+Room hallway_2_3 "Second Floor Hallway East" 
     with description "This long dim hallway continues east towards ward B and west 
         toward the elevators. A thick blue line is painted down the middle of the floor. ",
     w_to elevator_lobby_2,
@@ -1502,7 +1502,7 @@ Object box_switch "switch" x_ray
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_2_1 "hallway_2_1"
+Room hallway_2_1 "Second Floor Hallway @@64 Service Elevator"
     with description "Here the hallway continues east and west. A service elevator is here to the north. A sign next to it 
         reads ~Employees Only~. A red line is painted down the middle of the floor. ",
         e_to elevator_lobby_2,
@@ -1513,7 +1513,7 @@ Room hallway_2_1 "hallway_2_1"
     has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room hallway_2_2 "hallway_2_2" 
+Room hallway_2_2 "Second Floor Hallway @@64 Dumbwaiter" 
     with description "This is the entrance to 'A' Ward which lies down the hallway to the west. The wallpaper here is red, 
         matching the red line running down the middle of the floor. A sign next to to an open doorway to the north reads ~Employees Only~.
         The hallway returns to the east and an old service dumbwaiter is here, embedded in the south wall. ",
@@ -1580,7 +1580,7 @@ Room room_24 "Room 24"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room station_a "Ward A - Station"
+Room station_a "Ward A - West"
     with description "This is the western end of a long east-west corridor. The walls are red and open doorways to the north and south 
         lead to patient rooms, signs next to the former read ~21-A~, the latter ~22-A~. The nurses' station is here. 
         It's a large square waist-high desk used for charting and note-taking. ",
@@ -1762,7 +1762,7 @@ Object microwave_dial "dial" break_room
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object sub_basement_02 "Sub-Basement"
+Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
     with description "This is the middle of a short dimly lit corridor that continues to the west and west.  
         The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
         A service elevator is here to the north. A sign next to it reads ~Employees Only~.",
