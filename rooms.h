@@ -1956,8 +1956,8 @@ Object boiler_room "Boiler Room"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_01 "In The Ceiling"
     with description [;
-        print"You are perched in the dark service space within the ceiling. Your flashlight reflects off 
-        dust motes as you support yourself on thick pipes and brackets suspended from higher up. Large 
+        print"You are perched in the dark service space within the ceiling. Your flashlight reflects 
+        red light off of dust motes as you support yourself on thick pipes and brackets suspended from higher up. Large 
         air ducts block any movement to the east but the way to the west is open. Here 
         there is a gap in the drop-ceiling tiles below you and you can see a ladder down below.^";
         ],
