@@ -3,7 +3,7 @@ Class ServiceButton
     with call_level,
         description [;
             print(The)self, " is currently ";
-            if (self has on) "lit"; else "unlit";
+            if (self has on) "lit. "; else "unlit. ";
         ],
         before [;
             push:
@@ -93,7 +93,7 @@ Object service_elevator_ext "service elevator"
         description [;
             print"It's a utilitarian service elevator with a single metal door, currently ";
             open_or_closed(service_elevator_door);
-            " There's a small panel embedded in the wall next to it. ";
+            ". There's a small panel embedded in the wall next to it. ";
         ],
         !found_in basement_hallway_west hallway_m1 hallway_2_1 hallway_3_1 sub_basement_02,
         found_in basement_hallway_west hallway_2_1 sub_basement_02,

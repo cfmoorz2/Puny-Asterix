@@ -3,7 +3,7 @@ Class Button
     with call_level,
         description [;
             print(The)self, " is currently ";
-            if (self has on) "lit"; else "unlit";
+            if (self has on) "lit. "; else "unlit. ";
         ],
         before [;
             push:
@@ -115,13 +115,13 @@ Object interior_open_button "open button"
         found_in interior_panel,
         has scenery;   
 
-Button interior_m_button 
+Button interior_m_button "'M' Button" 
     with name 'm//' 'main' 'button',
         call_level 1,
         !short_name "main button",
         found_in interior_panel;     
 
-Button interior_2_button 
+Button interior_2_button "'2'Button"
     with name 'two' 'second' '2//' 'button',
         call_level 2,
         parse_name [w1 w2;
@@ -133,7 +133,7 @@ Button interior_2_button
         !short_name "second floor button",
         found_in interior_panel;  
 
-Button interior_b_button 
+Button interior_b_button "'B' Button"
     with name 'b//' 'basement' 'button',
         call_level 0,
         !short_name "basement button",
@@ -159,17 +159,17 @@ Object exterior_panel "panel" elevator_lobby_m
         ],
     has container transparent scenery;
 
-Button exterior_up_button 
+Button exterior_up_button "Up Button" 
     with name 'up' 'button',
         short_name "up button",
         found_in exterior_panel;
 
-Button exterior_down_button
+Button exterior_down_button "Down Button"
     with name 'down' 'button',
         short_name "down button",
         found_in exterior_panel second_floor_exterior_panel;
 
-Button basement_exterior_up_button
+Button basement_exterior_up_button "Up Button"
     with name 'up' 'button',
         short_name "up button",
         found_in basement_exterior_panel;

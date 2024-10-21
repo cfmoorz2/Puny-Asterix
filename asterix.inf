@@ -202,6 +202,10 @@ Global following = false;
         if (npc ofclass Mover) PlaceInScope(npc);
         } 
     }
+    if (real_location == ceiling_05 && northrup in northrup_office) 
+    {
+        PlaceInScope(northrup);
+    }
     p_actor = 0;
     rfalse;
 ];
@@ -415,7 +419,7 @@ Include "VerbLib";
     !SAFE_1 = 1;
     !SAFE_2 = 2;
     !SAFE_3 = 3;
-    "^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
+    !"^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;

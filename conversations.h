@@ -3,7 +3,7 @@ Array talk_array_mabel -->
    got any new romance novels for me?" 
   30 "St. Asterix Hospital" TM_NO_LINE "I suppose I've been here most of my life, first as a nurse and now doing this. Don't get me started on 
   the people running it these days, though."
-  30 "Dr. Northrup" TM_NO_LINE "She frowns. My Momma told me not to deal in rumors. But I think that doctor has been running this place 
+  30 "Dr. Northrup" TM_NO_LINE "My Momma told me not to deal in rumors. But I think that doctor has been running this place 
   into the ground. It almost seems deliberate."
   30 "Sid Jorry" TM_NO_LINE "He worked hard to keep this place financially afloat. If you ask me, I think somebody killed him to 
   keep him quiet about something." 
@@ -14,8 +14,8 @@ Array talk_array_mabel -->
   00 303 "Buzz" TM_NO_LINE "The security guy? He couldn't outrun me. And I'm 82 with a titanium hip."
   00 300 "'Throbbing Loins of Nantucket'" TM_NO_LINE "Ooh, girl. That one's a personal favorite. I do like my sea captains muscular and sweaty.
     It's almost as good as that one about the stable boys." 1 
-  00 301 "'Shirtless Stable Boys of Madison County'" TM_NO_LINE "She fans herself. Don't get me started, girl. And that book 
-    you brought me last week about the vampires? She gives a 'chef's kiss'." 302
+  00 301 "'Shirtless Stable Boys of Madison County'" TM_NO_LINE "Don't get me started, girl. And that book 
+    you brought me last week about the vampires? That's what I'm talkin' about." 302
   00 302 "'You Had Me at 'Blah''" TM_NO_LINE "Ooh, girl. I do like 'em pale and stringy."
   TM_END;
 
@@ -111,7 +111,7 @@ Array talk_array_retch-->
 
 [ retch_coaster ;
             "Her eyes alight on the coaster. Her lips tighten and there's a brief flash of surprise in her eyes.^^
-            ~Why are you carryihg around garbage, dear?~";
+            ~Why are you carrying around garbage, dear?~";
 ];
 
 [ TM_retch_syringe ;

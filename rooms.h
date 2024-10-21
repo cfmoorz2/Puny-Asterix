@@ -159,7 +159,7 @@ Room morgue "Morgue"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway East"
     with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
-                leads east, a placard next to it reads ~Morgue~. An ooen doorway leads north, A sign above it reads ~Imaging~. ",
+                leads east, a placard next to it reads ~Morgue~. An open doorway leads north, A sign above it reads ~Imaging~. ",
         e_to morgue_door,
         w_to elevator_lobby_b,
         n_to x_ray,
@@ -351,6 +351,7 @@ Object cabinet_door "cabinet door" environmental_services
             if (w1 == 'door' && w2 == 0) return 1;
         ],
         before [;
+            push, pull: "The door resists all your efforts. ";
             open: 
             <<open storage_cabinet>>;
             close:
@@ -546,9 +547,9 @@ Room room_33 "Room 33"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ],
     class Tiles DropCeiling
     has light;
@@ -577,9 +578,9 @@ Room room_32 "Room 32"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ]
         1 'pillow' [;
             examine:
@@ -618,16 +619,16 @@ Object ward_b_station "nurses' station" station_b
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_31 "Room 31"
-    with description "This is an unassuming patient room. The wallpaper is an insitutional blue and a bed is pushed 
+    with description "This is an unassuming patient room. The wallpaper is an institutional blue and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
         leads south back out to the hallway. ",
         s_to b_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ],
     class Tiles DropCeiling
     has light;
@@ -987,10 +988,12 @@ Room main_lobby "Main Lobby"
         if(FlagIsClear(F_ENDGAME))
             "This is the main lobby and hospital entrance. The wall to the south is mostly glass, including the large 
             glass double doors leading out. The windows are partially iced over and through them you can see gales of 
-            wind-driven snow blowing sideways. An information desk occupies the north wall.";
+            wind-driven snow blowing sideways. An information desk occupies the north wall and the door to the security
+            office lies to the west. ";
             "This is the main lobby and hospital entrance. The wall to the south is mostly glass, including the large 
             glass double doors leading out. The snow has stopped and 
-            faint pink sunlight illuminates the frosted windows from behind. An information desk occupies the north wall.";
+            faint pink sunlight illuminates the frosted windows from behind. An information desk occupies the north wall
+            and the door to the security office lies to the west. ";
         ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
@@ -1008,7 +1011,7 @@ Room main_lobby "Main Lobby"
                 print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
                 She picks up a book titled 'Throbbing Loins of Nantucket'.^^
-                ~Ooh, I almost forgot. Take this.~^
+                ~Ooh, I almost forgot. Take this.~ 
                 She pulls a flashlight from the folds of her layers and hands it to you.^^
                 ~You may need this tonight if the blizzard causes a brown-out. I sure do wish I'd gotten myself 
                 out of here and home before they closed the roads.~^";
@@ -1047,7 +1050,8 @@ Room admin_hallway "Administration"
     ],
     cheap_scenery
     2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
-    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. ",
+    'blue' 'carpet' "It's dark blue carpet. It looks relatively new. "
+    'placard' 'placards' "They're small brass signs on the doors. ",
     before [;
         examine:
         if (selected_direction == u_to) "You see a tile drop ceiling and light fixtures hanging down. ";
@@ -1140,12 +1144,15 @@ Room jorry_office "Jorry's Office"
 Object jorry_safe "safe" jorry_office
     with 
         name 'safe',
-        description ,
+        description "It's a black squat office safe. The combination lock has been drilled out and the door is bent. ",
         before [;
             take:
             "It's far too heavy. ";
+
+            close:
+            "The door is bent and it won't close. ";
         ],
-    has scenery;
+    has scenery container open;
 
 Object jorry_desk "desk" jorry_office
     with 
@@ -1196,21 +1203,6 @@ Room northrup_office "Northrup's Office"
         if (northrup_chair in self) " and a plush leather executive chair is here next to the desk. "; else ".";
         ],
         cheap_scenery
-        6 'bookcase' 'bookshelf' 'shelves//p' 'shelf' 'bookcases//p' 'bookshelves//p' [;
-            examine:
-            "They're dark wooden shelves, seemingly hand-made to match the desk. They're full of 
-            numerous books which you don't need. ";
-            take:
-            "Seems unlikely. ";
-        ]
-        5 'medical' 'book' 'books' 'journal' 'journals' [;
-            examine:
-            "You see numerous books and medical journals. Nothing that appeals to you. ";
-            take:
-            "While you could stand to be a bit more well read, you don't need these particular books. ";
-            read:
-            "You already know everything you need to know about the pineal gland. ";
-        ]
         'painting' 'paintings' [;
             examine:
             "They're boring pictures of landscapes and seascapes. ";
@@ -1267,6 +1259,27 @@ Room northrup_office "Northrup's Office"
     n_to northrup_door,
     u_to ceiling_05,
     has light;
+
+Object bookcase "bookcase" northrup_office
+    with 
+        name 'bookcase' 'shelves' 'bookshelf' 'shelf',
+        description "They're dark wooden shelves, seemingly hand-made to match the desk. They're full of 
+            numerous books which you don't need. ",
+    has scenery;
+
+Object medical_books "medical books" northrup_office
+    with 
+        name 'medical' 'book' 'books' 'journals',
+        description "You see numerous books and medical journals. Nothing that appeals to you. ";
+        before [;
+            take:
+            "While you could stand to be a bit more well read, you don't need these particular books. ";
+            read:
+            "You already know everything you need to know about the pineal gland. ";
+        ],
+
+
+
 
 Object file_cabinet "file cabinet" northrup_office
     with 
@@ -1460,7 +1473,7 @@ Bed x_ray_table "x-ray table" x_ray
 
 Object x_ray_camera "camera" x_ray
     with name 'x-ray' 'xray' 'xr' 'camera',
-        description"It's bulky metal and glass x-ray camera, fixed to rails in the ceiling for easier positioning above the patient. ",
+        description"It's a bulky metal and glass x-ray camera, fixed to rails in the ceiling for easier positioning above the patient. ",
         before [;
             take:
                 "It's attached to the rails in the ceiling. ";
@@ -1471,7 +1484,7 @@ Object x_ray_camera "camera" x_ray
 
 Object rails "rails" x_ray 
     with name 'rail' 'rails//p',
-        description"They're metal rails embedded in the ceiling. They allow for easy positioning of the xray camera. ",
+        description"They're metal rails embedded in the ceiling. They allow for easy positioning of the x-ray camera. ",
         before [;
             take:
                 "You can't reach them and don't need them. ";
@@ -1503,7 +1516,7 @@ Object box_switch "switch" x_ray
     with name 'switch' 'toggle',
         description"It's a metal toggle switch. ",
         before [;
-            flick:
+            push, pull, flick:
                 if (viewing_boxes has on)   <<switchoff viewing_boxes>>; else <<switchon viewing_boxes>>;
             take:
                 "It's fixed to the viewing boxes. ";
@@ -1557,9 +1570,9 @@ Room room_23 "Room 23"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ]
         'bed' 'hospital' [;
             examine:
@@ -1581,9 +1594,9 @@ Room room_24 "Room 24"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ],
     class Tiles DropCeiling
     has light;
@@ -1617,9 +1630,9 @@ Room room_21 "Room 21"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ],
     class Tiles DropCeiling
     has light;
@@ -1641,9 +1654,9 @@ Room room_22 "Room 22"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print_ret(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC;
             take, touch, pull, push:
-            print_ret(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH;
         ],
     class Tiles DropCeiling
     has light;
@@ -1672,7 +1685,7 @@ Room break_room "Break Room"
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
         description "It's an old off-white refrigerator. A handwritten note taped to the front helpfully reminds the reader 
-            that their mother doesn't work here and that one should only eat ones own food. ",
+            that their mother doesn't work here and that one should only eat one's own food. ",
         before [;
             take:
                 "You don't possess the power of levitation. You do seem to possess the power of delusion. ";
@@ -1984,7 +1997,7 @@ Object ceiling_05 "In The Ceiling"
                     print"A seething Dr. Walter Northrup is here to meet you, furious in equal parts at the cloud of dust you've
                     brought down onto his carpet as well as your ill-conceived invasion of his office. Unsurprisingly, 
                     your time as a candy-striper is at an end.^";
-                    deadflag = 6;
+                    deadflag = 3;
                     rtrue;
                 }
             }

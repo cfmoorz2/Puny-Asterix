@@ -52,6 +52,10 @@ Extend only 'thump' 'hit' 'punch' replace
 Verb 'spin' = 'turn';
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   CLOSE LADDER
+Verb 'fold' 'collapse' = 'close';
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   UNFOLD LADDER
 Verb 'unfold' = 'open';
 
@@ -109,7 +113,7 @@ Extend 'turn'
 !   FOLLOW
 [FollowScope direction one_out;
     if(scope_stage == 1) rfalse;
-    if(scope_stage == 3) "There doesn't seem to be follow-able. ";
+    if(scope_stage == 3) "That doesn't seem to be follow-able. ";
     objectloop (direction in compass)
     {
         one_out = real_location.(direction.door_dir);
@@ -241,6 +245,8 @@ Verb meta 'help'  * -> Help;
     @@8'follow x'^ 
     @@8'talk to x'";
 ];
+
+
 
 
 

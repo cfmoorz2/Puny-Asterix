@@ -671,7 +671,7 @@ Array TenDashes static -> "----------";
    if (noun==player) { PrintMsg(MSG_TELL_PLAYER); rtrue; }
    if (~~(noun provides talk_array)) { second = noun; PrintMsg(MSG_SHOW_DEFAULT); rtrue; }
 #Endif;
-	if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
+	if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; ClearFlag(F_WALKMAN_BLOCKING); }
    RunTalk(noun);
    AfterRoutines();
 ];

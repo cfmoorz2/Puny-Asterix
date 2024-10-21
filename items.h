@@ -10,11 +10,12 @@ Class Item
         if (noun == self) <<tie balloon self>>;
 
         insert:
+        if (self == ladder or folding_chair && second ofclass DumbwaiterShaft ) print_ret(The)noun," won't fit in the dumbwaiter shaft. ";
         if (second ofclass DumbwaiterShaft && real_location ~= sub_basement_01)
         {
             move self to sub_basement_dumbwaiter;
             print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft";
-            if (balloon.tied_to == self) ", trailing the helium balloon behind it. "; "";
+            if (balloon.tied_to == self) ", trailing the helium balloon behind it. "; ". ";
         } 
         if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
     ],
@@ -473,7 +474,7 @@ Tape mixtape "yellow cassette tape"
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [ ;
-            print"^Through the headphones you hear. ";
+            print"^Through the headphones you hear ";
             if (self.current_side == SIDE_A)
                 {
                     switch (self.current_track) 
@@ -623,7 +624,7 @@ Tape jorry_tape "green cassette tape" rock
     ~The hospital is likely worth much more as real estate than as a hospital and its failure would be a windfall for 
     several powerful people. I have records of all of this in a ledger locked in my safe. To delay Northrup from finding it, 
     I have secretly swapped safes with him. My safe is now in his office. The combination is ";
-    print SAFE_1,", ",SAFE_2,", ",SAFE_3,".^^";
+    print SAFE_1,", ",SAFE_2,", ",SAFE_3,".~^^";
     print"You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
     information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
     walkman_playing = false;
@@ -633,7 +634,7 @@ Tape jorry_tape "green cassette tape" rock
 Tape air_supply_tape "blue cassette tape" environmental_desk
     with 
         name 'blue' 'tape' 'air' 'supply',
-        description"It's a blue cassette tape. It's labelled ~Air Supply - Greatest Hits~",
+        description"It's a blue cassette tape. It's labelled ~Air Supply - Greatest Hits~.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
         playback [;
@@ -1011,7 +1012,7 @@ Object coaster "coaster"
     with
         name 'coaster' 'round' 'piece' 'plastic',
         description "It's a plastic coaster from 'Mama Leone's Ristorante and Legitimate 
-        Businessmen's Club'. Their catchphrase below reads:~We Ain't Seen Nothin'~",
+        Businessmen's Club'. Their catchphrase below reads: ~We Ain't Seen Nothin'.~",
         mass 1,
     class Item;
 

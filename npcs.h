@@ -121,6 +121,8 @@ Object freddy "Freddy" hallway_m2
                     "~Oh, yeah, ~ (he's talking inappropriately loudly with the headphones on). ~My little sister and 
                     my grandmother love this album.~ He presses the 'stop' button and hands your walkman back. ";
                 } 
+                walkman_playing = 0;
+                "He listens for a moment but doesn't seem impressed by your musical tastes. He presses 'stop' and hands the walkman back to you. ";
             }
             switch (noun)
             {
@@ -212,13 +214,13 @@ Object buzz "Buzz" security_chair
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sid_jorry "Sid Jorry" jorry_office
-    with name 'sid' 'jorry',
+    with name 'sid' 'jorry' 'body' 'corpse',
         description [;
             print"He's a corpulent gentleman with a bushy mustache and a circle of black hair wrapping around
             his otherwise bald head. He always reminded you of your uncle Pete except he's wearing a gray business 
             suit and Uncle Pete only wears black socks and cargo shorts. Jorry is seated at his desk and slumped
             forward across it. Luckily, his eyes are closed because that would be too creepy otherwise. ";
-            if (band_aid in self) "You notice a band_aid stuck to the right side of his neck. "; 
+            if (band_aid in self) "You notice a band-aid stuck to the right side of his neck. "; 
                 else "You notice a tiny puncure wound on the right side of his neck. ";
         ],
         hide true,
@@ -240,7 +242,7 @@ Object sid_jorry "Sid Jorry" jorry_office
             tell:
             "I don't think he's going to respond. ";
         ],
-    has scenery animate transparent;
+    has scenery animate transparent proper;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array elliot_avoid_array --> room_21 room_22 room_23 stairwell_2 break_room room_31 room_32 room_33;
@@ -292,7 +294,7 @@ Array eugene_avoid_array --> stairwell_b environmental_services engineering cent
 Object eugene "Eugene" hallway_b2
     with name 'eugene' 'gene' 'custodian' 'janitor',
         description "Eugene is the night-shift custodian. He's a short squat balding gentleman wearing gray custodian overalls.
-        and is whistling while he pushes a mop in a mop bucket.",
+        He's whistling while he pushes a mop in a mop bucket.",
         npc_wander_delay 5,
         npc_avoid eugene_avoid_array,
         npc_walk [; print"pushes the mop bucket";],
@@ -420,12 +422,8 @@ Object vic "Vic" bathroom
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
     with name 'dr' 'northrup' 'doctor' 'walter',  
-        description [;
-        if(FlagIsSet(F_BADDIES_FOLLOWING)) "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
-            and a red face. ";
-        "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
-        white lab coat over a crisp shirt and tie. ";
-        ],
+        description "He's a tall silver-haired gentleman with a patrician bearing. He's wearing a perfectly-creased 
+        white lab coat over a crisp shirt and tie. ",
     class Mover MyNPC
     has animate proper;
 
@@ -758,7 +756,7 @@ Object mrs_chen "Mrs. Chen" room_21
         ],
         before [;
             talk:
-            "She smiles but doesn't seem to speak english. ";
+            "She smiles but doesn't seem to speak English. ";
         ],
         life [;
             give, show:
