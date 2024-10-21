@@ -333,19 +333,25 @@ Include "VerbLib";
 
 [ add_signature npc x i o; 
     x = signature_count();
-    if (x == 8) "Your signature form is complete. ";
+    print"signature count = ",x,"^";
+    if (x == 8) "Your signature form is already complete. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
     for (i=5 : i < 13: i++)
     {
         o = signatures-->i;
+        print"eval signature ",(name)o,"^";
         if (o == 0) 
         {
-            if (npc.signature_desc()) signatures-->i = npc;
+            npc.signature_desc();
+            signatures-->i = npc;
             Achieved(i);
             rtrue;
         }
     }
+    #IfDef DEBUG;
+    "ERROR_SIGNATURE_ADD";
+    #Endif;
 ];
 
 [MyTakeRule count i x ;

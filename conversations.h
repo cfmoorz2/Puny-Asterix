@@ -192,7 +192,7 @@ Array talk_array_worthless-->
   [TM_worthless_jorry;
       "~I heard about that guy. Found dead in his office? Heart attack, I heard. It's too bad how some people don't take 
       care of themselves,~ he says as he pats his generous gut. ~One of my guys, Rodriguez, is coming in to investigate. 
-      But it's just a formality. The blizzard has held everybody up.~";
+      But it's just a formality. The blizzard has held everybody up. If you find anything suspicious, bring it back to me.~";
   ];
 
 

@@ -31,8 +31,7 @@ Class MyNPC
         ],
         signature_desc [;
             if(self has female) print"She "; else print"He ";
-            print"takes the letter and pen, signs it and hands it back.^";
-            return true;
+            "takes the letter and pen, signs it and hands it back. ";
         ],
         npc_after_action    [ i;
             objectloop (i in parent(self))  {
@@ -271,7 +270,7 @@ Object elliot "Elliot" a_ward_1
         ],
         talk_array talk_array_elliot, 
         npc_walk [; print"rolls";],
-        npc_wander_delay 3,
+        npc_wander_delay 4,
         npc_avoid elliot_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
