@@ -347,8 +347,8 @@ Object cabinet_door "cabinet door" environmental_services
         parse_name [ w1 w2 ;
             w1 = NextWord();
             w2 = NextWord();
-            if((w1 == 'cabinet' or 'metal') && w2 == 'door') return 2;
-            if (w1 == 'door' && w2 == 0) return 1;
+            if(w1 == 'cabinet' && w2 == door) return 2;
+            if(w1 == 'door' && w2 == 0) return 1;
         ],
         before [;
             push, pull: "The door resists all your efforts. ";
@@ -368,9 +368,20 @@ Object cabinet_door "cabinet door" environmental_services
 
 Object storage_locker "locker" environmental_services
     with
-        name 'locker' 'metal',
-        description"It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ",
-        inside_description"You're crouched in a battered metal locker peering out through a crack in the door. ",
+        id, ! 0 = locker, 1 = door
+        parse_name [ w1 w2 ;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'metal' && w2 == 'locker') { self.id = 0; return 2; }
+            if (w1 == 'locker' or 'metal' && w2 == 'door') { self.id = 1; return 2; }
+            if (w1 == 'locker') { self.id = 0; return 1; }
+            if (w1 == 'door') { self.id = 1; return 1; }
+        ],
+        description [;
+            if(self.id == 0) "It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ";
+                "The door is warped and doesn't seem to close all the way. ";
+        ],
+        inside_description "You're crouched in a battered metal locker peering out through a crack in the door. ",
         react_before [;
             if(parent(player) == self ) 
             {
@@ -382,8 +393,13 @@ Object storage_locker "locker" environmental_services
             }
             enter:
             if(ladder in player) "Not with the ladder. ";
+            if(balloon in player) "Not with the balloon. ";
+
             receive:
             if(noun == ladder) "The ladder is too large to fit. ";
+
+            open:
+            "It's already open. ";
         ],
         after [;
             enter:
@@ -393,10 +409,13 @@ Object storage_locker "locker" environmental_services
         before [;
             enter:
             if (player_has_balloon()) "Not with the balloon in tow. ";
+
+            close:
+            "The door is bent and it won't close all the way. ";
         ],
         max_capacity 30,
     class MyContainer
-    has open enterable scenery;
+    has open enterable openable scenery;
 
 Object telephone "telephone" environmental_services
     with name 'black' 'phone' 'telephone',
@@ -1100,6 +1119,7 @@ Room jorry_office "Jorry's Office"
             if(selected_direction == d_to) "You see blue carpet. ";
         ],
     cheap_scenery
+    1 'sand' "You don't need the sand. Plus it gets everywhere..."
     3 'painting' 'paintings' 'picture' [;
         examine:
         "They're generic prints of flowers and fruit. You feel both soothed and insulted just looking at them. ";
@@ -1113,13 +1133,6 @@ Room jorry_office "Jorry's Office"
             "It's broken and won't turn. ";
     ]
     3 'wrought' 'iron' 'stand' "It's a wrought iron stand holding up the aquarium. "
-    3 'reticulated' 'python' 'snake' [;
-        examine:
-        "'Louanne' is a two-foot long reticulated python although you have no way of knowing that, having no 
-        particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ";
-        take:
-        "Nope. Just no. ";
-    ]
     3 'bleached' 'branch' 'stick' [;
         examine:
         "It's a tortuous piece of bleached wood. There's currently a snake wrapped around and sleeping on it. ";
@@ -1171,6 +1184,27 @@ Object aquarium "aquarium" jorry_office
     class MyContainer
     has scenery transparent open;
 
+Object louanne "Louanne" aquarium 
+    with 
+        name 'python' 'snake' 'louanne',
+        description "She's a two-foot long reticulated python although you have no way of knowing that, having no 
+        particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ",
+        before [;
+            talk:
+            "She stares at you silently ";
+
+            pet:
+            "Nope. not gonna happen. ";
+
+            take:
+            "When you were six you were terrified by the goofy snake in 'Jungle Book'and it scarred you for life. So, no. ";
+        ],
+        life [;
+            show, give:
+            "She'd much prefer a gerbil or mouse. ";
+        ],
+    has animate female proper concealed;
+
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor northrup_door "fancy mahogany door" 
     with name 'fancy' 'mahogany' 'door',
@@ -1203,18 +1237,6 @@ Room northrup_office "Northrup's Office"
         if (northrup_chair in self) " and a plush leather executive chair is here next to the desk. "; else ".";
         ],
         cheap_scenery
-        'painting' 'paintings' [;
-            examine:
-            "They're boring pictures of landscapes and seascapes. ";
-            take:
-            "They're lovely but you don't need them. ";
-        ]
-        'mahogany' 'desk' [;
-            examine:
-            "It's carved from mahogany and looks very old and very expensive. ";
-            take:
-            "You're just begging for a hernia. ";
-        ]
         3 'thick' 'beige' 'carpet' "It's a standard low pile beige carpet. ",
         before [;
             smell:
@@ -1270,16 +1292,34 @@ Object bookcase "bookcase" northrup_office
 Object medical_books "medical books" northrup_office
     with 
         name 'medical' 'book' 'books' 'journals',
-        description "You see numerous books and medical journals. Nothing that appeals to you. ";
+        description "You see numerous books and medical journals. Nothing that appeals to you. ",
         before [;
             take:
-            "While you could stand to be a bit more well read, you don't need these particular books. ";
+            "While you could stand to be a bit more well-read, you don't need these particular books. ";
             read:
             "You already know everything you need to know about the pineal gland. ";
         ],
+    has scenery;
 
+Object northrup_paintings "paintings" northrup_office
+    with
+        name 'painting' 'paintings',
+        description "They're boring pictures of landscapes and seascapes. ",
+        before [;
+            take:
+            "They're lovely but you don't need them. ";
+        ],
+    has scenery;
 
-
+Object northrup_desk "mahogany desk" northrup_office
+    with
+        name 'mahogany' 'desk',
+        description "It's carved from mahogany and looks very old and very expensive. ",
+        before [;
+            take:
+            "You're just begging for a hernia. ";
+        ],
+    has scenery supporter;
 
 Object file_cabinet "file cabinet" northrup_office
     with 

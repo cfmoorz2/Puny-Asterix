@@ -236,7 +236,6 @@ Verb 'untie'
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   HELP
-
 Verb meta 'help'  * -> Help;
 [ HelpSub ;
     "Find out who killed Sid Jorry and get your signature form signed along the way...^
@@ -244,6 +243,35 @@ Verb meta 'help'  * -> Help;
     @@8'capacity' (helpful with inventory management)^
     @@8'follow x'^ 
     @@8'talk to x'";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   WRITE & SIGN
+Verb 'write' 
+    * 'on' noun -> Write
+    * 'on' noun 'with' held -> Write;
+
+[ writesub;
+    if (second ~= 0 && second ~= pen) "You can't write with ",(the)second,". ";
+    "You shouldn't deface ",(the)noun,". ";
+];
+
+Verb 'sign'
+    * noun -> Sign
+    * noun 'with' held -> Sign;
+
+[ signsub ;
+    if (second ~= 0 && second ~= pen) "You can't write with ",(the)second,". ";
+    "You shouldn't deface ",(the)noun,". ";
+];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   PET
+Verb 'pet'
+    * creature -> Pet;
+
+[ petsub;
+    "We don't want to lose our PG rating. ";
 ];
 
 

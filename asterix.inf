@@ -32,6 +32,7 @@ Constant OPTIONAL_EXTENDED_VERBSET;
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
+Constant MSG_SING_DEFAULT "You only sing alone in the car on the highway. ";
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
@@ -186,7 +187,7 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
 
 Global following = false;
 
-[ InScope p_actor direction npc k final i;
+[ InScope p_actor direction npc k final i obj;
     objectloop (i ofclass Item && IndirectlyContains(real_location, i))
     {
         if (balloon.tied_to == i) { PlaceInScope(balloon); break; }
@@ -204,7 +205,8 @@ Global following = false;
     }
     if (real_location == ceiling_05 && northrup in northrup_office) 
     {
-        PlaceInScope(northrup);
+        objectloop (obj in northrup_office)
+            PlaceInScope(obj);
     }
     p_actor = 0;
     rfalse;

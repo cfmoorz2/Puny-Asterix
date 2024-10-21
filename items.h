@@ -869,7 +869,10 @@ Object form "signature form"
         ],
         before [ ;
             read:
-            <<examine self>>;            
+            <<examine self>>;    
+
+            sign:
+            "Are you forging signatures on a form for your Ethics class? ";        
         ],
         mass 2,
     class Item;
