@@ -54,8 +54,8 @@ Constant BATHROOM_VACANT "There's a turning bolt on this side of the door with a
 Attribute valuable;
 Attribute encountered;
 
-Release 3;
-Serial "221116";
+Release 1;
+Serial "2410210849";
 
 Constant INITIAL_LOCATION_VALUE = b_ward_1;
 !Constant INITIAL_LOCATION_VALUE = room_23;
