@@ -1,34 +1,12 @@
-purloin syringe
-purloin vial
 purloin ledger
+give ledger to cop
+purloin syringe
+give syringe to cop
+purloin vial
+show vial to worthless
 purloin green tape
 open bag
-take walkman
-press eject
-put green in walkman
-close walkman
-show ledger to cop
-show vial to rodriguez
-show syringe to rodriguez
-show ledger to rodriguez
-show walkman to rodriguez
-gonear mabel
-show form to mabel
-gonear oliver
-show form to oliver
-gonear eugene
-give form to eugene
-gonear freddy
-give letter to freddy
-give form to freddy
-gonear winston
-give form to winston
-gonear larry
-show form to larry
-gonear chen
-give form to chen
-gonear becky
-give form to becky
-read form
-gonear worthless
+open walkman
+put green tape in walkman
+give walkman to cop
 recording off

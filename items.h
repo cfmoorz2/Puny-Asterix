@@ -882,8 +882,10 @@ Object letter "piece of paper"
         mass 1,
         before [;
             take:
-            move self to real_location;
             Achieved(16);
+
+            examine:
+            if (self notin player) "You can't make out what's on the paper from here. ";
         ],
         after [;
             take:

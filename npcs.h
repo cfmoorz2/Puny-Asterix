@@ -244,7 +244,7 @@ Object sid_jorry "Sid Jorry" jorry_office
     has scenery animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Array elliot_avoid_array --> room_21;! room_22 room_23 stairwell_2 break_room room_31 room_32 room_33;
+Array elliot_avoid_array --> room_21 room_22 room_23 stairwell_2 break_room room_31 room_32 room_33;
 Object elliot "Elliot" a_ward_1
     with name 'elliot',
         description "He's a muscular tan gentleman in his 30s with spiky black hair. He's rolling idly up and 
@@ -776,6 +776,7 @@ Object worthless "Lt. Worthless" room_23
         description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
         a blue patient gown. Somewhow he's attached his badge to the front of it. ",
         hide,
+        evidence_count 0,
         describe [;
             if (self has encountered)
             {
@@ -799,33 +800,57 @@ Object worthless "Lt. Worthless" room_23
         life [;
             give, show:
             if (FlagIsSet(F_ENDGAME)) "He's seems more interested in his hands. ";
-            if(noun == ledger)
+            if (noun == walkman)
+            {
+                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) print"He plugs in the headphones. ";
+                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
+                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
+                print"He puts on the headphones and starts to listen. ";
+                if (jorry_tape in walkman)
                 {
-                    print"Unfortunately, Lt. Worthless apparently received some medication recently. He's quietly 
-                    humming to himself while he smiles at his hands which are held out in front of him.^^
-                    At that moment Lt. Rodriguez enters the room. He's wearing plain-clothes and is 
-                    accompanied by two uniformed officers. All three are dusted with snow.^";
-                    move rodriguez to room_23;
-                    move cop_duo to room_23;
-                    rtrue;
-                }  
+                    move jorry_tape to worthless;
+                    self.evidence_count++;
+                    "His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape and 
+                    pockets it.^^~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
+                } else 
+                "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
+            }
             switch(noun)
             {                  
-                syringe: "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Well, 
-                    call the FBI. Come see me when you have actual evidence.~";
-                kcl_bottle: "~You found a bottle of medicine? So what. I've been taking awesome medicine all day.
-                    Don't bother me with acutal evidence.~";
-                jorry_tape, walkman:
-                "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.
-                    Look, little lady. If you think there's something going on, I need actual evidence.~";
+                ledger: self.evidence_count++; move ledger to worthless; "He takes the ledger and thumbs through it. ~Oh, what is this? 
+                Math? I'll let the nerds back at the station deal with it.~";
+                syringe: self.evidence_count++; move syringe to worthless; "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital.~ 
+                He takes the syringe. Maybe you're onto something but I doubt it.~";
+                kcl_bottle: self.evidence_count++; move kcl_bottle to worthless; "He takes the bottle and looks it over. 
+                ~You found a bottle of medicine? So what. I've been taking awesome medicine all day. There may be something fishy going on 
+                but I think you're way off.~";
                 coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
                 shrimp: "~Aw, man. That's rank. Get that outta here.~";
-                form: add_signature(self); rtrue;
+                form: add_signature(self);
                 default:
                 "The good Lieutenant is completely disinterested in ",(the)noun,".";
             }
+            rtrue;
         ],
         talk_array talk_array_worthless,
+        each_turn [;
+            if (self.evidence_count == 4)
+            {
+                print"^Just then, Lt. Rodriguez, a plain-clothes office with a competent air enters the room, flanked by
+                two uniformed officers. All three are dusted with snow.^^
+                Lt. Worthless yawns and scratches as Lt. Rodriguez examines the evidence you've collected and listens to your
+                story:^^
+                Sid Jorry realized that Dr. Northup was bleeding money from the hospital so that he could cash out when the 
+                facility went under. Jorry recorded his findings in a ledger which, apparently, Northup found out about.^^
+                Northrup, abetted by his loyal assistant Nurse Retch, hired Retch's brother Vic, a mafia hitman to do the deed. 
+                Retch passed him a syringe of potassium chloride, which stops the heart but isn't picked up on 
+                toxicology testing.^^
+                Unfortunately for Vic, the blizzard trapped him in the hospital and he was forced to hide in the sub-basement. 
+                Retch sabotaged the service elevator so no one would find him down there, intending to restart the elevator after the
+                police had left.^^";
+                you_win();
+            }
+        ],
     has animate transparent proper;
 
 Object worthless_badge "badge" worthless
@@ -842,7 +867,6 @@ Object worthless_badge "badge" worthless
 Object rodriguez "Lt. Rodriguez"
     with 
         name 'rodriguez' 'cop',
-        evidence_count 0,
         description "He's a short, trim, dark-skinned gentleman with shirt brown hair
         and piercing dark eyes. ",
         before [;
@@ -852,21 +876,7 @@ Object rodriguez "Lt. Rodriguez"
         hide,
         life [;
             give, show:
-            if (noun == walkman)
-            {
-                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) "He plugs in the headphones. ";
-                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
-                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
-                print"He puts on the headphones and starts to listen. ";
-                if (jorry_tape in walkman)
-                {
-                    print"His eyes widen as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape and 
-                    pockets it.^";
-                    move jorry_tape to rodriguez;
-                    self.evidence_count++;
-                } else 
-                "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
-            }
+            
             switch(noun)
             {
                 syringe: move syringe to rodriguez; self.evidence_count++; "He takes the syringe and silently examines it. ";

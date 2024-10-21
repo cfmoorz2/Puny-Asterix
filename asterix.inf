@@ -57,8 +57,8 @@ Attribute encountered;
 Release 3;
 Serial "221116";
 
-!Constant INITIAL_LOCATION_VALUE = b_ward_1;
-Constant INITIAL_LOCATION_VALUE = room_23;
+Constant INITIAL_LOCATION_VALUE = b_ward_1;
+!Constant INITIAL_LOCATION_VALUE = room_23;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -103,14 +103,7 @@ Constant MSG_WEAR_DEFAULT 1000;
 
 [ DeathMessage; 
     if (deadflag == 3) print"You are doomed to summer school";
-    if (deadflag == 4) print "You survive your injuries but you don't get credit for your volunteerism";
-    if (deadflag == 5) print "You smashed the MRI scenner into bits. Now they'll never give you credit for your volunteerism";
-    if (deadflag == 6) print "You don't get credit for your volunteering and, sadly, lose your summer vacation to 
-        summer school";
-    !print "You have lost"; 
 ];
-
-
 
 [LibraryMessages p_msg p_arg_1 p_arg_2;
     p_arg_1 = p_arg_2;
@@ -235,7 +228,6 @@ Include "puny.h";
     move pen to player;
     move mixtape to backpack;
     move thriller to backpack;
-    !init_safe();
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
@@ -440,14 +432,17 @@ Include "VerbLib";
 ];
 
 [ you_win ;
-    move trio to room_23;
-    move letter to room_23;
+    move trio to main_lobby;
+    move letter to main_lobby;
+    move rodriguez to main_lobby;
+    move cop_duo to main_lobby;
     SetFlag(F_ENDGAME);
-    "Lt. Rodriguez turns to his partners. ~I've seen enough. This impressive young lady has clearly done our jobs for us this 
-    evening.~^^
-    He gives some orders and, soon, Vic, Retch, and Northrup have been located and brought into the room. Their rights are read and 
-    all three are handcuffed. They stand here, angry and defeated.^^
-    Suddenly, you see a letter fall out of Northrup's pocket. "; 
+    print"Lt. Rodriguez hears you out then turns to his partners. ~I've heard and seen enough. This impressive young lady has clearly 
+    done our jobs for us this evening.~^^
+    He gives some orders and, soon, Vic, Retch, and Northrup have been located. You follow the police down to the lobby 
+    in time to see the baddies handcuffed and hear their rights read.^^";
+    PlayerTo(main_lobby);
+    "^Suddenly, you see a piece of paper fall out of Northrup's pocket. "; 
 ];
         
 #Ifdef USEINFORM;

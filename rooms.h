@@ -975,9 +975,13 @@ OnChair security_chair "metal chair" security_office
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room main_lobby "Main Lobby"
     with description [;
-            print"This is the main lobby and hospital entrance. The wall to the south is mostly glass including the large 
+        if(FlagIsClear(F_ENDGAME))
+            "This is the main lobby and hospital entrance. The wall to the south is mostly glass, including the large 
             glass double doors leading out. The windows are partially iced over and through them you can see gales of 
-            wind-driven snow blowing sideways. An information desk occupies the north wall.^";
+            wind-driven snow blowing sideways. An information desk occupies the north wall.";
+            "This is the main lobby and hospital entrance. The wall to the south is mostly glass, including the large 
+            glass double doors leading out. The snow has stopped and 
+            faint pink sunlight illuminates the frosted windows from behind. An information desk occupies the north wall.";
         ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
