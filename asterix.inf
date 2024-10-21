@@ -37,9 +37,9 @@ Constant MSG_PARSER_BAD_NUMBER "I only understand digits. No dashes, parentheses
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
-Constant NUMBER_TASKS = 16;
-Constant MAX_SCORE 150;
-Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 30;
+Constant NUMBER_TASKS = 15;
+Constant MAX_SCORE 140;
+Array task_scores -> 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
 Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill.^";
@@ -67,7 +67,6 @@ Constant CUSTOM_PLAYER_OBJECT selfobj;
 #Ifndef USEINFORM;
 
 Include "globals.h";
-Global dial_setting = 0;
 Global elevator_level = 0;
 Global elevator_call_level;
 Global elevator_active = false;
@@ -82,25 +81,24 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 18;
-Constant F_HAVE_FLASHLIGHT 1; ! do you have the flashlight?
-Constant F_RETCH_TRIGGERED 2; ! nurse retch has seen the syringe
-Constant F_CABINET_UNLOCKED 3; ! has the cabinet handle been appropriately knocked on?
-Constant F_SAW_KNOCK_SPOT 4; ! have you seen where retch knocks the door?
-Constant F_RETCH_KCL 5; ! nurse retch has seen KCL bottle
-Constant F_NORTHRUP_OUT_OF_OFFICE 6; ! northrup is out of the office
-Constant F_BADDIES_FOLLOWING 7; !baddies are following at endgame
-Constant F_FREDDY_ASLEEP 8;
-Constant F_WALKMAN_BLOCKING 9;
-Constant F_HAVE_MET_VIC 10; ! vic has been encountered?
-Constant F_HAS_SWIPE_CARD 11; !does the player have the  security card
-Constant F_SAFE_IS_OPEN 12; !is jorry's safe open
-Constant F_HEADPHONES_ARE_UNPLUGGED 13; ! headphones are NOT plugged in
-Constant F_FREDDY_WALKMAN_SHY 14; !freddy won't take the walkman a second time
-Constant F_FREDDY_HAS_HEARD_THRILLER 15; !he's already heard it
-Constant F_SAFE_COMBO_IS_SET 16; ! safe combination has been set
-Constant F_SERVICE_ELEVATOR_ON 17; ! is the service elvator working?
-Constant F_ENDGAME 18; ! in endgame
+Constant FLAG_COUNT 17;
+Constant F_RETCH_TRIGGERED 1; ! nurse retch has seen the syringe
+Constant F_CABINET_UNLOCKED 2; ! has the cabinet handle been appropriately knocked on?
+Constant F_SAW_KNOCK_SPOT 3; ! have you seen where retch knocks the door?
+Constant F_RETCH_KCL 4; ! nurse retch has seen KCL bottle
+Constant F_NORTHRUP_OUT_OF_OFFICE 5; ! northrup is out of the office
+Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
+Constant F_FREDDY_ASLEEP 7;
+Constant F_WALKMAN_BLOCKING 8;
+Constant F_HAVE_MET_VIC 9; ! vic has been encountered?
+Constant F_HAS_SWIPE_CARD 10; !does the player have the  security card
+Constant F_SAFE_IS_OPEN 11; !is jorry's safe open
+Constant F_HEADPHONES_ARE_UNPLUGGED 12; ! headphones are NOT plugged in
+Constant F_FREDDY_WALKMAN_SHY 13; !freddy won't take the walkman a second time
+Constant F_FREDDY_HAS_HEARD_THRILLER 14; !he's already heard it
+Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
+Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
+Constant F_ENDGAME 17; ! in endgame
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;

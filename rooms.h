@@ -1039,19 +1039,13 @@ Room main_lobby "Main Lobby"
         n_to hallway_m1,
         w_to security_door,
         each_turn [;
-            if (book_cart in self && FlagIsClear(F_HAVE_FLASHLIGHT)) 
+            if (book_cart in self) 
             {
-                SetFlag(F_HAVE_FLASHLIGHT);
-                move flashlight to player; 
                 ActivateTopic(mabel, 300);
                 Achieved(0);
                 print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
-                She picks up a book titled 'Throbbing Loins of Nantucket'.^^
-                ~Ooh, I almost forgot. Take this.~ 
-                She pulls a flashlight from the folds of her layers and hands it to you.^^
-                ~You may need this tonight if the blizzard causes a brown-out. I sure do wish I'd gotten myself 
-                out of here and home before they closed the roads.~^";
+                She picks up a book titled 'Throbbing Loins of Nantucket'.^^";
             }
         ],
         before [;
@@ -1520,8 +1514,9 @@ Room x_ray "X-Ray Suite"
     with description"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
         hanging down from rails in the ceiling. White translucent viewing boxes are mounted to one wall; these
         are currently turned off. The exit lies through an 
-        open arch to the north. ",
+        open arch to the south and there's an unmarked door to the east. ",
         s_to basement_hallway_east,
+        e_to darkroom_door,
     class Tiles DropCeiling
     has light;
 
@@ -1535,7 +1530,8 @@ Bed x_ray_table "x-ray table" x_ray
 
 Object x_ray_camera "camera" x_ray
     with name 'x-ray' 'xray' 'xr' 'camera',
-        description"It's a bulky metal and glass x-ray camera, fixed to rails in the ceiling for easier positioning above the patient. ",
+        description"It's a bulky metal and glass x-ray camera, fixed to rails in the ceiling. It can be pushed or pulled for easier 
+        positioning above the patient. ",
         before [;
             take:
                 "It's attached to the rails in the ceiling. ";
@@ -1584,6 +1580,34 @@ Object box_switch "switch" x_ray
                 "It's fixed to the viewing boxes. ";
         ],
     has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor darkroom_door "door" 
+    with 
+        name 'unmarked' 'door',
+        description [;
+            print"It's a plain door, currently ";
+            open_or_closed(self);
+        ],
+        door_to [;
+            if (parent(self) == x_ray) return darkroom; return x_ray;
+        ],
+        door_dir [;
+            if (parent(self) == x_ray) return e_to; return w_to;
+        ],
+        found_in x_ray darkroom,
+    has scenery door openable ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room darkroom "Darkroom" 
+    with 
+        description "This is a small darkroom off of the main x-ray suite. There's a metal basin and counter running 
+        along one wall and metal shelves stacked neatly with bottle of chemicals along another. There's a strong 
+        chemical smell in here and if you stay much longer you may get a headache. The exit lies through a door
+        to the west. ",
+        !w_to darkroom_door, 
+    class Tiles DropCeiling
+    has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_1 "Second Floor Hallway @@64 Service Elevator"
@@ -1734,8 +1758,8 @@ Bed room_22_bed "patient bed" room_22
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room break_room "Break Room"
     with 
-        description "This is an employee break room. There's a white plastic table here with matching chairs and a 
-        refrigerator stands in the corner next to a counter. A small microwave oven occupies the countertop. ",
+        description "This is an employee break room. There's a white plastic table here with matching chairs. A 
+        refrigerator stands in the corner next to a stained formica counter. ",
         s_to hallway_2_2,
         cheap_scenery
         'formica' 'counter' "It's a standard formica counter. It's adorned with years of stains and scorch marks. "
@@ -1779,71 +1803,6 @@ Object fridge_stuff "smelly collection of tupperware and condiments" refrigerato
                     "You smell a complex melange of old food and baking soda. ";
         ],
     has static;
-
-Object microwave "microwave oven" break_room
-    with name 'microwave' 'oven',
-        description [;
-                print "It's a small underpowered microwave oven, ";
-                if (self.oven_running == true) print "currently running. "; else print"currently off. ";
-                "The only control is a dial on the front pointing to 1-minute intervals up to 10 minutes. ";
-        ],
-        before [;
-            take: 
-                "It's not a large microwave but it's still not portable. "; 
-            open:
-                self.oven_running = false;
-                StopTimer(microwave_dial);    
-        ],
-        after [;
-            close:
-                if (dial_setting == 0) { "You close the microwave. ";
-                }   else {
-                    StartTimer(microwave_dial, dial_setting);
-                    self.oven_running = true;
-                    "The microwave starts up again. ";
-                }
-        ],
-        oven_running false,
-        max_capacity 15,
-    class MyContainer
-    has openable scenery ~open;
-
-Object microwave_dial "dial" break_room
-    with name 'dial' 'control',
-        description [;
-                print"It's a dial that turns in 1-minute increments up to 10 minutes. It's currently pointing to "; 
-                if (microwave.oven_running == true) print self.time_left; else print dial_setting;
-                ".";
-        ],
-        before [;
-            turnto:
-                if(microwave has open) "You should close the microwave first. ";
-                if (microwave.oven_running && second == 0) {
-                    StopTimer(self);
-                    microwave.oven_running = false;
-                    dial_setting = 0;
-                    "With a 'ding' the microwave shuts off. ";
-                }   else {
-                    if (second < 0 || second > 10) "It only turns in 1-minute increments up to 10. ";
-                    dial_setting = second;
-                    StartTimer(self, second);
-                    microwave.oven_running = true;
-                    "You turn the dial to ", second, ". The microwave turns on with a mechanical hum. ";
-                }
-        ],
-        time_left,
-        time_out [;
-            microwave.oven_running = false;
-            dial_setting = 0;
-            "With a 'ding' the microwave shuts off. ";
-        ],
-        react_before [;
-            open:
-                if (noun == microwave) {
-                    dial_setting = self.time_left;
-                }
-        ],
-    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_02 "Sub-Basement @@64 Service Elevator"

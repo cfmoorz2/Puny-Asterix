@@ -72,24 +72,7 @@ Object swipe_card "security card" security_desk
             Achieved(1);
             SetFlag(F_HAS_SWIPE_CARD);
         ],
-        class Floatable Item;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object flashlight "flashlight" mabel
-    with name 'flashlight' 'light' 'torch',
-        description [;
-            print"It's a standard black plastic flashlight, ";
-            if(self has on) "currently on. "; "currently off. ";
-        ],
-        mass 5,
-        after [;
-            switchon:
-                give self light;
-            switchoff:
-                give self ~light;
-        ],
-    class Item
-    has switchable;
+        class Floatable Item;       
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object dummy_headphones "headphones" 
@@ -1093,6 +1076,27 @@ Object balloon "helium balloon" room_22
         ],
     class Item
     has transparent;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object darkroom_flashlight "flashlight" darkroom 
+    with 
+        name 'light' 'flashlight' 'torch',
+        description [;
+            print"It's a flashlight but with a special bulb installed for use in darkrooms. It's ";
+            if(self has on) "currently on and emitting a creepy red light. "; "currently off. ";
+        ],
+        mass 5,
+        after [;
+            switchon:
+                give self light;
+            switchoff:
+                give self ~light;
+        ],
+    class Item
+    has switchable;
+
+
+
 
 
 

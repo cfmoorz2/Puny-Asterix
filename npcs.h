@@ -449,7 +449,6 @@ Object mabel "Mabel" main_lobby
                 kcl_bottle: "~Ooh, girl. That looks like something that shouldn't be.~";
                 syringe: "~Oh my, girl. That ain't right. You should report that to somebody.~";
                 swipe_card: "She smiles. ~Now how'd you finagle that?~";
-                flashlight: "~That's for you tonight, girl.~";
                 walkman: "She smiles. ~Ooh, my grandkids all have those, too.";
                 thriller: "~I actually prefer 'Off The Wall'.~";
                 air_supply_tape: "~My husband George sure does like those boys.~";
