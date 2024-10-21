@@ -414,8 +414,7 @@ Object storage_locker "locker" environmental_services
             "The door is bent and it won't close all the way. ";
         ],
         max_capacity 30,
-    class MyContainer
-    has open enterable openable scenery;
+    has open container enterable openable scenery;
 
 Object telephone "telephone" environmental_services
     with name 'black' 'phone' 'telephone',
@@ -427,6 +426,8 @@ Object telephone "telephone" environmental_services
         before [;
             DialObj:
                 <<dialobj handset>>;
+            DialNumber:
+                <<dialnumber handset>>;
             Take:
                 <<take handset>>;
             Drop:
@@ -470,6 +471,13 @@ Object handset "handset" telephone
                 };
             DialNumber:
                 if (self notin player) print "(first taking the handset)^";
+                if (noun == 911)
+                {
+                    print"The phone rings and a bored female voice answers. ~911, what is your emergency?~
+                    Suddenly there's a burst of static and call is disconnected. Damn blizzard.^";
+                    move self to telephone;
+                    "^You hang up the phone. ";
+                }  
                 DialPhone();
                 move self to telephone;
                 "^You hang up the phone. ";  
@@ -814,7 +822,7 @@ Object garbage_can "garbage can" kitchen
             search:
                 move shrimp to self;
         ],
-        max_capacity 30,
+        max_capacity 20,
     class MyContainer
     has scenery open;
 
@@ -929,6 +937,16 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     w_to admin_hallway,
     class Tiles DropCeiling
     has light;
+
+Object ajar_tile "tile" hallway_m2
+    with 
+        name 'tile' 'tiles' 'ajar',
+        description "It's a tile in the drop ceiling that's knocked aside. ",
+        before [;
+            take:
+            "You can't reach it from here. ";
+        ],
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room security_office "Security Office" 
@@ -1165,7 +1183,9 @@ Object jorry_safe "safe" jorry_office
             close:
             "The door is bent and it won't close. ";
         ],
-    has scenery container open;
+        max_capacity 10,
+    class MyContainer
+    has scenery open;
 
 Object jorry_desk "desk" jorry_office
     with 
@@ -1180,9 +1200,11 @@ Object aquarium "aquarium" jorry_office
             A twisty bleached piece of branch sits in one end, a large snake is coiled motionless on and around it. ";
             if (rock in self) "A large decorative rock sits in the sand in the other end. "; "";
         ],
-        max_capacity 20,
-    class MyContainer
-    has scenery transparent open;
+        before [;
+            receive:
+            "Louanne would politely request that you not litter her tank. ";
+        ],
+    has scenery transparent container open;
 
 Object louanne "Louanne" aquarium 
     with 
@@ -1386,7 +1408,7 @@ Object northrup_safe "safe" northrup_office
             take:
                 "It's far too heavy. ";
         ],
-        max_capacity 15,
+        max_capacity 10,
     class MyContainer
     has locked openable scenery ~open;
 

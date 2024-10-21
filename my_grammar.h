@@ -9,7 +9,7 @@ Extend 'read' replace
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   DIALING PHONES
-Verb 'dial'
+Verb 'dial' 'call'
     * noun -> DialObj
     * number -> DialNumber;
 
