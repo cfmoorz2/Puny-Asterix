@@ -977,7 +977,7 @@ Object backpack "backpack"
 Object plastic "round piece of plastic" engineering
     with 
         name 'round' 'piece' 'plastic',
-        description "You can't really make out any details while it's inside the fusebox. ",
+        description "You can't really make out any details while it's inside the fuse box. ",
         mass 1,
         noticed 0,
         describe [; if (self hasnt moved) rtrue; ],

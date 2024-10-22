@@ -490,7 +490,7 @@ Room engineering "Engineering"
         electrical conduits descend like a massive pipe organ from 
         the ceiling into a large fuse box on the wall. The only exit is east through a plain metal door. ",
         cheap_scenery
-        2 'conduit' 'conduits' "You see tangles and bundles of wires leading into a fusebox. ",
+        2 'conduit' 'conduits' "You see tangles and bundles of wires leading into a fuse box. ",
         before [;
             Smell:
                 "It smells mechanical in here, with a hint of electricity. ";
@@ -501,9 +501,9 @@ Room engineering "Engineering"
     class Tiles
     has light;
 
-Object fusebox "fusebox" engineering 
+Object fuse_box "fuse box" engineering 
     with 
-        name 'fusebox' 'box' 'fuses',
+        name 'fuse' 'box' 'fuses',
         description [;
             print"It's a large gray metal box. Wires and electrical conduits sprout from it and climb upward to the ceiling. 
             A plaque on the front reads ~WARNING - HIGH VOLTAGE~. ";
@@ -516,11 +516,11 @@ Object fusebox "fusebox" engineering
         ],
         before [;
             search:
-            if (self hasnt open) "The fusebox is closed. ";
-            print"The fusebox is full of switches and connectors. ";
+            if (self hasnt open) "The fuse box is closed. ";
+            print"The fuse box is full of switches and connectors. ";
             if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
             receive:
-            "You shouldn't poke around in high-voltage fusebox. ";
+            "You shouldn't poke around in high-voltage fuse box. ";
             take:
             "Rubbish.";
             open:
@@ -2022,7 +2022,18 @@ Object ceiling_05 "In The Ceiling"
         if (northrup in northrup_office) "^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
         ],
         cheap_scenery
-            CS_ADD_LIST ceiling_01 (inside_scenery),
+            CS_ADD_LIST ceiling_01 (inside_scenery)
+            'ceiling' 'tile' [ ;
+                examine:
+                "It's an out-of-place tile in the drop ceiling. ";
+                take, push, pull:
+                print"As you manipulate the ceiling tile, you release tiny spates of dirt and dust that fall 
+                downwward into the office below. Suddenly, you find yourself staring down into the angry face
+                of Dr. Northrup who is none-to-happy to see a candy striper trying to burgle his office.^^
+                Obviously, you do not get credit for your volunteer time at St. Asterix.";
+                deadflag = 3;
+                rtrue;
+            ],
         before [;
             go:
             if (selected_direction == d_to) 
@@ -2034,7 +2045,7 @@ Object ceiling_05 "In The Ceiling"
                 {
                     print"A seething Dr. Walter Northrup is here to meet you, furious in equal parts at the cloud of dust you've
                     brought down onto his carpet as well as your ill-conceived invasion of his office. Unsurprisingly, 
-                    your time as a candy-striper is at an end.^";
+                    your time as a candy-striper is at an end.";
                     deadflag = 3;
                     rtrue;
                 }
