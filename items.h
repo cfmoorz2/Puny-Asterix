@@ -303,6 +303,7 @@ Object wm_fast_forward_button "walkman fast-forward button" walkman
             if (w1 == 'fast' && w2 == 'forward') return 2;
             if (w1 == 'fast' or 'forward' && w2 == 'button') return 2;
             if (w1 == 'fast' or 'forward') return 1;
+            if (w1 == 'ffwd' or 'forward' or 'fastforward') return 1;
             if (w1 == 'button') return 1;
         ],
         description"It's a chunky black button with two 'FF' arrows on the top. ",
