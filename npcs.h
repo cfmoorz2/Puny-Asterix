@@ -631,7 +631,7 @@ Object winston "Mr. Winston" hallway_2_3
     with 
         name 'mr' 'winston',
         talk_array talk_array_winston,
-        description "He's a thin enderly gentleman with sparse strands of white hair on a bald head 
+        description "He's a thin elderly gentleman with sparse strands of white hair on a bald head 
         pocked with age spots. A gray four-day stubble shades his cheeks and chin. He's wearing a 
         hospital gown and slip-proof socks. He pushes a wheeled IV pole in front of him. ",
         describe [;  
