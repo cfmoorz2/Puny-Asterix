@@ -67,7 +67,7 @@ Class Room
                 if(_i has pluralname) { print" are ";}  else { print " is "; }
                 if(_d == u_obj) print"up above.^";
                 if(_d == d_obj) print"down below.^";
-                 else print"off to the ",(name)_d,".^";
+                if(_d ~= u_obj && _d ~= d_obj) print"off to the ",(name)_d,".^";
                 x++;                
             }
             reset_position_array();

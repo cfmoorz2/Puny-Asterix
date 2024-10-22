@@ -49,7 +49,7 @@ Array talk_array_buzz -->
   30 "Sid Jorry" TM_NO_LINE "We found him dead in his office. The cops are on the way although it was probably just 
   a heart attack. The blizzard has held them up and I'm not sure when they'll get here. The office is locked, Freddy has 
   the key. "
-  30 "service elevator" TM_NO_LINE "It went o nthe fritz earlier tonight. I guess maintenance will be in tomorrow."
+  30 "service elevator" TM_NO_LINE "It went on the fritz earlier tonight. I guess maintenance will be in tomorrow."
   30 "Dr. Northrup" TM_NO_LINE "He's the hospital CEO. He always smells outstanding."
   00 300 "Mabel" TM_NO_LINE "The information desk is the front line of hospital security."
   TM_END;

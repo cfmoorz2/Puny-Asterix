@@ -170,7 +170,7 @@ Room basement_hallway_east "Basement Hallway East"
 Room elevator_lobby_b "Basement Elevator Lobby" 
     with description [; 
         print"This is a spartan fluorescent-lit hallway that continues to the east and west.  A stairwell lies to the north through an 
-        open doorway. Opposite the stairwall in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue, 
+        open doorway. Opposite the stairwell in the south wall stands the main elevator. Next to it you see a sign reading ~Morgue, 
         Imaging~ above an arrow pointing east and one reading ~Central Supply~ above one pointing west. The elevator doors are currently ";
         open_or_closed(elevator_doors);
         ". The call button is embedded in a small panel next to the door.";
@@ -399,7 +399,7 @@ Object storage_locker "locker" environmental_services
             if(noun == ladder) "The ladder is too large to fit. ";
 
             open:
-            "It's already open. ";
+		if (noun == self) "It's already open. ";
         ],
         after [;
             enter:
@@ -419,7 +419,7 @@ Object storage_locker "locker" environmental_services
 Object telephone "telephone" environmental_services
     with name 'black' 'phone' 'telephone',
         description [;
-            print"It's a black phone. The base is mounted to the wall and the rotary dial is embedded in the handset. ";
+            print"It's a black push-button phone. The base is mounted to the wall. ";
             if (handset in self) "The handset is in the cradle. "; else "";
             ],
         mass 0,
@@ -1017,7 +1017,7 @@ OnChair security_chair "metal chair" security_office
             if (parent(self) == main_lobby) return w_to; return e_to;
         ],
         found_in main_lobby security_office,
-    has scenery door openable ~open;
+    has scenery door openable open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room main_lobby "Main Lobby"
@@ -1039,13 +1039,13 @@ Room main_lobby "Main Lobby"
         n_to hallway_m1,
         w_to security_door,
         each_turn [;
-            if (book_cart in self) 
+            if (book_cart in self && mabel hasnt encountered) 
             {
-                ActivateTopic(mabel, 300);
-                Achieved(0);
-                print"^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
+		ActivateTopic(mabel, 300);
+		give mabel encountered;
+                "^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
                 I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
-                She picks up a book titled 'Throbbing Loins of Nantucket'.^^";
+                She picks up a book titled 'Throbbing Loins of Nantucket'.";
             }
         ],
         before [;

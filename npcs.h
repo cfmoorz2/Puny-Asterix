@@ -173,7 +173,7 @@ Object freddy "Freddy" hallway_m2
 Object buzz "Buzz" security_chair
     with name "Buzz",
         take_shrimp false,
-        description "He's an obese middle-aged gentleman in his fifties. His hair is close-cropped and he's wearing a stained dark blue 
+        description "He's a tan middle-aged gentleman in his fifties. His hair is close-cropped and he's wearing a stained dark blue 
         security uniform. ",
         daemon [;
             if (self.take_shrimp && TestScope(self)) {
@@ -436,7 +436,6 @@ Object mabel "Mabel" main_lobby
         describe [;  
             print"^Mabel is here, occupying the information desk. ";
             if(self has encountered) "";
-            give self encountered;
             ActivateTopic(buzz, 300);
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
             home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";

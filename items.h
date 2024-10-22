@@ -669,6 +669,13 @@ Object shrimp_bowl "bowl" security_desk
             take:
                 if (buzz in security_chair) "Buzz, irritated, stops you. ~Can I help you?~";
             receive:
+		if (buzz in security_chair && noun == shrimp)
+		{
+                move shrimp to shrimp_bowl;
+                "Buzz's eyes widen at the sight of the shrimp.^
+                ~Ooh, thought you could get away, huh?~^
+                Before you can react, he plops the shrimp in the bowl with the others. ";
+            	}
                 if (buzz in security_chair) "Buzz, irritated, stops you. ~Can I help you?~";
         ],
         after [;
@@ -1091,6 +1098,8 @@ Object darkroom_flashlight "flashlight" darkroom_counter
                 give self light;
             switchoff:
                 give self ~light;
+	    take:
+		Achieved(0);
         ],
     class Item
     has switchable;
