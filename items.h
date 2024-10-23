@@ -617,7 +617,13 @@ Tape jorry_tape "green cassette tape" rock
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Tape air_supply_tape "blue cassette tape" environmental_desk
     with 
-        name 'blue' 'tape' 'air' 'supply',
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'blue' && w2 == 'tape' or 'cassette') return 2;
+            if (w1 == 'air' && w2 == 'supply') return 2;
+            if (w1 == 'blue' or 'tape' or 'cassette') return 1;
+        ],
         description"It's a blue cassette tape. It's labelled ~Air Supply - Greatest Hits~.",
         current_side SIDE_A,
         current_track FIRST_TRACK,
