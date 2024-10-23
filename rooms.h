@@ -270,8 +270,6 @@ Room environmental_services "Environmental Services"
         print"This is a cluttered storage room. The walls are lined with shelves stocked with 
         cleaning supplies, brushes, and brooms, none of which you need to concern yourself with. 
         A tall but narrow brown metal cabinet stands in one corner and a desk is pushed up against one wall. ";
-        if (player notin storage_locker) print"A battered full-length metal locker faces it from the 
-        other side of the room. ";
         "A black telephone is mounted on the wall. The exit lies to the south. ";
     ],
         cheap_scenery
@@ -286,13 +284,6 @@ Room environmental_services "Environmental Services"
             "They're neatly organized by size and type. ";
             take:
             "Ew. You don't need a dirty broom. ";
-        ]
-        1 'handle' [;
-            examine: 
-            "It's a metal handle, embedded in the cabinet door. It rotates up and down if pulled or 
-            pushed. It looks old and cantankerous. ";
-            pull:
-            if (FlagIsClear(F_CABINET_UNLOCKED)) "You pull with all your might but the cabinet door won't open. It seems to be jammed. ";
         ]
         1 'dial' [;
             examine:
@@ -320,101 +311,33 @@ Object environmental_desk "desk" environmental_services
 
 Object storage_cabinet "cabinet" environmental_services
     with 
-        parse_name [ w1;
-            w1 = NextWord();
-            if (w1 == 'cabinet' or 'brown' or 'metal' or 'tall' or 'narrow') return 1;
-        ],
-        description [ ;
-            print"It's a tall brown metal cabinet, currently ";
-            if(self has open) print"open. "; else print"closed. ";
-            "A scratched metal handle is embedded in the door. ";
-        ],
-        before [;
-            if (player in storage_locker) "You can't do that from inside the locker. ";
-            open:
-            if (self has open) "It's already open. ";
-            "The cabinet door won't open. It seems to be jammed. ";
-            knock:
-            <<knock cabinet_door>>;
-            enter:
-        ],
-        max_capacity 30,
-    has scenery container openable locked ~open;
-
-Object cabinet_door "cabinet door" environmental_services
-    with
-        description"It's a metal door with a handle. ", 
-        parse_name [ w1 w2 ;
+        id, ! 0 = cabinet, 1 = door
+        parse_name [ w1 w2;
             w1 = NextWord();
             w2 = NextWord();
-            if(w1 == 'cabinet' && w2 == door) return 2;
-            if(w1 == 'door' && w2 == 0) return 1;
-        ],
-        before [;
-            push, pull: "The door resists all your efforts. ";
-            open: 
-            <<open storage_cabinet>>;
-            close:
-            <<close storage_cabinet>>;
-            knock:
-            if (FlagIsSet(F_SAW_KNOCK_SPOT)) 
-            {
-                give storage_cabinet open;
-                "With a fist you hit the exact spot that you saw Nurse Retch hit. The cabinet door pops open. ";
-            }
-            "You thump on the door but nothing seems to happen. ";
-        ],
-    has scenery;
-
-Object storage_locker "locker" environmental_services
-    with
-        id, ! 0 = locker, 1 = door
-        parse_name [ w1 w2 ;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'metal' && w2 == 'locker') { self.id = 0; return 2; }
-            if (w1 == 'locker' or 'metal' && w2 == 'door') { self.id = 1; return 2; }
-            if (w1 == 'locker') { self.id = 0; return 1; }
+            if (w1 == 'cabinet' && w2 == 'door') { self.id = 1; return 2; }
+            if (w1 == 'cabinet' or 'brown' or 'metal' or 'tall' or 'narrow' or 'storage') { self.id = 0; return 1; }
             if (w1 == 'door') { self.id = 1; return 1; }
         ],
-        description [;
-            if(self.id == 0) "It's a battered full-length locker. The door is ajar and dented. It looks like it won't close all the way. ";
-                "The door is warped and doesn't seem to close all the way. ";
-        ],
-        inside_description "You're crouched in a battered metal locker peering out through a crack in the door. ",
-        react_before [;
-            if(parent(player) == self ) 
+        description [ ;
+            if(self.id == 0)
             {
-                if (action == ##go) rfalse;
-                !print "noun = ",(name)noun,"^";
-                !print "second = ",(name)second,"^";
-                if (noun ~= 0)if (IndirectlyContains(self, noun) == false && noun ~= self) "You can't reach that from here. ";
-                if (second ~= 0)if (IndirectlyContains(self, second) == false && second ~= self) "You can't reach that from here. ";
+                print"It's a tall brown metal storage cabinet, currently ";
+                if(self has open) "open. "; else "closed. ";
             }
-            enter:
-            if(ladder in player) "Not with the ladder. ";
-            if(balloon in player) "Not with the balloon. ";
-
-            receive:
-            if(noun == ladder) "The ladder is too large to fit. ";
-
-            open:
-		if (noun == self) "It's already open. ";
-        ],
-        after [;
-            enter:
-            "You crouch in the locker and pull the door nearly closed. Through a crack in the door you can see out into 
-            the storage room. ";
+            print"It's the metal door to a storage cabinet, currently ";
+            if(self has open) "open. "; else "closed. ";
         ],
         before [;
-            enter:
-            if (player_has_balloon()) "Not with the balloon in tow. ";
-
-            close:
-            "The door is bent and it won't close all the way. ";
+            open:
+            if (self has open) "It's already open. ";
+            give self open;
+            print"You open it to reveal a bunch of useless junk";
+            if (kcl_bottle in self) " and an out-of-place appearing plastic vial. ";
+                " and not much else. ";
         ],
-        max_capacity 30,
-    has open container enterable openable scenery;
+    has scenery container openable ~open;
+
 
 Object telephone "telephone" environmental_services
     with name 'black' 'phone' 'telephone',

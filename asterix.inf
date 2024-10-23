@@ -83,9 +83,6 @@ Global SIGNATURE_COUNT 0;
 
 Constant FLAG_COUNT 22;
 
-Constant F_CABINET_UNLOCKED 2; ! has the cabinet handle been appropriately knocked on?
-Constant F_SAW_KNOCK_SPOT 3; ! have you seen where retch knocks the door?
-!Constant F_RETCH_KCL 4; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 5; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
 Constant F_FREDDY_ASLEEP 7;
@@ -295,15 +292,6 @@ Include "VerbLib";
 
 [open_or_closed door;
     if (door has open) print "open"; else print "closed";
-];
-
-[ player_has_balloon obj;
-    if (balloon.tied_to == player) return true;
-    objectloop (obj in player)
-    {
-        if (balloon.tied_to == obj) return true;
-    }
-    rfalse;
 ];
 
 [ freddy_wakes_up ;
