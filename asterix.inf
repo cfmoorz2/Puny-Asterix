@@ -25,7 +25,8 @@ Constant Headline   "^A Totally Tubular 80s IF Game by Charles Moore, Jr.^";
 Constant OPTIONAL_PROVIDE_UNDO;
 #Endif;
 Constant DEATH_MENTION_UNDO;
-Constant MAX_CARRIED 40;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Constant MAX_CARRIED 400;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 !Constant OPTIONAL_GUESS_MISSING_NOUN;
@@ -238,12 +239,12 @@ Include "puny.h";
 	!oliver.target_room = conference_room;
     !StartDaemon(oliver);
 !!!!!!!!!!!!!!!!!!!!!!!
-    !move form to player;
-    !move pen to player;
-    !move mixtape to backpack;
-    !move thriller to backpack;
-    !move walkman to backpack;
-    !move backpack to player;
+    move form to player;
+    move pen to player;
+    move mixtape to backpack;
+    move thriller to backpack;
+    move walkman to backpack;
+    move backpack to player;
     give backpack worn;
 !!!!!!!!!!!!!!!!!!!!!!!!
     move syringe to player;
