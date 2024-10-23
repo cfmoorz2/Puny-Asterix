@@ -1045,7 +1045,7 @@ Room jorry_office "Jorry's Office"
         branch at one end. 
         ^^The former Sid Jorry is sitting in the chair and slumped over the desk.
         His eyes, thankfully, are closed.^";
-        if (self hasnt visited) "^It appears that somone has been in here already and cleaned out the room. 
+        if (self hasnt visited) "^It appears that someone has been in here already and cleaned out the room. 
             There's no trace of any papers, documents, or your letter of completion. ";
     ],
         before [;
@@ -1084,7 +1084,7 @@ Room jorry_office "Jorry's Office"
     ],
     each_turn [;
         print (string) random("^Louanne, curious, flicks her forked tongue at you.^",
-            "^Louanne stares at you through yellow reptillian eyes.^", "", "");
+            "^Louanne stares at you through yellow reptilian eyes.^", "", "");
     ],
     s_to jorry_door,
     has light;

@@ -570,7 +570,7 @@ Object nurse_retch "Nurse Retch" station_b
             {
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
-                ~You are quite the persistent little thing, aren't you? You'd best be careful, candystriper, or you may not 
+                ~You are quite the persistent little thing, aren't you? You'd best be careful, candy striper, or you may not 
                 finish out your time here.~";
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;

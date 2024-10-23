@@ -208,6 +208,7 @@ Verb 'untie'
 [ UntieSub; 
     if (noun == balloon && second == 0)
     {
+        if (balloon.tied_to == 0) "It's not tied to anything. ";
         move balloon to player;
         scope_modified = true;
         balloon.tied_to = player;
@@ -231,7 +232,7 @@ Verb 'untie'
     move balloon to real_location;
     scope_modified = true;
     balloon.tied_to = 0;
-    "You untie the ",(the)noun," from the balloon. ^Taken. ";
+    "You untie ",(the)noun," from the balloon. ^Taken. ";
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

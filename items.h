@@ -779,10 +779,8 @@ MyContainer jacket_pocket "jacket pocket" denim_jacket
         before [;
             examine:
             <<search self>>;
-            search:
-            if (syringe hasnt moved) move syringe to self;
         ],
-        has open;
+        has container open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object syringe "syringe" jacket_pocket
@@ -1049,7 +1047,7 @@ Object balloon "helium balloon" room_22
         before [;
             tie:
             if (self.tied_to == second) "It's already tied to ",(the)second,".";
-            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,"^";
+            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".^";
             if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
             if (self.tied_to == 0 && self.tied_to ~= player) print"(first taking the balloon)^";
             self.tied_to = second;

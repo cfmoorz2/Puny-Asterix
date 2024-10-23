@@ -32,6 +32,7 @@ Constant OPTIONAL_EXTENDED_VERBSET;
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
+Constant MSG_PUSHDIR_DEFAULT "You can't push that. ";
 Constant MSG_SING_DEFAULT "You only sing alone in the car on the highway. ";
 Constant MSG_PARSER_BAD_NUMBER "I only understand digits. No dashes, parentheses, etc. ";
 Constant OPTIONAL_FULL_SCORE 2;
