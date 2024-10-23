@@ -612,6 +612,7 @@ Tape jorry_tape "green cassette tape" rock
     print"You hear a heavy ~thump~ and a cough.^^~If anything happens to me, it's almost certainly not an accident and this 
     information should be given to the proper authorities.~^^Then there's a loud ~click~ and empty hissing. You press 'stop'";
     walkman_playing = false;
+    SetFlag(F_COMBO_HAS_BEEN_HEARD);
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

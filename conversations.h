@@ -38,7 +38,7 @@ Array talk_array_freddy -->
   cops can get here. The blizzard is slowing them down, I guess. I did see some mafia-looking guy rummaging around 
   in there for a while, come to think of it."  304
   30 "service elevator" TM_NO_LINE "Yeah, dude. It stopped working tonight right after they found Mr. Jorry dead."
-  00 301 "Buzz" TM_NO_LINE "He's my boss. He's allright, I guess. He doesn't like to leave the security office."
+  00 301 "Buzz" TM_NO_LINE "He's my boss. He's all right, I guess. He doesn't like to leave the security office."
   TM_END;
 
 Array talk_array_buzz -->

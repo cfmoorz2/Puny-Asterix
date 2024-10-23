@@ -106,7 +106,6 @@ Object freddy "Freddy" hallway_m2
                     SetFlag(F_FREDDY_ASLEEP);
                     move walkman to freddy;
                     give walkman ~worn;
-                    move dull_key to freddy;
                     scope_modified = true;
                     StopDaemon(freddy);
                     "The tuneful adult contemporary strains of 'Air Supply' wash over the 
@@ -375,13 +374,8 @@ Object wringer "wringer" bucket
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object vic "Vic" bathroom
     with name 'vic',
-        description [;
-            if (FlagIsSet(F_BADDIES_FOLLOWING)) "He's smiling and seems to be enjoying himself. His right hand is 
-            ominously thrust into a pocket."; 
-            "He's a tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
-            pock-marked and sunken. He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
-            to be his. ";
-        ],
+        description "He's tall and thin with slicked-back black hair. His eyes are cold and blue and his cheeks are 
+            pock-marked and sunken. ",
         life [;
             give, show:
             if (noun == coaster) { vic_coaster(); rtrue; }
@@ -402,14 +396,17 @@ Object vic "Vic" bathroom
         describe [;  
             if (self has encountered)
             {
-                print"^Vic is here. ";
+                "^Vic is here. ";
             }
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
             ActivateTopic(nurse_retch, 305);
             ActivateTopic(worthless, 301);
-            "^Vic is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
-            since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description. ";
+            "^A tall menacing gentleman is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
+            since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description.  
+            He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
+            to be his. Pinned to his shirt there's an ID badge that appears to be a poorly forged ~Chuck E. Cheese~ 
+            employee ID. ~Vic~ is crudely drawn on it in black marker. ";
         ],
         each_turn [;
             if(real_location == sub_basement_02)
@@ -811,10 +808,11 @@ Object worthless "Lt. Worthless" room_23
                 print"He puts on the headphones and starts to listen. ";
                 if (jorry_tape in walkman)
                 {
-                    move jorry_tape to worthless;
+                    if (FlagIsSet(F_COMBO_HAS_BEEN_HEARD)) move jorry_tape to worthless;
                     self.evidence_count++;
-                    "His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape and 
-                    pockets it.^^~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
+                    print"His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape";
+                    if (FlagIsSet(F_COMBO_HAS_BEEN_HEARD)) { print" and pockets it.^^"; } else { print" and hands it back to you.^^"; }
+                    "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
                 } else 
                 "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
             }

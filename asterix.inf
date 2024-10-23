@@ -48,10 +48,10 @@ Constant ELEVATOR_PROSE "The elevator door slides closed. The little light on th
     elevator moving beneath you.^";
 Constant MAIN_ELEVATOR_PROSE "The elevator doors slide closed. The button lights and you hear mechanical humming from the elevator shaft.^";
 Constant SINGLE_BUTTON_PANEL "It's a small panel embedded in the wall next to the elevator doors. It contains a single button.^";
-Constant FREDDY_WAKES "Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ 
+Constant FREDDY_WAKES "^Freddy stirs and wakes in a daze.^^~Dude, what happened? Man, did I stroke out grooving to the Aussies?~ 
     He hands back your walkman.^";
-Constant BATHROOM_OCCUPIED "There's a turning bolt on this side of the door with a small red sign reading ~Occupied~.";
-Constant BATHROOM_VACANT "There's a turning bolt on this side of the door with a small green sign reading ~Vacant~.";
+Constant BATHROOM_OCCUPIED "There's a small red sign embedded above the doorknob reading ~Occupied~.";
+Constant BATHROOM_VACANT "There's a small green sign embedded above the doorknob reading ~Vacant~.";
 
 Attribute valuable;
 Attribute encountered;
@@ -81,7 +81,7 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 17;
+Constant FLAG_COUNT 18;
 Constant F_RETCH_TRIGGERED 1; ! nurse retch has seen the syringe
 Constant F_CABINET_UNLOCKED 2; ! has the cabinet handle been appropriately knocked on?
 Constant F_SAW_KNOCK_SPOT 3; ! have you seen where retch knocks the door?
@@ -99,6 +99,7 @@ Constant F_FREDDY_HAS_HEARD_THRILLER 14; !he's already heard it
 Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
 Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
 Constant F_ENDGAME 17; ! in endgame
+Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;

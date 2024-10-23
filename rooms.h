@@ -1210,7 +1210,7 @@ Object louanne "Louanne" aquarium
             "She stares at you silently ";
 
             pet:
-            "Nope. not gonna happen. ";
+            "Nope. Not gonna happen. ";
 
             take:
             "When you were six you were terrified by the goofy snake in 'Jungle Book'and it scarred you for life. So, no. ";
@@ -1823,7 +1823,7 @@ Object fridge_stuff "smelly collection of tupperware and condiments" refrigerato
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
-    with description "This is the middle of a short dimly lit corridor that continues to the west and west.  
+    with description "This is the middle of a short dimly lit corridor that continues to the east and west.  
         The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
         A service elevator is here to the north. A sign next to it reads ~Employees Only~.",
     n_to service_elevator_door,
@@ -1835,12 +1835,15 @@ Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_03 "Sub-Basement East"
     with description [;
-        print"This is the eastern end of a short dimly lit corridor that returns to the west  
+        print"This is the eastern end of a short dimly lit corridor that returns to the west.  
         The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
         A plain door here to the south is labelled ~Restroom~. ";
         if (vic in bathroom) print(string) BATHROOM_OCCUPIED; else print(string) BATHROOM_VACANT;
         "";            
     ],
+    cheap_scenery
+    3 'red' 'occupied' 'sign' "It's a small red ~Occupied~ sign in the door. "
+    3 'green' 'occupied' 'sign' "It's a small green ~Vacant~ sign in the door. ",
     w_to sub_basement_02,
     s_to bathroom_door,
     in_to bathroom_door,
@@ -1867,6 +1870,10 @@ Object sub_basement_03 "Sub-Basement East"
         ],
         door_dir [;
             if (parent(self) == sub_basement_03) return s_to; return n_to;
+        ],
+        before [;
+            knock:
+            "There's no answer but you could swear you hear breathing from the other side of the door. ";
         ],
         found_in sub_basement_03 bathroom,
     has scenery door openable ~open locked;
@@ -1937,6 +1944,7 @@ Object boiler_room "Boiler Room"
             {
                 move vic to sub_basement_02;
                 give bathroom_door ~locked;
+                give bathroom_door open;
                 print"^You hear a door opening to the east down the hall.^^";
             }
         ],
