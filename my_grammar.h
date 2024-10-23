@@ -176,9 +176,12 @@ Verb meta 'capacity' * -> Capacity;
     objectloop(i in player && i hasnt worn) {
         count = count + i.mass;
     }
-    print count," units.^^";  
-    print"Your backpack can hold 20 poorly-defined units and is currently holding ";
-    print_ret backpack.is_holding()," units. ";   
+    print count," units.^"; 
+    if(backpack in player)
+    {
+        print"^Your backpack can hold 20 poorly-defined units and is currently holding ";
+        print_ret backpack.is_holding()," units. ";  
+    } 
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

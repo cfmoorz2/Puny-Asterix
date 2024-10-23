@@ -237,16 +237,20 @@ Include "puny.h";
     !oliver.move_mode = TARGET_PATH;
 	!oliver.target_room = conference_room;
     !StartDaemon(oliver);
-    move form to player;
-    move pen to player;
-    move mixtape to backpack;
-    move thriller to backpack;
-    move walkman to backpack;
-    move backpack to player;
+!!!!!!!!!!!!!!!!!!!!!!!
+    !move form to player;
+    !move pen to player;
+    !move mixtape to backpack;
+    !move thriller to backpack;
+    !move walkman to backpack;
+    !move backpack to player;
     give backpack worn;
 !!!!!!!!!!!!!!!!!!!!!!!!
     move syringe to player;
     move jorry_tape to player;
+    move walkman to player;
+    move ladder to player;
+    move darkroom_flashlight to player;
 !!!!!!!!!!!!!!!!!!!!!!!!!
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
