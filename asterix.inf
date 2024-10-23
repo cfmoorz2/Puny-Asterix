@@ -81,11 +81,11 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 18;
-Constant F_RETCH_TRIGGERED 1; ! nurse retch has seen the syringe
+Constant FLAG_COUNT 22;
+
 Constant F_CABINET_UNLOCKED 2; ! has the cabinet handle been appropriately knocked on?
 Constant F_SAW_KNOCK_SPOT 3; ! have you seen where retch knocks the door?
-Constant F_RETCH_KCL 4; ! nurse retch has seen KCL bottle
+!Constant F_RETCH_KCL 4; ! nurse retch has seen KCL bottle
 Constant F_NORTHRUP_OUT_OF_OFFICE 5; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
 Constant F_FREDDY_ASLEEP 7;
@@ -100,6 +100,10 @@ Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
 Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
 Constant F_ENDGAME 17; ! in endgame
 Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
+Constant F_LT_HAS_SEEN_SYRINGE 19;
+Constant F_LT_HAS_SEEN_KCL 20;
+Constant F_LT_HAS_SEEN_LEDGER 21;
+Constant F_LT_HAS_HEARD_TAPE 22;
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;

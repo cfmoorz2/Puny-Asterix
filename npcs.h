@@ -538,41 +538,30 @@ Object nurse_retch "Nurse Retch" station_b
             give, show:
             if (noun == syringe) 
             {
-                SetFlag(F_RETCH_TRIGGERED);
-                StartTimer(retch_timer, 4);
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
                 relax into a saccharine smile. ~Wherever did you find that, dear? Do be careful, can't 
-                have you sticking yourself now, can we?~ ";
-                if (action == ##give)
-                {
-                    remove syringe;
-                    "She accepts the syringe from you and you suddenly have the feeling you maybe shouldn't have done that. ";
-                } else {"";}
+                have you sticking yourself now, can we?~^";
+                nurse_retch.move_mode = TARGET_PATH;
+                nurse_retch.target_room = environmental_services;
+                StartDaemon(nurse_retch);
+                rtrue;
             }
-            if (noun == coaster) { retch_coaster(); rtrue; }
+            if (noun == coaster) "Her eyes alight on the coaster. Her lips tighten and there's a brief flash of surprise in her eyes.^^
+                ~Why are you carrying around garbage, dear?~";
             if (noun == kcl_bottle)
             {
                 if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
                 print"She looks at the plastic bottle and a look of pure hate flashes across her face.^^
                 ~You are quite the persistent little thing, aren't you? You'd best be careful, candystriper, or you may not 
                 finish out your time here.~";
-                if (action == ##give)
-                SetFlag(F_RETCH_KCL);
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;
-                StartDaemon(nurse_retch);
-                if (action == ##give)
-                {
-                    remove kcl_bottle;
-                    " She swipes the offered vial from your hand and you suddenly have a sneaking suspicion that you shouldn't 
-                    have done that. ";
-                } else {"";}
             }
+                StartDaemon(nurse_retch);
             switch(noun)
             {
-                swipe_card: move swipe_card to lost; "She eyes you suspiciously. ~Where did you get that? You're not 
-                supposed to have that.~ She plucks the card away. "; 
+                swipe_card: "She eyes you suspiciously. ~Where did you get that? You're not supposed to have that.~"; 
                 shrimp: "She grimaces and waves her hand. ";
                 book_cart: "~Yes, you should stick to your duties, candy striper.~";
                 default:
@@ -580,55 +569,32 @@ Object nurse_retch "Nurse Retch" station_b
             }
         ],
         npc_arrived [;
-            if(parent(self)== environmental_services) 
+            if(parent(self)== environmental_services || parent(self) == station_b) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
-                StartTimer(retch_timer_2, 3);
                 rtrue; 
             }
         ],
         each_turn [;
-            if (self in environmental_services && player in storage_locker)
+            if (self in environmental_services && player in environmental_services)
             {
-                print"^Through the crack in the locker door you see her move to the phone on the wall. She punches an 
-                extension and waits a moment.^^
-                ~It's me. We may have a problem. The freaking candy striper of all people just handed me the syringe. 
+                print"^You enter the cluttered room to see Nurse Retch standing next to the supply cabinet and talking to someone on the phone.
+                ~Yeah, it's me. We may have a problem. The freaking candy striper of all people just handed me the syringe. 
                 He must be getting sloppy. I don't think she knows anything else, though.~ She pauses and there's a 
-                voice on the other end. ~Yeah, I know. Just in case, I'm stashing the potassium until the storm passes and the 
+                voice on the other end. ~Yeah, I know. Just in case, I've stashed the potassium until the storm passes and the 
                 cops leave. I'll have a chat with our careless associate later.~^^
-                She hangs up the phone and walks to the metal cabinet in the corner. 
-                She looks around then pulls on the door handle which won't open. She grunts angrily then balls up a fist, striking 
-                a specific spot on the door which pops open.^^
-                You see her take something from a pocket, put it in the cabinet, and push the door closed again.^^
-                Glancing around one last time, she hurries out of the room to the south.^";
+                She hangs up the phone and turns, surprised, to see you. She nods curtly and leaves the room to the south.^"; 
                 move self to hallway_b2;
                 move kcl_bottle to storage_cabinet;
-                SetFlag(F_SAW_KNOCK_SPOT);
+                nurse_retch.move_mode = TARGET_PATH;
+                nurse_retch.target_room = station_b;
+                StartDaemon(nurse_retch);
                 nurse_retch.hide = 1;
-                retch_timer_2.time_out();
             }
         ],
     class Mover MyNPC
     has animate female proper transparent;  
-
-Object retch_timer
-    with 
-        time_left,
-        time_out [;
-            nurse_retch.move_mode = TARGET_PATH;
-	        nurse_retch.target_room = environmental_services;
-            StartDaemon(nurse_retch);
-        ];
-
-Object retch_timer_2
-    with 
-        time_left,
-        time_out [;
-            nurse_retch.move_mode = TARGET_PATH;
-            nurse_retch.target_room = station_b;
-            StartDaemon(nurse_retch);
-        ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Array winston_avoid_array --> stairwell_2 room room_32 room_33 room_34 room_21 room_22 room_23 room_24;
@@ -808,23 +774,33 @@ Object worthless "Lt. Worthless" room_23
                 print"He puts on the headphones and starts to listen. ";
                 if (jorry_tape in walkman)
                 {
-                    if (FlagIsSet(F_COMBO_HAS_BEEN_HEARD)) move jorry_tape to worthless;
-                    self.evidence_count++;
-                    print"His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman, removes the tape";
-                    if (FlagIsSet(F_COMBO_HAS_BEEN_HEARD)) { print" and pockets it.^^"; } else { print" and hands it back to you.^^"; }
-                    "~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
-                } else 
-                "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
+                    SetFlag(F_LT_HAS_HEARD_TAPE);
+                    "His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman and hands it back. 
+                    ~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
+                } else {
+                    "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
+                }
+            }
+            if (noun == ledger)
+            {
+                SetFlag(F_LT_HAS_SEEN_LEDGER);
+                "He takes the ledger and thumbs through it. ~Oh, what is this? Math? I'll let the nerds back at the station deal with it.~
+                He hands it back to you. ";
+            }
+            if (noun == syringe)
+            {
+                SetFlag(F_LT_HAS_SEEN_SYRINGE);
+                "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Maybe you're onto something but I 
+                doubt it.~ He hands it back to you. ~You should show it to the head nurse, see if she knows anything about it.~";  
+            }
+            if (noun == kcl_bottle)
+            {
+                SetFlag(F_LT_HAS_SEEN_KCL);
+                "~You found a bottle of medicine? So what. I've been taking awesome medicine all day. There may be something fishy going on 
+                but I think you're way off. If it makes you feel better I'd show it to one of the nurses.~";
             }
             switch(noun)
-            {                  
-                ledger: self.evidence_count++; move ledger to worthless; "He takes the ledger and thumbs through it. ~Oh, what is this? 
-                Math? I'll let the nerds back at the station deal with it.~";
-                syringe: self.evidence_count++; move syringe to worthless; "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital.~ 
-                He takes the syringe. Maybe you're onto something but I doubt it.~";
-                kcl_bottle: self.evidence_count++; move kcl_bottle to worthless; "He takes the bottle and looks it over. 
-                ~You found a bottle of medicine? So what. I've been taking awesome medicine all day. There may be something fishy going on 
-                but I think you're way off.~";
+            {                    
                 coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
                 shrimp: "~Aw, man. That's rank. Get that outta here.~";
                 form: add_signature(self);
@@ -835,7 +811,8 @@ Object worthless "Lt. Worthless" room_23
         ],
         talk_array talk_array_worthless,
         each_turn [;
-            if (self.evidence_count == 4)
+            if (FlagIsSet(F_LT_HAS_HEARD_TAPE) && FlagIsSet(F_LT_HAS_SEEN_KCL) && FlagIsSet(F_LT_HAS_SEEN_LEDGER) 
+                && FlagIsSet(F_LT_HAS_SEEN_SYRINGE))
             {
                 print"^Just then, Lt. Rodriguez, a plain-clothes office with a competent air enters the room, flanked by
                 two uniformed officers. All three are dusted with snow.^^
