@@ -967,7 +967,7 @@ Room main_lobby "Main Lobby"
 		ActivateTopic(mabel, 300);
 		give mabel encountered;
                 "^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
-                I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar,~ 
+                I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar.~ 
                 She picks up a book titled 'Throbbing Loins of Nantucket'.";
             }
         ],
@@ -1560,7 +1560,7 @@ Room hallway_2_1 "Second Floor Hallway @@64 Service Elevator"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_2 "Second Floor Hallway @@64 Dumbwaiter" 
     with description "This is the entrance to 'A' Ward which lies down the hallway to the west. The wallpaper here is red, 
-        matching the red line running down the middle of the floor. A sign next to to an open doorway to the north reads ~Employees Only~.
+        matching the red line running down the middle of the floor. A sign next to an open doorway to the north reads ~Employees Only~.
         The hallway returns to the east and an old service dumbwaiter is here, embedded in the south wall. ",
         e_to hallway_2_1,
         w_to a_ward_1,

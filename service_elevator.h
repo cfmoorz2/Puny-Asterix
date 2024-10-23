@@ -159,6 +159,16 @@ Object sub_basement_exterior_panel "panel" sub_basement_02
         description"It's a small panel embedded in the wall next to the elevator door. It contains a single button. ",
     has scenery;
 
+Object second_floor_service_exterior_panel "panel" hallway_2_1
+    with name 'panel',
+        description [;
+            print"It's a panel embedded in the wall next to the elevator door. It contains a 
+            'Down' button.^";
+            if (service_elevator_active == false) "The button is unlit. ";
+            ShowServiceButtons();
+        ],
+    has container transparent scenery;
+
 Object service_exterior_panel "panel"
     with name 'panel',
         description [;
@@ -167,7 +177,7 @@ Object service_exterior_panel "panel"
             if (service_elevator_active == false)    "None of the buttons are lit. ";
             ShowServiceButtons();
         ],
-    found_in basement_hallway_west hallway_m1 hallway_2_1,
+    found_in basement_hallway_west hallway_m1,
     has container transparent scenery;
 
 ServiceButton  service_exterior_up_button 
@@ -184,6 +194,11 @@ ServiceButton  sb_service_exterior_up_button
     with name 'up' 'button',
         short_name "up button",
         found_in sub_basement_exterior_panel;
+
+ServiceButton  second_floor_service_exterior_down_button
+    with name 'down' 'button',
+        short_name "down button",
+        found_in second_floor_service_exterior_panel;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object service_elevator_daemon 

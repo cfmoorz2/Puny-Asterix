@@ -1,9 +1,11 @@
 Class Item
     with 
-    invent [;
-        if (inventory_stage == 2) {
+    invent [ ;
+        if (inventory_stage == 2)
+        {
             if(balloon.tied_to == self) print" (to which a balloon is tied)";
-     }
+        }
+
     ],
     before [;
         tie:
@@ -22,6 +24,9 @@ Class Item
     after [;
         examine:
         if (balloon.tied_to == self) "There's a helium ballon tied to it currently. ";
+
+        drop:
+        if (balloon.tied_to == self) move balloon to real_location;
     ];
 
 Class Floatable
@@ -780,7 +785,7 @@ MyContainer jacket_pocket "jacket pocket" denim_jacket
         has open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object syringe "syringe" !jacket_pocket
+Object syringe "syringe" jacket_pocket
     with name 'syringe' 'needle',
         description"It's an empty syringe with a needle and cap on it. ",
         mass 1,
@@ -1060,6 +1065,8 @@ Object balloon "helium balloon" room_22
                 "Taken. ";
             }
             move self to player;
+            move self.tied_to to player;
+            scope_modified = true;
             "Taken.";
             !print"(first untying the balloon)^";
 
@@ -1087,6 +1094,7 @@ Object balloon "helium balloon" room_22
             take:
             self.tied_to = player;
             drop:
+            if (self.tied_to ~= 0) move self.tied_to to real_location;
             self.tied_to = 0;
         ],
     class Item

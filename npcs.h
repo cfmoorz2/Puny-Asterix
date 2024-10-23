@@ -381,7 +381,7 @@ Object vic "Vic" bathroom
             if (noun == coaster) { vic_coaster(); rtrue; }
             switch(noun)
             {
-                swipe_card: remove swipe_card; "He plucks the card from you. ~I don't think you're supposed to have that, 
+                swipe_card: "~I don't think you're supposed to have that, 
                     little lady. Can't have you getting in trouble down here.~ He smiles a sickly leer. ";
                 walkman: "~Sure, little lady. You play your music.~";
                 book_cart: "~Yeah, you keep to your books, candy striper. ";
@@ -396,7 +396,7 @@ Object vic "Vic" bathroom
         describe [;  
             if (self has encountered)
             {
-                "^Vic is here. ";
+                rtrue;
             }
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
@@ -404,25 +404,42 @@ Object vic "Vic" bathroom
             ActivateTopic(worthless, 301);
             "^A tall menacing gentleman is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
             since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description.  
-            He's wearing an ill-fitting hospital maintenance uniform that doesn't appear 
-            to be his. Pinned to his shirt there's an ID badge that appears to be a poorly forged ~Chuck E. Cheese~ 
-            employee ID. ~Vic~ is crudely drawn on it in black marker. ";
+            He's wearing an ill-fitting hospital maintenance uniform that doesn't appear to be his. Pinned to his shirt there's an ID badge 
+            that actually appears to be a ~Chuck E. Cheese~ employee ID with the name ~Vic~ crudely drawn over it in black marker. ";
         ],
         each_turn [;
             if(real_location == sub_basement_02)
             {
                 if (IndirectlyContains(player, syringe) || IndirectlyContains(player, denim_jacket) || folding_chair in player) print"^Vic eyes you suspiciously. ~Hey there, 
             little lady. Whatcha got there now?~^";
-                if (IndirectlyContains(player, syringe)) { print "He plucks the syringe from you.^"; remove syringe; }
-                if (IndirectlyContains(player, denim_jacket) ) { print "He takes the jacket from you.^"; remove denim_jacket; }
-                if (folding_chair in player) { print "He relieves you of the folding chair.^"; remove folding_chair; } 
+                if (IndirectlyContains(player, syringe))
+                {
+                    if (syringe in player) { remove syringe; "He plucks the syringe from you. You suddenly have the sinking feeling your evening is unwinnable. "; }
+                    if (syringe in backpack) { remove syringe; "He rudely takes your backpack and rummages through it. He finds the syringe and takes it. He hands 
+                    over your backpack but you suddenly have the sinking feeling your evening is unwinnable. "; } 
+                    if (syringe in jacket_pocket) { remove syringe; "He takes the jacket and rummages through it. Finding the syringe he smiles. ~You can keep the 
+                    jacket,~ he gives it back. I never liked the fellow I took it from.~ You suddenly have the sinking feeling your evening is unwinnable.  "; } 
+                }
+                if (folding_chair in player) { remove folding_chair; "Can't let you take my chair...";  } 
                 print"^Vic is here ";
                 print_ret (string) random ("trying to act casual.", "watching you but trying to look like he's not watching you. ",
                 "creepily staring at you when he thinks you're not looking. ", "lurking. "); 
             }          
         ],     
     class Mover MyNPC
-    has animate proper;
+    has animate proper transparent;
+
+Object vic_badge "badge" vic
+    with 
+        name 'tag' 'id' 'badge',
+        description "It appears to be an employee ID from famed pizza empresario ~Chuck E. Cheese~. Someone has sloppily written ~Vic~ over it with 
+            a black marker. ",
+        before [;
+            take:
+            "I don't think he would appreciate you taking his poorly forged employee badge. ";
+        ];
+
+
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
