@@ -1,17 +1,25 @@
-purloin syringe
-show syringe to cop
-gonear cop
-gonear worthless
-show syringe to cop
+gonear larry
 purloin vial
-show vial to cop
-i
-purloin ledger
-show ledger to cop
-i
-purloin green tape
-open pack
-take walkman
-open walkman
-put green tape in walkman
+s
+dhow vial to retch
+show vial to retch
+follow retch
+g
+g
+g
+g
+g
+g
+g
+w
+open door
+fancy
+e
+purloin ladder
+purloin light
+drop ladder
+open ladder
+turn on light
+u
+w
 recording off

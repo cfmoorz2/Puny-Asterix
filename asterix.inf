@@ -83,7 +83,6 @@ Global SIGNATURE_COUNT 0;
 
 Constant FLAG_COUNT 22;
 
-Constant F_NORTHRUP_OUT_OF_OFFICE 5; ! northrup is out of the office
 Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
 Constant F_FREDDY_ASLEEP 7;
 Constant F_WALKMAN_BLOCKING 8;

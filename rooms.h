@@ -999,7 +999,7 @@ Room admin_hallway "Administration"
         than the others and warmer colors accentuate the walls. The overhead fluorescent tubes are replaced 
         here by round light fixtures and the floor is covered with blue carpet. There's a plain wooden door 
         to the north and a fancy mahogany door to the south. Each has a small brass placard mounted on it. ";
-        if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE) && northrup_door hasnt open) "There's a crack of light under the door 
+        if (FlagIsClear(northrup in northrup_office) && northrup_door hasnt open) "There's a crack of light under the door 
         to the south. "; else ""; 
     ],
     cheap_scenery
@@ -1160,11 +1160,34 @@ Object louanne "Louanne" aquarium
         ],
         before [;
             knock:
-            if (FlagIsClear(F_NORTHRUP_OUT_OF_OFFICE)) "There's no reply, even though you could swear you hear breathing 
+            if (northrup in northrup_office) "There's no reply, even though you could swear you hear breathing 
             coming from the other side. "; "No one seems to be home. ";
+
+            myunlock:
+            if (self hasnt locked) "It's already unlocked. ";
+            if (real_location == northrup_office)
+            {
+                give self ~locked;
+                "With a ~click~ you unlock the door. ";
+            }
+            "You don't seem to have a way to unlock it from this side. ";
+
+            mylock:
+            if (self has locked) "It's already locked. ";
+            if (real_location == northrup_office)
+            {
+                if (self has open)
+                {
+                give self ~open;
+                print "(first closing the door)^";
+                }
+                give self locked;
+                "With a ~click~ you lock the door. ";
+            }
+            "You don't seem to have a way to lock it from this side. ";
         ],
         found_in admin_hallway northrup_office,
-    has scenery door openable ~open locked;
+    has scenery door openable ~open locked lockable;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room northrup_office "Northrup's Office"
@@ -1190,32 +1213,6 @@ Room northrup_office "Northrup's Office"
             examine:
             if(selected_direction == u_to) "You see a tile drop ceiling. ";
             if(selected_direction == d_to) "You see blue carpet. ";
-        ],
-        each_turn [;
-            if (IndirectlyContains(self, northrup) && IndirectlyContains(self, nurse_retch)) 
-            {
-                if(FlagIsSet(F_WALKMAN_BLOCKING)) { print"^(pressing 'stop' on your walkman.)^"; walkman_playing = false; }
-                print"^You seem to have interupted the start of a hushed yet animated conversation between Dr. Northrup and 
-                Nurse Retch. They abuptly clam up as you enter.^^
-                ~Ahh, the candy striper I've heard about. The one poking around into things that have nothing to do with her;
-                things she doesn't understand; things she may be misinterpreting?~^^
-                He smiles for a moment and then his face hardens.^^
-                ~I don't know what you think is happening here, young lady. But I believe you need a letter.~ He pulls a piece of paper 
-                halfway out of a breast pocket. ~This was found in poor Mr. Jorry's office. If I were you, I would peacefully finish out 
-                my time here, take my letter and leave.~ He slips the letter back into his pocket.
-                ^^He turns to Nurse Retch.^^~I think we'd best have a talk with our mutual friend.~ He turns back to you.
-                ~And you, my dear, need to leave.~^^Northrup motions to the door and you step out into the hallway. He and 
-                Nurse Retch follow and Northrup closes and locks the office door behind him. He and Retch quickly leave 
-                to the east and disappear down the dark hallway.^^";
-                remove nurse_retch;
-                StopDaemon(nurse_retch);
-                remove northrup;
-                StopDaemon(northrup);
-                give northrup_door ~open;
-                give northrup_door locked;
-                SetFlag(F_NORTHRUP_OUT_OF_OFFICE);
-                PlayerTo(admin_hallway); 
-            }
         ],
     n_to northrup_door,
     u_to ceiling_05,
@@ -1797,6 +1794,30 @@ Object sub_basement_03 "Sub-Basement East"
         before [;
             knock:
             "There's no answer but you could swear you hear breathing from the other side of the door. ";
+
+            mylock:
+            if (self has locked) "It's already locked. ";
+        
+            if (real_location == bathroom)
+            {
+                if (self has open)
+                {
+                give self ~open;
+                print "(first closing the door)^";
+                }
+                give self locked;
+                "You lock the door with a ~click~. ";
+            }
+            "You can't lock it from this side. ";
+
+            myunlock:
+            if (self hasnt locked) "It's already unlocked. ";
+            if (real_location == bathroom)
+            {
+                give self ~locked;
+                "You unlock the door with a ~click~. ";
+            }
+            "You can't unlock it from this side. ";
         ],
         found_in sub_basement_03 bathroom,
     has scenery door openable ~open locked;
@@ -1949,8 +1970,10 @@ Object ceiling_05 "In The Ceiling"
         and movement to the south is blocked by a large duct. You can crawl north along a network of 
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
-        lower yourself down onto.^";
-        if (northrup in northrup_office) "^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
+        lower yourself down onto. ";
+        if (northrup in northrup_office) print"^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
+        if (nurse_retch in northrup_office) print"Nurse Retch is down there as well. ";
+        "";
         ],
         cheap_scenery
             CS_ADD_LIST ceiling_01 (inside_scenery)
@@ -1984,6 +2007,20 @@ Object ceiling_05 "In The Ceiling"
             examine:
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see an office and a file cabinet below. ";
+        ],
+
+        each_turn [;
+            if (northrup in northrup_office && nurse_retch in northrup_office)
+            {
+                remove northrup;
+                remove nurse_retch;
+                "^There's a heated conversation going on down below. You can't make it out in its entirety, only fragments. 
+                ~We have to find that ledger before the cops get here,~ you hear Northrup say.~
+                ~I don't think the candy striper actually knows anything. If she gets too nosy my brother can take care of her,~ 
+                you hear from Nurse Retch.^^
+                After a moment of agitated back-and-forth, Northrup stands up and they leave the office together. You hear the door close behind
+                the and the ~click~ of the lock. ";
+            }
         ],
         n_to ceiling_03,
         d_to northrup_office;

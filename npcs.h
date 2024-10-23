@@ -568,12 +568,29 @@ Object nurse_retch "Nurse Retch" station_b
                     print_ret"Annoyed, she ignores ",(the)noun,".";
             }
         ],
+        npc_open_door [ _d;
+            if (_d == northrup_door)
+            {
+                self.hide = 1;
+                print"passes through the door to the south and closes it behind her. It locks with a ~click~";
+            }
+        ],
         npc_arrived [;
             if(parent(self)== environmental_services || parent(self) == station_b) 
             { 
                 StopDaemon(self); 
                 self.move_mode = 0; 
                 rtrue; 
+            }
+            if (parent(self) == northrup_office)
+            {
+                StopDaemon(self);
+                self.move_mode = 0;
+                give northrup_door ~open;
+                give northrup_door locked;
+                move self to northrup_office;
+                scope_modified = true;
+                rtrue;
             }
         ],
         each_turn [;

@@ -274,8 +274,19 @@ Verb 'pet'
     "We don't want to lose our PG rating. ";
 ];
 
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   UNLOCK & LOCK
 
+Extend 'unlock' first
+    * noun -> myunlock;
 
+[ myunlocksub ;
+    "That doesn't seem to be possible. ";
+];
 
+Extend 'lock' first
+    * noun -> mylock;
 
-
+[ mylocksub ;
+    "That doesn't seem to be possible. ";
+];

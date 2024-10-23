@@ -95,6 +95,9 @@ Class Mover
         npc_wander_delay,
         npc_last_wander,
         npc_arrived [;],
+        npc_open_door [ ;
+            print"opens the door";
+        ],
         npc_post_follow [; rfalse;],
         npc_post_move [; rfalse;],
         daemon [ x y i ;
@@ -106,7 +109,7 @@ Class Mover
             {
                 self.target_room = real_location;
                 if (self notin real_location) path_move(parent(self), self.target_room);
-                if (self provides npc_arrived) self.npc_arrived(); 
+                if (self provides npc_arrived) print(string)self.npc_arrived(),"^"; 
                     !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)
@@ -253,12 +256,11 @@ Class Mover
                 }
                 else
                 {
-                if (self in real_location && way hasnt open) print(The)self," opens the door.^";
-                give way open;
-                give way ~locked;
+                if (self in real_location && way hasnt open) print(The)self," ";self.npc_open_door(way);print".^"; 
                 }
                 !print"pre_way = ",(name)way,"^";
                 move way to parent(self);
+                scope_modified = true;
                 temp = way;
                 way = way.door_to(final.door_dir);
                 !print"here way = ",(name)way,"^";
@@ -412,7 +414,7 @@ Class Mover
 ];       
 
 [narrate_move npc direction rev_dir;
-    if(npc.move_mode == TARGET_PATH or WANDER_PATH)
+    if(npc.move_mode == TARGET_PATH or WANDER_PATH && npc.hide == 0)
     {
         if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; }
         if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs. "; }
