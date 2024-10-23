@@ -60,8 +60,8 @@ Attribute encountered;
 Release 1;
 Serial "241021";
 
-Constant INITIAL_LOCATION_VALUE = b_ward_1;
-!Constant INITIAL_LOCATION_VALUE = room_23;
+!Constant INITIAL_LOCATION_VALUE = b_ward_1;
+Constant INITIAL_LOCATION_VALUE = station_b;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -244,6 +244,10 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
+!!!!!!!!!!!!!!!!!!!!!!!!
+    move syringe to player;
+    move jorry_tape to player;
+!!!!!!!!!!!!!!!!!!!!!!!!!
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];

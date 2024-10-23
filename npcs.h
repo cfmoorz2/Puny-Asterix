@@ -551,6 +551,7 @@ Object nurse_retch "Nurse Retch" station_b
         signature_desc [;
             "~Uh, no. I don't think so. I don't sign off on volunteer forms.~";
         ],
+        hide false,
         life [;
             give, show:
             if (noun == syringe) 
@@ -559,6 +560,8 @@ Object nurse_retch "Nurse Retch" station_b
                 print"^For an instant you could swear you see a flash of fear cross her face. Then, her thin lips
                 relax into a saccharine smile. ~Wherever did you find that, dear? Do be careful, can't 
                 have you sticking yourself now, can we?~^";
+                self.hide = false;
+                !print"^hide = ",self.hide,"^";
                 nurse_retch.move_mode = TARGET_PATH;
                 nurse_retch.target_room = environmental_services;
                 StartDaemon(nurse_retch);
@@ -582,7 +585,7 @@ Object nurse_retch "Nurse Retch" station_b
                 shrimp: "She grimaces and waves her hand. ";
                 book_cart: "~Yes, you should stick to your duties, candy striper.~";
                 default:
-                    print_ret"Annoyed, she ignores ",(the)noun,".";
+                print_ret"Annoyed, she ignores ",(the)noun,".";
             }
         ],
         npc_open_door [ _d;
@@ -860,6 +863,10 @@ Object worthless "Lt. Worthless" room_23
                 Unfortunately for Vic, the blizzard trapped him in the hospital and he was forced to hide in the sub-basement. 
                 Retch sabotaged the service elevator so no one would find him down there, intending to restart the elevator after the
                 police had left.^^";
+                remove syringe;
+                remove ledger;
+                remove jorry_tape;
+                remove kcl_bottle;
                 you_win();
             }
         ],
@@ -885,19 +892,11 @@ Object rodriguez "Lt. Rodriguez"
             talk:
             "He seems a man of few words. ";
         ],
-        hide,
+        hide true,
         life [;
             give, show:
-            
-            switch(noun)
-            {
-                syringe: move syringe to rodriguez; self.evidence_count++; "He takes the syringe and silently examines it. ";
-                kcl_bottle: move kcl_bottle to rodriguez; self.evidence_count++; "He holds up the vial and peers at it closely. ";
-                ledger: move ledger to rodriguez; self.evidence_count++; "He quietly flips through the ledger for a few moments. ";
-            }
-            if (self.evidence_count == 4) you_win();
-            rtrue;
-        ]
+            "He's already seen what he needs to see. ";
+        ],
     has animate proper transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -906,7 +905,7 @@ Object cop_duo "uniformed officers"
         name 'cops' 'police' 'uniformed' 'officers',
         description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
         short, squat, and bald. ",
-        hide,
+        hide true,
         before [;
             talk:
             "They don't seem very talkative. ";
@@ -933,11 +932,15 @@ Object trio "Retch, Northrup, and Vic"
         before [;
             talk:
             if (self.id == 1 or 3)
-            "He's exercising his right to remain silent. "; "She's exercising her right to remain silent. ";
+            "He's exercising his right to remain silent. "; 
+            if (self.id == 2)
+            "She's exercising her right to remain silent. ";
         ],
         life [;
             if (self.id == 1 or 3)
-            "He sullenly ignores you. "; "She sullenly ignores you. ";
+            "He sullenly ignores you. ";
+            if(self.id == 2)
+            "She sullenly ignores you. ";
         ],
         description [;
             switch (self.id)

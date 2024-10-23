@@ -1321,7 +1321,18 @@ Object northrup_safe "safe" northrup_office
             if (player in file_cabinet) "You can't reach that from up here. ";
             take:
                 "It's far too heavy. ";
-        ],
+
+            myunlock:
+            if (self hasnt locked) "It's already unlocked. ";
+            "The only way to unlock it is with the combination. ";
+
+            mylock:
+            if (self has locked) "It's already locked. ";
+            if (self has open) print"You close the safe. ";
+            give self ~open;
+            give self locked;
+            "You spin the dial. ";
+        ],   
         max_capacity 10,
     class MyContainer
     has locked openable scenery ~open;
@@ -1335,54 +1346,29 @@ Object combo_dial "dial" northrup_office
         ],
         before [;
             if (player in file_cabinet) "You can't reach that from up here. ";
-            TurnClockwiseTo:
+            TurnTo:
             if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
-            print"You turn the dial clockwise to ",second,".^";
+            print"You turn the dial to ",second,".^";
             SAFE_CURRENT = second;
             if (SAFE_CYCLE == 0 && second == SAFE_1) 
-                {
-                    SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3)
-                    {
-                        give northrup_safe ~locked;
-                        Achieved(12);
-                        SetFlag(F_SAFE_IS_OPEN);
-                        "You hear a faint ~click~ from within the safe door. ";
-                    } 
-                    rtrue;                  
-                }
-            if (SAFE_CYCLE == 2 && second == SAFE_3) 
-                {
-                    SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3)
-                    {
-                        give northrup_safe ~locked;
-                        Achieved(14);
-                        SetFlag(F_SAFE_IS_OPEN);
-                        "You hear a faint ~click~ from within the safe door. ";
-                    } 
-                    rtrue;
-                }
+            {
+                SAFE_CYCLE = 1;
+                rtrue;
+            }
+            if (SAFE_CYCLE == 1 && second == SAFE_2)
+            {
+                SAFE_CYCLE = 2;
+                rtrue;
+            } 
+            if (SAFE_CYCLE == 2 && second == SAFE_3)
+            {
+                give northrup_safe ~locked;
+                Achieved(12);
+                SetFlag(F_SAFE_IS_OPEN);
+                "You hear a faint ~click~ from within the safe door. "; 
+            }  
             SAFE_CYCLE = 0;
-            rtrue;
-            TurnCounterclockwiseTo:
-            if (second < 1 || second > 35) "The numbers only go from 1 to 35.";
-            print"You turn the dial counterclockwise to ",second,".^";
-            SAFE_CURRENT = second;
-            if (SAFE_CYCLE == 1 && second == SAFE_2) 
-                {
-                    SAFE_CYCLE++;
-                    if (SAFE_CYCLE == 3)
-                    {
-                        give northrup_safe ~locked;
-                        Achieved(12);
-                        SetFlag(F_SAFE_IS_OPEN);
-                        "You hear a faint ~click~ from within the safe door. ";
-                    } 
-                    rtrue; 
-                }
-            SAFE_CYCLE = 0;
-            rtrue;
+            rtrue;                     
         ],
     has scenery;
 

@@ -124,7 +124,9 @@ Array talk_array_larry-->
   30 "St. Asterix Hospital" TM_NO_LINE "This place? Meh. They take my insurance so here I am. The place is run by a guy named Northrup." 300
   00 300 "Dr. Northrup" TM_NO_LINE "He takes over struggling hospitals and then when they inevitably go under, he gets a nice little golden parachute. I think 
   the guy they found dead tonight, Jorry? He's his CFO and right-hand man." 301
-  00 301 "Sid Jorry" TM_NO_LINE "These people are snakes. It wouldn't shock me if this Jorry guy was offed because he had information on somebody."
+  00 301 "Sid Jorry" TM_NO_LINE "These people are snakes. It wouldn't shock me if this Jorry guy was offed because he had information 
+    on somebody. I ran into a cop friend of mine admitted down the hall, Lieutenant Worthless. If you find anything suspicious you should 
+    show it to him."
   TM_END;
 
 Array talk_array_elliot-->

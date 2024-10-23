@@ -72,14 +72,10 @@ Verb 'flick'
 !   TURNING DIALS 
 Extend 'turn' first
     * noun 'to' number -> TurnTo;
-Extend 'turn' first
-    * noun 'clockwise'/'right' 'to' number -> TurnClockwiseTo;
-Extend 'turn' first
-    * noun 'counterclockwise'/'left' 'to' number -> TurnCounterclockwiseTo;
+Extend 'set' first
+    * noun 'to' number -> TurnTo;
 
-[TurnClockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
-[TurnCounterclockwiseToSub; "You can't seem to turn ", (the)noun, ".";];
-[TurnToSub; "You should specify 'clockwise/right' or 'counterclockwise/left' to a number.";];
+[TurnToSub; "That doesn't seem to apply here.";];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 !   PLUG/UNPLUG

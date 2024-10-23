@@ -94,6 +94,7 @@ Class Mover
         npc_avoid 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0,
         npc_wander_delay,
         npc_last_wander,
+        hide false,
         npc_arrived [;],
         npc_open_door [ ;
             print"opens the door";
@@ -146,7 +147,7 @@ Class Mover
             give, show:
             if (self notin real_location) print_ret(The)self," isn't here. ";
         ],
-        hide false,
+        
     has animate;
 
 [enqueue obj i;
@@ -268,6 +269,7 @@ Class Mover
                 remove temp;
                 MoveFloatingObjects();
             }
+!!!!!!!!!!!!!!!!!!!!!!
             !print"^[moving ",(name)self," to the ",(name)final,"]^";
             eval_one_away(self, final);
             if (self in real_location && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
@@ -414,7 +416,9 @@ Class Mover
 ];       
 
 [narrate_move npc direction rev_dir;
-    if(npc.move_mode == TARGET_PATH or WANDER_PATH && npc.hide == 0)
+    !print"[in narrate move npc = ",(name)npc,"]^";
+    !print"^hide = ",npc.hide,"^";
+    if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
         if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; }
         if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs. "; }
