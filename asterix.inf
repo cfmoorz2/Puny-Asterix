@@ -25,8 +25,7 @@ Constant Headline   "^A Totally Tubular 80s IF Game by Charles Moore, Jr.^";
 Constant OPTIONAL_PROVIDE_UNDO;
 #Endif;
 Constant DEATH_MENTION_UNDO;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Constant MAX_CARRIED 400;
+Constant MAX_CARRIED 45;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 !Constant OPTIONAL_GUESS_MISSING_NOUN;
@@ -61,8 +60,8 @@ Attribute encountered;
 Release 1;
 Serial "241023";
 
-!Constant INITIAL_LOCATION_VALUE = b_ward_1;
-Constant INITIAL_LOCATION_VALUE = station_b;
+Constant INITIAL_LOCATION_VALUE = b_ward_1;
+!Constant INITIAL_LOCATION_VALUE = station_b;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -235,10 +234,6 @@ Include "puny.h";
     StartDaemon(eugene);
     StartDaemon(nurse_retch);
     player.orders = MyTakeRule;
-    !oliver.move_mode = TARGET_PATH;
-	!oliver.target_room = conference_room;
-    !StartDaemon(oliver);
-!!!!!!!!!!!!!!!!!!!!!!!
     move form to player;
     move pen to player;
     move mixtape to backpack;
@@ -246,13 +241,6 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-!!!!!!!!!!!!!!!!!!!!!!!!
-    move syringe to player;
-    move jorry_tape to player;
-    move walkman to player;
-    move ladder to player;
-    move darkroom_flashlight to player;
-!!!!!!!!!!!!!!!!!!!!!!!!!
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
