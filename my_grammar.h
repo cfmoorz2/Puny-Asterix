@@ -205,33 +205,7 @@ Verb 'untie'
     * noun 'from' noun -> Untie;
 
 [ UntieSub; 
-    if (noun == balloon && second == 0)
-    {
-        if (balloon.tied_to == 0) "It's not tied to anything. ";
-        move balloon to player;
-        scope_modified = true;
-        balloon.tied_to = player;
-        "You untie and take the balloon. ";
-    }
-    if (noun == balloon)
-    {
-        move balloon to player;
-        scope_modified = true;
-        balloon.tied_to = player;
-        "You untie the balloon from ",(the)second,".^Taken. ";
-    }
-    if (second == balloon)
-    {
-        move balloon to player;
-        scope_modified = true;
-        balloon.tied_to = player;
-        "You untie the balloon from ",(the)noun,".^Taken. ";
-    }
-    move noun to player;
-    move balloon to real_location;
-    scope_modified = true;
-    balloon.tied_to = 0;
-    "You untie ",(the)noun," from the balloon. ^Taken. ";
+    "That doesn't seem to apple here. ";   
 ];
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

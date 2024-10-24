@@ -240,6 +240,7 @@ Include "puny.h";
     move thriller to backpack;
     move walkman to backpack;
     move backpack to player;
+    move balloon to player;
     give backpack worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning

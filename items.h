@@ -5,11 +5,16 @@ Class Item
         {
             if(balloon.tied_to == self) print" (to which a balloon is tied)";
         }
-
     ],
-    before [;
-        tie:
-        if (noun == self) <<tie balloon self>>;
+    before [ ;
+        take:
+        if (balloon.tied_to == self)
+        {
+            if (balloon in player) "You're already holding the balloon it's tied to. ";
+            move balloon to player;
+            scope_modified = true;
+            "Taken.";
+        }
 
         insert:
         if (self == ladder or folding_chair && second ofclass DumbwaiterShaft ) print_ret(The)noun," won't fit in the dumbwaiter shaft. ";
@@ -20,13 +25,20 @@ Class Item
             if (balloon.tied_to == self) ", trailing the helium balloon behind it. "; ". ";
         } 
         if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
+
+        untie:
+        if (balloon.tied_to ~= self) print_ret(The)self," isn't tied to the balloon. ";
+        <<untie balloon self>>;
+
+        tie:
+        <<tie second self>>;
     ],
     after [;
         examine:
         if (balloon.tied_to == self) "There's a helium ballon tied to it currently. ";
 
-        drop:
-        if (balloon.tied_to == self) move balloon to real_location;
+        !drop:
+        !if (balloon.tied_to == self) move balloon to real_location;
     ];
 
 Class Floatable
@@ -1032,6 +1044,12 @@ Object balloon "helium balloon" room_22
             if (w1 == 'balloon' or 'helium' or 'mylar') { self.id = 0; return 1; }
             if (w1 == 'string') { self.id = 1; return 1; }
         ],
+        invent [ ;
+        if (inventory_stage == 2)
+        {
+            if(self.tied_to ~= 0) print" (which is tied to ",(the)self.tied_to,")"; rtrue;
+        }
+    ],
         tied_to 0,
         mass 0,
         description [;
@@ -1049,10 +1067,17 @@ Object balloon "helium balloon" room_22
             if (self.tied_to == second) "It's already tied to ",(the)second,".";
             if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".^";
             if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
-            if (self.tied_to == 0 && self.tied_to ~= player) print"(first taking the balloon)^";
+            if (self.tied_to == 0 && self.tied_to ~= player) { print"(first taking the balloon)^"; move self to player; }
             self.tied_to = second;
-            remove self;
+            move second to self;
             "You tie the balloon to ",(the)second,".";
+
+            untie:
+            if (self.tied_to == 0) "It's not tied to anything. ";
+            print"You untie the balloon from ",(the)self.tied_to,".";  
+            move self.tied_to to parent(balloon);
+            self.tied_to = 0;
+            rtrue;                  
 
             take:
             if (self.tied_to == 0) 
@@ -1063,40 +1088,17 @@ Object balloon "helium balloon" room_22
                 "Taken. ";
             }
             move self to player;
-            move self.tied_to to player;
+            !move self.tied_to to player;
             scope_modified = true;
             "Taken.";
             !print"(first untying the balloon)^";
-
-            insert:
-            if (~~second ofclass DumbwaiterShaft) "It just floats back out. ";
-            if (balloon.tied_to == player)
-            {
-                balloon.tied_to = 0;
-                move balloon to second_floor_dumbwaiter;
-                scope_modified = true;
-                if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
-                bounces on the roof of the shaft here. ";
-                "You release the balloon into the dumbwaiter. It rises up and out of sight. ";
-            }
-            if (self.tied_to ofclass Floatable)
-            {
-                move balloon.tied_to to second_floor_dumbwaiter;
-                if (real_location == hallway_2_2) "You put the balloon in the dumbwaiter. It floats gently upward and 
-                    bounces on the roof of the shaft here, ",(the)balloon.tied_to," dangling from it.";
-                    "You release the balloon into the dumbwaiter. It rises up and out of sight, carrying ",(the)balloon.tied_to," with it.";
-            }
-            <<insert balloon.tied_to second>>;
-            ], 
+        ],
         after [;
             take:
             self.tied_to = player;
-            drop:
-            if (self.tied_to ~= 0) move self.tied_to to real_location;
-            self.tied_to = 0;
         ],
     class Item
-    has transparent;
+    has transparent container open;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object darkroom_flashlight "flashlight" darkroom_counter
