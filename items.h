@@ -29,9 +29,12 @@ Class Item
             move self to sub_basement_dumbwaiter;
             print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft. ";
         } 
-        move balloon to second;
-        scope_modified = true;
-        "You put ",(the)self," with attached balloon into ",(the)second,".";
+        if (balloon.tied_to == self)
+        {
+            move balloon to second;
+            scope_modified = true;
+            "You put ",(the)self," with attached balloon into ",(the)second,".";
+        }
 
         untie:
         if (balloon.tied_to ~= self) print_ret(The)self," isn't tied to the balloon. ";
@@ -1076,6 +1079,7 @@ Object balloon "helium balloon" room_22
             if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
             if (self.tied_to == 0 && self.tied_to ~= player) { print"(first taking the balloon)^"; move self to player; }
             self.tied_to = second;
+            if (self.tied_to has worn) give self.tied_to ~worn;
             move second to self;
             "You tie the balloon to ",(the)second,".";
 
