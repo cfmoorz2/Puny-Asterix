@@ -780,6 +780,7 @@ Object puncture_mark "puncture mark"
 Object denim_jacket "denim jacket" boiler_room
     with name 'denim' 'jacket',
         mass 12,
+        add_to_scope jacket_pocket,
         description "It's a large men's denim jacket with a single pocket. ",
         initial "There's a denim jacket here balled up on the ground. ",
         before [;
@@ -787,9 +788,9 @@ Object denim_jacket "denim jacket" boiler_room
                 <<search jacket_pocket>>;
         ],
     class Item
-    has clothing transparent;
+    has clothing;
 
-MyContainer jacket_pocket "jacket pocket" denim_jacket
+MyContainer jacket_pocket "jacket pocket"
     with 
         parse_name [ w1 w2;
             w1 = NextWord();
@@ -802,7 +803,7 @@ MyContainer jacket_pocket "jacket pocket" denim_jacket
             examine:
             <<search self>>;
         ],
-        has container open;
+        has container open scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object syringe "syringe" jacket_pocket
@@ -1054,13 +1055,13 @@ Object balloon "helium balloon" room_22
             if (w1 == 'balloon' or 'helium' or 'mylar') { self.id = 0; return 1; }
             if (w1 == 'string') { self.id = 1; return 1; }
         ],
+        tied_to 0,
         invent [ ;
         if (inventory_stage == 2)
         {
             if(self.tied_to ~= 0) print" (which is tied to ",(the)self.tied_to,")"; rtrue;
         }
     ],
-        tied_to 0,
         mass 0,
         description [;
             if(self.id == 0)
@@ -1106,7 +1107,7 @@ Object balloon "helium balloon" room_22
             take:
             if (self.tied_to == 0) 
             {
-                self.tied_to = player;
+                !self.tied_to = player;
                 move self to player;
                 scope_modified = true;
                 "Taken. ";

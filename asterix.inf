@@ -1,4 +1,4 @@
-!% -~S
+!!% -~S
 !% $OMIT_UNUSED_ROUTINES=1
 !% $ZCODE_LESS_DICT_DATA=1
 
@@ -152,11 +152,15 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
     }
 
     if(code < 2)   {
+        if (obj has scenery) return 2;
+        if (action == ##take && obj in player) return 2;
+        if (action == ##take && obj == player) return 2;
+        !if (action ==##take && parent(obj) has container) return 2;
         if(action == ##drop or ##insert or ##puton or ##drop) if(obj notin actor) return 2;
-        if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate) return 2;
-        if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
-        if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
-        if(action == ##take or ##insert or ##puton) if (parent(obj) == denim_jacket) return 2;
+        !if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate) return 2;
+        !if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
+        !if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
+        !if(action == ##take or ##insert or ##puton) if (parent(obj) == denim_jacket) return 2;
         !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
         !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;  
