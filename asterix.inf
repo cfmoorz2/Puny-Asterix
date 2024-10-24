@@ -60,8 +60,8 @@ Attribute encountered;
 Release 1;
 Serial "241023";
 
-Constant INITIAL_LOCATION_VALUE = sub_basement_01;
-!Constant INITIAL_LOCATION_VALUE = b_ward_1;
+!Constant INITIAL_LOCATION_VALUE = sub_basement_01;
+Constant INITIAL_LOCATION_VALUE = b_ward_1;
 !Constant INITIAL_LOCATION_VALUE = hallway_2_2;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
@@ -157,13 +157,6 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
         if (action == ##take && obj == player) return 2;
         !if (action ==##take && parent(obj) has container) return 2;
         if(action == ##drop or ##insert or ##puton or ##drop) if(obj notin actor) return 2;
-        !if(action == ##take or ##insert or ##puton) if (obj has scenery || obj has animate) return 2;
-        !if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
-        !if(action == ##take or ##insert or ##puton) if (parent(obj) == backpack) return 2;
-        !if(action == ##take or ##insert or ##puton) if (parent(obj) == denim_jacket) return 2;
-        !if(action_to_be == ##take) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
-        !if(action_to_be == ##insert) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;
-        !if(action_to_be == ##puton) if(obj has scenery || obj in player || obj == player || parent(obj) has container) return 2;  
     }
 ];
 
@@ -245,7 +238,6 @@ Include "puny.h";
     move thriller to backpack;
     move walkman to backpack;
     move backpack to player;
-    move balloon to player;
     give backpack worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning

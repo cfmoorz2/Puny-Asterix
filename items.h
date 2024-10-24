@@ -23,11 +23,11 @@ Class Item
             if (balloon.tied_to == self)
             {
                 move balloon to sub_basement_dumbwaiter;
-                print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft trailing the helium 
+                "You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft trailing the helium 
                 balloon behind it. ";
             }
             move self to sub_basement_dumbwaiter;
-            print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft. ";
+            "You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft. ";
         } 
         if (balloon.tied_to == self)
         {
