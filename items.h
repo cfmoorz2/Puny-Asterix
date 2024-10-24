@@ -10,21 +10,28 @@ Class Item
         take:
         if (balloon.tied_to == self)
         {
-            if (balloon in player) "You're already holding the balloon it's tied to. ";
+            !if (balloon in player) "You're already holding the balloon it's tied to. ";
             move balloon to player;
             scope_modified = true;
-            "Taken.";
+            "Taken. ";
         }
 
         insert:
         if (self == ladder or folding_chair && second ofclass DumbwaiterShaft ) print_ret(The)noun," won't fit in the dumbwaiter shaft. ";
         if (second ofclass DumbwaiterShaft && real_location ~= sub_basement_01)
         {
+            if (balloon.tied_to == self)
+            {
+                move balloon to sub_basement_dumbwaiter;
+                print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft trailing the helium 
+                balloon behind it. ";
+            }
             move self to sub_basement_dumbwaiter;
-            print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft";
-            if (balloon.tied_to == self) ", trailing the helium balloon behind it. "; ". ";
+            print"You put ",(the)self," in the dumbwaiter. It plummets downward through the shaft. ";
         } 
-        if (balloon.tied_to == self) "It won't fit with the balloon tied to it. ";
+        move balloon to second;
+        scope_modified = true;
+        "You put ",(the)self," with attached balloon into ",(the)second,".";
 
         untie:
         if (balloon.tied_to ~= self) print_ret(The)self," isn't tied to the balloon. ";
@@ -47,7 +54,7 @@ Class Floatable
             insert:
             if (self == balloon.tied_to && second ofclass DumbwaiterShaft)
             {
-                move self to second_floor_dumbwaiter;
+                move balloon to second_floor_dumbwaiter;
                 if (real_location == hallway_2_2) "You put ",(the)self," in the dumbwaiter. It floats gently upward suspended 
                 from the balloon and bounces on the roof of the shaft here. ";
                 "You put ",(the)self," in the dumbwaiter. It rises up and out of sight, suspended from the helium balloon. ";
@@ -1072,9 +1079,22 @@ Object balloon "helium balloon" room_22
             move second to self;
             "You tie the balloon to ",(the)second,".";
 
+            insert:
+            if (self.tied_to == 0 && second ofclass DumbwaiterShaft)
+            {
+                move balloon to second_floor_dumbwaiter;
+                if (real_location == hallway_2_2) "You put ",(the)self," in the dumbwaiter. It floats gently upward suspended 
+                from the balloon and bounces on the roof of the shaft here. ";
+                "You put ",(the)self," in the dumbwaiter. It rises up and out of sight. ";
+            }
+            if (self.tied_to ~= 0 && second ofclass DumbwaiterShaft)
+            {
+                <<insert self.tied_to second>>;
+            }
+
             untie:
             if (self.tied_to == 0) "It's not tied to anything. ";
-            print"You untie the balloon from ",(the)self.tied_to,".";  
+            print"You untie the balloon from ",(the)self.tied_to,".^";  
             move self.tied_to to parent(balloon);
             self.tied_to = 0;
             rtrue;                  
