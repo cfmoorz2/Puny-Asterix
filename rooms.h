@@ -774,6 +774,7 @@ Object book_cart "book cart" b_ward_1
                 "It would make more sense to push it. ";
             pushdir:
                 dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
                 print"Wheels grinding and squeaking, you push the cart ";
                 !print"Wheels grinding and squeaking, you push the cart to the ";
