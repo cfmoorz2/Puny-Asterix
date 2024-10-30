@@ -420,9 +420,9 @@ Class Mover
     !print"^hide = ",npc.hide,"^";
     if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
-        if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; }
-        if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs. "; }
-        print"^",(The)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^";
+        if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; } else
+        if(direction == d_obj) { print"^",(The)npc," "; npc.npc_walk(); " downstairs. "; } else
+        { print"^",(The)npc," "; npc.npc_walk(); print" off to the ",(name)direction,".^"; }
     }
     if(npc.move_mode == FOLLOW_PATH)
     {
