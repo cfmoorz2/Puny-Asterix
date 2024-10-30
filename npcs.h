@@ -86,7 +86,8 @@ Object freddy "Freddy" hallway_m2
     with name 'freddy' 'security' 'guard',
         description [;
             print"He's the third-shift security guard. He's in his early 20s and wears a blue uniform shirt, partially untucked, and dark blue 
-            pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. ";
+            pants. He's thin with long black hair, long nose, and gaunt cheeks pockmarked with acne. He's yawning and can barely keep
+            his eyes open. ";
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's standing here, deeply asleep. "; else 
             "He's making his rounds up and down the hallways. ";
         ],
@@ -109,7 +110,7 @@ Object freddy "Freddy" hallway_m2
                     scope_modified = true;
                     StopDaemon(freddy);
                     "The tuneful adult contemporary strains of 'Air Supply' wash over the 
-                    narcoleptic security guard. His eyes close and he smiles. In another moment he snores and you 
+                    exhausted security guard. His eyes close and he smiles. In another moment he snores and you 
                     realize that he's fallen dead asleep on his feet. ";
                 }
                 if (thriller in walkman)
@@ -158,9 +159,9 @@ Object freddy "Freddy" hallway_m2
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's literally asleep on his feet. ";
             if(self has encountered) "";
             give self encountered;
-            "He's the narcoleptic third-shift security guard. Hiring someone with a sleep-disorder who could nod off at any 
-            moment to work the overnight shift seems less than ideal. His uncle is on the hospital board but that's probably just 
-            coincidence. ";
+            "He's the third-shift security guard. He's also the drummer in a local band, The Roomy Sedans, and spends his days 
+            rehearsing in his cousin's garage, leaving him quite sleep-deprived in the evening. This arrangement seems less
+            the ideal. His uncle is on the hospital board but that's probably just coincidence. ";
         ],
         npc_avoid freddy_avoid_array,
         npc_walk [; print"slacks";],
