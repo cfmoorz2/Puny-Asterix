@@ -107,7 +107,6 @@ Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;
 
 [ DeathMessage; 
-    "HERE";
     if (deadflag == 3) print"You are doomed to summer school";
 ];
 
