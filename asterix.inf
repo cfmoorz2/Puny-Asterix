@@ -58,7 +58,7 @@ Attribute valuable;
 Attribute encountered;
 
 Release 1;
-Serial "241030";
+Serial "241130";
 
 !Constant INITIAL_LOCATION_VALUE = sub_basement_01;
 Constant INITIAL_LOCATION_VALUE = b_ward_1;
