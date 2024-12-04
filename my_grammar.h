@@ -17,7 +17,7 @@ Verb 'hang'
     * 'up' noun -> Drop;
 
 [DialObjSub;
-    if (noun ~= handset) "I'm not sure how you can dial ",(the)noun,". ";
+    if (noun ~= handset && noun ~= main_elevator_ext) "I'm not sure how you can dial ",(the)noun,". ";
 ];
 
 [DialNumberSub;

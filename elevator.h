@@ -63,6 +63,9 @@ Object main_elevator "Main Elevator"
 Object main_elevator_ext "elevator" 
     with name 'elevator',
         description"It's a standard elevator with a pair of sliding doors. There's a small panel embedded in the wall next to it. ",
+        before [;
+            dialobj: "You should use the buttons to summon the elevator. ";
+        ],
     found_in elevator_lobby_b elevator_lobby_m elevator_lobby_2,
     has scenery;
 
