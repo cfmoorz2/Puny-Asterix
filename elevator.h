@@ -56,6 +56,9 @@ Object main_elevator "Main Elevator"
         which are currently ";
         open_or_closed(elevator_doors); ".";
         ],
+        cheap_scenery 
+        'lights' 'light' "They're standard fluorescent bulbs. They flicker annoyingly. "
+        2 'wall' 'walls' "They're covered with beige stained linoleum tiling. ",
         n_to elevator_doors,
         out_to elevator_doors,
     has light;
