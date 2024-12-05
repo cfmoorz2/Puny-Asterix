@@ -169,6 +169,8 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
             if (second has pluralname) " aren't here. "; " isn't here. ";
         }
     }
+    if (action == ##listen && walkman has worn && walkman_playing && walkman in player && FlagIsClear(F_HEADPHONES_ARE_UNPLUGGED))
+        "You're currently listening to your walkman. ";
     rfalse;
 ];
 
@@ -239,6 +241,8 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
+    move vans to player;
+    give vans worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
