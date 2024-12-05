@@ -632,11 +632,9 @@ Room cafeteria "Cafeteria"
             ]
             'chair' 'chairs//p' [;
                 examine:
-                "They're just chairs. ";
-                Take:
-                "You don't need that. ";
-                Enter:
-                "You sit down for a moment but restlessly stand up again. ";
+                "They're beat up vinyl cafeteria chairs. ";
+                !Enter:
+                !"You sit down for a moment but restlessly stand up again. ";
             ]
             5 'steam' 'serving' 'table' 'buffet' 'station' [;
                 take:
@@ -649,6 +647,18 @@ Room cafeteria "Cafeteria"
     n_to kitchen,
     class Tiles DropCeiling
     has light;
+
+OnChair cafeteria_chair "vinyl chair" cafeteria
+    with name 'orange' 'vinyl' 'chair',
+        description "It's a rather beat up cafeteria chair molded from dirty orange vinyl. ",
+        describe [; if(self in cafeteria) rtrue; ],
+        before [;
+            take:
+                if(self hasnt moved) print"You pick one of the chairs at random.^";
+            enter:
+                if(self hasnt moved) print"You pick one of the chairs at random.^";
+        ],            
+        mass 15;
 
 Object cashier_station "cashier station" cafeteria 
     with name 'cashier' 'station',
@@ -874,6 +884,8 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
                 PlayerTo(ceiling_01);
                 rtrue;
                 }
+            if (selected_direction == u_to && cafeteria_chair in self)
+                "Standing on the chair doesn't get you nearly high enough to reach. ";
             examine:
             if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. 
                 You can see darkness behind it. ";
@@ -885,7 +897,8 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             "One of the tiles in the drop ceiling is askew. There's dark empty space above it. ";
             take: 
             "You can't reach it and don't need it. ";
-        ],
+        ]
+        1 'ceiling' "It's a drop-ceiling. You notice one of the tiles is askew. ",
     e_to hallway_m1,
     w_to admin_hallway,
     class Tiles DropCeiling
@@ -987,8 +1000,10 @@ Room main_lobby "Main Lobby"
         ],
         cheap_scenery
         'information' 'desk' "It's a round wooden desk with the word 'Information' emblazoned across the front. "
-        3 'lobby' 'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
-            intermittently catch a glimpse of the blizzard outside. ",
+        'windows//p' 'window' "They're icing over and difficult to see through. Through them you can 
+            intermittently catch a glimpse of the blizzard outside. "
+        3 'blizzard' 'storm' 'snow' "It's really blowing out there. Through the iced-over windows you catch an occasional glimpse 
+            of ice and snow blowing sideways. ",
         n_to hallway_m1,
         w_to security_door,
         each_turn [;
@@ -1003,7 +1018,7 @@ Room main_lobby "Main Lobby"
         ],
         before [;
             go:
-                if (selected_direction == s_to)
+                if (selected_direction == s_to or out_to)
                 "The main entrance doors seem to have been locked for the night. ";
             ],
     class Tiles DropCeiling
@@ -1015,9 +1030,10 @@ Room main_lobby "Main Lobby"
         parse_name [ w1 w2;
             w1 = NextWord();
             w2 = NextWord();
-            if (w1 == 'lobby' or 'double' && w2 == 'doors') return 2;
-            if (w1 == 'lobby') return 1;
+            if (w1 == 'lobby' or 'double' or 'glass' && w2 == 'doors') return 2;
+            !if (w1 == 'lobby') return 1;
             if (w1 == 'doors') return 1;
+            if (w1 == 'entrance') return 1;
         ],
         description "They're a pair of glass doors. ",
     has scenery door openable locked pluralname;

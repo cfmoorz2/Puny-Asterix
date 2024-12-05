@@ -966,7 +966,7 @@ Object pen "ballpoint pen"
     class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object dull_key "dull steel key" !freddy !unlocks jorry's office
+Object dull_key "dull steel key" freddy !unlocks jorry's office
     with 
         name 'dull' 'steel' 'key',
         description "It's a standard steel key. ",

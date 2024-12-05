@@ -92,6 +92,8 @@ Object freddy "Freddy" hallway_m2
             "He's making his rounds up and down the hallways. ";
         ],
         life [;
+            ask: 
+            if(second == dull_key) "Dr. Northrup told me to keep the key to myself, dude. ";
             show, give:
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's currently asleep. ";
             if (noun == walkman)
@@ -161,11 +163,11 @@ Object freddy "Freddy" hallway_m2
             give self encountered;
             "He's the third-shift security guard. He's also the drummer in a local band, The Roomy Sedans, and spends his days 
             rehearsing in his cousin's garage, leaving him quite sleep-deprived in the evening. This arrangement seems less
-            the ideal. His uncle is on the hospital board but that's probably just coincidence. ";
+            than ideal. His uncle is on the hospital board but that's probably just coincidence. ";
         ],
         npc_avoid freddy_avoid_array,
         npc_walk [; print"slacks";],
-        npc_wander_delay 3,
+        npc_wander_delay 4,
     class Mover MyNPC
     has animate proper transparent;   
 
@@ -218,6 +220,10 @@ Object buzz_newspaper "newspaper" buzz
         name 'newspaper' 'paper',
         description "It's the local paper. From here you can only see the 
         hyperbolic headline: ~Blizzard!~.",
+        before [;
+            read:
+            "You can't read it from here and the news bores you anyway. ";
+        ],
     has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

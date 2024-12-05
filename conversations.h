@@ -30,13 +30,14 @@ Array talk_array_oliver -->
   TM_END;
 
 Array talk_array_freddy -->
-  30 "himself" TM_NO_LINE "I'm just working this gig until my band takes of. I'm the drummer for 'The Pink Motley'. 
+  30 "himself" TM_NO_LINE "I'm just working this gig until my band takes of. I'm the drummer for 'The Roomy Sedans'. 
   You've probably heard of us."
   30 "Dr. Northrup" TM_NO_LINE "I stay out of the big man's way and do what he tells me. Plus, that nurse friend of his scares 
   me." 304
   30 "Sid Jorry" TM_NO_LINE "The dead guy? He's in his office. I've got the key. I was told to lock the door and not to let anyone in until the 
   cops can get here. The blizzard is slowing them down, I guess. I did see some mafia-looking guy rummaging around 
   in there for a while, come to think of it."  304
+  00 304 "Office Key" TM_NO_LINE "The Doc gave me strict instructions to guard that key with my life until the cops get here."
   30 "service elevator" TM_NO_LINE "Yeah, dude. It stopped working tonight right after they found Mr. Jorry dead."
   00 301 "Buzz" TM_NO_LINE "He's my boss. He's all right, I guess. He doesn't like to leave the security office."
   TM_END;
