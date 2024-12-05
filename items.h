@@ -135,6 +135,7 @@ Object walkman "your walkman"
         parse_name [ w1 w2;
             w1 = NextWord();
             w2 = Nextword();
+            if (w1 == 'compartment') {self.id = 2; return 1; }
             if (w1 == 'my' && w2 == 'walkman') { self.id = 0; return 2; }
             if (w1 == 'walkman' or 'player') { self.id = 0; return 1; }
             if (w1 == 'headphones' or 'phones') { self.id = 1; return 1; }
@@ -169,6 +170,19 @@ Object walkman "your walkman"
                 "You see two poofy orange ear pieces at the end of a round strip of metal. They're plugged into 
                 the walkman. ";
             }
+            if (self.id == 2)
+            {
+                print"The compartment is currently ";
+                if(self has open) print "open. "; else print"closed. ";
+                if (self has open)
+                {
+                    objectloop (obj in self)
+                    {
+                        if (obj ofclass tape) "A cassette tape sits in the open compartment. ";
+                    }
+                    "The open compartment is empty. ";
+                }
+            }
         ],
         react_before [ ;
             take:
@@ -191,9 +205,11 @@ Object walkman "your walkman"
                 rtrue;
             }
             open:
-                <<push wm_eject_button>>;
-
+                if(self.id ~= 1) <<push wm_eject_button>>; "You can't open the headphones. ";
+            close:
+                if(self.id == 1) "You can't close the headphones. ";
             receive:
+            if(self.id == 1) "You can't put things in the headphones. ";
             if (children(self) > 5 ) "There's already a tape in the walkman. ";
             if (~~noun ofclass Tape) "You can't put ",(the)noun," in the walkman. ";
 
