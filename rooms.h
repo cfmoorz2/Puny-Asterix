@@ -633,8 +633,8 @@ Room cafeteria "Cafeteria"
             'chair' 'chairs//p' [;
                 examine:
                 "They're beat up vinyl cafeteria chairs. ";
-                !Enter:
-                !"You sit down for a moment but restlessly stand up again. ";
+                take:
+                if (cafeteria_chair in self) rfalse; "You've already taken one of the chairs. ";
             ]
             5 'steam' 'serving' 'table' 'buffet' 'station' [;
                 take:
@@ -884,7 +884,7 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
                 PlayerTo(ceiling_01);
                 rtrue;
                 }
-            if (selected_direction == u_to && cafeteria_chair in self)
+            if (selected_direction == u_to && (player in cafeteria_chair || player in security_chair || player in break_room_chair))
                 "Standing on the chair doesn't get you nearly high enough to reach. ";
             examine:
             if (selected_direction == u_to) "You notice one of the large tiles in the drop-ceiling is slightly out of alignment. 
@@ -1730,14 +1730,31 @@ Bed room_22_bed "hospital bed" room_22
 Room break_room "Break Room"
     with 
         description "This is an employee break room. There's a white plastic table here with matching chairs. A 
-        refrigerator stands in the corner next to a stained formica counter. ",
+        refrigerator stands in the corner next to a stained formica counter. The doorway out is to the south. ",
         s_to hallway_2_2,
         cheap_scenery
         'formica' 'counter' "It's a standard formica counter. It's adorned with years of stains and scorch marks. "
-        4 'white' 'plastic' 'chair' 'chairs' "You see a number of cheaply-made white plastic chairs. "
+        4 'white' 'plastic' 'chair' 'chairs' [;
+            examine:
+                "You see a number of cheaply-made white plastic chairs. ";
+            take:
+                if (break_room_chair in self) rfalse; "You've already taken one of the chairs. ";
+        ]
         1 'table' "It's a white, dirty, poorly made plastic table. ",
     class Tiles DropCeiling
     has light;
+
+OnChair break_room_chair "vinyl chair" break_room
+    with name 'white' 'vinyl' 'chair',
+        description "It's a rather flimsy white vinyl chair. ",
+        describe [; if(self in break_room) rtrue; ],
+        before [;
+            take:
+                if(self hasnt moved) print"You pick one of the ugly white chairs.^";
+            enter:
+                if(self hasnt moved) print"You pick one of the ugly white chairs.^";
+        ],            
+        mass 15;
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
