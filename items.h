@@ -740,7 +740,7 @@ Object cocktail_shrimp "bowlful of shrimp" shrimp_bowl
     has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object shrimp "rotten shrimp" !garbage_can
+Object shrimp "rotten shrimp" 
     with name 'rotten' 'putrid' 'nasty' 'shrimp',
         description "It's a single boiled shrimp, left behind and well past its expiration date. ",
         mass 1,

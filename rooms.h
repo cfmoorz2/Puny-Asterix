@@ -433,7 +433,7 @@ Object fuse_box "fuse box" engineering
             if(self has open)
             {
                 print"It's currently open, revealing a tangle of switches and connectors. ";
-                if (plastic hasnt moved)   "There's a small round piece of plastic wedged between two of the contacts."; "";
+                if (plastic in engineering)   "There's a small round piece of plastic wedged between two of the contacts."; "";
             }
             "";
         ],
@@ -441,7 +441,7 @@ Object fuse_box "fuse box" engineering
             search:
             if (self hasnt open) "The fuse box is closed. ";
             print"The fuse box is full of switches and connectors. ";
-            if (plastic hasnt moved) "There's a round piece of plastic jammed between two of the connectors. "; "";
+            if (plastic in engineering) "There's a round piece of plastic jammed between two of the connectors. "; "";
             receive:
             "You shouldn't poke around in high-voltage fuse box. ";
             take:
@@ -497,9 +497,9 @@ Room room_33 "Room 33"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ],
     class Tiles DropCeiling
     has light;
@@ -528,9 +528,9 @@ Room room_32 "Room 32"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ]
         1 'pillow' [;
             examine:
@@ -576,9 +576,9 @@ Room room_31 "Room 31"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ],
     class Tiles DropCeiling
     has light;
@@ -743,7 +743,7 @@ Object garbage_can "garbage can" kitchen
             take:
                 "It's too heavy. ";
             search:
-                move shrimp to self;
+                if(shrimp hasnt moved) move shrimp to self;
         ],
         max_capacity 20,
     class MyContainer
@@ -1580,9 +1580,9 @@ Room room_23 "Room 23"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ]
         'bed' 'hospital' [;
             examine:
@@ -1604,9 +1604,9 @@ Room room_24 "Room 24"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ],
     class Tiles DropCeiling
     has light;
@@ -1640,9 +1640,9 @@ Room room_21 "Room 21"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ],
     class Tiles DropCeiling
     has light;
@@ -1664,9 +1664,9 @@ Room room_22 "Room 22"
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
             examine:
-            print(string)RADIATOR_DESC;
+            print(string)RADIATOR_DESC; rtrue;
             take, touch, pull, push:
-            print(string)RADIATOR_TOUCH;
+            print(string)RADIATOR_TOUCH; rtrue;
         ],
     class Tiles DropCeiling
     has light;
