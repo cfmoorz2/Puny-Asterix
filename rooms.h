@@ -23,6 +23,13 @@ Class Tiles
             if (selected_direction == d_to) "You see scuffed and stained linoleum tiles. ";
         ];
 
+Class Concrete 
+    with 
+        before [;
+            examine:
+            if (selected_direction == d_to) "You see concrete below you. ";
+        ];
+
 Class DropCeiling
     with 
         before [;
@@ -191,7 +198,7 @@ Room stairwell_b "Basement Stairwell"
         Concrete stairs zig-zag upward to the floor above.",
         s_to elevator_lobby_b,
         u_to stairwell_m,
-    class Tiles StairRoom
+    class Concrete StairRoom
     has light,
     ;
 
@@ -239,7 +246,8 @@ Room central_supply "Central Supply"
     cheap_scenery
     5 'pipes' 'tangle' 'conduit' 'pipe' 'conduits' "It's a dark labyrinth of pipes of all kinds running along the ceiling. "
     2 'shadow' 'shadows' "Ooh. Scary. "
-    2 'lamp' 'lamps' "They're simple green lamps hanging from the ceiling above. ",
+    2 'lamp' 'lamps' "They're simple green lamps hanging from the ceiling above. "
+    3 'crates' 'antique' 'equipment' "It appears to be ancient artifacts from the the dark past of medical history. ",
     before [;
         examine:
         if(selected_direction == u_to) "You see exposed ducts and piping. ";
@@ -338,6 +346,11 @@ Object storage_cabinet "cabinet" environmental_services
         ],
     has scenery container openable ~open;
 
+Object useless_junk "useless junk" storage_cabinet
+    with
+        name 'useless' 'junk',
+        description "It's an assortment of thoroughly ignorable junk. ",
+    has pluralname static;
 
 Object telephone "telephone" environmental_services
     with name 'black' 'phone' 'telephone',
@@ -394,10 +407,11 @@ Object handset "handset" telephone
                 };
             DialNumber:
                 if (self notin player) print "(first taking the handset)^";
-                if (noun == 911)
+                if (noun == 911 || noun == 000)
                 {
-                    print"The phone rings and a bored female voice answers. ~911, what is your emergency?~
-                    Suddenly there's a burst of static and call is disconnected. Damn blizzard.^";
+                    print"The phone rings and a bored female voice answers. ~";
+                    if(noun == 911) { print"911"; } else { print"000"; }
+                    print", what is your emergency?~ Suddenly there's a burst of static and call is disconnected. Damn blizzard.^";
                     move self to telephone;
                     "^You hang up the phone. ";
                 }  
@@ -464,7 +478,7 @@ Room stairwell_m "Main Stairwell"
     d_to stairwell_b,
     s_to elevator_lobby_m,
     u_to stairwell_2,
-    class Tiles StairRoom
+    class Concrete StairRoom
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -473,7 +487,7 @@ Room stairwell_2 "Second Floor Stairwell"
         A large number ~2~ is painted on the wall. Concrete stairs zig-zag downward to the floor below. ",
         d_to stairwell_m,
         s_to elevator_lobby_2,
-    class Tiles StairRoom
+    class Concrete StairRoom
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1049,9 +1063,9 @@ Room admin_hallway "Administration"
         to the south. "; else ""; 
     ],
     cheap_scenery
-    2 'light' 'lights' "They're brass light fixtures hanging from the ceiling. "
+    4 'light' 'lights' 'fixtures' 'fixture' "They're brass light fixtures hanging from the ceiling. "
     'blue' 'carpet' "It's dark blue carpet. It looks relatively new. "
-    'placard' 'placards' "They're small brass signs on the doors. ",
+    4 'placard' 'placards' 'sign' 'signs' "They're small brass signs on the doors. ",
     before [;
         examine:
         if (selected_direction == u_to) "You see a tile drop ceiling and light fixtures hanging down. ";

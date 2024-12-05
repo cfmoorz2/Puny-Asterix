@@ -749,12 +749,15 @@ Object cocktail_shrimp "bowlful of shrimp" shrimp_bowl
         description "It's a bowlful of cocktail shrimp. ",
         mass 4,
         before [;
-                take:
-                    if (buzz in security_chair) "Buzz, stops you. 
-                    ~Excuse me. Would you mind keeping your paws out 
-                    of my lunch?~"; else "Ew, no. They're slimy and gross. ";
+            take:
+            if (buzz in security_chair) "Buzz, stops you. 
+            ~Excuse me. Would you mind keeping your paws out 
+            of my lunch?~"; else "Ew, no. They're slimy and gross. ";
+            eat:
+            "They don't look very appetizing and your mom insists you once swelled up after your 
+            Uncle Tommy gave you lobster once when you were a toddler. ";
         ],
-    has static;
+    has static edible;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object shrimp "rotten shrimp" 
@@ -848,7 +851,7 @@ Object ladder "ladder" central_supply
     mass 25,
         description [;
             print"It's a six-foot aluminum folding ladder, it's currently ";
-            if (self has open) "unfolded. "; "collapsed. ";
+            if (self has open) "unfolded. "; "folded up. ";
         ],
         before [;
             climb, enter:
@@ -1053,6 +1056,7 @@ Object plastic "round piece of plastic" engineering
                 scope_modified = true;
                 ActivateTopic(nurse_retch, 306);
                 ActivateTopic(vic, 301);
+                rtrue;
             }
         ], 
     class Item;
