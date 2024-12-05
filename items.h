@@ -113,7 +113,7 @@ Object dummy_headphones "headphones"
         name 'headphones' 'phones',
         article "a pair of",
         mass 2,
-        description "You see two poofy orange ear pieces at the end of a round strip of metal. ",
+        description "You see two poffy orange ear pieces at the end of a round strip of metal. ",
         before [  ;
             plugin:
             if (dummy_headphones in player)
@@ -136,6 +136,7 @@ Object walkman "your walkman"
             w1 = NextWord();
             w2 = Nextword();
             if (w1 == 'compartment') {self.id = 2; return 1; }
+            if (w1 == 'tape' && w2 == 'compartment') {self.id = 2; return 1; }
             if (w1 == 'my' && w2 == 'walkman') { self.id = 0; return 2; }
             if (w1 == 'walkman' or 'player') { self.id = 0; return 1; }
             if (w1 == 'headphones' or 'phones') { self.id = 1; return 1; }

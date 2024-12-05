@@ -440,8 +440,6 @@ Object vic_badge "badge" vic
             "I don't think he would appreciate you taking his poorly forged employee badge. ";
         ];
 
-
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object northrup "Dr. Northrup" northrup_office
     with name 'dr' 'northrup' 'doctor' 'walter',  
@@ -638,7 +636,7 @@ Object nurse_retch "Nurse Retch" station_b
 Array winston_avoid_array --> stairwell_2 room room_32 room_33 room_34 room_21 room_22 room_23 room_24;
 Object winston "Mr. Winston" hallway_2_3
     with 
-        name 'mr' 'winston',
+        name 'mr' 'winston' 'patient',
         talk_array talk_array_winston,
         description "He's a thin elderly gentleman with sparse strands of white hair on a bald head 
         pocked with age spots. A gray four-day stubble shades his cheeks and chin. He's wearing a 
@@ -683,7 +681,7 @@ Object winston_pole "IV pole" winston
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ms_parsons "Ms. Parsons" room_22
-    with name 'ms' 'parsons',
+    with name 'ms' 'parsons' 'patient',
         description "She's a small pouch of wrinkled skin and scant white hair. She's nearly swallowed up
         by her gown and the bed she's lying in. She's smiling but her eyes are closed. You pause for a moment 
         to make sure she's breathing... Yes. She is. ",
@@ -711,7 +709,7 @@ Object ms_parsons "Ms. Parsons" room_22
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object larry "Larry" room_33
-    with name 'larry',
+    with name 'larry' 'patient',
         description "He's a jaundiced gentleman in his 60s. He's quite large; the hospital bed barely contains him. 
         He has thick grey hair and his cheeks are ruddy. ",
         describe [;
@@ -745,7 +743,7 @@ Object larry "Larry" room_33
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object mrs_chen "Mrs. Chen" room_21
     with 
-        name 'mrs' 'chen',
+        name 'mrs' 'chen' 'patient',
         description "She's a small birdlike cheery Chinese lady with short gray hair and a constant smile 
             on her face. She doesn't speak English but retains an air of wise insight. ",
         describe [;
@@ -776,7 +774,7 @@ Object mrs_chen "Mrs. Chen" room_21
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object worthless "Lt. Worthless" room_23 
     with 
-        name 'worthless' 'cop' 'lieutenant',
+        name 'worthless' 'cop' 'lieutenant' 'patient',
         description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
         a blue patient gown. Somewhow he's attached his badge to the front of it. ",
         hide,

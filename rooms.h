@@ -477,10 +477,11 @@ Room stairwell_2 "Second Floor Stairwell"
     has light;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room b_ward_1 "Ward B - East"
+Room b_ward_1 "Ward B - West"
     with description "The hallway continues east and west. Here the walls are blue to match the line running 
         down the middle of the floor. Patient rooms lie north and south through open doorways. A sign next to the former 
         reads ~31~, one next to the latter reads ~32~.", 
+        name 'ward' 'west',
         w_to hallway_2_3,
         e_to station_b,
         n_to room_31,
@@ -504,8 +505,8 @@ Room room_33 "Room 33"
     class Tiles DropCeiling
     has light;
 
-Bed room_33_bed "patient bed" room_33
-    with name 'patient' 'bed',
+Bed room_33_bed "hospital bed" room_33
+    with name 'hospital' 'bed',
         description "It's a standard hospital bed. ",
         before [;
             enter:
@@ -519,6 +520,16 @@ Room room_34 "Room 34"
         n_to station_b,
     class Tiles DropCeiling
     has light;
+
+Bed generic_bed "hospital bed" 
+    with name 'hospital' 'bed',
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "It's not a sleepover. ";
+        ],
+        found_in room_34 room_31 room_24 room_32;
+
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_32 "Room 32"
@@ -549,7 +560,7 @@ Room room_32 "Room 32"
     has light;  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Room station_b "Ward B - West"
+Room station_b "Ward B - East"
     with description "This is the Ward 'B' nurses' station, lying at the eastern end of a long east-west corridor. To aid in 
         visitor and patient navigation, the walls here are painted blue and a blue line runs to the west down the 
         middle of the hall towards the main elevators. Open doorways lead to patient rooms to the north and south. 
@@ -789,7 +800,25 @@ Object book_cart "book cart" b_ward_1
                 print".^^";
 			    <Go dirobj>;
 			    move self to real_location;
-                rtrue;     
+                rtrue; 
+            pulldir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
+                print"Wheels grinding and squeaking, you pull the cart ";
+                !print"Wheels grinding and squeaking, you pull the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;    
         ],
     has supporter;
 
@@ -1384,6 +1413,8 @@ Room elevator_lobby_2 "Second Floor Elevator Lobby"
         To assist the confused or dense, a red line starts here on the floor and leads west and a similar blue 
         line leads east. ";
     ],
+    cheap_scenery
+    'sign' 'arrow' "The sign reads ~Ward B~ and the arrow points east. ",
     n_to stairwell_2,
     e_to hallway_2_3,
     !e_to radiology,
@@ -1410,7 +1441,7 @@ Object blue_line "blue line"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_2_3 "Second Floor Hallway East" 
     with description "This long dim hallway continues east towards ward B and west 
-        toward the elevators. A thick blue line is painted down the middle of the floor. ",
+        toward the elevator. A thick blue line is painted down the middle of the floor. ",
     w_to elevator_lobby_2,
     e_to b_ward_1,
     class Tiles DropCeiling
@@ -1647,8 +1678,8 @@ Room room_21 "Room 21"
     class Tiles DropCeiling
     has light;
 
-Bed room_21_bed "patient bed" room_21
-    with name 'patient' 'bed',
+Bed room_21_bed "hospital bed" room_21
+    with name 'hospital' 'bed',
         description "It's a standard hospital bed. ",
         before [;
             enter:
@@ -1671,8 +1702,8 @@ Room room_22 "Room 22"
     class Tiles DropCeiling
     has light;
 
-Bed room_22_bed "patient bed" room_22
-    with name 'patient' 'bed',
+Bed room_22_bed "hospital bed" room_22
+    with name 'hospital' 'bed',
         description "It's a standard hospital bed. ",
         before [;
             enter:

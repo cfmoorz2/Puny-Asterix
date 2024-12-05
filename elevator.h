@@ -21,7 +21,7 @@ Class Button
                     StartTimer(close_door_timer,3);
                     ResetButtons();
                     elevator_active = false;
-                    "^With a 'ding' the elevator doors open. ";
+                    "With a 'ding' the elevator doors open. ";
                 }   else    {
                     give self on;
                     elevator_call_level = self.call_level;
@@ -98,15 +98,21 @@ Object elevator_doors "elevator doors"
 Object interior_panel "panel" main_elevator
     with name 'panel' 'buttons',
         description [; 
-            print"It's a panel next to the door. You see five buttons. One is labeled with two horizontal arrows pointing away from each other. 
+            print"It's a panel next to the door. You see four buttons. One is labeled with two horizontal arrows pointing away from each other. 
                 The others are labeled: ~B~,  ~M~, and ~2~. ";
             if (elevator_active == false)    "None of the buttons are lit. ";
             ShowButtons();
         ],
     has container transparent scenery;
 
-Object interior_open_button "open button"
-    with name 'open' 'button',
+Button interior_open_button "'open' button" interior_panel
+    with parse_name [w1 w2;
+        w1 = NextWord();
+        w2 = NextWord();
+        if (w1 == 'open' && w2 == 'button') return 2;
+        if (w1 == 'open') return 1;
+        if (w1 == 'button') return 1;
+        ],
         description "It's an unlit button labelled with two horizontal arrows pointing away from each other. ",
         before [;
             push:
@@ -117,33 +123,38 @@ Object interior_open_button "open button"
                     elevator_active = false;
                     "^With a cheery 'ding' the elevator doors slide open. ";
                 }
+        ];  
+
+Button interior_m_button "'M' button" interior_panel
+    with parse_name [w1 w2;
+        w1 = NextWord();
+        w2 = NextWord();
+        if ((w1 == 'm//' or 'main') && w2 == 'button') return 2;
+        if (w1 == 'm//' or 'main') return 1;
+        if (w1 == 'button') return 1;
         ],
-        found_in interior_panel,
-        has scenery;   
+        call_level 1;
+   
 
-Button interior_m_button "'M' Button" 
-    with name 'm//' 'main' 'button',
-        call_level 1,
-        !short_name "main button",
-        found_in interior_panel;     
-
-Button interior_2_button "'2'Button"
-    with name 'two' 'second' '2//' 'button',
-        call_level 2,
-        parse_name [w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if ((w1 == '2//' or 'two' or 'second') && (w2 == 'floor' or 'button')) return 2;
-            if (w1 == '2//' or 'two' or 'second') return 1;
+Button interior_2_button "'2' button" interior_panel
+    with parse_name [w1 w2;
+        w1 = NextWord();
+        w2 = NextWord();
+        if ((w1 == '2//' or 'two' or 'second') && (w2 == 'floor' or 'button')) return 2;
+        if (w1 == '2//' or 'two' or 'second') return 1;
+        if (w1 == 'button') return 1;
         ],
-        !short_name "second floor button",
-        found_in interior_panel;  
+        call_level 2;
 
-Button interior_b_button "'B' Button"
-    with name 'b//' 'basement' 'button',
-        call_level 0,
-        !short_name "basement button",
-        found_in interior_panel;      
+Button interior_b_button "'B' button" interior_panel
+    with parse_name [w1 w2;
+        w1 = NextWord();
+        w2 = NextWord();
+        if ((w1 == 'b//' or 'basement') && w2 == 'button') return 2;
+        if (w1 == 'b//' or 'basement') return 1;
+        if (w1 == 'button') return 1;
+        ],
+        call_level 0;   
 
 Object basement_exterior_panel "panel" elevator_lobby_b
     with name 'panel' 'buttons',
@@ -165,17 +176,17 @@ Object exterior_panel "panel" elevator_lobby_m
         ],
     has container transparent scenery;
 
-Button exterior_up_button "Up Button" 
+Button exterior_up_button "Up button" 
     with name 'up' 'button',
         short_name "up button",
         found_in exterior_panel;
 
-Button exterior_down_button "Down Button"
+Button exterior_down_button "Down button"
     with name 'down' 'button',
         short_name "down button",
         found_in exterior_panel second_floor_exterior_panel;
 
-Button basement_exterior_up_button "Up Button"
+Button basement_exterior_up_button "Up button"
     with name 'up' 'button',
         short_name "up button",
         found_in basement_exterior_panel;
@@ -191,7 +202,7 @@ Object main_elevator_daemon
             StartTimer(close_door_timer,3);
             ResetButtons();
             elevator_active = false;
-            "^With a 'ding' the elevator doors open. ";
+            "With a 'ding' the elevator doors open. ";
             }
         if (elevator_call_level < elevator_level)   { elevator_level--;}
         if (elevator_call_level > elevator_level)   { elevator_level++;}
@@ -204,7 +215,7 @@ Object close_door_timer
         time_out[;
             give elevator_doors ~open;
             ResetButtons();
-            if (TestScope(elevator_doors, player)) "^With a 'ding', the elevator doors slide closed. ";
+            if (TestScope(elevator_doors, player)) "With a 'ding', the elevator doors slide closed. ";
         ];
 
 

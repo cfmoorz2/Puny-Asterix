@@ -131,7 +131,7 @@ Array talk_array_larry-->
 
 Array talk_array_elliot-->
   30 "himself" TM_NO_LINE "I'm here getting my knee cleaned out. I hurt it years ago playing football. These days I work as a bouncer and I 
-  tore something throwing a big fat drunk guy out one night. "
+  tore something throwing a big fat drunk guy out one night."
   30 "knee" TM_NO_LINE "It hurts but they say I can go home once the swelling goes down and the blizzard moves through."
   30 "wheelchair" TM_NO_LINE "I'm trying to keep my upper body strength up pushing this thing around."
   00 300 "Nurse Becky" TM_NO_LINE "She's nice. No complaints with the nursing around here. "

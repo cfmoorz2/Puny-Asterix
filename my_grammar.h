@@ -264,3 +264,12 @@ Extend 'lock' first
 [ mylocksub ;
     "That doesn't seem to be possible. ";
 ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   PULLDIR
+Extend 'pull' first
+	* noun noun=ADirection -> pulldir;
+
+[ pulldirsub; 
+    "You can't pull ",(the)noun,".";
+];
