@@ -751,7 +751,7 @@ Object cocktail_shrimp "bowlful of shrimp" shrimp_bowl
                 take:
                     if (buzz in security_chair) "Buzz, stops you. 
                     ~Excuse me. Would you mind keeping your paws out 
-                    of my lunch?~"; else "They're too slippery and messy to handle. ";
+                    of my lunch?~"; else "Ew, no. They're slimy and gross. ";
         ],
     has static;
 
