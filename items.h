@@ -76,22 +76,28 @@ Object swipe_card "security card" security_desk
             if (real_location == service_elevator) 
             {
                 print"(through the card reader)^";
+                if (service_elevator_active) "Swiping the card again doesn't seem to have any additional effect. ";
                 service_elevator_call_level = -1;
                 StartDaemon(service_elevator_daemon);
                 service_elevator_active = true;
                 give card_reader on;
                 StopTimer(service_close_door_timer);
-                if (service_elevator_door has open) { print(string)ELEVATOR_PROSE; rtrue; }
+                if (service_elevator_door has open) { give service_elevator_door ~open; }
+                print(string)ELEVATOR_PROSE; 
+                rtrue; 
             }
             swipethrough:
             if (second == card_reader) 
             {
+                if (service_elevator_active) "Swiping the card again doesn't seem to have any additional effect. ";
                 service_elevator_call_level = -1;
                 StartDaemon(service_elevator_daemon);
                 service_elevator_active = true;
                 give card_reader on;
                 StopTimer(service_close_door_timer);
-                if (service_elevator_door has open) { print(string)ELEVATOR_PROSE; rtrue; }
+                if (service_elevator_door has open) { give service_elevator_door ~open; }
+                print(string)ELEVATOR_PROSE; 
+                rtrue; 
             }
         ],
         after [;
