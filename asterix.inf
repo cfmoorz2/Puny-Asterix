@@ -61,7 +61,7 @@ Release 1;
 Serial "241130";
 
 !Constant INITIAL_LOCATION_VALUE = sub_basement_01;
-Constant INITIAL_LOCATION_VALUE = basement_hallway_east;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = hallway_2_2;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
@@ -83,7 +83,7 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 22;
+Constant FLAG_COUNT 19;
 
 Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
 Constant F_FREDDY_ASLEEP 7;
@@ -98,6 +98,7 @@ Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
 Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
 Constant F_ENDGAME 17; ! in endgame
 Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
+Constant F_TRIO_IS_FOLLOWING 19; 
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;
@@ -237,8 +238,7 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-    move vans to player;
-    give vans worn;
+    move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];

@@ -782,12 +782,13 @@ Object trio "Retch, Northrup, and Vic"
         parse_name [ w1 w2;
             w1 = NextWord();
             w2 = NextWord();
-            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
             if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
-            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
             if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
-            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+            if (w1 == 'nurse' or 'retch') { self.id = 2; return 1; }
+            if (w1 == 'vic') { self.id = 3; return 1; }
+            if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
         ],
+        npc_is_following true,
         hide,
         before [;
             talk:
@@ -805,14 +806,30 @@ Object trio "Retch, Northrup, and Vic"
         description [;
             switch (self.id)
             {
-                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
-                and a red face. ";
-                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
-                veins lining her temples. ";
-                3: "He's staring at his feet. ";
+                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by his red face 
+                and bulging forehead veins. ";
+                2: "She's breathing heavily and has crazy eyes. ";
+                3: "He's smiling creepily and has one hand ominously thrust into a pocket. ";
             }
         ],
-
+        time_left,
+        time_out [;
+            if (FlagIsClear(F_TRIO_IS_FOLLOWING))
+            {
+                print"ACTIVATE THE TRIO^";
+                move trio to admin_hallway;
+                trio.move_mode = FOLLOW_PATH;
+                SetFlag(F_TRIO_IS_FOLLOWING);
+                StartDaemon(trio);
+            }
+        ],
+        npc_post_follow [;
+            if (self in real_location)
+            {
+                "The trio of evil-doers catch up with you and surround you. ";
+            }
+        ],
+    class Mover
     has animate proper pluralname transparent; 
 
 

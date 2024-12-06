@@ -1172,21 +1172,3 @@ Object darkroom_flashlight "flashlight" darkroom_counter
     class Item
     has switchable;
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object vans "vans"
-    with 
-        name 'vans' 'shoes',
-        description "They're your cool canvas shoes that you got last christmas. ",
-        mass 0,
-        before [;
-            disrobe:
-                "It's too cold to go around barefoot. ";
-        ],
-    has clothing pluralname;
-
-
-
-
-
-
-

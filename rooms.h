@@ -1039,6 +1039,13 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
                 You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
         ],
+        after [;
+            go:
+            if (real_location == self && selected_direction == e_to && ledger in player)
+            {
+                StartTimer(trio, 2);
+            }
+        ],
         cheap_scenery
         2 'tile' 'tiles' [ ;
             examine:
