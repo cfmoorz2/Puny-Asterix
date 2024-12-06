@@ -195,6 +195,54 @@ Room mri_anteroom "MRI Anteroom"
     class Tiles
     has light; 
 
+Object control_desk "control desk" mri_anteroom
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'control' && w2 == 'panel' or 'desk') return 2;
+            if (w1 == 'desk' or 'panel' or 'control') return 1;
+        ],
+        time_out [;
+            "THE MRI GOES OFF";
+        ],
+        time_left,
+        description "It's a hopelessly complicated control desk covered with knobs and buttons. An LCD monitor 
+        is perched on top. Luckily, the important parts seem to be the large green and red buttons embedded in the center. ",
+    has supporter scenery container transparent;
+
+Object green_button "green button" control_desk
+    with
+        name 'green' 'button',
+        description "It's a green button, just asking to be pressed. ",
+        before [;
+            push:
+            if (control_desk.time_left > 0) "Nothing seems to happen. ";
+            StartTimer(control_desk, 4);
+            "You press the button and the LCD monitor suddenly fills with incomprehensible text and numbers. 
+            From the next room you hear the whining sound suddenly increase in pitch and intensity. ";
+            ],
+    has scenery;
+
+Object red_button "red button" control_desk
+    with
+        name 'red' 'button',
+        description "It's a red button. ",
+        before [;
+            push:
+            if (control_desk.time_left > 0)
+            {
+                StopTimer(control_desk);
+                "The LCD screen goes blank and the mechanical whining from the next room spins down to it's 
+                previous level. ";
+            }
+            "Nothing seems to happen. ";
+            ],
+    has scenery;
+
+
+
+
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor scanner_door "scanner door" 
     with 
