@@ -437,6 +437,35 @@ Include "VerbLib";
     }
     "After a moment, the bangig stops and the mechanical whining winds down to its former pitch and volume. ";
 ];
+
+[ trio_catch;
+    print"^Northrup, Retch, and Vic catch up to you and surround you. They advance on you ominously. Retch rips the ledger 
+        from you and Vic pulls a switchblade from a pocket and giggles. Northrup pulls a letter from a pocket: your letter of completion! 
+        To your relief, he takes the knife from Vic. But, then, to your dismay, he uses it to slash into the letter, cutting it to ribbons. 
+        ^^The three walk away, knowing that no one will believe a candy striper with no evidence.^";
+        deadflag = 3;
+        rtrue;
+];
+
+[ trio_discover;
+    print"^You suddenly find yourself face to face with the very angry trio of Northrup, Retch, and Vic. ";
+    if (ledger in player) print"Retch rips the ledger from you and passes it off to Northrup. ";
+    print"Vic, giggling oddly, steps toward you and pulls a switchblade from a pocket. Northrup pulls a letter from a pocket: 
+    your letter of completion! To your relief, Northrup takes the knife from Vic. But, then, to your dismay, he 
+    uses the knife to slash into the letter, cutting it to ribbons. ^^The three walk away, knowing that no one 
+    will believe a candy striper with no evidence.^";
+    deadflag = 3;
+    rtrue;
+];
+
+Object player_trio_daemon
+    with
+        daemon [ ;
+            if (trio in real_location)
+            {
+                trio_discover();
+            }
+    ];
         
 #Ifdef USEINFORM;
 Include "Grammar";

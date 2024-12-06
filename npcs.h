@@ -835,12 +835,7 @@ Object trio "Retch, Northrup, and Vic"
         npc_post_follow [;
             if (self in real_location)
             {
-                print"^^Northrup, Retch, and Vic catch up to you and surround you. They advance on you ominously. Retch rips the ledger 
-                from you and Vic pulls a switchblade from a pocket and giggles. Northrup pulls a letter from a pocket: your letter or completion! 
-                To your relief, he takes the knife from Vic. But, then, to your dismay, he slashes into the letter, cutting it to ribbons. 
-                ^^The three walk away, knowing that no one will believe a candy striper with no evidence.^";
-                deadflag = 3;
-                rtrue;
+                trio_catch();
             }
         ],
         npc_post_move [ rm;
@@ -851,6 +846,7 @@ Object trio "Retch, Northrup, and Vic"
                 trio.move_mode = 0;
                 move ledger to trio;
                 StopDaemon(self);
+                StartDaemon(player_trio_daemon);
                 !ClearFlag(F_TRIO_IS_FOLLOWING);
             }
         ],
