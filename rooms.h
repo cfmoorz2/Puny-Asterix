@@ -166,12 +166,76 @@ Room morgue "Morgue"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway East"
     with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
-                leads east, a placard next to it reads ~Morgue~. An open doorway leads north, A sign above it reads ~Imaging~. ",
+                leads east, a placard next to it reads ~Morgue~. An open doorway leads north, A sign above it reads ~Imaging~. 
+                Finally, there's an open doorway to the south. A sign over the entrance reads ~M.R.I.~",
         e_to morgue_door,
         w_to elevator_lobby_b,
         n_to x_ray,
+        s_to mri_anteroom,
     class Tiles
     has light; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_anteroom "MRI Anteroom"
+    with description "This is the MRI holding area and control room. A fancy glass and metal door leds east to the 
+        MRI scanner itself. A large control desk is here. Conveniently, you see two large buttons embedded in the control 
+        panel: one green, one red. 
+        A computer monitor sits on top of the desk. There's a large red sign on the wall next to the doorway to the 
+        scanner. ",
+        after [;
+            go:
+            if (selected_direction == w_to)
+                give scanner_door ~open;
+                print"With a 'hiss', the door swings closed behind you.^^";
+            ],
+        n_to basement_hallway_east,
+        e_to scanner_door
+    class Tiles
+    has light; 
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor scanner_door "scanner door" 
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'scanner' or 'mri' or 'glass' or 'metal' && w2 == 'door') return 2;
+            if (w1 == 'door') return 1;
+        ],
+
+        description"It's a glass and metal door, presumably made from non-magnetic metal. ",
+        npc_open [ npc;
+            if (TestScope(npc, player) && self hasnt open) print(The)npc," pushes open the door.^";
+            give self open;
+            give self ~locked;
+        ],
+        door_to [;
+            if (parent(self) == mri_anteroom) return mri_scanner; return mri_anteroom;
+        ],
+        door_dir [;
+            if (parent(self) == mri_anteroom) return e_to; return w_to;
+        ],
+        found_in mri_anteroom mri_scanner,
+    has scenery door openable open ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_scanner "MRI Scanner"
+    with
+        description "This noisy room is dominated by the MRI scanner occupying the center of it. The scanner 
+        itself is a large boxy structure with a narrow round opening in the side. A narrow padded bed is connected
+        to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
+        tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
+        leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
+        next to the exit. ",
+        w_to scanner_door,
+        after [;
+            go:
+            if (selected_direction == e_to)
+                give scanner_door ~open;
+                print"With a 'hiss', the door swings closed behind you.^^";
+            ],
+        class Tiles
+    has light;     
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_b "Basement Elevator Lobby" 
