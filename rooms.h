@@ -204,7 +204,7 @@ Object control_desk "control desk" mri_anteroom
             if (w1 == 'desk' or 'panel' or 'control') return 1;
         ],
         time_out [;
-            "THE MRI GOES OFF";
+            mri_handler();
         ],
         time_left,
         description "It's a hopelessly complicated control desk covered with knobs and buttons. An LCD monitor 
@@ -218,7 +218,7 @@ Object green_button "green button" control_desk
         before [;
             push:
             if (control_desk.time_left > 0) "Nothing seems to happen. ";
-            StartTimer(control_desk, 4);
+            StartTimer(control_desk, 5);
             "You press the button and the LCD monitor suddenly fills with incomprehensible text and numbers. 
             From the next room you hear the whining sound suddenly increase in pitch and intensity. ";
             ],

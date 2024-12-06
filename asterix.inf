@@ -443,6 +443,18 @@ Include "VerbLib";
     PlayerTo(main_lobby);
     "^Suddenly, you see a piece of paper fall out of Northrup's pocket. "; 
 ];
+
+[ mri_handler; 
+    switch (real_location) {
+        mri_anteroom, changing_room: 
+            print"The mechanical whining from the MRI scanner next door suddenly changes in pitch and becomes 
+            louder. You hear 'thumping' and 'banging' noises. ";
+        mri_scanner:
+            print"The mechanical whining from the MRI scanner suddenly changes in pitch and becomes louder.
+            You hear loud 'thumping' and 'banging' noises coming from the scanner and the walls around you. ";
+    }
+    "After a moment, the bangig stops and the mechanical whining winds down to its former pitch and volume. ";
+];
         
 #Ifdef USEINFORM;
 Include "Grammar";
