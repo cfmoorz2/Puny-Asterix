@@ -98,10 +98,6 @@ Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
 Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
 Constant F_ENDGAME 17; ! in endgame
 Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
-Constant F_LT_HAS_SEEN_SYRINGE 19;
-Constant F_LT_HAS_SEEN_KCL 20;
-Constant F_LT_HAS_SEEN_LEDGER 21;
-Constant F_LT_HAS_HEARD_TAPE 22;
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;
@@ -428,20 +424,6 @@ Include "VerbLib";
     "You seem to have reached an adult-oriented phone chat service. While somewhat curious, you, unfortunately, don't have a
     credit card yet. ",
     "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
-];
-
-[ you_win ;
-    move trio to main_lobby;
-    move letter to main_lobby;
-    move rodriguez to main_lobby;
-    move cop_duo to main_lobby;
-    SetFlag(F_ENDGAME);
-    print"Lt. Rodriguez hears you out then turns to his partners. ~I've heard and seen enough. This impressive young lady has clearly 
-    done our jobs for us this evening.~^^
-    He gives some orders and, soon, Vic, Retch, and Northrup have been located. You follow the police down to the lobby 
-    in time to see the baddies handcuffed and hear their rights read.^^";
-    PlayerTo(main_lobby);
-    "^Suddenly, you see a piece of paper fall out of Northrup's pocket. "; 
 ];
 
 [ mri_handler; 

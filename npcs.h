@@ -408,7 +408,6 @@ Object vic "Vic" bathroom
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
             ActivateTopic(nurse_retch, 305);
-            ActivateTopic(worthless, 301);
             "^A tall menacing gentleman is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
             since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description.  
             He's wearing an ill-fitting hospital maintenance uniform that doesn't appear to be his. Pinned to his shirt there's an ID badge 
@@ -505,7 +504,6 @@ Object becky "Becky" station_a
             give self encountered;
             ActivateTopic(mabel, 304);
             ActivateTopic(elliot, 300);
-            ActivateTopic(worthless, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         life [;
@@ -776,149 +774,6 @@ Object mrs_chen "Mrs. Chen" room_21
         ],
     class Mover MyNPC
     has animate female proper transparent; 
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object worthless "Lt. Worthless" room_23 
-    with 
-        name 'worthless' 'cop' 'lieutenant' 'patient',
-        description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
-        a blue patient gown. Somewhow he's attached his badge to the front of it. ",
-        hide,
-        evidence_count 0,
-        describe [;
-            if (self has encountered)
-            {
-                "^Lt. Worthless is here, reclining in the bed. ";
-            }
-            else
-            {
-                give self encountered;
-                "^Lt. Worthless is here, lounging in the bed. He's a local homicide detective who happened to be 
-                admitted earlier today for a medical procedure and he's enjoying the attention and intermittent morphine.
-                Around the station, he's known for his multiple divorces and not for his acumen as an investigator. ";
-            }
-        ],
-        signature_desc [;
-            "~Sure, I'll sign. If you promise to leave me alone and let me enjoy my morphine.~";
-        ],
-        before [;
-            talk:
-            if (FlagIsSet(F_ENDGAME)) "He simply hums to himself and smiles. ";
-        ],
-        life [;
-            give, show:
-            if (FlagIsSet(F_ENDGAME)) "He's seems more interested in his hands. ";
-            if (noun == walkman)
-            {
-                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) print"He plugs in the headphones. ";
-                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
-                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
-                print"He puts on the headphones and starts to listen. ";
-                if (jorry_tape in walkman)
-                {
-                    SetFlag(F_LT_HAS_HEARD_TAPE);
-                    "His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman and hands it back. 
-                    ~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
-                } else {
-                    "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
-                }
-            }
-            if (noun == ledger)
-            {
-                SetFlag(F_LT_HAS_SEEN_LEDGER);
-                "He takes the ledger and thumbs through it. ~Oh, what is this? Math? I'll let the nerds back at the station deal with it.~
-                He hands it back to you. ";
-            }
-            if (noun == syringe)
-            {
-                SetFlag(F_LT_HAS_SEEN_SYRINGE);
-                "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Maybe you're onto something but I 
-                doubt it.~ He hands it back to you. ~You should show it to the head nurse, see if she knows anything about it.~";  
-            }
-            if (noun == kcl_bottle)
-            {
-                SetFlag(F_LT_HAS_SEEN_KCL);
-                "~You found a bottle of medicine? So what. I've been taking awesome medicine all day. There may be something fishy going on 
-                but I think you're way off. If it makes you feel better I'd show it to one of the nurses.~";
-            }
-            switch(noun)
-            {                    
-                coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
-                shrimp: "~Aw, man. That's rank. Get that outta here.~";
-                form: add_signature(self);
-                default:
-                "The good Lieutenant is completely disinterested in ",(the)noun,".";
-            }
-            rtrue;
-        ],
-        talk_array talk_array_worthless,
-        each_turn [;
-            if (FlagIsSet(F_LT_HAS_HEARD_TAPE) && FlagIsSet(F_LT_HAS_SEEN_KCL) && FlagIsSet(F_LT_HAS_SEEN_LEDGER) 
-                && FlagIsSet(F_LT_HAS_SEEN_SYRINGE))
-            {
-                print"^Just then, Lt. Rodriguez, a plain-clothes office with a competent air enters the room, flanked by
-                two uniformed officers. All three are dusted with snow.^^
-                Lt. Worthless yawns and scratches as Lt. Rodriguez examines the evidence you've collected and listens to your
-                story:^
-                Sid Jorry realized that Dr. Northup was bleeding money from the hospital so that he could cash out when the 
-                facility went under. Jorry recorded his findings in a ledger which, apparently, Northup found out about.^
-                Northrup, abetted by his loyal assistant Nurse Retch, hired Retch's brother Vic, a mafia hitman to do the deed. 
-                Retch passed him a syringe of potassium chloride, which stops the heart but isn't picked up on 
-                toxicology testing.^
-                Unfortunately for Vic, the blizzard trapped him in the hospital and he was forced to hide in the sub-basement. 
-                Retch sabotaged the service elevator so no one would find him down there, intending to restart the elevator after the
-                police had left.^^";
-                remove syringe;
-                remove ledger;
-                remove jorry_tape;
-                remove kcl_bottle;
-                you_win();
-            }
-        ],
-    has animate transparent proper;
-
-Object worthless_badge "badge" worthless
-    with 
-        name 'badge',
-        description "It's a gold shield incongruously stuck to the front of Lt. Worthless' hospital gown. ",
-        before [;
-            take:
-            "You shouldn't take a cop's badge.";
-        ],
-        mass 2;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object rodriguez "Lt. Rodriguez"
-    with 
-        name 'rodriguez' 'cop' 'lieutenant',
-        description "He's a short, trim, dark-skinned gentleman with shirt brown hair
-        and piercing dark eyes. ",
-        before [;
-            talk:
-            "He seems a man of few words. ";
-        ],
-        hide true,
-        life [;
-            give, show:
-            "He's already seen what he needs to see. ";
-        ],
-    has animate proper transparent;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object cop_duo "uniformed officers"
-    with 
-        name 'cops' 'police' 'uniformed' 'officers',
-        description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
-        short, squat, and bald. ",
-        hide true,
-        before [;
-            talk:
-            "They don't seem very talkative. ";
-        ],
-        life [;
-            "They're pretty much just here for show. ";
-        ],
-    has pluralname animate transparent;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object trio "Retch, Northrup, and Vic" 
