@@ -238,7 +238,7 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-    move ledger to player;
+    !move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];

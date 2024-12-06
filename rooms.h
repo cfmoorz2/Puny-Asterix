@@ -1043,7 +1043,7 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             go:
             if (real_location == self && selected_direction == e_to && ledger in player)
             {
-                StartTimer(trio, 2);
+                StartTimer(trio, 4);
             }
         ],
         cheap_scenery

@@ -24,8 +24,8 @@ Class MyNPC
             {
                 if(noun == u_obj) { print"You head up the stairs.^"; rfalse; }
                 if(noun == d_obj) { print"You head down the stairs.^"; rfalse; }
-                if(noun == in_obj) { print"You head inside.^"; rfalse; }
-                if(noun == out_obj) { print"You head out.^"; rfalse; }
+                !if(noun == in_obj) { print"You head inside.^"; rfalse; }
+                !if(noun == out_obj) { print"You head out.^"; rfalse; }
                 print"You head off to the ",(name)noun,".^";
             }
         ],
@@ -580,6 +580,7 @@ Object nurse_retch "Nurse Retch" station_b
                 finish out your time here.~";
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;
+                rtrue;
             }
                 StartDaemon(nurse_retch);
             switch(noun)
@@ -595,7 +596,7 @@ Object nurse_retch "Nurse Retch" station_b
             if (_d == northrup_door)
             {
                 self.hide = 1;
-                print"passes through the door to the south and closes it behind her. It locks with a ~click~";
+                print"Retch unlocks the door and enters the office. ";
             }
         ],
         npc_arrived [;
@@ -613,6 +614,7 @@ Object nurse_retch "Nurse Retch" station_b
                 give northrup_door locked;
                 move self to northrup_office;
                 scope_modified = true;
+                print"^She closes the door behind her and you hear a 'click'.^";
                 rtrue;
             }
         ],
@@ -788,6 +790,13 @@ Object trio "Retch, Northrup, and Vic"
             if (w1 == 'vic') { self.id = 3; return 1; }
             if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
         ],
+        npc_open_door [ _d;
+            if (_d == scanner_door)
+            {
+                self.hide = 1;
+                print"You see Vic open the door and poke his head through. ";
+            }
+        ],
         npc_is_following true,
         hide,
         before [;
@@ -826,7 +835,12 @@ Object trio "Retch, Northrup, and Vic"
         npc_post_follow [;
             if (self in real_location)
             {
-                "The trio of evil-doers catch up with you and surround you. ";
+                print"^^Northrup, Retch, and Vic catch up to you and surround you. They advance on you ominously. Retch rips the ledger 
+                from you and Vic pulls a switchblade from a pocket and giggles. Northrup pulls a letter from a pocket: your letter or completion! 
+                To your relief, he takes the knife from Vic. But, then, to your dismay, he slashes into the letter, cutting it to ribbons. 
+                ^^The three walk away, knowing that no one will believe a candy striper with no evidence.^";
+                deadflag = 3;
+                rtrue;
             }
         ],
     class Mover

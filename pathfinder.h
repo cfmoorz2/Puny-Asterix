@@ -49,6 +49,7 @@ Class Room
                 {
                     objectloop (obj in one_out)
                     {
+                        !print"obj = ",(the)obj,", hide = ",obj.hide,"^";
                         if(obj has animate && obj.hide == false)
                         {
                             add_to_position_array(obj, direction);
@@ -98,7 +99,7 @@ Class Mover
         npc_is_following 0,
         npc_arrived [;],
         npc_open_door [ ;
-            print"opens the door";
+            print (The)self," opens the door. ";
         ],
         npc_post_follow [; rfalse;],
         npc_post_move [; rfalse;],
@@ -250,15 +251,13 @@ Class Mover
             final = prev.hop_direction;
             !print"final = ",(name)final,"^";
             way = parent(self).(final.door_dir);
+            !print"[way = ",(the)way,"]^";
             if (way has door)
             {
-                if (self in real_location && way provides npc_open) 
+                if (way in real_location && self provides npc_open_door && way hasnt open) 
                 {
-                    way.npc_open(self);
-                }
-                else
-                {
-                if (self in real_location && way hasnt open) print(The)self," ";self.npc_open_door(way);print".^"; 
+                    self.npc_open_door(way);
+
                 }
                 !print"pre_way = ",(name)way,"^";
                 move way to parent(self);
