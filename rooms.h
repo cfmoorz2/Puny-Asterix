@@ -184,9 +184,11 @@ Room mri_anteroom "MRI Anteroom"
         scanner. ",
         after [;
             go:
-            if (selected_direction == w_to)
+            if (selected_direction == w_to && real_location == self)
+            {
                 give scanner_door ~open;
                 print"With a 'hiss', the door swings closed behind you.^^";
+            }
             ],
         n_to basement_hallway_east,
         e_to scanner_door
@@ -228,14 +230,34 @@ Room mri_scanner "MRI Scanner"
         leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
         next to the exit. ",
         w_to scanner_door,
+        e_to changing_room,
         after [;
             go:
-            if (selected_direction == e_to)
+            if (selected_direction == e_to && real_location == self)
+            {
                 give scanner_door ~open;
                 print"With a 'hiss', the door swings closed behind you.^^";
+            }
             ],
-        class Tiles
-    has light;     
+    class Tiles
+    has light;  
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room changing_room "Changing Room" 
+    with 
+        description "This small dark alcove serves as a changing space for those robing or disrobing for their 
+        MRI scan. There's a small wooden bench built into the wall but the room is otherwise empty. 
+        The only way out is to the west. ",
+        w_to mri_scanner,
+        out_to mri_scanner,
+    class Tiles
+    has light;  
+
+OnChair bench "bench" changing_room
+    with 
+        name 'bench' 'platform',
+        description "It's a small wooden bench built into the wall.  ",
+    has scenery;    
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_b "Basement Elevator Lobby" 
