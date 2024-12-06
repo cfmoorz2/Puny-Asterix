@@ -843,6 +843,17 @@ Object trio "Retch, Northrup, and Vic"
                 rtrue;
             }
         ],
+        npc_post_move [ rm;
+            rm = parent(self);
+            if (ledger in rm) 
+            {
+                !print "THE LEDGER IS HERE^";
+                trio.move_mode = 0;
+                move ledger to trio;
+                StopDaemon(self);
+                !ClearFlag(F_TRIO_IS_FOLLOWING);
+            }
+        ],
     class Mover
     has animate proper pluralname transparent; 
 

@@ -276,7 +276,7 @@ Class Mover
             move self to way;
             scope_modified = true;
             if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
-            if (self provides npc_post_move) self.npc_post_move();
+            if (self provides npc_post_move) self.npc_post_move(); 
             if (self in real_location && self.hide == false)
             {
                 print(The)self;
