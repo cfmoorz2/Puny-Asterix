@@ -60,8 +60,8 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-!Constant INITIAL_LOCATION_VALUE = sub_basement_01;
-Constant INITIAL_LOCATION_VALUE = admin_hallway;
+Constant INITIAL_LOCATION_VALUE = hallway_b2;
+!Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = hallway_2_2;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
@@ -380,27 +380,7 @@ Include "VerbLib";
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
     you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures and 
     that letter. ";
-];   
-
-[read_news i;
-    i = random(12);
-    switch(i)   {
-        1: "You tear up a little as you read about and recall the series finale of ~M*A*S*H~. ";
-        2: "You notice something called ~The Disney Channel~ hitting cable TV. ";
-        3: "You see a review of ~The Day After~, that depressing TV movie your history teacher made you watch. ";
-        4: "You see a bunch of stupid ads for toys from your little brother's favorite show, ~He-Man and the Masters of the Universe~. ";
-        5: "There's a pictorial from the movie ~WarGames~. Matthew Broderick is dreamy. ";
-        6: "You notice a very short notice about something called ~ARPANET~ starting to use something called 
-	        ~Internet Protocol~. ";
-        7: "You see a review of a game called ~Planetfall~ from a strange-sounding company called ~Infocom~. ";
-        8: "There's a pictorial from the Knoxville World's fair. The big shiny orange ball catches your eye. ";
-        9: "You flip through an interview with Steven Spielberg. You bawled your eyes out when E.T. died. ";
-        10: "There's an article about something called a ~compact disc~. They'll have to pry your 45s from your 
-	        cold dead hands. ";
-        11: "You see a blurb about ~Thriller~ selling yet another million copies. ";
-        12: "There's a mention of a game called ~Deadline~. Sounds boring; you hate mysteries. ";
-    }
-];  
+];    
 
 [ init_safe ;
     SAFE_1 = random(35);

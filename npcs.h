@@ -70,7 +70,6 @@ Object oliver "Oliver" morgue
                 air_supply_tape: "~They're a little too sedating for my taste.~";
                 shrimp: "~Ugh! Get that out of my face.~";
                 ledger: "~That looks like it might be important to someone else.~";
-                book_cart: "~No thanks. I don't need any romance novels.~";
                 default: "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
             }
         ],
@@ -332,7 +331,6 @@ Object eugene "Eugene" hallway_b2
                 thriller: "~'Thriller'? Never heard of it.~";
                 air_supply_tape: "~That's for you. It's real music.~";
                 shrimp: "~Ohh, that's bad.~";
-                book_cart: "~No thanks. I've got enough books and the missus subscribes to 'People'.~";
                 default: "Eugene politely feigns interest in ",(the)noun,".";
             }
         ],
@@ -391,7 +389,6 @@ Object vic "Vic" bathroom
                 swipe_card: "~I don't think you're supposed to have that, 
                     little lady. Can't have you getting in trouble down here.~ He smiles a sickly leer. ";
                 walkman: "~Sure, little lady. You play your music.~";
-                book_cart: "~Yeah, you keep to your books, candy striper. ";
                 default:
                     "Vic smiles a lupine grin. ~Yeah, that's super.~";
             }
@@ -480,7 +477,6 @@ Object mabel "Mabel" main_lobby
                 shrimp: "~Ooh, girl. You need to throw that rotten thing away before somebody gets sick.~";
                 ledger: "She flips through the pages. ~You be careful now, girl. I don't know what this means but I 
                     have a feeling somebody might come after it.~";
-                book_cart: "~Girl, you know I like perusing the romance books.~";
                 default:
                     "Bemused, she smiles at ",(the)noun,".";
             }
@@ -517,7 +513,6 @@ Object becky "Becky" station_a
                 swipe_card: "~That's a security swipe card. I don't think they give those to the candy stripers.~";
                 thriller: "~Oh, I LOVE that album.~";
                 shrimp: "She holds her nose. ~Oh, get that away.~";
-                book_cart: "She takes a quick peek at the books and magazines. ~No thanks. I think I'm caught up.~";
                 default:
                     "She politely feigns interest in ",(the)noun,".";
             }
@@ -587,7 +582,6 @@ Object nurse_retch "Nurse Retch" station_b
             {
                 swipe_card: "She eyes you suspiciously. ~Where did you get that? You're not supposed to have that.~"; 
                 shrimp: "She grimaces and waves her hand. ";
-                book_cart: "~Yes, you should stick to your duties, candy striper.~";
                 default:
                 print_ret"Annoyed, she ignores ",(the)noun,".";
             }
@@ -664,7 +658,6 @@ Object winston "Mr. Winston" hallway_2_3
                 form: add_signature(self); rtrue;
                 walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
                 shrimp: "~I think your dinner has turned.~";
-                book_cart: "~Naw, I don't think there's anything left on that cart for me.~";
                 default:
                 "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
             }
@@ -736,7 +729,6 @@ Object larry "Larry" room_33
             {
                 form: add_signature(self); rtrue;
                 walkman, mixtape, thriller, air_supply_tape: "~Yeah, I'm not really much into music.~";
-                book_cart: "~No thanks. I'm just gonna listen to the game.~";
                 ledger: "~Hm. That looks like something the police may be interested in.~";
                 default:
                 "~Sorry, I'm not really interested in that.~";

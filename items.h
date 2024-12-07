@@ -846,7 +846,7 @@ Object syringe "syringe" jacket_pocket
     class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ladder "ladder" central_supply
+Object ladder "ladder" environmental_services
     with name 'ladder' 'metal' 'folding',
     mass 25,
         description [;

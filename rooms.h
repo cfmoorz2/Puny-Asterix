@@ -252,7 +252,6 @@ Object red_button "red button" control_desk
             if (w1 == 'scanner' or 'mri' or 'glass' or 'metal' && w2 == 'door') return 2;
             if (w1 == 'door') return 1;
         ],
-
         description"It's a glass and metal door, presumably made from non-magnetic metal. ",
         npc_open [ npc;
             if (TestScope(npc, player) && self hasnt open) print(The)npc," pushes open the door.^";
@@ -388,6 +387,73 @@ Room central_supply "Central Supply"
     ],
     class Tiles
     has light;
+
+Object oxygen_cart "oxygen cart" central_supply
+    with 
+        name 'metal' 'wheeled' 'cart',
+        article "an",
+        description"It's a metal wheeled cart. It's loaded with cannisters of oxygen. ",
+        mass 100,
+        before [ dirobj x;
+            take:
+                "It's far too heavy. ";
+            receive:
+                "The cart is already full. ";
+            push:
+                "You should supply a direction. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you push the cart ";
+                !print"Wheels grinding and squeaking, you push the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue; 
+            pulldir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
+                print"Wheels grinding and squeaking, you pull the cart ";
+                !print"Wheels grinding and squeaking, you pull the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;    
+        ],
+    has container transparent openable;
+
+    Object oxygen_cannisters "oxygen cannisters" oxygen_cart
+        with 
+            parse_name [ w1 w2;
+                w1 = NextWord();
+                w2 = NextWord();
+                if (w1 == 'oxygen' && w2 == 'cannister' or 'cannisters') return 2;
+                if (w1 == 'oxygen' or 'cannister' or 'cannisters') return 1;
+            ],
+            description"They're large metal oxygen cannisters. They're stacked neatly on a metal cart. ",
+            before [;
+                take:
+                "Each cannister is too heavy and unwieldy. ";
+            ] ,
+        has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor central_supply_door "door" 
@@ -928,93 +994,6 @@ Room hallway_m1 "Junction"
     class Tiles DropCeiling
     has light;
 
-Object book_cart "book cart" b_ward_1
-    with name 'cart' 'wooden' 'book' 'wheeled',
-        description "It's the hospital's miniature lending library, a rickety wooden cart with shelves built into the sides
-        that you've been pushing from ward to ward for a month. The selection is small currently. There are a few romance novels
-        and old magazines currently on offer to any interested patients or guests. ",
-        mass 100,
-        before [ dirobj x;
-            take:
-                "It's far too heavy. ";
-            push:
-                "You should supply a direction. ";
-            pull:
-                "It would make more sense to push it. ";
-            pushdir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (real_location.selected_direction == 0) "You can't go that way. ";
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you push the cart ";
-                !print"Wheels grinding and squeaking, you push the cart to the ";
-                x = selected_direction_index;
-                if (x == 7) print"inside";
-                if (x == 8) print"out";
-                if(x ~= 7 && x ~= 8)
-                {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
-                    print (string) direction_name_array-->selected_direction_index;
-                }
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue; 
-            pulldir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (real_location.selected_direction == 0) "You can't go that way. ";
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
-                print"Wheels grinding and squeaking, you pull the cart ";
-                !print"Wheels grinding and squeaking, you pull the cart to the ";
-                x = selected_direction_index;
-                if (x == 7) print"inside";
-                if (x == 8) print"out";
-                if(x ~= 7 && x ~= 8)
-                {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
-                    print (string) direction_name_array-->selected_direction_index;
-                }
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue;    
-        ],
-    has supporter;
-
-Object novels "novels" book_cart
-    with 
-        parse_name [ w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'romance' && w2 == 'novel' or 'novels' or 'book' or 'book') return 2;
-            if (w1 == 'novels' or 'novel' or 'book' or 'books') return 1;
-        ],
-        description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
-        before [;
-            read:
-                "You flip through one at random. There's seems to be a lot of ~swelling~ and ~heaving~ taking place. ";
-            take:
-                "You have little interest in romance novels. ";
-        ],
-    has scenery pluralname;
-
-Object magazines "magazines" book_cart
-    with 
-        parse_name [ w1 ;
-            w1 = NextWord();
-            if (w1 == 'magazines' or 'magazine' or 'journal' or 'journals' or 'time' or 'people' or 'newsweek') return 1;
-        ],            
-        description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
-            and 'Newsweek' among the stacks.",
-        before [;
-            take: 
-                "You're not really interested in any magazine that's not 'Teen Beat' or 'Seventeen'.";
-            read:
-                print"You flip through a random magazine. ";
-                read_news();
-                rtrue;
-        ],
-    has scenery pluralname;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. 
@@ -1161,16 +1140,6 @@ Room main_lobby "Main Lobby"
             of ice and snow blowing sideways. ",
         n_to hallway_m1,
         w_to security_door,
-        each_turn [;
-            if (book_cart in self && mabel hasnt encountered) 
-            {
-		ActivateTopic(mabel, 300);
-		give mabel encountered;
-                "^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
-                I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar.~ 
-                She picks up a book titled 'Throbbing Loins of Nantucket'.";
-            }
-        ],
         before [;
             go:
                 if (selected_direction == s_to or out_to)
