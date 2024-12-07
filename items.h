@@ -868,6 +868,8 @@ Object ladder "ladder" environmental_services
             } 
             PlayerTo(self, 1);
             "You climb up ontooooo the aluminum ladder. ";
+        ],
+        react_before [;
             go:
             if(selected_direction == u_to && player in self)
             {
@@ -881,8 +883,7 @@ Object ladder "ladder" environmental_services
                     rtrue;
                 } 
                 "There's nowhere to go upward. ";
-            }
-            
+            } 
         ],
     class Item
     has openable supporter enterable;
