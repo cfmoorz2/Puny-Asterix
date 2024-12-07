@@ -367,14 +367,15 @@ Include "VerbLib";
     You're going to be a senior and you have BIG plans coming up this summer. Tiffany is going to be life-guarding at the pool 
     and she's promised to get you a cushy job at the snack bar. You'll spend your working days surrounded by cute boy lifeguards and your 
     off-time at the mall.^^
-    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this at all cost, 
+    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this, 
     you took Ethics 101 this semester, an easy ~A~. But, in order to pass, you have to perform some sort of volunteer activity for four long
     painful weeks. 
     The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
     Hospital, the oldest and most run-down hospital in the city.^^
-    It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
-    your sponsor at the hospital, Mr. Jorry, was going to give you a letter tonight confirming your volunteer hours after you also get 
-    the signatures of 8 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
+    It hasn't been too bad. You mainly do busy work: delivering flowers, passing out magazines, getting patients their slippers or whatnot. 
+    Tonight's your last night and 
+    your sponsor at the hospital, Mr. Jorry, was going to give you a letter confirming your volunteer hours after you also get 
+    the signatures of 8 patients and staff. But, rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
     blizzard blew in tonight and now it doesn't seem like you can even get home.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
     you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures and 
@@ -465,7 +466,7 @@ Include "VerbLib";
 ];
 
 [ trio_catch;
-    print"^Northrup, Retch, and Vic catch up to you and surround you. They advance on you ominously. Retch rips the ledger 
+    print"^Northrup, Retch, and Vic catch up with and surround you. They advance on you ominously. Retch rips the ledger 
         from you and Vic pulls a switchblade from a pocket and giggles. Northrup pulls a letter from a pocket: your letter of completion! 
         To your relief, he takes the knife from Vic. But, then, to your dismay, he uses it to slash into the letter, cutting it to ribbons. 
         ^^The three walk away, knowing that no one will believe a candy striper with no evidence.^";
