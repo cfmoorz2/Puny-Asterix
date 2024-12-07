@@ -404,7 +404,7 @@ Room stairwell_b "Basement Stairwell"
 Room basement_hallway_west "Basement Hallway @@64 Service Elevator"
     with description
         "This is nearly the midpoint of a long dreary east-west hallway. A service elevator is here to the north. A sign next to it 
-        reads ~Employees Only~.",
+        reads ~Employees Only~ and a small panel is embedded in the wall next to it. ",
         e_to elevator_lobby_b,
         w_to hallway_b1,
         n_to service_elevator_door,
@@ -438,7 +438,7 @@ Room hallway_b2 "Basement Hallway West"
 Room central_supply "Central Supply" 
     with description "This is a large open space crowded with dusty crates and defunct antique equipment. There are scattered low-wattage lamps 
     hanging from the ceiling but most of these have long ago burned out, leaving the room quite dark with grotesque shadows 
-    projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
+    projected onto the concrete walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
     north.",
     n_to central_supply_door,
     cheap_scenery
@@ -1820,8 +1820,7 @@ Room a_ward_1 "Ward A - East"
 Room room_23 "Room 23"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
-        leads south back out to the hallway. A bed is pushed against one wall and the exit is through a doorway 
-        to the south. ",
+        leads south back out to the hallway. ",
         s_to a_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
@@ -1830,16 +1829,16 @@ Room room_23 "Room 23"
             take, touch, pull, push:
             print(string)RADIATOR_TOUCH; rtrue;
         ]
-        'bed' 'hospital' [;
-            examine:
-            "It's a standard hospital bed, current occupied by Lt. Worthless. ";
-            take:
-            "To what purpose?";
-            enter:
-            "Lt. Worthless is already there. ";
-        ],
     class Tiles DropCeiling
     has light;
+
+Bed room_23_bed "hospital bed" room_23
+    with name 'hospital' 'bed',
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "It's not a sleepover. ";
+        ];  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_24 "Room 24"
@@ -1957,8 +1956,7 @@ OnChair break_room_chair "vinyl chair" break_room
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
-        description "It's an old off-white refrigerator. A handwritten note taped to the front helpfully reminds the reader 
-            that their mother doesn't work here and that one should only eat one's own food. ",
+        description "It's an old off-white refrigerator. A handwritten note is taped to the front. ",
         before [;
             take:
                 "You don't possess the power of levitation. You do seem to possess the power of delusion. ";
@@ -1979,8 +1977,8 @@ Object fridge_sign "refrigerator sign" break_room
         ],
     has scenery;
 
-Object fridge_stuff "smelly collection of tupperware and condiments" refrigerator
-    with name 'smelly' 'collection' 'tupperware' 'condiments',
+Object fridge_stuff "smelly collection of Tupperware and condiments" refrigerator
+    with name 'smelly' 'collection' 'Tupperware' 'condiments',
         description "It's an assortment of plastic containers each one labelled with the owner's name. You can also see various bottles and 
             containers of out-of-date condiments. ",
         before [;
@@ -1994,7 +1992,7 @@ Object fridge_stuff "smelly collection of tupperware and condiments" refrigerato
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
     with description "This is the middle of a short dimly lit corridor that continues to the east and west.  
-        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        The floor and walls here are dark gray concrete and fluorescent tubes flicker and buzz annoyingly from above. 
         A service elevator is here to the north. A sign next to it reads ~Employees Only~.",
     n_to service_elevator_door,
     in_to service_elevator_door,
@@ -2006,14 +2004,16 @@ Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
 Object sub_basement_03 "Sub-Basement East"
     with description [;
         print"This is the eastern end of a short dimly lit corridor that returns to the west.  
-        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        The floor and walls here are dark gray concrete and fluorescent tubes flicker and buzz annoyingly from above. 
         A plain door here to the south is labelled ~Restroom~. ";
         if (vic in bathroom) print(string) BATHROOM_OCCUPIED; else print(string) BATHROOM_VACANT;
         "";            
     ],
     cheap_scenery
     3 'red' 'occupied' 'sign' "It's a small red ~Occupied~ sign in the door. "
-    3 'green' 'occupied' 'sign' "It's a small green ~Vacant~ sign in the door. ",
+    3 'green' 'occupied' 'sign' "It's a small green ~Vacant~ sign in the door. "
+    'fluorescent' 'tubes' "They're standard industrial fluorescent lights. "
+    'wall' 'floors' "You see unremarkable industrial concrete. ",
     w_to sub_basement_02,
     s_to bathroom_door,
     in_to bathroom_door,
@@ -2078,8 +2078,8 @@ Object bathroom "Bathroom"
         description "It's a small minimal bathroom with a toilet, faucets, and sink. It smells really bad in here and 
         you long for the relative fresh air of the hallway. ",
         cheap_scenery
-        'sink' 'basin' "It's a chipped porcelain sink that was once white but has faded with time. "
-        'faucets' 'faucets' "They're standard metal handles, fairly rusted. "
+        'sink' 'basin' "It's a chipped porcelain sink that was once white but has yellowed with time. "
+        4 'faucets' 'faucets' 'tap' 'taps' "They're standard metal handles, fairly rusted. "
         1 'toilet' "Well, it's a toilet. There's nothing in it, thankfully. ",
         n_to bathroom_door,
         out_to bathroom_door,
@@ -2125,12 +2125,12 @@ Object sub_basement_01 "Sub-Basement West"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object boiler_room "Boiler Room" 
-    with description "You're standing in a high arched stone and cement-lined space populated buy massive black 
+    with description "You're standing in a high arched stone and concrete-lined space populated by massive black 
     boilers, squatting against the walls like sleeping dinosaurs. They're all closed and covered with thick coats of dust. 
     A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
     A dented thick metal door leads east. It looks like someone has been killing time here and it smells like your Uncle Vincent. ",
         cheap_scenery
-        'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. "
+        'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the concrete and stone floor. "
         5 'metal' 'lamp' 'lamps' 'light' 'lights' "They're dusty black lamps hanging from the darkness above. ",
         after [;
             go:
@@ -2147,13 +2147,10 @@ Object boiler_room "Boiler Room"
             "It smells like aftershave and cigarettes. ";
             examine:
             if(selected_direction == u_to)  "You see a tangle of pipes and ducts. ";
-            if(selected_direction == d_to)  "The floor is gray cement. ";
+            if(selected_direction == d_to)  "The floor is gray concrete. ";
         ],
     e_to boiler_door,
     has light;  
-
-
-
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_01 "In The Ceiling"

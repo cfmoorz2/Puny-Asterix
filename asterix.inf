@@ -61,8 +61,8 @@ Release 1;
 Serial "241130";
 
 !Constant INITIAL_LOCATION_VALUE = mri_anteroom;
-Constant INITIAL_LOCATION_VALUE = admin_hallway;
-!Constant INITIAL_LOCATION_VALUE = hallway_2_2;
+!Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+Constant INITIAL_LOCATION_VALUE = hallway_m2;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -238,7 +238,6 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-    move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];

@@ -406,7 +406,7 @@ Object vic "Vic" bathroom
             SetFlag(F_HAVE_MET_VIC);
             ActivateTopic(nurse_retch, 305);
             "^A tall menacing gentleman is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
-            since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description.  
+            since gangsters aren't your thing. But if there are real hit men out there, this guy certainly would fit the description.  
             He's wearing an ill-fitting hospital maintenance uniform that doesn't appear to be his. Pinned to his shirt there's an ID badge 
             that actually appears to be a ~Chuck E. Cheese~ employee ID with the name ~Vic~ crudely drawn over it in black marker. ";
         ],
@@ -582,6 +582,7 @@ Object nurse_retch "Nurse Retch" station_b
             {
                 swipe_card: "She eyes you suspiciously. ~Where did you get that? You're not supposed to have that.~"; 
                 shrimp: "She grimaces and waves her hand. ";
+                form: "She shakes her head. ~No, I think you need to get someone else to sign that.~";
                 default:
                 print_ret"Annoyed, she ignores ",(the)noun,".";
             }
@@ -754,7 +755,7 @@ Object mrs_chen "Mrs. Chen" room_21
             "^Mrs. Chen is lying in the bed. ";
         ],
         signature_desc [;
-            "She seems unsure what you want from her but she takes the pen and scrawls something, anyway. Smiling sweetly, 
+            "She seems unsure what you want from her but she takes the pen and scrawls something anyway. Smiling sweetly, 
             she hands it back and nods. ";
         ],
         before [;

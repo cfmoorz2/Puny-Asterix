@@ -857,8 +857,32 @@ Object ladder "ladder" environmental_services
             climb, enter:
             if (parent(self) == player) "You can't climb it if you're carrying it. ";
             if (self hasnt open) "You need to unfold the ladder first. ";
+            if (real_location == hallway_m2)
+            {
+                print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
+                grab onto some sturdy pipes that you see through the gap in the tiling and pull yourself into the ceiling above. 
+                Breathing heavily but victorious, you think back to P.E. class freshman year when you couldn't climb a knotted 
+                rope in gym class and Becky Harris laughed at you. Eat it Becky!^^";
+                PlayerTo(ceiling_01);
+                rtrue;
+            } 
             PlayerTo(self, 1);
-            "You climb up onto the aluminum ladder. ";
+            "You climb up ontooooo the aluminum ladder. ";
+            go:
+            if(selected_direction == u_to && player in self)
+            {
+                if (real_location == hallway_m2)
+                {
+                    print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
+                    grab onto some sturdy pipes that you see through the gap in the tiling and pull yourself into the ceiling above. 
+                    Breathing heavily but victorious, you think back to P.E. class freshman year when you couldn't climb a knotted 
+                    rope in gym class and Becky Harris laughed at you. Eat it Becky!^^";
+                    PlayerTo(ceiling_01);
+                    rtrue;
+                } 
+                "There's nowhere to go upward. ";
+            }
+            
         ],
     class Item
     has openable supporter enterable;
