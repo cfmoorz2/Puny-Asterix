@@ -841,10 +841,10 @@ Object trio_follow_timer
             if (FlagIsClear(F_TRIO_IS_FOLLOWING))
             {
                 print"ACTIVATE THE TRIO^";
-                move trio to admin_hallway;
                 trio.move_mode = FOLLOW_PATH;
                 SetFlag(F_TRIO_IS_FOLLOWING);
                 StartDaemon(trio);
+                
             }
         ];
 
@@ -868,6 +868,28 @@ Object injured_trio "Retch, Northrup, and Vic"
                 2: "She's groaning and curled up in a fetal position. ";
                 3: "He's lying motionless, eyes closed, groaning in pain. ";
             }
+        ],
+        before [;
+            search:
+            switch (self.id) {
+                1: 
+                    if(parent(letter) == nothing)
+                    {
+                        move letter to parent(self);
+                        print"^You search the incapacitated physician. In an inner pocket you come across a letter. ";
+                        <take letter>;
+                        rtrue;
+                    }
+                2:
+                    "You pat down the moaning nurse but find nothing of interest. ";
+                3:
+                    if(parent(switchblade) == nothing)
+                    {
+                        move switchblade to parent(self);
+                        "Cautiously, you search the semi-conscious hit man and find a switchblade knife. ";
+                    }
+            }
+                rtrue;
         ],
     class Mover
     has animate proper pluralname transparent; 

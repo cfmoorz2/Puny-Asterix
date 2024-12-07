@@ -1092,7 +1092,12 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             go:
             if (real_location == self && selected_direction == e_to && ledger in player)
             {
+                move trio to admin_hallway;
                 StartTimer(trio_follow_timer, 5);
+                if(real_location == hallway_m1 || real_location == hallway_m2)
+                    print"Suddenly, in the shadows down the corridor to the west you see a vague shape. In a moment you 
+                    see the trio of Dr. Northrup, Nurse Retch, and Vic step out of the gloom. ";
+                    if (ledger in player) "They don't look happy and their eyes are fixed on the ledger you're holding. "; ""; 
             }
         ],
         cheap_scenery

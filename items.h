@@ -886,7 +886,7 @@ Object ledger "ledger" northrup_safe
         separated into columns and full of numbers written in fine handwritten ink. The whole think reeks
         of math and totally bores you. ",
         before [;
-            open:
+            open, read:
             "You flip through the pages of numbers and are immediately reminded of your algebra class freshman year and
             that weird guy you sat next to who would only shower, like, twice a week?";
         ],
@@ -928,7 +928,7 @@ Object form "signature form"
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object letter "piece of paper" 
+Object letter "piece of paper"
     with 
         name 'letter' 'paper',
         description "It's a letter signed by Sid Jorry confirming your successful participation in 
@@ -944,7 +944,7 @@ Object letter "piece of paper"
         after [;
             take:
             print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
-            You feel like you could kiss Mr. Jorry, if he weren't dead.^";
+            You feel like you could kiss Mr. Jorry, if he weren't already dead.^";
             if (SIGNATURE_COUNT > 7)
             {
                 print"^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
@@ -959,6 +959,13 @@ Object letter "piece of paper"
                 rtrue;
         ],
     class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object switchblade "switchblade knife"
+    with 
+        name 'knife' 'switchblade',
+        description "It's a nasty knife. ",
+        mass 1;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object pen "ballpoint pen" 

@@ -60,8 +60,8 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-Constant INITIAL_LOCATION_VALUE = mri_anteroom;
-!Constant INITIAL_LOCATION_VALUE = admin_hallway;
+!Constant INITIAL_LOCATION_VALUE = mri_anteroom;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = hallway_2_2;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
@@ -425,7 +425,6 @@ Include "VerbLib";
                     StopDaemon(trio);
                     move injured_trio to mri_scanner;
                     move ledger to mri_scanner;
-                    move letter to mri_scanner;
                     move holes to mri_scanner;
                     StopDaemon(player_trio_daemon);
                 }
