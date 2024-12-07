@@ -270,14 +270,23 @@ Object red_button "red button" control_desk
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room mri_scanner "MRI Scanner"
     with
-        description "This noisy room is dominated by the MRI scanner occupying the center of it. The scanner 
-        itself is a large boxy structure with a narrow round opening in the side. A narrow padded bed is connected
-        to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
-        tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
-        leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
-        next to the exit. ",
+        description [;
+            print "This noisy room is dominated by the MRI scanner occupying the center of it. The scanner 
+            itself is a large boxy structure with a narrow round opening in the side. A narrow padded bed is connected
+            to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
+            tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
+            leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
+            next to the exit.^";
+            if (self.room_is_trashed == true) 
+            {
+                "^Currently, the room is in shambles. Metal oxygen cannisters litter the floor and there are gaping holes 
+                in the walls and in the MRI machine itself. Sparks fly from the gashes in the electrical conduits lining 
+                the walls. ";
+            }
+        ],
         w_to scanner_door,
         e_to changing_room,
+        room_is_trashed false,
         after [;
             go:
             if (selected_direction == e_to && real_location == self)
@@ -388,7 +397,7 @@ Room central_supply "Central Supply"
     class Tiles
     has light;
 
-Object oxygen_cart "oxygen cart" central_supply
+Object oxygen_cart "oxygen cart" mri_scanner !central_supply
     with 
         name 'metal' 'wheeled' 'cart',
         article "an",
@@ -438,7 +447,7 @@ Object oxygen_cart "oxygen cart" central_supply
 			    move self to real_location;
                 rtrue;    
         ],
-    has container transparent openable;
+    has supporter;
 
     Object oxygen_cannisters "oxygen cannisters" oxygen_cart
         with 
@@ -448,7 +457,12 @@ Object oxygen_cart "oxygen cart" central_supply
                 if (w1 == 'oxygen' && w2 == 'cannister' or 'cannisters') return 2;
                 if (w1 == 'oxygen' or 'cannister' or 'cannisters') return 1;
             ],
-            description"They're large metal oxygen cannisters. They're stacked neatly on a metal cart. ",
+            description [;
+                print"They're large metal oxygen cannisters. ";
+                if (self in oxygen_cart) { print"They're stacked neatly on a metal cart. ";}  else { 
+                    print"They're haphazzardly scattered about the room. "; }
+                "Each one is labeled with a warning: Not for use in the vicinity of MRI machines. ";
+            ],
             before [;
                 take:
                 "Each cannister is too heavy and unwieldy. ";
@@ -1022,7 +1036,7 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             go:
             if (real_location == self && selected_direction == e_to && ledger in player)
             {
-                StartTimer(trio, 4);
+                StartTimer(trio_follow_timer, 5);
             }
         ],
         cheap_scenery

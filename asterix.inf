@@ -60,7 +60,7 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-Constant INITIAL_LOCATION_VALUE = hallway_b2;
+Constant INITIAL_LOCATION_VALUE = mri_anteroom;
 !Constant INITIAL_LOCATION_VALUE = admin_hallway;
 !Constant INITIAL_LOCATION_VALUE = hallway_2_2;
 
@@ -267,7 +267,6 @@ Object selfobj "you"
 		after NULL,
 		life NULL,
 		each_turn NULL,
-		time_out NULL,
 		describe NULL,
 		add_to_scope 0,
 		capacity MAX_CARRIED,
@@ -409,13 +408,62 @@ Include "VerbLib";
 [ mri_handler; 
     switch (real_location) {
         mri_anteroom, changing_room: 
-            print"The mechanical whining from the MRI scanner next door suddenly changes in pitch and becomes 
-            louder. You hear 'thumping' and 'banging' noises. ";
+            print"^The mechanical whining from the MRI scanner next door suddenly changes in pitch and becomes 
+            louder. You hear mechanical 'thumping' and 'banging' noises. ";
+            if (oxygen_cart in mri_scanner)
+            {
+                mri_scanner.room_is_trashed = true;
+                print"^^Suddenly, the mechanical banging changes into the sound metal crashing into metal, plastic, 
+                and plaster. You can only guess that the oxygen cannisters in the scanner room are now heavy
+                high-speed projectiles being tossed around wildly in the powerful magnetic field of the MRI scanner. ";
+                if (trio in mri_scanner) 
+                {
+                    print"^^You also hear screaming as well as the occasional soft 'thud' of one of the cannisters slamming into 
+                    some poor (deserving) victim in the next room. ";
+                    remove trio;
+                    trio.move_mode = 0;
+                    StopDaemon(trio);
+                    move injured_trio to mri_scanner;
+                    move ledger to mri_scanner;
+                    move letter to mri_scanner;
+                    StopDaemon(player_trio_daemon);
+                }
+                print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop. ";
+                if (injured_trio notin mri_scanner) 
+                {
+                    print"^^Obviously, no one is happy with your baffling destruction of very expensive hospital property.
+                    You are suspended from school for 2 weeks, which is exactly enough time to delay your graduation
+                    in the spring and force you to go to summer school after all. ";
+                    deadflag = 3;
+                    rtrue;
+                }
+            }
         mri_scanner:
-            print"The mechanical whining from the MRI scanner suddenly changes in pitch and becomes louder.
+            print"^^The mechanical whining from the MRI scanner quickly changes in pitch and becomes louder.
             You hear loud 'thumping' and 'banging' noises coming from the scanner and the walls around you. ";
+            if (oxygen_cart in mri_scanner)
+            {
+                mri_scanner.room_is_trashed = true;
+                print"^^Suddenly, to your horror, you notice that the metal oxygen cannisters are shaking and dancing 
+                on the cart and, as the MRI winds up to full power, they begin to lift up and suddenly fly about the room. ";
+                if (trio in mri_scanner) 
+                {
+                    print"^^Your pursuers come to the same realization all too late and the four of you are sitting ducks, 
+                    pummeled by the oxygen cannisters now turned into high-speed projectiles in the powerful 
+                    magnetic field. ";
+                } else {
+                    print"^^You throw your arms up in a vain attempt to sheild yourself from the flying missiles but
+                    it's no use as they pummel you mercillessly. ";
+                }
+                print"^^You are knocked unconsious but survive your ordeal. However, you require several weeks to recover, 
+                guaranteeing that you won't be able to graduate on time and landing you in summer school after all,
+                a fate worse than death. "; 
+                deadflag = 3;
+                rtrue;
+            } else { 
+                "^^After a moment, the banging stops and the mechanical whining winds down to its former pitch and volume. ";
+            }
     }
-    "After a moment, the bangig stops and the mechanical whining winds down to its former pitch and volume. ";
 ];
 
 [ trio_catch;

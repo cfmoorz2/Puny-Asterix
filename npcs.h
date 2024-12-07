@@ -813,17 +813,6 @@ Object trio "Retch, Northrup, and Vic"
                 3: "He's smiling creepily and has one hand ominously thrust into a pocket. ";
             }
         ],
-        time_left,
-        time_out [;
-            if (FlagIsClear(F_TRIO_IS_FOLLOWING))
-            {
-                print"ACTIVATE THE TRIO^";
-                move trio to admin_hallway;
-                trio.move_mode = FOLLOW_PATH;
-                SetFlag(F_TRIO_IS_FOLLOWING);
-                StartDaemon(trio);
-            }
-        ],
         npc_post_follow [;
             if (self in real_location)
             {
@@ -840,6 +829,44 @@ Object trio "Retch, Northrup, and Vic"
                 StopDaemon(self);
                 StartDaemon(player_trio_daemon);
                 !ClearFlag(F_TRIO_IS_FOLLOWING);
+            }
+        ],
+    class Mover
+    has animate proper pluralname transparent; 
+
+Object trio_follow_timer 
+    with 
+        time_left,
+        time_out [;
+            if (FlagIsClear(F_TRIO_IS_FOLLOWING))
+            {
+                print"ACTIVATE THE TRIO^";
+                move trio to admin_hallway;
+                trio.move_mode = FOLLOW_PATH;
+                SetFlag(F_TRIO_IS_FOLLOWING);
+                StartDaemon(trio);
+            }
+        ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object injured_trio "Retch, Northrup, and Vic" 
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'nurse' or 'retch') { self.id = 2; return 1; }
+            if (w1 == 'vic') { self.id = 3; return 1; }
+            if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
+        ],
+        description [;
+            switch (self.id)
+            {
+                1: "His carefully coifed hair is wildly disheveled as he lies, moaning, on the floor. ";
+                2: "She's groaning and curled up in a fetal position. ";
+                3: "He's lying motionless, eyes closed, groaning in pain. ";
             }
         ],
     class Mover
