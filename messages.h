@@ -870,13 +870,14 @@ Constant SKIP_MSG_EXAMINE_DARK;
 #IfTrue MSG_PARSER_NOTHING_TO_VERB < 1000;
 	MSG_PARSER_NOTHING_TO_VERB:
 	! p_arg_1 = the last word in player input + 1.
-		if(action == ##Drop or ##Insert && (parse + 2 + (p_arg_1 - 2) *4)-->0 == ALL_WORD) {
-			"You are not carrying anything.";
-		}  else {
-			print "There are no things available that match ~";
-			_PrintPartialMatch(verb_wordnum, p_arg_1 - 1);
-			"~.";
+		if(action == ##Drop or ##Insert) {
+			if((parse + 2 + (p_arg_1 - 2) *4) --> 0 == ALL_WORD)
+				"You are not carrying anything.";
+			if(TryNumber(verb_wordnum + 1) > 0) "You're not holding any.";
 		}
+		print "There are no things available that match ~";
+		_PrintPartialMatch(verb_wordnum, p_arg_1 - 1);
+		"~.";
 #EndIf;
 #Ifndef SKIP_MSG_PARSER_NOT_HOLDING;
 	MSG_PARSER_NOT_HOLDING, MSG_AUTO_TAKE_NOT_HELD, MSG_WAVE_NOTHOLDING:
@@ -1243,6 +1244,7 @@ Constant ERR_TOO_MANY_FLOATING 6;
 Constant ERR_NOT_DIR_PROP 7;
 Constant ERR_NOT_FAKE_OBJ 8;
 Constant ERR_ILLEGAL_CHOOSEOBJNO 9;
+Constant ERR_BUFFER_OVERRUN 10;
 
 [_RunTimeError p_err p_obj _parent;
 	print "^[PunyInform error: ";
@@ -1271,6 +1273,10 @@ Constant ERR_ILLEGAL_CHOOSEOBJNO 9;
 			print "FakeObjToDirProp called with non-fakeobj";
 		ERR_ILLEGAL_CHOOSEOBJNO:
 			print "ChooseObjectsFinal_(Pick or Discard) called with nonexistent array index";
+#Ifdef DEBUG;
+		ERR_BUFFER_OVERRUN:
+			print "Buffer overrun: Printing too many characters to a buffer";
+#Endif;
 		default:
 			print "Unknown error";
 		}

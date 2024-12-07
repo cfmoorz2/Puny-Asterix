@@ -3,9 +3,9 @@
 System_file;
 
 Constant PUNYINFORM_MAJOR_VERSION = 5;
-Constant PUNYINFORM_MINOR_VERSION = 6;
+Constant PUNYINFORM_MINOR_VERSION = 10;
 Constant PUNYINFORM_PATCH_VERSION = 0; ! Usually 0 (if zero, it is not printed in banner)
-!Constant PUNYINFORM_VERSION_SUFFIX = "dev"; ! Comment out if none
+Constant PUNYINFORM_VERSION_SUFFIX = "dev"; ! Comment out if none
 
 #Ifndef VN_1636;
 Message fatalerror "*** The PunyInform library needs Inform v6.36 or later to work ***";
@@ -148,9 +148,7 @@ Constant SOMEDIRECTION_STR = "(some direction)";
 Constant IS_STR = "is ";
 Constant ARE_STR = "are ";
 
-#Ifndef DEFAULT_CAPACITY;
-Constant DEFAULT_CAPACITY = 100;
-#Endif;
+Default DEFAULT_CAPACITY = 100;
 
 #Ifdef OPTIONAL_PROVIDE_UNDO;
 #IfV3;
@@ -378,7 +376,7 @@ Array LanguageNumberTensStrings static -->
 
 
 Constant TT_OBJECT           = 1;    ! one or more words referring to an object
-									 ! it is one of NOUN_TOKEN etc. below
+									 ! it is one of NOUN_OBJECT etc. below
 Constant TT_PREPOSITION      = 2;    ! e.g. 'into'
 Constant TT_ROUTINE_FILTER   = 3;    ! e.g. noun=CagedCreature
 Constant TT_ATTR_FILTER      = 4;    ! e.g. edible
@@ -401,6 +399,13 @@ Constant GPR_FAIL           = -1;   ! Return values from General Parsing
 Constant GPR_PREPOSITION    = 0;    ! Routines
 Constant GPR_NUMBER         = 1;
 Constant GPR_MULTIPLE       = 2;
+Constant GPR_NOUN           = -256; ! Reparse, but as NOUN_OBJECT this time
+Constant GPR_HELD           = GPR_NOUN + 1; ! ditto for HELD_OBJECT
+Constant GPR_MULTI          = GPR_NOUN + 2; ! and so on...
+Constant GPR_MULTIHELD      = GPR_NOUN + 3;
+Constant GPR_MULTIEXCEPT    = GPR_NOUN + 4;
+Constant GPR_MULTIINSIDE    = GPR_NOUN + 5;
+Constant GPR_CREATURE       = GPR_NOUN + 6;
 Constant GPR_REPARSE        = 10000;
 
 Constant TOKEN_SINGLE_PREP   = $42; ! 66
@@ -599,18 +604,14 @@ Array scope-->MAX_SCOPE; ! objects visible from the current POV
 Array scope_copy-->MAX_SCOPE; ! Used to hold a copy of a scope list, for iteration
 
 Constant WORD_HIGHBIT = $8000;
-#Ifndef MAX_TIMERS;
-Constant MAX_TIMERS  32;            ! Max number timers/daemons active at once
-#Endif; ! MAX_TIMERS
+Default MAX_TIMERS  32;            ! Max number timers/daemons active at once
 Array  the_timers --> MAX_TIMERS;
 Global active_timers;               ! Number of timers/daemons active
 Global current_timer;               ! Index of the timer which is currently being executed
 
 Global PrintMsg = _PrintMsg;        ! Using a global for this saves one byte per call
 
-#Ifndef MAX_FLOATING_OBJECTS;
-Constant MAX_FLOATING_OBJECTS  32;            ! Max number of objects that have found_in property
-#Endif; ! MAX_FLOATING_OBJECTS
+Default MAX_FLOATING_OBJECTS  32;            ! Max number of objects that have found_in property
 Array floating_objects --> MAX_FLOATING_OBJECTS + 1;
 
 Global c_style = 0;
@@ -633,8 +634,8 @@ Global input_noun;
 Global input_second;
 Global input_direction;
 
-Array which_object-->MAX_WHICH_OBJECTS;       ! options for "which book?"
-Array multiple_objects-->MAX_MULTIPLE_OBJECTS;! holds nouns when multi* used
+Array which_object-->MAX_WHICH_OBJECTS+1;       ! options for "which book?"
+Array multiple_objects-->MAX_MULTIPLE_OBJECTS+1;! holds nouns when multi* used
 
 Array buffer->(MAX_INPUT_CHARS + 3);
 Array parse->(2 + 4 * (MAX_INPUT_WORDS + 1)); ! + 1 to make room for an extra word which is set to 0
