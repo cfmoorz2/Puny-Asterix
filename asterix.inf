@@ -426,16 +426,15 @@ Include "VerbLib";
                     move injured_trio to mri_scanner;
                     move ledger to mri_scanner;
                     move letter to mri_scanner;
+                    move holes to mri_scanner;
                     StopDaemon(player_trio_daemon);
                 }
                 print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop. ";
                 if (injured_trio notin mri_scanner) 
                 {
-                    print"^^Obviously, no one is happy with your baffling destruction of very expensive hospital property.
-                    You are suspended from school for 2 weeks, which is exactly enough time to delay your graduation
-                    in the spring and force you to go to summer school after all. ";
-                    deadflag = 3;
-                    rtrue;
+                    move holes to mri_scanner;
+                    move oxygen_cannisters to mri_scanner;
+                    "You can't help but feel that you've perhaps done irreversible harm to your cause. ";
                 }
             }
         mri_scanner:

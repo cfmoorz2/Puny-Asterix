@@ -207,9 +207,21 @@ Object control_desk "control desk" mri_anteroom
             mri_handler();
         ],
         time_left,
-        description "It's a hopelessly complicated control desk covered with knobs and buttons. An LCD monitor 
+        description "It's a hopelessly complicated control desk covered with knobs and buttons. A monitor 
         is perched on top. Luckily, the important parts seem to be the large green and red buttons embedded in the center. ",
     has supporter scenery container transparent;
+
+Object mri_monitor "monitor" mri_anteroom
+    with
+        name 'monitor' 'crt' 'screen',
+        description "It's a boxy amber CRT monitor. ",
+        before [;
+            take:
+            "It seems to be fixed to the control desk. ";
+            read:
+            if(control_desk.time_left > 0) "It's currently displaying columns of indecipherable text. "; "The screen is currently blank. ";
+        ],
+    has scenery;
 
 Object green_button "green button" control_desk
     with
@@ -219,7 +231,7 @@ Object green_button "green button" control_desk
             push:
             if (control_desk.time_left > 0) "Nothing seems to happen. ";
             StartTimer(control_desk, 5);
-            "You press the button and the LCD monitor suddenly fills with incomprehensible text and numbers. 
+            "You press the button and the monitor suddenly fills with incomprehensible text and numbers. 
             From the next room you hear the whining sound suddenly increase in pitch and intensity. ";
             ],
     has scenery;
@@ -233,7 +245,7 @@ Object red_button "red button" control_desk
             if (control_desk.time_left > 0)
             {
                 StopTimer(control_desk);
-                "The LCD screen goes blank and the mechanical whining from the next room spins down to it's 
+                "The monitor screen goes blank and the mechanical whining from the next room spins down to it's 
                 previous level. ";
             }
             "Nothing seems to happen. ";
@@ -244,7 +256,7 @@ Object red_button "red button" control_desk
 
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- myDoor scanner_door "scanner door" 
+ myDoor scanner_door "scanner room door" 
     with 
         parse_name [ w1 w2;
             w1 = NextWord();
@@ -271,7 +283,7 @@ Object red_button "red button" control_desk
 Room mri_scanner "MRI Scanner"
     with
         description [;
-            print "This noisy room is dominated by the MRI scanner occupying the center of it. The scanner 
+            print "This nearly empty room is dominated by the MRI scanner occupying the center of it. The scanner 
             itself is a large boxy structure with a narrow round opening in the side. A narrow padded bed is connected
             to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
             tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
@@ -297,6 +309,50 @@ Room mri_scanner "MRI Scanner"
             ],
     class Tiles
     has light;  
+
+Object mri_machine "MRI machine" mri_scanner
+    with
+        name 'mri' 'machine' 'scanner',
+        description [;
+            print"It's a large boxy machine with a round opening in the side and a narrow padded platform at the mouth. ";
+            if(mri_scanner.room_is_trashed) "Currently, it's a smoking hulk of wreckage with holes punched in it and
+            sparks flying from it. "; "";
+        ],
+        before [;
+            enter:
+            "You climb partway into the narrow open in the MRI. You're immediately hit with a wave of claustrophobia and you climb back out. ";
+        ],
+    has scenery container open transparent;
+
+Object mri_platform "mri table" mri_scanner
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'mri' or 'scanner' && w2 == 'table' or 'platform' or 'bed') return 2;
+            if (w1 == 'table' or 'platform' or 'bed') return 1;
+        ],
+        description "It's a narrow padded table that the patient lies on while they slide in and out of the MRI scanner. ",
+    has scenery supporter enterable;  
+
+Object mri_warning_sign "warning sign" 
+    with
+        name 'sign' 'warning',
+        description "It's a large sign, quite insistent, with large red lettering and lots of exclamation points. ",
+        before [;
+            read:
+            "~Warning! Strong magnetic field! This magnet is always on! No loose metal objects! Objects made from or containing 
+            non-ferrous metals should not be taken into this room!~";
+        ],
+        found_in mri_scanner mri_anteroom,
+    has scenery; 
+
+Object holes "holes" 
+    with 
+        name 'gash' 'gashes' 'holes' 'hole',
+        description "There are large holes punched out of the walls and the machinery in the room. Sparks fly from exposed 
+        wiring and there's a haze of acrid smoke in the air. ",
+    has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room changing_room "Changing Room" 
