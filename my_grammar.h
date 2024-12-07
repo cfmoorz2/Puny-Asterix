@@ -147,8 +147,8 @@ Verb 'follow'
             if (noun in one_out) 
             {
                 print"You follow ",(the)noun,;
-                if (direction == u_obj) { print" upstairs.^"; <<go FAKE_U_OBJ>>;  }
-                if (direction == d_obj) { print" downstairs.^"; <<go FAKE_D_OBJ>>; }
+                if (direction == u_obj) { print" upstairs.^^"; <<go FAKE_U_OBJ>>;  }
+                if (direction == d_obj) { print" downstairs.^^"; <<go FAKE_D_OBJ>>; }
                 print" to the ",(name)direction,".^^"; 
                 following = true;
 

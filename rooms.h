@@ -123,7 +123,7 @@ Room morgue "Morgue"
                 open: "You hesitantly open one a crack and peek inside. Luckily, it's empty. ";
 				Take, Remove, Turn, Pull, Push: "You decide you don't really need morgue refrigerators. ";
 			]
-            'morgue' 'table' [;
+            3'stainless' 'steel' 'table' [;
                 examine:
                 "It's a narrow stainless steel table that stands about waist level. ";
                 take:
@@ -643,6 +643,9 @@ Object telephone "telephone" environmental_services
         ],  
         describe [;
             rtrue;
+        ],
+        invent [ ;
+            if (inventory_stage == 2) rtrue;
         ],
     has scenery container open transparent;
 
@@ -1366,13 +1369,13 @@ Object aquarium "aquarium" jorry_office
             receive:
             "Louanne would politely request that you not litter her tank. ";
         ],
-    has scenery transparent container open;
+    has scenery transparent container openable;
 
 Object louanne "Louanne" aquarium 
     with 
         name 'python' 'snake' 'louanne',
         description "She's a two-foot long reticulated python although you have no way of knowing that, having no 
-        particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ",
+        particular expertise in snakes. She seems content to stay where she is but you would rather keep your distance. ",
         before [;
             talk:
             "She stares at you silently ";
@@ -1395,7 +1398,7 @@ Object louanne "Louanne" aquarium
         description [;
             print"It's a thick dark wooden door, currently ";
             open_or_closed(self);
-            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~"; "";
+            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~"; ".";
         ],
         door_to [;
             if (parent(self) == northrup_office) return admin_hallway; return northrup_office;
@@ -1457,7 +1460,7 @@ Room northrup_office "Northrup's Office"
             }
             examine:
             if(selected_direction == u_to) "You see a tile drop ceiling. ";
-            if(selected_direction == d_to) "You see blue carpet. ";
+            if(selected_direction == d_to) "You see beige carpet. ";
         ],
     n_to northrup_door,
     u_to ceiling_05,
@@ -1465,6 +1468,11 @@ Room northrup_office "Northrup's Office"
 
 Object bookcase "bookcase" northrup_office
     with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'shelf' or 'shelves' or 'bookcase' or 'bookshelf' or 'bookshelves') return 1;
+        ],
+
         name 'bookcase' 'shelves' 'bookshelf' 'shelf',
         description "They're dark wooden shelves, seemingly hand-made to match the desk. They're full of 
             numerous books which you don't need. ",
@@ -1480,7 +1488,7 @@ Object medical_books "medical books" northrup_office
             read:
             "You already know everything you need to know about the pineal gland. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object northrup_paintings "paintings" northrup_office
     with
@@ -1490,7 +1498,7 @@ Object northrup_paintings "paintings" northrup_office
             take:
             "They're lovely but you don't need them. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object northrup_desk "mahogany desk" northrup_office
     with
@@ -1664,10 +1672,14 @@ Room hallway_2_3 "Second Floor Hallway East"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
-    with description"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
+    with 
+        description [;
+        print"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
         hanging down from rails in the ceiling. White translucent viewing boxes are mounted to one wall; these
-        are currently turned off. The exit lies through an 
-        open arch to the south and there's an unmarked door to the east. ",
+        are currently turned ";
+        if (viewing_boxes has on) { print "on"; } else { print "off"; }
+        ". The exit lies through an open arch to the south and there's an unmarked door to the east. ";
+        ],
         s_to basement_hallway_east,
         e_to darkroom_door,
     class Tiles DropCeiling
@@ -1700,7 +1712,7 @@ Object rails "rails" x_ray
             take:
                 "You can't reach them and don't need them. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object viewing_boxes "viewing boxes" x_ray 
     with name 'viewing' 'box' 'boxes//p',
@@ -1715,13 +1727,11 @@ Object viewing_boxes "viewing boxes" x_ray
         ],
         before [;
             switchon:
-                give self on;
-                "You flick the switch and the viewing boxes flicker alight.";
+                if (self hasnt on) { give self on; "You flick the switch and the viewing boxes flicker alight."; } "They're already on. ";
             switchoff:
-                give self ~on;
-                "You flick the switch and the viewing boxes flicker off. ";
+                if (self has on) { give self ~on; "You flick the switch and the viewing boxes flicker off. "; } "They're already off. ";
         ],
-    has scenery switchable;
+    has scenery switchable pluralname;
 
 Object box_switch "switch" x_ray
     with name 'switch' 'toggle',
@@ -1731,6 +1741,10 @@ Object box_switch "switch" x_ray
                 if (viewing_boxes has on)   <<switchoff viewing_boxes>>; else <<switchon viewing_boxes>>;
             take:
                 "It's fixed to the viewing boxes. ";
+            switchon:
+                <<switchon viewing_boxes>>;
+            switchoff:
+                <<switchoff viewing_boxes>>;
         ],
     has scenery;
 
@@ -1755,7 +1769,7 @@ Object box_switch "switch" x_ray
 Room darkroom "Darkroom" 
     with 
         description "This is a small darkroom off of the main x-ray suite. There's a metal basin and tiled counter running 
-            along one wall and metal shelves stacked neatly with bottle of chemicals along another. There's a strong 
+            along one wall and metal shelves stacked neatly with bottles of chemicals along another. There's a strong 
             chemical smell in here and if you stay much longer you may get a headache. The exit lies through a door
             to the west. ",
         w_to darkroom_door, 
@@ -1763,6 +1777,8 @@ Room darkroom "Darkroom"
             smell:
             "It smells like when your grandmother cleans her oven. ";
         ],
+        cheap_scenery
+        4 'bottles' 'chemicals' 'bottle' 'chemical' "They look toxic and best left to the experts. ",
     class Tiles DropCeiling
     has light;
 
@@ -1771,7 +1787,7 @@ MyContainer darkroom_basin "basin" darkroom
         name 'metal' 'basin',
         description "It's a metal basin built into the counter. ",
         max_capacity 20,
-    has scenery; 
+    has scenery container open; 
 
 Object darkroom_counter "counter" darkroom
     with 
@@ -2266,7 +2282,7 @@ Object ceiling_05 "In The Ceiling"
                 ~I don't think the candy striper actually knows anything. If she gets too nosy my brother can take care of her,~ 
                 you hear from Nurse Retch.^^
                 After a moment of agitated back-and-forth, Northrup stands up and they leave the office together. You hear the door close behind
-                the and the ~click~ of the lock. ";
+                them and then the ~click~ of the lock. ";
             }
         ],
         n_to ceiling_03,

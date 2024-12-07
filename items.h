@@ -1135,7 +1135,7 @@ Object balloon "helium balloon" room_22
         before [;
             tie:
             if (self.tied_to == second) "It's already tied to ",(the)second,".";
-            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".^";
+            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".";
             if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
             if (self.tied_to == 0 && self.tied_to ~= player) { print"(first taking the balloon)^"; move self to player; }
             self.tied_to = second;
@@ -1196,8 +1196,10 @@ Object darkroom_flashlight "flashlight" darkroom_counter
         after [;
             switchon:
                 give self light;
+                print"^";
             switchoff:
                 give self ~light;
+                print"^";
 	    take:
 		Achieved(0);
         ],

@@ -621,7 +621,8 @@ Object nurse_retch "Nurse Retch" station_b
                 He must be getting sloppy. I don't think she knows anything else, though.~ She pauses and there's a 
                 voice on the other end. ~Yeah, I know. Just in case, I've stashed the potassium until the storm passes and the 
                 cops leave. I'll have a chat with our careless associate later.~^^
-                She hangs up the phone and turns, surprised, to see you. She nods curtly and leaves the room to the south.^"; 
+                She hangs up the phone and seems to put something in the cabinet. She then turns, surprised, to see you. She nods curtly and 
+                leaves the room to the south.^"; 
                 move self to hallway_b2;
                 move kcl_bottle to storage_cabinet;
                 nurse_retch.move_mode = TARGET_PATH;
