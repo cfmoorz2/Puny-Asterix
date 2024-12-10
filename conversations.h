@@ -85,6 +85,8 @@ Array talk_array_becky-->
   00 307 "Mr. Johnson" TM_NO_LINE "He should be able to go soon. He's doing really well after his hip replacement."
   00 308 "Elliot" TM_NO_LINE "He's here getting his knee cleaned out. He's a bouncer and I think he hurt it 
   tossing some overweight drunk to the curb."
+  00 309 "Freddy" TM_NO_LINE "Seems like a nice guy. He plays in a metal band and would probably pass out if he had to 
+  listen to adult contemporary."
   TM_END;
 
 Array talk_array_eugene-->

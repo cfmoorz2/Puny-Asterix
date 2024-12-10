@@ -161,6 +161,7 @@ Object freddy "Freddy" hallway_m2
             if(self has encountered) "";
             give self encountered;
             ActivateTopic(buzz, 301);
+            ActivateTopic(becky, 309);
             "He's the third-shift security guard. He's also the drummer in a local band, The Roomy Sedans, and spends his days 
             rehearsing in his cousin's garage, leaving him quite sleep-deprived in the evening. This arrangement seems less
             than ideal. His uncle is on the hospital board but that's probably just coincidence. ";
