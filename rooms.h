@@ -233,7 +233,7 @@ Object mri_start_daemon
             if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
             {
                 print"^The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
-                begins to spin up.^";
+                begins to spin up.^^";
             }
             if (self.count == 5)
             {
@@ -360,13 +360,13 @@ Object final_daemon
         daemon [;
             switch(self.count)
             {
-                3:
+                5:
                     print"YOU LOSE^";
                     deadflag = 3;
                     rtrue;
                 1:
                     print"Vic lets out an evil chuckle.^";
-                2:
+                3:
                     print"Nurse Retch stares at you through crazy eyes.^";
             }   
             self.count++;

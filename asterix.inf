@@ -407,6 +407,11 @@ Include "VerbLib";
 ];
 
 [ mri_handler; 
+    move holes to mri_scanner;
+    ClearFlag(F_TRIO_IS_FOLLOWING);
+    StopDaemon(final_daemon);
+    StopTimer(final_timer);
+    move oxygen_cannisters to mri_scanner;
     switch (real_location) {
         mri_anteroom, changing_room: 
             print"^The mechanical whining from the MRI scanner next door suddenly changes in pitch and becomes 
@@ -425,16 +430,13 @@ Include "VerbLib";
                     trio.move_mode = 0;
                     StopDaemon(trio);
                     move injured_trio to mri_scanner;
-                    move ledger to mri_scanner;
                     move holes to mri_scanner;
                     StopDaemon(player_trio_daemon);
                 }
-                print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop. ";
+                print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop.^";
                 if (injured_trio notin mri_scanner) 
-                {
-                    move holes to mri_scanner;
-                    move oxygen_cannisters to mri_scanner;
-                    "You can't help but feel that you've perhaps done irreversible harm to your cause. ";
+                { 
+                    "You can't help but feel that you've perhaps done irreversible harm to your cause.^";
                 }
             }
         mri_scanner:
@@ -449,18 +451,18 @@ Include "VerbLib";
                 {
                     print"^^Your pursuers come to the same realization all too late and the four of you are sitting ducks, 
                     pummeled by the oxygen cannisters now turned into high-speed projectiles in the powerful 
-                    magnetic field. ";
+                    magnetic field.^";
                 } else {
                     print"^^You throw your arms up in a vain attempt to sheild yourself from the flying missiles but
-                    it's no use as they pummel you mercillessly. ";
+                    it's no use as they pummel you mercillessly.^";
                 }
                 print"^^You are knocked unconsious but survive your ordeal. However, you require several weeks to recover, 
                 guaranteeing that you won't be able to graduate on time and landing you in summer school after all,
-                a fate worse than death. "; 
+                a fate worse than death.^"; 
                 deadflag = 3;
                 rtrue;
             } else { 
-                "^^After a moment, the banging stops and the mechanical whining winds down to its former pitch and volume. ";
+                "^^After a moment, the banging stops and the mechanical whining winds down to its former pitch and volume.^";
             }
     }
 ];
