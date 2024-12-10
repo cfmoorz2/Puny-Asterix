@@ -172,6 +172,13 @@ Room basement_hallway_east "Basement Hallway East"
         w_to elevator_lobby_b,
         n_to x_ray,
         s_to mri_anteroom,
+        after [;
+            go:
+            if (real_location == self && selected_direction == n_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio_discover();
+            }
+        ]
     class Tiles
     has light; 
 
@@ -189,7 +196,18 @@ Room mri_anteroom "MRI Anteroom"
                 give scanner_door ~open;
                 print"With a 'hiss', the door swings closed behind you.^^";
             }
-            ],
+            if (real_location == self && selected_direction == w_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio_discover();
+                rtrue;
+            }
+            if (real_location == self && selected_direction == s_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio.move_mode = 0;
+                StopDaemon(trio);
+                StartTimer(final_timer, 7);
+            }
+        ],
         n_to basement_hallway_east,
         e_to scanner_door
     class Tiles
@@ -203,13 +221,25 @@ Object control_desk "control desk" mri_anteroom
             if (w1 == 'control' && w2 == 'panel' or 'desk') return 2;
             if (w1 == 'desk' or 'panel' or 'control') return 1;
         ],
-        time_out [;
-            mri_handler();
-        ],
-        time_left,
         description "It's a hopelessly complicated control desk covered with knobs and buttons. A monitor 
         is perched on top. Luckily, the important parts seem to be the large green and red buttons embedded in the center. ",
     has supporter scenery container transparent;
+
+Object mri_start_daemon
+    with
+        count 0,
+        daemon [;
+            self.count++;
+            if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
+            {
+                print"^The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
+                begins to spin up.^";
+            }
+            if (self.count == 5)
+            {
+                mri_handler();
+            }
+        ];
 
 Object mri_monitor "monitor" mri_anteroom
     with
@@ -230,9 +260,8 @@ Object green_button "green button" control_desk
         before [;
             push:
             if (control_desk.time_left > 0) "Nothing seems to happen. ";
-            StartTimer(control_desk, 5);
-            "You press the button and the monitor suddenly fills with incomprehensible text and numbers. 
-            From the next room you hear the whining sound suddenly increase in pitch and intensity. ";
+            StartDaemon(mri_start_daemon);
+            "You press the button and the monitor suddenly fills with incomprehensible text and numbers. ";
             ],
     has scenery;
 
@@ -251,9 +280,6 @@ Object red_button "red button" control_desk
             "Nothing seems to happen. ";
             ],
     has scenery;
-
-
-
 
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor scanner_door "scanner room door" 
@@ -296,6 +322,13 @@ Room mri_scanner "MRI Scanner"
                 the walls. ";
             }
         ],
+        before [;
+            go:
+            if (selected_direction == w_to && trio in self)
+            {
+                "The angry trio blocks your exit.^";
+            }
+        ],
         w_to scanner_door,
         e_to changing_room,
         room_is_trashed false,
@@ -306,9 +339,45 @@ Room mri_scanner "MRI Scanner"
                 give scanner_door ~open;
                 print"With a 'hiss', the door swings closed behind you.^^";
             }
+            if (selected_direction == e_to && real_location == self && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                StopDaemon(trio);
+                trio.move_mode = 0;
+                move trio to self;
+                StartDaemon(final_daemon);
+                "The door opens after you and the angry trio of Northrup, Vic, and Retch pile into the room. 
+                Northrup is breathing hard and red-faced. He straightens his white coat and runs his hand through 
+                his hair in an effort to recover his dignity.^^
+                ~This ends now, my dear. We can't have any loose ends, you know.~";
+            }
             ],
     class Tiles
     has light;  
+
+Object final_daemon 
+    with 
+        count 0,
+        daemon [;
+            switch(self.count)
+            {
+                3:
+                    print"YOU LOSE^";
+                    deadflag = 3;
+                    rtrue;
+                1:
+                    print"Vic lets out an evil chuckle.^";
+                2:
+                    print"Nurse Retch stares at you through crazy eyes.^";
+            }   
+            self.count++;
+        ];
+
+Object final_timer
+    with 
+        time_left,
+        time_out [;
+            if(trio in real_location) { trio_final(); } else { trio_catch(); }
+        ];
 
 Object mri_machine "MRI machine" mri_scanner
     with
@@ -1096,7 +1165,8 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             if (real_location == self && selected_direction == e_to && ledger in player)
             {
                 move trio to admin_hallway;
-                StartTimer(trio_follow_timer, 5);
+                StartTimer(trio_follow_timer, 2);
+                SetFlag(F_TRIO_IS_FOLLOWING);
                 if(real_location == hallway_m1 || real_location == hallway_m2)
                     print"Suddenly, in the shadows down the corridor to the west you see a vague shape. In a moment you 
                     see the trio of Dr. Northrup, Nurse Retch, and Vic step out of the gloom. ";

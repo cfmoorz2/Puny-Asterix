@@ -904,7 +904,7 @@ Object kcl_bottle "plastic vial"
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ledger "ledger" northrup_safe
+Object ledger "ledger" !northrup_safe
     with 
         name 'ledger' 'leather' 'book',
         description "It's a leather-bound book, wider than it is tall. It's filled with lined pages

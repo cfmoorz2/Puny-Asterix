@@ -62,7 +62,7 @@ Serial "241130";
 
 !Constant INITIAL_LOCATION_VALUE = mri_anteroom;
 !Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-Constant INITIAL_LOCATION_VALUE = hallway_m2;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -238,6 +238,7 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
+    move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
@@ -413,7 +414,7 @@ Include "VerbLib";
             if (oxygen_cart in mri_scanner)
             {
                 mri_scanner.room_is_trashed = true;
-                print"^^Suddenly, the mechanical banging changes into the sound metal crashing into metal, plastic, 
+                print"^^Suddenly, the mechanical banging changes into the sound of metal crashing into metal, plastic, 
                 and plaster. You can only guess that the oxygen cannisters in the scanner room are now heavy
                 high-speed projectiles being tossed around wildly in the powerful magnetic field of the MRI scanner. ";
                 if (trio in mri_scanner) 
@@ -475,6 +476,17 @@ Include "VerbLib";
 
 [ trio_discover;
     print"^You suddenly find yourself face to face with the very angry trio of Northrup, Retch, and Vic. ";
+    if (ledger in player) print"Retch rips the ledger from you and passes it off to Northrup. ";
+    print"Vic, giggling oddly, steps toward you and pulls a switchblade from a pocket. Northrup pulls a letter from a pocket: 
+    your letter of completion! To your relief, Northrup takes the knife from Vic. But, then, to your dismay, he 
+    uses the knife to slash into the letter, cutting it to ribbons. ^^The three walk away, knowing that no one 
+    will believe a candy striper with no evidence.^";
+    deadflag = 3;
+    rtrue;
+];
+
+[ trio_final;
+    print"The angry trio have lost patience and advance on you. ";
     if (ledger in player) print"Retch rips the ledger from you and passes it off to Northrup. ";
     print"Vic, giggling oddly, steps toward you and pulls a switchblade from a pocket. Northrup pulls a letter from a pocket: 
     your letter of completion! To your relief, Northrup takes the knife from Vic. But, then, to your dismay, he 
