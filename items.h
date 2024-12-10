@@ -644,7 +644,7 @@ Tape jorry_tape "green cassette tape" rock
     jorry_tape.current_track = 2;
     if (FlagIsClear(F_SAFE_COMBO_IS_SET))
     {
-        init_safe();
+        !init_safe();
         SetFlag(F_SAFE_COMBO_IS_SET);
     }
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
@@ -904,7 +904,7 @@ Object kcl_bottle "plastic vial"
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ledger "ledger" !northrup_safe
+Object ledger "ledger" northrup_safe
     with 
         name 'ledger' 'leather' 'book',
         description "It's a leather-bound book, wider than it is tall. It's filled with lined pages
@@ -1088,6 +1088,7 @@ Object plastic "round piece of plastic" engineering
                 scope_modified = true;
                 ActivateTopic(nurse_retch, 306);
                 ActivateTopic(vic, 301);
+                Achieved(16);
                 rtrue;
             }
         ], 

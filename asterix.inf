@@ -40,9 +40,9 @@ Constant MSG_PARSER_BAD_NUMBER "I only understand digits. No dashes, parentheses
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
-Constant NUMBER_TASKS = 15;
-Constant MAX_SCORE 140;
-Array task_scores -> 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 30;
+Constant NUMBER_TASKS = 18;
+Constant MAX_SCORE 160;
+Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
 Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill.^";
@@ -62,9 +62,8 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-!Constant INITIAL_LOCATION_VALUE = mri_anteroom;
-!Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-Constant INITIAL_LOCATION_VALUE = admin_hallway;
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+!Constant INITIAL_LOCATION_VALUE = admin_hallway;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -133,9 +132,10 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
       4: "- getting the dull steel key";
       5,6,7,8,9,10,11,12: "- getting a signature";
       13: "- finding the green cassette tape";
-      14: "- opening the safe";
+      14: "- unlocking the safe";
       15: "- getting the ledger";
-      16: "- getting your letter";
+      16: "- turning on the service elevator";
+      17: "- getting your letter";
   }
 ];
 
@@ -220,6 +220,7 @@ Include "puny.h";
 
 [ Initialise r temp;
     intro();
+    init_safe();
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
@@ -240,7 +241,6 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-    move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
@@ -392,7 +392,7 @@ Include "VerbLib";
     !SAFE_1 = 1;
     !SAFE_2 = 2;
     !SAFE_3 = 3;
-    !"^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
+    "^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;
@@ -413,6 +413,7 @@ Include "VerbLib";
     ClearFlag(F_TRIO_IS_FOLLOWING);
     StopDaemon(final_daemon);
     StopTimer(final_timer);
+
     move oxygen_cannisters to mri_scanner;
     switch (real_location) {
         mri_anteroom, changing_room: 

@@ -233,7 +233,7 @@ Object mri_start_daemon
             if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
             {
                 print"^The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
-                begins to spin up.^^";
+                begins to spin up.^";
             }
             if (self.count == 5)
             {
@@ -342,6 +342,7 @@ Room mri_scanner "MRI Scanner"
             if (selected_direction == e_to && real_location == self && FlagIsSet(F_TRIO_IS_FOLLOWING))
             {
                 StopDaemon(trio);
+                StopDaemon(trio_contact_daemon);
                 trio.move_mode = 0;
                 move trio to self;
                 StartDaemon(final_daemon);
@@ -1166,7 +1167,7 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
             {
                 move trio to admin_hallway;
                 StartTimer(trio_follow_timer, 2);
-                SetFlag(F_TRIO_IS_FOLLOWING);
+                StartDaemon(trio_contact_daemon);
                 if(real_location == hallway_m1 || real_location == hallway_m2)
                     print"Suddenly, in the shadows down the corridor to the west you see a vague shape. In a moment you 
                     see the trio of Dr. Northrup, Nurse Retch, and Vic step out of the gloom. ";
@@ -1185,6 +1186,8 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     w_to admin_hallway,
     class Tiles DropCeiling
     has light;
+
+
 
 Object ajar_tile "tile" hallway_m2
     with 
@@ -1686,7 +1689,7 @@ Object combo_dial "dial" northrup_office
             if (SAFE_CYCLE == 2 && second == SAFE_3)
             {
                 give northrup_safe ~locked;
-                Achieved(12);
+                Achieved(14);
                 SetFlag(F_SAFE_IS_OPEN);
                 "You hear a faint ~click~ from within the safe door. "; 
             }  

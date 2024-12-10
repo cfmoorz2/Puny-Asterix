@@ -826,15 +826,11 @@ Object trio "Retch, Northrup, and Vic"
         ],
         npc_post_move [ rm;
             rm = parent(self);
+            
             if (ledger in rm) 
             {
-                !print "THE LEDGER IS HERE^";
-                trio.move_mode = 0;
                 move ledger to trio;
-                StopDaemon(self);
-                StartDaemon(player_trio_daemon);
-                !ClearFlag(F_TRIO_IS_FOLLOWING);
-            }
+            }   
         ],
     class Mover
     has animate proper pluralname transparent; 
@@ -845,11 +841,20 @@ Object trio_follow_timer
         time_out [;
             if (FlagIsClear(F_TRIO_IS_FOLLOWING))
             {
-                print"ACTIVATE THE TRIO^";
+                print"^From down the hall you hear Vic holler something about ~getting her~.^";
                 trio.move_mode = FOLLOW_PATH;
                 SetFlag(F_TRIO_IS_FOLLOWING);
-                StartDaemon(trio);
-                
+                StartDaemon(trio);  
+            }
+        ];
+
+Object trio_contact_daemon
+    with 
+        daemon [;
+            if (trio in real_location)
+            {
+                trio_catch();
+                rtrue;
             }
         ];
 
