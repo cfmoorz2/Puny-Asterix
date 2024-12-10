@@ -160,6 +160,7 @@ Object freddy "Freddy" hallway_m2
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's literally asleep on his feet. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(buzz, 301);
             "He's the third-shift security guard. He's also the drummer in a local band, The Roomy Sedans, and spends his days 
             rehearsing in his cousin's garage, leaving him quite sleep-deprived in the evening. This arrangement seems less
             than ideal. His uncle is on the hospital board but that's probably just coincidence. ";
@@ -460,6 +461,7 @@ Object mabel "Mabel" main_lobby
             print"^Mabel is here, occupying the information desk. ";
             if(self has encountered) "";
             ActivateTopic(buzz, 300);
+            give self encountered;
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
             home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";
         ],

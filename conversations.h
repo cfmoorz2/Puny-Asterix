@@ -52,7 +52,9 @@ Array talk_array_buzz -->
   the key. "
   30 "service elevator" TM_NO_LINE "It went on the fritz earlier tonight. I guess maintenance will be in tomorrow."
   30 "Dr. Northrup" TM_NO_LINE "He's the hospital CEO. He always smells outstanding."
-  00 300 "Mabel" TM_NO_LINE "The information desk is the front line of hospital security."
+  0 300 "Mabel" TM_NO_LINE "The information desk is the front line of hospital security."
+  0 301 "Freddy" TM_NO_LINE "I worry about that boy. He shouldn't be working third shift. The slightest soothing 
+  stimulus puts him to sleep."
   TM_END;
 
 Array talk_array_vic-->

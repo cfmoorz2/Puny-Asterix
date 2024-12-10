@@ -29,6 +29,8 @@ Constant MAX_CARRIED 45;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 !Constant OPTIONAL_GUESS_MISSING_NOUN;
+Constant TM_MSG_EXIT "You end the conversation...";
+Constant TM_MSG_TOPICS_DEPLETED "And we're done...";
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
