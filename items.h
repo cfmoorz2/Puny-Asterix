@@ -959,10 +959,13 @@ Object letter "piece of paper"
         description "It's a letter signed by Sid Jorry confirming your successful participation in 
         and completion of your volunteer experience at St. Asterix. ",
         mass 1,
+        describe [;
+            if (self in mri_scanner && self.fluttering == 1) { self.fluttering = 0; rtrue; }
+        ],
+        fluttering,
         before [;
             take:
             Achieved(16);
-
             examine:
             if (self notin player) "You can't make out what's on the paper from here. ";
         ],

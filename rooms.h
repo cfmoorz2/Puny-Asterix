@@ -205,13 +205,21 @@ Room mri_anteroom "MRI Anteroom"
             {
                 trio.move_mode = 0;
                 StopDaemon(trio);
-                StartTimer(final_timer, 7);
+                StartDaemon(anteroom_timer);
             }
         ],
         n_to basement_hallway_east,
         e_to scanner_door
     class Tiles
     has light; 
+
+Object anteroom_timer
+    with 
+        counter 0,
+        daemon [;
+            if (self.counter == 4) { trio_catch(); };
+            self.counter++;
+        ];
 
 Object control_desk "control desk" mri_anteroom
     with 
@@ -233,7 +241,7 @@ Object mri_start_daemon
             if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
             {
                 print"^The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
-                begins to spin up.^";
+                begins to spin up.^^";
             }
             if (self.count == 5)
             {
@@ -314,14 +322,23 @@ Room mri_scanner "MRI Scanner"
             to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
             tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
             leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
-            next to the exit.^";
+            next to the exit.^^";
             if (self.room_is_trashed == true) 
             {
-                "^Currently, the room is in shambles. Metal oxygen cannisters litter the floor and there are gaping holes 
+                print"Currently, the room is in shambles. Metal oxygen cannisters litter the floor and there are gaping holes 
                 in the walls and in the MRI machine itself. Sparks fly from the gashes in the electrical conduits lining 
-                the walls. ";
+                the walls.^^";
+            }
+            if (injured_trio in self)
+            {
+                print"Nurse Retch, Vic, and Dr. Northrup are here groaning in pain on the ground.^";
+            }
+            if(letter in self && letter.fluttering == 1)
+            {
+                print"^A letter falls from Northrup's pocket and flutters to the floor.^";
             }
         ],
+        describe [; rtrue; ],
         before [;
             go:
             if (selected_direction == w_to && trio in self)
@@ -341,7 +358,8 @@ Room mri_scanner "MRI Scanner"
             }
             if (selected_direction == e_to && real_location == self && FlagIsSet(F_TRIO_IS_FOLLOWING))
             {
-                StopDaemon(trio);
+                !StopDaemon(trio);
+                StopDaemon(anteroom_timer);
                 StopDaemon(trio_contact_daemon);
                 trio.move_mode = 0;
                 move trio to self;
@@ -351,7 +369,7 @@ Room mri_scanner "MRI Scanner"
                 his hair in an effort to recover his dignity.^^
                 ~This ends now, my dear. We can't have any loose ends, you know.~";
             }
-            ],
+        ],
     class Tiles
     has light;  
 
@@ -361,23 +379,15 @@ Object final_daemon
         daemon [;
             switch(self.count)
             {
-                5:
-                    print"YOU LOSE^";
-                    deadflag = 3;
+                4:
+                    trio_final();
                     rtrue;
                 1:
                     print"Vic lets out an evil chuckle.^";
-                3:
+                2:
                     print"Nurse Retch stares at you through crazy eyes.^";
             }   
             self.count++;
-        ];
-
-Object final_timer
-    with 
-        time_left,
-        time_out [;
-            if(trio in real_location) { trio_final(); } else { trio_catch(); }
         ];
 
 Object mri_machine "MRI machine" mri_scanner

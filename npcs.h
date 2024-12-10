@@ -871,6 +871,7 @@ Object injured_trio "Retch, Northrup, and Vic"
             if (w1 == 'vic') { self.id = 3; return 1; }
             if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
         ],
+        describe [; rtrue; ],
         description [;
             switch (self.id)
             {

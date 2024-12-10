@@ -62,8 +62,8 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-!Constant INITIAL_LOCATION_VALUE = admin_hallway;
+!Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+Constant INITIAL_LOCATION_VALUE = admin_hallway;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -241,6 +241,7 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
+    move ledger to player;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
@@ -412,7 +413,6 @@ Include "VerbLib";
     move holes to mri_scanner;
     ClearFlag(F_TRIO_IS_FOLLOWING);
     StopDaemon(final_daemon);
-    StopTimer(final_timer);
 
     move oxygen_cannisters to mri_scanner;
     switch (real_location) {
@@ -434,6 +434,8 @@ Include "VerbLib";
                     StopDaemon(trio);
                     move injured_trio to mri_scanner;
                     move holes to mri_scanner;
+                    move letter to mri_scanner;
+                    letter.fluttering = 1;
                     StopDaemon(player_trio_daemon);
                 }
                 print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop.^";
