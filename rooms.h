@@ -240,7 +240,7 @@ Object mri_start_daemon
             self.count++;
             if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
             {
-                print"^The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
+                print"The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
                 begins to spin up.^^";
             }
             if (self.count == 5)
