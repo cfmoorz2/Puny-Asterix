@@ -425,7 +425,7 @@ Include "VerbLib";
                 high-speed projectiles being tossed around wildly in the powerful magnetic field of the MRI scanner. ";
                 if (trio in mri_scanner) 
                 {
-                    print"^^You also hear screaming as well as the occasional soft 'thud' of one of the cannisters slamming into 
+                    print"^^You also hear screaming along with the occasional soft 'thud' of one of the cannisters slamming into 
                     some poor (deserving) victim in the next room. ";
                     remove trio;
                     trio.move_mode = 0;

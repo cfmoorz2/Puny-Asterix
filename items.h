@@ -972,7 +972,11 @@ Object letter "piece of paper"
         after [;
             take:
             print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
-            You feel like you could kiss Mr. Jorry, if he weren't already dead.^";
+            You feel like you could kiss Mr. Jorry, if he weren't already dead.^^ 
+            Just then, to your relief, several shivering police officers dusted with snow enter the room. The one in charge stops cold 
+            at the sight in front of her but you quickly bring her up to speed and, armed with the evidence you've collected, 
+            the mangled trio on the floor are read their rights and hustled away.^";
+
             if (SIGNATURE_COUNT > 7)
             {
                 print"^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
