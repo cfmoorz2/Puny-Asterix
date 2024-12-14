@@ -1481,7 +1481,8 @@ Object louanne "Louanne" aquarium
         description [;
             print"It's a thick dark wooden door, currently ";
             open_or_closed(self);
-            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~"; ".";
+            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~";
+                ". You can lock or unlock it from this side. ";
         ],
         door_to [;
             if (parent(self) == northrup_office) return admin_hallway; return northrup_office;
@@ -1537,9 +1538,7 @@ Room northrup_office "Northrup's Office"
             go:
             if (selected_direction == u_to)
             {
-                print"You pull yourself awkwardly up onto the file cabinet and, from there, back up into the 
-                dark dirty ceiling. You're actually starting to wonder if summer school wouldn't be so bad after all.^^";
-                rfalse;
+                "Even with the file cabinet, the opening in the ceiling is out of reach. ";
             }
             examine:
             if(selected_direction == u_to) "You see a tile drop ceiling. ";
@@ -2316,7 +2315,7 @@ Object ceiling_05 "In The Ceiling"
         and movement to the south is blocked by a large duct. You can crawl north along a network of 
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
-        lower yourself down onto. ";
+        lower yourself down onto, although you probably won't be able to get back up this way. ";
         if (northrup in northrup_office) print"^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
         if (nurse_retch in northrup_office) print"Nurse Retch is down there as well. ";
         "";

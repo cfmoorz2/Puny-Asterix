@@ -84,22 +84,21 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 19;
+Constant FLAG_COUNT 13;
 
-Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
-Constant F_FREDDY_ASLEEP 7;
-Constant F_WALKMAN_BLOCKING 8;
-Constant F_HAVE_MET_VIC 9; ! vic has been encountered?
-Constant F_HAS_SWIPE_CARD 10; !does the player have the  security card
-Constant F_SAFE_IS_OPEN 11; !is jorry's safe open
-Constant F_HEADPHONES_ARE_UNPLUGGED 12; ! headphones are NOT plugged in
-Constant F_FREDDY_WALKMAN_SHY 13; !freddy won't take the walkman a second time
-Constant F_FREDDY_HAS_HEARD_THRILLER 14; !he's already heard it
-Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
-Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
-Constant F_ENDGAME 17; ! in endgame
-Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
-Constant F_TRIO_IS_FOLLOWING 19; 
+Constant F_BADDIES_FOLLOWING 1; !baddies are following at endgame
+Constant F_FREDDY_ASLEEP 2;
+Constant F_WALKMAN_BLOCKING 3;
+Constant F_HAVE_MET_VIC 4; ! vic has been encountered?
+Constant F_HAS_SWIPE_CARD 5; !does the player have the  security card
+Constant F_SAFE_IS_OPEN 6; !is jorry's safe open
+Constant F_HEADPHONES_ARE_UNPLUGGED 7; ! headphones are NOT plugged in
+Constant F_FREDDY_WALKMAN_SHY 8; !freddy won't take the walkman a second time
+Constant F_FREDDY_HAS_HEARD_THRILLER 9; !he's already heard it
+Constant F_SERVICE_ELEVATOR_ON 10; ! is the service elvator working?
+Constant F_ENDGAME 11; ! in endgame
+Constant F_COMBO_HAS_BEEN_HEARD 12; ! the combination has been heard on green tape
+Constant F_TRIO_IS_FOLLOWING 13; 
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;
