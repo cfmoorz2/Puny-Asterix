@@ -49,6 +49,7 @@ Class Room
                 {
                     objectloop (obj in one_out)
                     {
+                        !print"obj = ",(the)obj,", hide = ",obj.hide,"^";
                         if(obj has animate && obj.hide == false)
                         {
                             add_to_position_array(obj, direction);
@@ -95,9 +96,10 @@ Class Mover
         npc_wander_delay,
         npc_last_wander,
         hide false,
+        npc_is_following 0,
         npc_arrived [;],
         npc_open_door [ ;
-            print"opens the door";
+            print (The)self," opens the door. ";
         ],
         npc_post_follow [; rfalse;],
         npc_post_move [; rfalse;],
@@ -110,7 +112,7 @@ Class Mover
             {
                 self.target_room = real_location;
                 if (self notin real_location) path_move(parent(self), self.target_room);
-                if (self provides npc_arrived) print(string)self.npc_arrived(),"^"; 
+                if (self provides npc_arrived) self.npc_arrived(self.target_room); 
                     !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)
@@ -249,15 +251,13 @@ Class Mover
             final = prev.hop_direction;
             !print"final = ",(name)final,"^";
             way = parent(self).(final.door_dir);
+            !print"[way = ",(the)way,"]^";
             if (way has door)
             {
-                if (self in real_location && way provides npc_open) 
+                if (way in real_location && self provides npc_open_door && way hasnt open) 
                 {
-                    way.npc_open(self);
-                }
-                else
-                {
-                if (self in real_location && way hasnt open) print(The)self," ";self.npc_open_door(way);print".^"; 
+                    self.npc_open_door(way);
+
                 }
                 !print"pre_way = ",(name)way,"^";
                 move way to parent(self);
@@ -276,13 +276,13 @@ Class Mover
             move self to way;
             scope_modified = true;
             if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, final); }
-            if (self provides npc_post_move) self.npc_post_move();
+            if (self provides npc_post_move) self.npc_post_move(); 
             if (self in real_location && self.hide == false)
             {
                 print(The)self;
                 if(self has pluralname) { print" are ";}  else { print " is "; }
                 print"here.^";
-                if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
+                !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
                 !self.describe();
             }
             !self.hide = false;
@@ -291,10 +291,10 @@ Class Mover
                 StopDaemon(self);
                 self.move_mode = 0;
                 if (self provides npc_arrived) self.npc_arrived(self.target_room); 
-                if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
+                !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
                 rtrue;
             } else
-            if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
+            !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
             break;
         }
 		prev = prev.hop;
@@ -302,6 +302,8 @@ Class Mover
 ];
 
 [eval_one_away npc final direction k;
+    if(npc.npc_is_following == true)
+    {
     objectloop(direction in compass) 
     {
         k = location.(direction.door_dir);
@@ -333,6 +335,7 @@ Class Mover
             if (final == u_obj) " heading upstairs. ";
             " heading to the ",(name)final,".";
         }
+    }
     }
 ];
 
@@ -432,7 +435,7 @@ Class Mover
             print(The)npc,", following, enter";
             if(npc hasnt pluralname) { print"s";} 
             print" from downstairs.^";
-            !if(npc provides npc_post_follow) npc.npc_post_follow();
+            if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
          }
         if(direction == d_obj) 
@@ -440,10 +443,10 @@ Class Mover
             print(The)npc,", following, enter";
             if(npc hasnt pluralname) { print"s";} 
             print" from upstairs.^";
-            !if(npc provides npc_post_follow) npc.npc_post_follow();
+            if(npc provides npc_post_follow) npc.npc_post_follow();
             rtrue;
         }
         print(The)npc,", following, enter"; if(npc hasnt pluralname) { print"s";} ; print" from the ",(name)rev_dir,".^";
-        !if(npc provides npc_post_follow) npc.npc_post_follow();
+        if(npc provides npc_post_follow) npc.npc_post_follow();
     }
 ];

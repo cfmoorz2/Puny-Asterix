@@ -29,6 +29,8 @@ Constant MAX_CARRIED 45;
 Constant OPTIONAL_EXTENDED_METAVERBS;
 Constant OPTIONAL_EXTENDED_VERBSET;
 !Constant OPTIONAL_GUESS_MISSING_NOUN;
+Constant TM_MSG_EXIT "You end the conversation...";
+Constant TM_MSG_TOPICS_DEPLETED "And we're done...";
 Constant OPTIONAL_PRINT_SCENERY_CONTENTS;
 Constant MAX_FLOATING_OBJECTS 55;
 Constant MSG_WAIT_DEFAULT "Time passes.";
@@ -38,9 +40,9 @@ Constant MSG_PARSER_BAD_NUMBER "I only understand digits. No dashes, parentheses
 Constant OPTIONAL_FULL_SCORE 2;
 Constant TASKS_PROVIDED;
 Constant RUNTIME_ERRORS 0;
-Constant NUMBER_TASKS = 15;
-Constant MAX_SCORE 140;
-Array task_scores -> 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 30;
+Constant NUMBER_TASKS = 18;
+Constant MAX_SCORE 160;
+Array task_scores -> 10 10 10 10 10 5 5 5 5 5 5 5 5 10 10 10 10 30;
 Array UUID_ARRAY string "UUID://8E0FD814-0041-4E2B-B1A1-13E42932A53F//";
 
 Constant RADIATOR_DESC "It's a cast-iron steam radiator. It's hissing and knocking in a vain struggle against the chill.^";
@@ -60,9 +62,8 @@ Attribute encountered;
 Release 1;
 Serial "241130";
 
-!Constant INITIAL_LOCATION_VALUE = sub_basement_01;
-Constant INITIAL_LOCATION_VALUE = b_ward_1;
-!Constant INITIAL_LOCATION_VALUE = hallway_2_2;
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+!Constant INITIAL_LOCATION_VALUE = admin_hallway;
 
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
@@ -83,25 +84,21 @@ Global SAFE_CYCLE 0;
 Global walkman_playing = false;
 Global SIGNATURE_COUNT 0;
 
-Constant FLAG_COUNT 22;
+Constant FLAG_COUNT 13;
 
-Constant F_BADDIES_FOLLOWING 6; !baddies are following at endgame
-Constant F_FREDDY_ASLEEP 7;
-Constant F_WALKMAN_BLOCKING 8;
-Constant F_HAVE_MET_VIC 9; ! vic has been encountered?
-Constant F_HAS_SWIPE_CARD 10; !does the player have the  security card
-Constant F_SAFE_IS_OPEN 11; !is jorry's safe open
-Constant F_HEADPHONES_ARE_UNPLUGGED 12; ! headphones are NOT plugged in
-Constant F_FREDDY_WALKMAN_SHY 13; !freddy won't take the walkman a second time
-Constant F_FREDDY_HAS_HEARD_THRILLER 14; !he's already heard it
-Constant F_SAFE_COMBO_IS_SET 15; ! safe combination has been set
-Constant F_SERVICE_ELEVATOR_ON 16; ! is the service elvator working?
-Constant F_ENDGAME 17; ! in endgame
-Constant F_COMBO_HAS_BEEN_HEARD 18; ! the combination has been heard on green tape
-Constant F_LT_HAS_SEEN_SYRINGE 19;
-Constant F_LT_HAS_SEEN_KCL 20;
-Constant F_LT_HAS_SEEN_LEDGER 21;
-Constant F_LT_HAS_HEARD_TAPE 22;
+Constant F_BADDIES_FOLLOWING 1; !baddies are following at endgame
+Constant F_FREDDY_ASLEEP 2;
+Constant F_WALKMAN_BLOCKING 3;
+Constant F_HAVE_MET_VIC 4; ! vic has been encountered?
+Constant F_HAS_SWIPE_CARD 5; !does the player have the  security card
+Constant F_SAFE_IS_OPEN 6; !is jorry's safe open
+Constant F_HEADPHONES_ARE_UNPLUGGED 7; ! headphones are NOT plugged in
+Constant F_FREDDY_WALKMAN_SHY 8; !freddy won't take the walkman a second time
+Constant F_FREDDY_HAS_HEARD_THRILLER 9; !he's already heard it
+Constant F_SERVICE_ELEVATOR_ON 10; ! is the service elvator working?
+Constant F_ENDGAME 11; ! in endgame
+Constant F_COMBO_HAS_BEEN_HEARD 12; ! the combination has been heard on green tape
+Constant F_TRIO_IS_FOLLOWING 13; 
 
 Constant MSG_WEAR_DEFAULT 1000;
 Constant MSG_FULLSCORE_ACTIONS 1001;
@@ -134,9 +131,10 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
       4: "- getting the dull steel key";
       5,6,7,8,9,10,11,12: "- getting a signature";
       13: "- finding the green cassette tape";
-      14: "- opening the safe";
+      14: "- unlocking the safe";
       15: "- getting the ledger";
-      16: "- getting your letter";
+      16: "- turning on the service elevator";
+      17: "- getting your letter";
   }
 ];
 
@@ -221,6 +219,7 @@ Include "puny.h";
 
 [ Initialise r temp;
     intro();
+    !init_safe();
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
@@ -241,8 +240,6 @@ Include "puny.h";
     move walkman to backpack;
     move backpack to player;
     give backpack worn;
-    move vans to player;
-    give vans worn;
     SAFE_CURRENT = random(35);
     temp = UUID_ARRAY; !to quiet a compiler warning
 ];
@@ -271,7 +268,6 @@ Object selfobj "you"
 		after NULL,
 		life NULL,
 		each_turn NULL,
-		time_out NULL,
 		describe NULL,
 		add_to_scope 0,
 		capacity MAX_CARRIED,
@@ -372,39 +368,20 @@ Include "VerbLib";
     You're going to be a senior and you have BIG plans coming up this summer. Tiffany is going to be life-guarding at the pool 
     and she's promised to get you a cushy job at the snack bar. You'll spend your working days surrounded by cute boy lifeguards and your 
     off-time at the mall.^^
-    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this at all cost, 
+    But then your grades started to slip and, inconceivably, the topic of summer school has come up. To avoid this, 
     you took Ethics 101 this semester, an easy ~A~. But, in order to pass, you have to perform some sort of volunteer activity for four long
     painful weeks. 
     The concept of mandatory volunteerism seems odd to you but, nonetheless, here you are, working as a candy striper at St. Asterix 
     Hospital, the oldest and most run-down hospital in the city.^^
-    It hasn't been too bad. You mainly push the book cart around so patients can pick out a book or magazine. Tonight's your last night and 
-    your sponsor at the hospital, Mr. Jorry, was going to give you a letter tonight confirming your volunteer hours after you also get 
-    the signatures of 8 patients and staff. But rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
+    It hasn't been too bad. You mainly do busy work: delivering flowers, passing out magazines, getting patients their slippers or whatnot. 
+    Tonight's your last night and 
+    your sponsor at the hospital, Mr. Jorry, was going to give you a letter confirming your volunteer hours after you also get 
+    the signatures of 8 patients and staff. But, rudely, Mr. Jorry has been found dead in his office. And, even worse, a 
     blizzard blew in tonight and now it doesn't seem like you can even get home.^^
     Mr. Jorry may have been killed and the killer may still be in the building, trapped inside by the storm. But, more importantly, 
     you are NOT going to summer school this year and you'll unmask a murderer if you have to in order to get those signatures and 
     that letter. ";
-];   
-
-[read_news i;
-    i = random(12);
-    switch(i)   {
-        1: "You tear up a little as you read about and recall the series finale of ~M*A*S*H~. ";
-        2: "You notice something called ~The Disney Channel~ hitting cable TV. ";
-        3: "You see a review of ~The Day After~, that depressing TV movie your history teacher made you watch. ";
-        4: "You see a bunch of stupid ads for toys from your little brother's favorite show, ~He-Man and the Masters of the Universe~. ";
-        5: "There's a pictorial from the movie ~WarGames~. Matthew Broderick is dreamy. ";
-        6: "You notice a very short notice about something called ~ARPANET~ starting to use something called 
-	        ~Internet Protocol~. ";
-        7: "You see a review of a game called ~Planetfall~ from a strange-sounding company called ~Infocom~. ";
-        8: "There's a pictorial from the Knoxville World's fair. The big shiny orange ball catches your eye. ";
-        9: "You flip through an interview with Steven Spielberg. You bawled your eyes out when E.T. died. ";
-        10: "There's an article about something called a ~compact disc~. They'll have to pry your 45s from your 
-	        cold dead hands. ";
-        11: "You see a blurb about ~Thriller~ selling yet another million copies. ";
-        12: "There's a mention of a game called ~Deadline~. Sounds boring; you hate mysteries. ";
-    }
-];  
+];    
 
 [ init_safe ;
     SAFE_1 = random(35);
@@ -414,7 +391,7 @@ Include "VerbLib";
     !SAFE_1 = 1;
     !SAFE_2 = 2;
     !SAFE_3 = 3;
-    !"^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
+    "^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;
@@ -430,19 +407,108 @@ Include "VerbLib";
     "You hear a recording on the other end. You have reached the ~Lapsed Amish~ support line. ");
 ];
 
-[ you_win ;
-    move trio to main_lobby;
-    move letter to main_lobby;
-    move rodriguez to main_lobby;
-    move cop_duo to main_lobby;
-    SetFlag(F_ENDGAME);
-    print"Lt. Rodriguez hears you out then turns to his partners. ~I've heard and seen enough. This impressive young lady has clearly 
-    done our jobs for us this evening.~^^
-    He gives some orders and, soon, Vic, Retch, and Northrup have been located. You follow the police down to the lobby 
-    in time to see the baddies handcuffed and hear their rights read.^^";
-    PlayerTo(main_lobby);
-    "^Suddenly, you see a piece of paper fall out of Northrup's pocket. "; 
+[ mri_handler; 
+    move holes to mri_scanner;
+    ClearFlag(F_TRIO_IS_FOLLOWING);
+    StopDaemon(final_daemon);
+
+    move oxygen_cannisters to mri_scanner;
+    switch (real_location) {
+        mri_anteroom, changing_room: 
+            print"The mechanical whining from the MRI scanner next door suddenly changes in pitch and becomes 
+            louder. You hear mechanical 'thumping' and 'banging' noises. ";
+            if (oxygen_cart in mri_scanner)
+            {
+                mri_scanner.room_is_trashed = true;
+                print"^^Suddenly, the mechanical banging changes into the sound of metal crashing into metal, plastic, 
+                and plaster. You can only guess that the oxygen cannisters in the scanner room are now heavy
+                high-speed projectiles being tossed around wildly in the powerful magnetic field of the MRI scanner. ";
+                if (trio in mri_scanner) 
+                {
+                    print"^^You also hear screaming along with the occasional soft 'thud' of one of the cannisters slamming into 
+                    some poor (deserving) victim in the next room. ";
+                    remove trio;
+                    trio.move_mode = 0;
+                    StopDaemon(trio);
+                    move injured_trio to mri_scanner;
+                    move holes to mri_scanner;
+                    move letter to mri_scanner;
+                    letter.fluttering = 1;
+                    StopDaemon(player_trio_daemon);
+                }
+                print"^^You hear a final 'crash' and the mechanical screaming suddenly and abruptly comes to a stop.^";
+                if (injured_trio notin mri_scanner) 
+                { 
+                    "You can't help but feel that you've perhaps done irreversible harm to your cause.^";
+                }
+            }
+        mri_scanner:
+            print"The mechanical whining from the MRI scanner quickly changes in pitch and becomes louder.
+            You hear loud 'thumping' and 'banging' noises coming from the scanner and the walls around you. ";
+            if (oxygen_cart in mri_scanner)
+            {
+                mri_scanner.room_is_trashed = true;
+                print"^^Suddenly, to your horror, you notice that the metal oxygen cannisters are shaking and dancing 
+                on the cart and, as the MRI winds up to full power, they begin to lift up and suddenly fly about the room.^^";
+                if (trio in mri_scanner) 
+                {
+                    print"Your pursuers come to the same realization all too late and the four of you are sitting ducks, 
+                    pummeled by the oxygen cannisters now turned into high-speed projectiles in the powerful 
+                    magnetic field.^^";
+                } else {
+                    print"You throw your arms up in a vain attempt to sheild yourself from the flying missiles but
+                    it's no use as they pummel you mercillessly.^^";
+                }
+                print"You are knocked unconsious but survive your ordeal. However, you require several weeks to recover, 
+                guaranteeing that you won't be able to graduate on time and landing you in summer school after all,
+                a fate worse than death. "; 
+                deadflag = 3;
+                rtrue;
+            } else { 
+                "After a moment, the banging stops and the mechanical whining winds down to its former pitch and volume. ";
+            }
+    }
 ];
+
+[ trio_catch;
+    print"Northrup, Retch, and Vic catch up with and surround you. They advance on you ominously. Retch rips the ledger 
+        from you and Vic pulls a switchblade from a pocket and giggles. Northrup pulls a letter from a pocket: your letter of completion! 
+        To your relief, he takes the knife from Vic. But, then, to your dismay, he uses it to slash into the letter, cutting it to ribbons. 
+        ^^The three walk away, knowing that no one will believe a candy striper with no evidence.^";
+        deadflag = 3;
+        rtrue;
+];
+
+[ trio_discover;
+    print"You suddenly find yourself face to face with the very angry trio of Northrup, Retch, and Vic. ";
+    if (ledger in player) print"Retch rips the ledger from you and passes it off to Northrup. ";
+    print"Vic, giggling oddly, steps toward you and pulls a switchblade from a pocket. Northrup pulls a letter from a pocket: 
+    your letter of completion! To your relief, Northrup takes the knife from Vic. But, then, to your dismay, he 
+    uses the knife to slash into the letter, cutting it to ribbons. ^^The three walk away, knowing that no one 
+    will believe a candy striper with no evidence.^";
+    deadflag = 3;
+    rtrue;
+];
+
+[ trio_final;
+    print"The angry trio have lost patience and advance on you. ";
+    if (ledger in player) print"Retch rips the ledger from you and passes it off to Northrup. ";
+    print"Vic, giggling oddly, steps toward you and pulls a switchblade from a pocket. Northrup pulls a letter from a pocket: 
+    your letter of completion! To your relief, Northrup takes the knife from Vic. But, then, to your dismay, he 
+    uses the knife to slash into the letter, cutting it to ribbons. ^^The three walk away, knowing that no one 
+    will believe a candy striper with no evidence.^";
+    deadflag = 3;
+    rtrue;
+];
+
+Object player_trio_daemon
+    with
+        daemon [ ;
+            if (trio in real_location)
+            {
+                trio_discover();
+            }
+    ];
         
 #Ifdef USEINFORM;
 Include "Grammar";

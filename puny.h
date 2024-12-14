@@ -461,40 +461,53 @@ Constant ONE_SPACE_STRING = " ";
 	return IS_STR;
 ];
 
-[ _PrintAfterEntry p_obj;
+[ _PrintAfterEntry p_obj _contents _newline _started;
+	_newline = c_style & NEWLINE_BIT;
 #Ifndef OPTIONAL_NO_DARKNESS;
 	if(p_obj has light && p_obj hasnt animate) print " (providing light)";
 #Endif;
 	if(p_obj has worn && action == ##Inv) print " (worn)";
-	if(p_obj has container && p_obj hasnt open) print " (which is closed)";
-	if(p_obj has container && (p_obj has open || p_obj has transparent)) {
-		if(PrintContentsFromR(1, child(p_obj)) == 0) {
-			if(p_obj has openable)
-				print " (which is open but empty)";
-			if(c_style & NEWLINE_BIT)
-				new_line;
+	if(p_obj has container) {
+		_contents = PrintContentsFromR(1, child(p_obj));
+		if(p_obj hasnt open && p_obj hasnt transparent) {
+			print " (which is closed)";
+			if(_newline) new_line;
 		} else {
-			if(c_style & NEWLINE_BIT == 0)
-				print " (which contains ";
-			else {
-				if(p_obj has open && p_obj has openable)
-					print " (which is open)";
-				new_line;
+			if(p_obj has openable && (p_obj has transparent || _contents == 0)) {
+				print " (which is ";
+				if(p_obj has open) { print "open"; _started = 1; }
+				else { print "closed"; _started = 2; }
 			}
-			c_style = c_style & ~ISARE_BIT;
-			PrintContentsFromR(0, child(p_obj));
-			if(c_style & NEWLINE_BIT == 0) {
-				print (char) ')';
+			if(_contents == 0) {
+				print (char) ' ';
+				switch(_started) {
+				0: print "(which is";
+				1: print "but";
+				2: print "and";
+				}
+				print " empty)";
+				if(_newline) new_line;
+			} else {
+				if(_newline == 0) {
+					if(_started) print " and";
+					else print " (which";
+					print " contains ";
+				} else {
+					if(_started) print (char) ')';
+					new_line;
+				}
+				c_style = c_style & ~ISARE_BIT;
+				PrintContentsFromR(0, child(p_obj));
+				if(_newline == 0) print (char) ')';
 			}
 		}
-
 	} else if(p_obj has supporter) {
-		if(c_style & NEWLINE_BIT) {
+		if(_newline) {
 			new_line;
 			PrintContentsFromR(0, child(p_obj));
 		} else
 			if(PrintContents(" (on which ", p_obj, ISARE_BIT)) print (char) ')';
-	} else if(c_style & NEWLINE_BIT)
+	} else if(_newline)
 		new_line;
 ];
 
@@ -864,10 +877,9 @@ Constant ONE_SPACE_STRING = " ";
 ];
 
 [ PrintOrRun p_obj p_prop p_no_string_newline _val;
-	_val = p_obj.p_prop;
-	if (p_obj.#p_prop > WORDSIZE || _val ofclass Routine) return RunRoutines(p_obj, p_prop);
+	if (p_obj.#p_prop > WORDSIZE || (_val = p_obj.p_prop) ofclass Routine) return RunRoutines(p_obj, p_prop);
 	if(_val ofclass String) {
-		print (string) p_obj.p_prop;
+		print (string) _val;
 		if(p_no_string_newline == 0) new_line;
 	}
 ];
@@ -968,7 +980,7 @@ Constant ONE_SPACE_STRING = " ";
 	if(p_flag==false)
 		lookmode = 2;
 	if(p_flag==false or 2 && deadflag == GS_PLAYING)
-		<Look>;
+		Look();
 	lookmode = _old_lookmode;
 ];
 

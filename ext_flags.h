@@ -35,10 +35,16 @@
 ! ClearFlag(F_FED_PARROT, F_TICKET_OK, F_SAVED_CAT) clears all three flags
 ! if(FlagIsSet(F_FED_PARROT, F_TICKET_OK, F_SAVED_CAT)) returns true if all three flags are set
 ! if(FlagIsClear(F_TICKET_OK, F_SAVED_CAT)) returns true if both flags are clear
-!
+
 ! There are also functions to check if any of two or three flags are set or clear:
 ! if(AnyFlagIsSet(F_FED_PARROT, F_TICKET_OK, F_SAVED_CAT)) returns true if any of the three flags are set
 ! if(AnyFlagIsClear(F_FED_PARROT, F_TICKET_OK, F_SAVED_CAT)) returns true if any of the three flags are clear
+
+! In all of these procedures, you can use a negative flag number, to mean "do
+! the opposite." E.g. SetFlag(F_FED_PARROT, -F_SAVED_CAT) will set 
+! F_FED_PARROT and clear F_SAVED_CAT, while 
+! AnyFlagIsSet(F_FED_PARROT, -F_TICKET_OK) returns true if F_FED_PARROT is set
+! or F_TICKET_OK is clear.
 
 System_file;
 
@@ -72,6 +78,7 @@ Array game_flags -> (FLAG_COUNT + 1) / 8 + ((FLAG_COUNT + 1) & 7 > 0);
 
 #Iftrue RUNTIME_ERRORS > RTE_MINIMUM;
 [ IncorrectFlagNumber p_x;
+	if(p_x < 0) p_x = -p_x;
 #Ifdef DEBUG;
 		if(p_x == 0) {
 	#Iftrue RUNTIME_ERRORS == RTE_VERBOSE;
@@ -81,7 +88,7 @@ Array game_flags -> (FLAG_COUNT + 1) / 8 + ((FLAG_COUNT + 1) & 7 > 0);
 	#Endif;
 		}
 #Endif;
-	if(p_x < 0 || p_x > FLAG_COUNT) {
+	if(p_x > FLAG_COUNT) {
 #Iftrue RUNTIME_ERRORS == RTE_VERBOSE;
 		print_ret (string) FL_ERR,"1: Tried to use flag ", p_x,
 			", but the highest flag number is ", FLAG_COUNT, "]";
@@ -97,6 +104,11 @@ Array game_flags -> (FLAG_COUNT + 1) / 8 + ((FLAG_COUNT + 1) & 7 > 0);
 #Iftrue RUNTIME_ERRORS > RTE_MINIMUM;
 	if(IncorrectFlagNumber(p_x)) rfalse;
 #Endif;
+	if(p_y) SetFlag(p_y, p_z);
+	if(p_x < 0) {
+		ClearFlag(-p_x);
+		rtrue;
+	}
 #IfV5;
 	@log_shift p_x (-3) -> _val;
 	p_x = p_x & 7;
@@ -106,13 +118,17 @@ Array game_flags -> (FLAG_COUNT + 1) / 8 + ((FLAG_COUNT + 1) & 7 > 0);
 	_val = p_x / 8;
 	game_flags -> _val = game_flags -> _val | flag_powers -> (p_x & 7);
 #EndIf;
-	if(p_y) SetFlag(p_y, p_z);
 ];
 
 [ ClearFlag p_x p_y p_z _val;
 #Iftrue RUNTIME_ERRORS > RTE_MINIMUM;
 	if(IncorrectFlagNumber(p_x)) rfalse;
 #Endif;
+	if(p_y) ClearFlag(p_y, p_z);
+	if(p_x < 0) {
+		SetFlag(-p_x);
+		rtrue;
+	}
 #IfV5;
 	@log_shift p_x (-3) -> _val;
 	p_x = p_x & 7;
@@ -122,19 +138,22 @@ Array game_flags -> (FLAG_COUNT + 1) / 8 + ((FLAG_COUNT + 1) & 7 > 0);
 	_val = p_x / 8;
 	game_flags -> _val = game_flags -> _val & ~ flag_powers -> (p_x & 7);
 #EndIf;
-	if(p_y) ClearFlag(p_y, p_z);
 ];
 
-[ _FlagValue p_x _val;
+[ _FlagValue p_x _abs_p_x _val;
+	if(p_x >= 0) _abs_p_x = p_x; else _abs_p_x = -p_x;
 #IfV5;
-	@log_shift p_x (-3) -> _val;
-	p_x = p_x & 7;
-	@log_shift 1 p_x -> p_x;
-	return game_flags -> _val & p_x;
+	@log_shift _abs_p_x (-3) -> _val; ! Divide by 8
+	_abs_p_x = _abs_p_x & 7;
+	@log_shift 1 _abs_p_x -> _abs_p_x;
+	_val = game_flags -> _val & _abs_p_x;
 #IfNot;
-	_val = p_x / 8;
-	return game_flags -> _val & flag_powers -> (p_x & 7);
+	_val = _abs_p_x / 8;
+	_val = game_flags -> _val & flag_powers -> (_abs_p_x & 7);
 #EndIf;
+	if(p_x >= 0) return _val;
+	if(_val == 0) rtrue;
+	rfalse;
 ];
 
 [ FlagIsSet p_x p_y p_z;

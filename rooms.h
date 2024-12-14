@@ -123,7 +123,7 @@ Room morgue "Morgue"
                 open: "You hesitantly open one a crack and peek inside. Luckily, it's empty. ";
 				Take, Remove, Turn, Pull, Push: "You decide you don't really need morgue refrigerators. ";
 			]
-            'morgue' 'table' [;
+            3'stainless' 'steel' 'table' [;
                 examine:
                 "It's a narrow stainless steel table that stands about waist level. ";
                 take:
@@ -166,12 +166,290 @@ Room morgue "Morgue"
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room basement_hallway_east "Basement Hallway East"
     with description "This is the eastern end of a long dank hallway that continues far to the west. Linoleum tiles cover the floor. A door
-                leads east, a placard next to it reads ~Morgue~. An open doorway leads north, A sign above it reads ~Imaging~. ",
+                leads east, a placard next to it reads ~Morgue~. An open doorway leads north, A sign above it reads ~Imaging~. 
+                Finally, there's an open doorway to the south. A sign over the entrance reads ~M.R.I.~",
         e_to morgue_door,
         w_to elevator_lobby_b,
         n_to x_ray,
+        s_to mri_anteroom,
+        after [;
+            go:
+            if (real_location == self && selected_direction == n_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio_discover();
+            }
+        ]
     class Tiles
     has light; 
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_anteroom "MRI Anteroom"
+    with description "This is the MRI holding area and control room. A fancy glass and metal door leds east to the 
+        MRI scanner itself. A large control desk is here. Conveniently, you see two large buttons embedded in the control 
+        panel: one green, one red. 
+        A computer monitor sits on top of the desk. There's a large red sign on the wall next to the doorway to the 
+        scanner. ",
+        after [;
+            go:
+            if (selected_direction == w_to && real_location == self)
+            {
+                give scanner_door ~open;
+                print"With a 'hiss', the door swings closed behind you.^^";
+            }
+            if (real_location == self && selected_direction == w_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio_discover();
+                rtrue;
+            }
+            if (real_location == self && selected_direction == s_to && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                trio.move_mode = 0;
+                StopDaemon(trio);
+                StartDaemon(anteroom_timer);
+            }
+        ],
+        n_to basement_hallway_east,
+        e_to scanner_door
+    class Tiles
+    has light; 
+
+Object anteroom_timer
+    with 
+        counter 0,
+        daemon [;
+            if (self.counter == 4) { trio_catch(); };
+            self.counter++;
+        ];
+
+Object control_desk "control desk" mri_anteroom
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'control' && w2 == 'panel' or 'desk') return 2;
+            if (w1 == 'desk' or 'panel' or 'control') return 1;
+        ],
+        description "It's a hopelessly complicated control desk covered with knobs and buttons. A monitor 
+        is perched on top. Luckily, the important parts seem to be the large green and red buttons embedded in the center. ",
+    has supporter scenery container transparent;
+
+Object mri_start_daemon
+    with
+        count 0,
+        daemon [;
+            self.count++;
+            if (self.count == 4 && (real_location == mri_anteroom || real_location == mri_scanner || real_location == changing_room))
+            {
+                print"The mechanical whining from within the walls suddenly increases in volume and pitch as the MRI 
+                begins to spin up.^";
+            }
+            if (self.count == 5)
+            {
+                mri_handler();
+            }
+        ];
+
+Object mri_monitor "monitor" mri_anteroom
+    with
+        name 'monitor' 'crt' 'screen',
+        description "It's a boxy amber CRT monitor. ",
+        before [;
+            take:
+            "It seems to be fixed to the control desk. ";
+            read:
+            if(control_desk.time_left > 0) "It's currently displaying columns of indecipherable text. "; "The screen is currently blank. ";
+        ],
+    has scenery;
+
+Object green_button "green button" control_desk
+    with
+        name 'green' 'button',
+        description "It's a green button, just asking to be pressed. ",
+        before [;
+            push:
+            if (control_desk.time_left > 0) "Nothing seems to happen. ";
+            StartDaemon(mri_start_daemon);
+            "You press the button and the monitor suddenly fills with incomprehensible text and numbers. ";
+            ],
+    has scenery;
+
+Object red_button "red button" control_desk
+    with
+        name 'red' 'button',
+        description "It's a red button. ",
+        before [;
+            push:
+            if (control_desk.time_left > 0)
+            {
+                StopTimer(control_desk);
+                "The monitor screen goes blank and the mechanical whining from the next room spins down to it's 
+                previous level. ";
+            }
+            "Nothing seems to happen. ";
+            ],
+    has scenery;
+
+ !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ myDoor scanner_door "scanner room door" 
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'scanner' or 'mri' or 'glass' or 'metal' && w2 == 'door') return 2;
+            if (w1 == 'door') return 1;
+        ],
+        description"It's a glass and metal door, presumably made from non-magnetic metal. ",
+        npc_open [ npc;
+            if (TestScope(npc, player) && self hasnt open) print(The)npc," pushes open the door.^";
+            give self open;
+            give self ~locked;
+        ],
+        door_to [;
+            if (parent(self) == mri_anteroom) return mri_scanner; return mri_anteroom;
+        ],
+        door_dir [;
+            if (parent(self) == mri_anteroom) return e_to; return w_to;
+        ],
+        found_in mri_anteroom mri_scanner,
+    has scenery door openable open ~open;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room mri_scanner "MRI Scanner"
+    with
+        description [;
+            print "This nearly empty room is dominated by the MRI scanner occupying the center of it. The scanner 
+            itself is a large boxy structure with a narrow round opening in the side. A narrow padded bed is connected
+            to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
+            tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
+            leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
+            next to the exit.^";
+            if (self.room_is_trashed == true) 
+            {
+                print"Currently, the room is in shambles. Metal oxygen cannisters litter the floor and there are gaping holes 
+                in the walls and in the MRI machine itself. Sparks fly from the gashes in the electrical conduits lining 
+                the walls.^^";
+            }
+            if (injured_trio in self)
+            {
+                print"Nurse Retch, Vic, and Dr. Northrup are here groaning in pain on the ground.^";
+            }
+            if(letter in self && letter.fluttering == 1)
+            {
+                print"^A letter falls from Northrup's pocket and flutters to the floor.^";
+            }
+        ],
+        describe [; rtrue; ],
+        before [;
+            go:
+            if (selected_direction == w_to && trio in self)
+            {
+                "The angry trio blocks your exit.^";
+            }
+        ],
+        w_to scanner_door,
+        e_to changing_room,
+        room_is_trashed false,
+        after [;
+            go:
+            if (selected_direction == e_to && real_location == self)
+            {
+                give scanner_door ~open;
+                print"With a 'hiss', the door swings closed behind you.^^";
+            }
+            if (selected_direction == e_to && real_location == self && FlagIsSet(F_TRIO_IS_FOLLOWING))
+            {
+                !StopDaemon(trio);
+                StopDaemon(anteroom_timer);
+                StopDaemon(trio_contact_daemon);
+                trio.move_mode = 0;
+                move trio to self;
+                StartDaemon(final_daemon);
+                "The door opens after you and the angry trio of Northrup, Vic, and Retch pile into the room. 
+                Northrup is breathing hard and red-faced. He straightens his white coat and runs his hand through 
+                his hair in an effort to recover his dignity.^^
+                ~This ends now, my dear. We can't have any loose ends, you know.~";
+            }
+        ],
+    class Tiles
+    has light;  
+
+Object final_daemon 
+    with 
+        count 0,
+        daemon [;
+            switch(self.count)
+            {
+                4:
+                    trio_final();
+                    rtrue;
+                1:
+                    if (trio in real_location) print"Vic lets out an evil chuckle.^";
+                2:
+                    if (trio in real_location) print"Nurse Retch stares at you through crazy eyes.^";
+            }   
+            self.count++;
+        ];
+
+Object mri_machine "MRI machine" mri_scanner
+    with
+        name 'mri' 'machine' 'scanner',
+        description [;
+            print"It's a large boxy machine with a round opening in the side and a narrow padded platform at the mouth. ";
+            if(mri_scanner.room_is_trashed) "Currently, it's a smoking hulk of wreckage with holes punched in it and
+            sparks flying from it. "; "";
+        ],
+        before [;
+            enter:
+            "You climb partway into the narrow open in the MRI. You're immediately hit with a wave of claustrophobia and you climb back out. ";
+        ],
+    has scenery container open transparent;
+
+Object mri_platform "mri table" mri_scanner
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'mri' or 'scanner' && w2 == 'table' or 'platform' or 'bed') return 2;
+            if (w1 == 'table' or 'platform' or 'bed') return 1;
+        ],
+        description "It's a narrow padded table that the patient lies on while they slide in and out of the MRI scanner. ",
+    has scenery supporter enterable;  
+
+Object mri_warning_sign "warning sign" 
+    with
+        name 'sign' 'warning',
+        description "It's a large sign, quite insistent, with large red lettering and lots of exclamation points. ",
+        before [;
+            read:
+            "~Warning! Strong magnetic field! This magnet is always on! No loose metal objects! Objects made from or containing 
+            non-ferrous metals should not be taken into this room!~";
+        ],
+        found_in mri_scanner mri_anteroom,
+    has scenery; 
+
+Object holes "holes" 
+    with 
+        name 'gash' 'gashes' 'holes' 'hole',
+        description "There are large holes punched out of the walls and the machinery in the room. Sparks fly from exposed 
+        wiring and there's a haze of acrid smoke in the air. ",
+    has scenery;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Room changing_room "Changing Room" 
+    with 
+        description "This small dark alcove serves as a changing space for those robing or disrobing for their 
+        MRI scan. There's a small wooden bench built into the wall but the room is otherwise empty. 
+        The only way out is to the west. ",
+        w_to mri_scanner,
+        out_to mri_scanner,
+    class Tiles
+    has light;  
+
+OnChair bench "bench" changing_room
+    with 
+        name 'bench' 'platform',
+        description "It's a small wooden bench built into the wall.  ",
+    has scenery;    
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room elevator_lobby_b "Basement Elevator Lobby" 
@@ -206,7 +484,7 @@ Room stairwell_b "Basement Stairwell"
 Room basement_hallway_west "Basement Hallway @@64 Service Elevator"
     with description
         "This is nearly the midpoint of a long dreary east-west hallway. A service elevator is here to the north. A sign next to it 
-        reads ~Employees Only~.",
+        reads ~Employees Only~ and a small panel is embedded in the wall next to it. ",
         e_to elevator_lobby_b,
         w_to hallway_b1,
         n_to service_elevator_door,
@@ -240,7 +518,7 @@ Room hallway_b2 "Basement Hallway West"
 Room central_supply "Central Supply" 
     with description "This is a large open space crowded with dusty crates and defunct antique equipment. There are scattered low-wattage lamps 
     hanging from the ceiling but most of these have long ago burned out, leaving the room quite dark with grotesque shadows 
-    projected onto the cement walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
+    projected onto the concrete walls. An impossible tangle of pipes and conduits hangs from above. The only exit lies through a metal door to the
     north.",
     n_to central_supply_door,
     cheap_scenery
@@ -254,6 +532,78 @@ Room central_supply "Central Supply"
     ],
     class Tiles
     has light;
+
+Object oxygen_cart "oxygen cart" central_supply
+    with 
+        name 'metal' 'wheeled' 'cart',
+        article "an",
+        description"It's a metal wheeled cart. It's loaded with cannisters of oxygen. ",
+        mass 100,
+        before [ dirobj x;
+            take:
+                "It's far too heavy. ";
+            receive:
+                "The cart is already full. ";
+            push:
+                "You should supply a direction. ";
+            pushdir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
+                print"Wheels grinding and squeaking, you push the cart ";
+                !print"Wheels grinding and squeaking, you push the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue; 
+            pulldir:
+                dirobj = DirPropToFakeObj(selected_direction);
+                if (real_location.selected_direction == 0) "You can't go that way. ";
+                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
+                print"Wheels grinding and squeaking, you pull the cart ";
+                !print"Wheels grinding and squeaking, you pull the cart to the ";
+                x = selected_direction_index;
+                if (x == 7) print"inside";
+                if (x == 8) print"out";
+                if(x ~= 7 && x ~= 8)
+                {
+                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
+                    print (string) direction_name_array-->selected_direction_index;
+                }
+                print".^^";
+			    <Go dirobj>;
+			    move self to real_location;
+                rtrue;    
+        ],
+    has supporter;
+
+    Object oxygen_cannisters "oxygen cannisters" oxygen_cart
+        with 
+            parse_name [ w1 w2;
+                w1 = NextWord();
+                w2 = NextWord();
+                if (w1 == 'oxygen' && w2 == 'cannister' or 'cannisters') return 2;
+                if (w1 == 'oxygen' or 'cannister' or 'cannisters') return 1;
+            ],
+            description [;
+                print"They're large metal oxygen cannisters. ";
+                if (self in oxygen_cart) { print"They're stacked neatly on a metal cart. ";}  else { 
+                    print"They're haphazzardly scattered about the room. "; }
+                "Each one is labeled with a warning: Not for use in the vicinity of MRI machines. ";
+            ],
+            before [;
+                take:
+                "Each cannister is too heavy and unwieldy. ";
+            ] ,
+        has scenery;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor central_supply_door "door" 
@@ -373,6 +723,9 @@ Object telephone "telephone" environmental_services
         ],  
         describe [;
             rtrue;
+        ],
+        invent [ ;
+            if (inventory_stage == 2) rtrue;
         ],
     has scenery container open transparent;
 
@@ -794,93 +1147,6 @@ Room hallway_m1 "Junction"
     class Tiles DropCeiling
     has light;
 
-Object book_cart "book cart" b_ward_1
-    with name 'cart' 'wooden' 'book' 'wheeled',
-        description "It's the hospital's miniature lending library, a rickety wooden cart with shelves built into the sides
-        that you've been pushing from ward to ward for a month. The selection is small currently. There are a few romance novels
-        and old magazines currently on offer to any interested patients or guests. ",
-        mass 100,
-        before [ dirobj x;
-            take:
-                "It's far too heavy. ";
-            push:
-                "You should supply a direction. ";
-            pull:
-                "It would make more sense to push it. ";
-            pushdir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (real_location.selected_direction == 0) "You can't go that way. ";
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
-                print"Wheels grinding and squeaking, you push the cart ";
-                !print"Wheels grinding and squeaking, you push the cart to the ";
-                x = selected_direction_index;
-                if (x == 7) print"inside";
-                if (x == 8) print"out";
-                if(x ~= 7 && x ~= 8)
-                {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
-                    print (string) direction_name_array-->selected_direction_index;
-                }
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue; 
-            pulldir:
-                dirobj = DirPropToFakeObj(selected_direction);
-                if (real_location.selected_direction == 0) "You can't go that way. ";
-                if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
-                print"Wheels grinding and squeaking, you pull the cart ";
-                !print"Wheels grinding and squeaking, you pull the cart to the ";
-                x = selected_direction_index;
-                if (x == 7) print"inside";
-                if (x == 8) print"out";
-                if(x ~= 7 && x ~= 8)
-                {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
-                    print (string) direction_name_array-->selected_direction_index;
-                }
-                print".^^";
-			    <Go dirobj>;
-			    move self to real_location;
-                rtrue;    
-        ],
-    has supporter;
-
-Object novels "novels" book_cart
-    with 
-        parse_name [ w1 w2;
-            w1 = NextWord();
-            w2 = NextWord();
-            if (w1 == 'romance' && w2 == 'novel' or 'novels' or 'book' or 'book') return 2;
-            if (w1 == 'novels' or 'novel' or 'book' or 'books') return 1;
-        ],
-        description "It's a wide assortment of romance novels. You think about your grandmother who loves these things. ",
-        before [;
-            read:
-                "You flip through one at random. There's seems to be a lot of ~swelling~ and ~heaving~ taking place. ";
-            take:
-                "You have little interest in romance novels. ";
-        ],
-    has scenery pluralname;
-
-Object magazines "magazines" book_cart
-    with 
-        parse_name [ w1 ;
-            w1 = NextWord();
-            if (w1 == 'magazines' or 'magazine' or 'journal' or 'journals' or 'time' or 'people' or 'newsweek') return 1;
-        ],            
-        description "It's a motley collection of old magazines. You see issues of 'Time', 'People',
-            and 'Newsweek' among the stacks.",
-        before [;
-            take: 
-                "You're not really interested in any magazine that's not 'Teen Beat' or 'Seventeen'.";
-            read:
-                print"You flip through a random magazine. ";
-                read_news();
-                rtrue;
-        ],
-    has scenery pluralname;
-
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     with description "The hallway here continues east and west. An old dumbwaiter is embedded in the south wall. 
@@ -905,6 +1171,19 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
                 You can see darkness behind it. ";
             if (selected_direction == d_to) "You see a fairly nice dark blue carpet. ";
         ],
+        after [;
+            go:
+            if (real_location == self && selected_direction == e_to && ledger in player)
+            {
+                move trio to admin_hallway;
+                StartTimer(trio_follow_timer, 2);
+                StartDaemon(trio_contact_daemon);
+                if(real_location == hallway_m1 || real_location == hallway_m2)
+                    print"Suddenly, in the shadows down the corridor to the west you see a vague shape. In a moment you 
+                    see the trio of Dr. Northrup, Nurse Retch, and Vic step out of the gloom. ";
+                    if (ledger in player) "They don't look happy and their eyes are fixed on the ledger you're holding. "; ""; 
+            }
+        ],
         cheap_scenery
         2 'tile' 'tiles' [ ;
             examine:
@@ -917,6 +1196,8 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
     w_to admin_hallway,
     class Tiles DropCeiling
     has light;
+
+
 
 Object ajar_tile "tile" hallway_m2
     with 
@@ -1020,16 +1301,6 @@ Room main_lobby "Main Lobby"
             of ice and snow blowing sideways. ",
         n_to hallway_m1,
         w_to security_door,
-        each_turn [;
-            if (book_cart in self && mabel hasnt encountered) 
-            {
-		ActivateTopic(mabel, 300);
-		give mabel encountered;
-                "^Mabel sees the cart you're pushing. ~Let's see here. Which one of these trashy things haven't 
-                I read?~ She giggles a bit and plucks one from the cart. ~Ooh, look at the pecs on that hunk of sugar.~ 
-                She picks up a book titled 'Throbbing Loins of Nantucket'.";
-            }
-        ],
         before [;
             go:
                 if (selected_direction == s_to or out_to)
@@ -1078,7 +1349,7 @@ Room admin_hallway "Administration"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor jorry_door "plain wooden door" 
-    with name 'door' 'wooden' 'plain',
+    with name 'door' 'wooden' 'plain' 'north',
         description [;
             print"It's a plain wooden office door, currently ";
             open_or_closed(self);
@@ -1181,13 +1452,13 @@ Object aquarium "aquarium" jorry_office
             receive:
             "Louanne would politely request that you not litter her tank. ";
         ],
-    has scenery transparent container open;
+    has scenery transparent container openable;
 
 Object louanne "Louanne" aquarium 
     with 
         name 'python' 'snake' 'louanne',
         description "She's a two-foot long reticulated python although you have no way of knowing that, having no 
-        particular expertise in snakes. She's seems content to stay where she is but you would rather keep your distance. ",
+        particular expertise in snakes. She seems content to stay where she is but you would rather keep your distance. ",
         before [;
             talk:
             "She stares at you silently ";
@@ -1196,7 +1467,7 @@ Object louanne "Louanne" aquarium
             "Nope. Not gonna happen. ";
 
             take:
-            "When you were six you were terrified by the goofy snake in 'Jungle Book'and it scarred you for life. So, no. ";
+            "When you were six you were terrified by the goofy snake in 'Jungle Book' and it scarred you for life. So, no. ";
         ],
         life [;
             show, give:
@@ -1206,11 +1477,12 @@ Object louanne "Louanne" aquarium
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor northrup_door "fancy mahogany door" 
-    with name 'fancy' 'mahogany' 'door',
+    with name 'fancy' 'mahogany' 'door' 'south',
         description [;
             print"It's a thick dark wooden door, currently ";
             open_or_closed(self);
-            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~"; "";
+            if (real_location == admin_hallway) ". A small brass placard on it reads: ~Walt Northrup, M.D., President/CEO~";
+                ". You can lock or unlock it from this side. ";
         ],
         door_to [;
             if (parent(self) == northrup_office) return admin_hallway; return northrup_office;
@@ -1266,13 +1538,11 @@ Room northrup_office "Northrup's Office"
             go:
             if (selected_direction == u_to)
             {
-                print"You pull yourself awkwardly up onto the file cabinet and, from there, back up into the 
-                dark dirty ceiling. You're actually starting to wonder if summer school wouldn't be so bad after all.^^";
-                rfalse;
+                "Even with the file cabinet, the opening in the ceiling is out of reach. ";
             }
             examine:
             if(selected_direction == u_to) "You see a tile drop ceiling. ";
-            if(selected_direction == d_to) "You see blue carpet. ";
+            if(selected_direction == d_to) "You see beige carpet. ";
         ],
     n_to northrup_door,
     u_to ceiling_05,
@@ -1280,6 +1550,11 @@ Room northrup_office "Northrup's Office"
 
 Object bookcase "bookcase" northrup_office
     with 
+        parse_name [ w1;
+            w1 = NextWord();
+            if (w1 == 'shelf' or 'shelves' or 'bookcase' or 'bookshelf' or 'bookshelves') return 1;
+        ],
+
         name 'bookcase' 'shelves' 'bookshelf' 'shelf',
         description "They're dark wooden shelves, seemingly hand-made to match the desk. They're full of 
             numerous books which you don't need. ",
@@ -1295,7 +1570,7 @@ Object medical_books "medical books" northrup_office
             read:
             "You already know everything you need to know about the pineal gland. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object northrup_paintings "paintings" northrup_office
     with
@@ -1305,7 +1580,7 @@ Object northrup_paintings "paintings" northrup_office
             take:
             "They're lovely but you don't need them. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object northrup_desk "mahogany desk" northrup_office
     with
@@ -1328,10 +1603,7 @@ Object file_cabinet "file cabinet" northrup_office
             go:
             if(selected_direction == u_to && player in self)
             {
-                print"Tiptoeing carefully on the file cabin, you are able to reach up through the gap in the ceiling
-                tiles. Grabbing hold of a sturdy pipe, you pull yourself up and into the dark space above the office,^^";
-                PlayerTo(ceiling_05);
-                rtrue;
+                "Even syanding on the file cabinet you can't reach the opening in the ceiling. ";
             }
             if(player in self) 
             {
@@ -1423,7 +1695,7 @@ Object combo_dial "dial" northrup_office
             if (SAFE_CYCLE == 2 && second == SAFE_3)
             {
                 give northrup_safe ~locked;
-                Achieved(12);
+                Achieved(14);
                 SetFlag(F_SAFE_IS_OPEN);
                 "You hear a faint ~click~ from within the safe door. "; 
             }  
@@ -1479,10 +1751,14 @@ Room hallway_2_3 "Second Floor Hallway East"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room x_ray "X-Ray Suite" 
-    with description"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
+    with 
+        description [;
+        print"This white-tiled room is occupied by a metal exam table positioned below the x-ray camera 
         hanging down from rails in the ceiling. White translucent viewing boxes are mounted to one wall; these
-        are currently turned off. The exit lies through an 
-        open arch to the south and there's an unmarked door to the east. ",
+        are currently turned ";
+        if (viewing_boxes has on) { print "on"; } else { print "off"; }
+        ". The exit lies through an open arch to the south and there's an unmarked door to the east. ";
+        ],
         s_to basement_hallway_east,
         e_to darkroom_door,
     class Tiles DropCeiling
@@ -1515,7 +1791,7 @@ Object rails "rails" x_ray
             take:
                 "You can't reach them and don't need them. ";
         ],
-    has scenery;
+    has scenery pluralname;
 
 Object viewing_boxes "viewing boxes" x_ray 
     with name 'viewing' 'box' 'boxes//p',
@@ -1530,13 +1806,11 @@ Object viewing_boxes "viewing boxes" x_ray
         ],
         before [;
             switchon:
-                give self on;
-                "You flick the switch and the viewing boxes flicker alight.";
+                if (self hasnt on) { give self on; "You flick the switch and the viewing boxes flicker alight."; } "They're already on. ";
             switchoff:
-                give self ~on;
-                "You flick the switch and the viewing boxes flicker off. ";
+                if (self has on) { give self ~on; "You flick the switch and the viewing boxes flicker off. "; } "They're already off. ";
         ],
-    has scenery switchable;
+    has scenery switchable pluralname;
 
 Object box_switch "switch" x_ray
     with name 'switch' 'toggle',
@@ -1546,6 +1820,10 @@ Object box_switch "switch" x_ray
                 if (viewing_boxes has on)   <<switchoff viewing_boxes>>; else <<switchon viewing_boxes>>;
             take:
                 "It's fixed to the viewing boxes. ";
+            switchon:
+                <<switchon viewing_boxes>>;
+            switchoff:
+                <<switchoff viewing_boxes>>;
         ],
     has scenery;
 
@@ -1570,7 +1848,7 @@ Object box_switch "switch" x_ray
 Room darkroom "Darkroom" 
     with 
         description "This is a small darkroom off of the main x-ray suite. There's a metal basin and tiled counter running 
-            along one wall and metal shelves stacked neatly with bottle of chemicals along another. There's a strong 
+            along one wall and metal shelves stacked neatly with bottles of chemicals along another. There's a strong 
             chemical smell in here and if you stay much longer you may get a headache. The exit lies through a door
             to the west. ",
         w_to darkroom_door, 
@@ -1578,6 +1856,8 @@ Room darkroom "Darkroom"
             smell:
             "It smells like when your grandmother cleans her oven. ";
         ],
+        cheap_scenery
+        4 'bottles' 'chemicals' 'bottle' 'chemical' "They look toxic and best left to the experts. ",
     class Tiles DropCeiling
     has light;
 
@@ -1586,7 +1866,7 @@ MyContainer darkroom_basin "basin" darkroom
         name 'metal' 'basin',
         description "It's a metal basin built into the counter. ",
         max_capacity 20,
-    has scenery; 
+    has scenery container open; 
 
 Object darkroom_counter "counter" darkroom
     with 
@@ -1635,8 +1915,7 @@ Room a_ward_1 "Ward A - East"
 Room room_23 "Room 23"
     with description "This is an unassuming patient room. The wallpaper is an unsoothing red and a bed is pushed 
         head-first against the wall. A cast-iron radiator drips and hisses under the window. A doorway 
-        leads south back out to the hallway. A bed is pushed against one wall and the exit is through a doorway 
-        to the south. ",
+        leads south back out to the hallway. ",
         s_to a_ward_1,
         cheap_scenery
         4 'cast' 'iron' 'cast-iron' 'radiator' [;
@@ -1645,16 +1924,16 @@ Room room_23 "Room 23"
             take, touch, pull, push:
             print(string)RADIATOR_TOUCH; rtrue;
         ]
-        'bed' 'hospital' [;
-            examine:
-            "It's a standard hospital bed, current occupied by Lt. Worthless. ";
-            take:
-            "To what purpose?";
-            enter:
-            "Lt. Worthless is already there. ";
-        ],
     class Tiles DropCeiling
     has light;
+
+Bed room_23_bed "hospital bed" room_23
+    with name 'hospital' 'bed',
+        description "It's a standard hospital bed. ",
+        before [;
+            enter:
+                "It's not a sleepover. ";
+        ];  
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Room room_24 "Room 24"
@@ -1772,8 +2051,7 @@ OnChair break_room_chair "vinyl chair" break_room
 
 Object refrigerator "refrigerator" break_room 
     with name 'refrigerator' 'fridge',
-        description "It's an old off-white refrigerator. A handwritten note taped to the front helpfully reminds the reader 
-            that their mother doesn't work here and that one should only eat one's own food. ",
+        description "It's an old off-white refrigerator. A handwritten note is taped to the front. ",
         before [;
             take:
                 "You don't possess the power of levitation. You do seem to possess the power of delusion. ";
@@ -1794,8 +2072,8 @@ Object fridge_sign "refrigerator sign" break_room
         ],
     has scenery;
 
-Object fridge_stuff "smelly collection of tupperware and condiments" refrigerator
-    with name 'smelly' 'collection' 'tupperware' 'condiments',
+Object fridge_stuff "smelly collection of Tupperware and condiments" refrigerator
+    with name 'smelly' 'collection' 'Tupperware' 'condiments',
         description "It's an assortment of plastic containers each one labelled with the owner's name. You can also see various bottles and 
             containers of out-of-date condiments. ",
         before [;
@@ -1809,7 +2087,7 @@ Object fridge_stuff "smelly collection of tupperware and condiments" refrigerato
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
     with description "This is the middle of a short dimly lit corridor that continues to the east and west.  
-        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        The floor and walls here are dark gray concrete and fluorescent tubes flicker and buzz annoyingly from above. 
         A service elevator is here to the north. A sign next to it reads ~Employees Only~.",
     n_to service_elevator_door,
     in_to service_elevator_door,
@@ -1821,14 +2099,16 @@ Object sub_basement_02 "Sub-Basement @@64 Service Elevator"
 Object sub_basement_03 "Sub-Basement East"
     with description [;
         print"This is the eastern end of a short dimly lit corridor that returns to the west.  
-        The floor and walls here are dark gray cement and fluorescent tubes flicker and buzz annoyingly from above. 
+        The floor and walls here are dark gray concrete and fluorescent tubes flicker and buzz annoyingly from above. 
         A plain door here to the south is labelled ~Restroom~. ";
         if (vic in bathroom) print(string) BATHROOM_OCCUPIED; else print(string) BATHROOM_VACANT;
         "";            
     ],
     cheap_scenery
     3 'red' 'occupied' 'sign' "It's a small red ~Occupied~ sign in the door. "
-    3 'green' 'occupied' 'sign' "It's a small green ~Vacant~ sign in the door. ",
+    3 'green' 'occupied' 'sign' "It's a small green ~Vacant~ sign in the door. "
+    'fluorescent' 'tubes' "They're standard industrial fluorescent lights. "
+    'wall' 'floors' "You see unremarkable industrial concrete. ",
     w_to sub_basement_02,
     s_to bathroom_door,
     in_to bathroom_door,
@@ -1893,8 +2173,8 @@ Object bathroom "Bathroom"
         description "It's a small minimal bathroom with a toilet, faucets, and sink. It smells really bad in here and 
         you long for the relative fresh air of the hallway. ",
         cheap_scenery
-        'sink' 'basin' "It's a chipped porcelain sink that was once white but has faded with time. "
-        'faucets' 'faucets' "They're standard metal handles, fairly rusted. "
+        'sink' 'basin' "It's a chipped porcelain sink that was once white but has yellowed with time. "
+        4 'faucets' 'faucets' 'tap' 'taps' "They're standard metal handles, fairly rusted. "
         1 'toilet' "Well, it's a toilet. There's nothing in it, thankfully. ",
         n_to bathroom_door,
         out_to bathroom_door,
@@ -1940,12 +2220,12 @@ Object sub_basement_01 "Sub-Basement West"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object boiler_room "Boiler Room" 
-    with description "You're standing in a high arched stone and cement-lined space populated buy massive black 
+    with description "You're standing in a high arched stone and concrete-lined space populated by massive black 
     boilers, squatting against the walls like sleeping dinosaurs. They're all closed and covered with thick coats of dust. 
     A half-dozen metal lamps hang down from the ceiling above, although you can't actually make out the ceiling in the gloom.
     A dented thick metal door leads east. It looks like someone has been killing time here and it smells like your Uncle Vincent. ",
         cheap_scenery
-        'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the cement and stone floor. "
+        'boiler' 'boilers' "Each boiler is a black metal hulk squatting on the concrete and stone floor. "
         5 'metal' 'lamp' 'lamps' 'light' 'lights' "They're dusty black lamps hanging from the darkness above. ",
         after [;
             go:
@@ -1962,13 +2242,10 @@ Object boiler_room "Boiler Room"
             "It smells like aftershave and cigarettes. ";
             examine:
             if(selected_direction == u_to)  "You see a tangle of pipes and ducts. ";
-            if(selected_direction == d_to)  "The floor is gray cement. ";
+            if(selected_direction == d_to)  "The floor is gray concrete. ";
         ],
     e_to boiler_door,
     has light;  
-
-
-
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ceiling_01 "In The Ceiling"
@@ -2035,7 +2312,7 @@ Object ceiling_05 "In The Ceiling"
         and movement to the south is blocked by a large duct. You can crawl north along a network of 
         pipes and brackets into darkness. A tile in the drop-ceiling below is askew, allowing you to look 
         down into an office below. Directly underneath you lies a tall file cabinet that you could probably
-        lower yourself down onto. ";
+        lower yourself down onto, although you probably won't be able to get back up this way. ";
         if (northrup in northrup_office) print"^Below you, Dr. Walt Northrup is seated at a large mahogany desk. ";
         if (nurse_retch in northrup_office) print"Nurse Retch is down there as well. ";
         "";
@@ -2084,7 +2361,7 @@ Object ceiling_05 "In The Ceiling"
                 ~I don't think the candy striper actually knows anything. If she gets too nosy my brother can take care of her,~ 
                 you hear from Nurse Retch.^^
                 After a moment of agitated back-and-forth, Northrup stands up and they leave the office together. You hear the door close behind
-                the and the ~click~ of the lock. ";
+                them and then the ~click~ of the lock. ";
             }
         ],
         n_to ceiling_03,

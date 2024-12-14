@@ -24,8 +24,8 @@ Class MyNPC
             {
                 if(noun == u_obj) { print"You head up the stairs.^"; rfalse; }
                 if(noun == d_obj) { print"You head down the stairs.^"; rfalse; }
-                if(noun == in_obj) { print"You head inside.^"; rfalse; }
-                if(noun == out_obj) { print"You head out.^"; rfalse; }
+                !if(noun == in_obj) { print"You head inside.^"; rfalse; }
+                !if(noun == out_obj) { print"You head out.^"; rfalse; }
                 print"You head off to the ",(name)noun,".^";
             }
         ],
@@ -70,7 +70,6 @@ Object oliver "Oliver" morgue
                 air_supply_tape: "~They're a little too sedating for my taste.~";
                 shrimp: "~Ugh! Get that out of my face.~";
                 ledger: "~That looks like it might be important to someone else.~";
-                book_cart: "~No thanks. I don't need any romance novels.~";
                 default: "~Yes, ",(the)noun," is very nice,~ he waves you away impatiently. ";
             }
         ],
@@ -161,6 +160,8 @@ Object freddy "Freddy" hallway_m2
             if (FlagIsSet(F_FREDDY_ASLEEP)) "He's literally asleep on his feet. ";
             if(self has encountered) "";
             give self encountered;
+            ActivateTopic(buzz, 301);
+            ActivateTopic(becky, 309);
             "He's the third-shift security guard. He's also the drummer in a local band, The Roomy Sedans, and spends his days 
             rehearsing in his cousin's garage, leaving him quite sleep-deprived in the evening. This arrangement seems less
             than ideal. His uncle is on the hospital board but that's probably just coincidence. ";
@@ -332,7 +333,6 @@ Object eugene "Eugene" hallway_b2
                 thriller: "~'Thriller'? Never heard of it.~";
                 air_supply_tape: "~That's for you. It's real music.~";
                 shrimp: "~Ohh, that's bad.~";
-                book_cart: "~No thanks. I've got enough books and the missus subscribes to 'People'.~";
                 default: "Eugene politely feigns interest in ",(the)noun,".";
             }
         ],
@@ -391,7 +391,6 @@ Object vic "Vic" bathroom
                 swipe_card: "~I don't think you're supposed to have that, 
                     little lady. Can't have you getting in trouble down here.~ He smiles a sickly leer. ";
                 walkman: "~Sure, little lady. You play your music.~";
-                book_cart: "~Yeah, you keep to your books, candy striper. ";
                 default:
                     "Vic smiles a lupine grin. ~Yeah, that's super.~";
             }
@@ -408,9 +407,8 @@ Object vic "Vic" bathroom
             give self encountered;
             SetFlag(F_HAVE_MET_VIC);
             ActivateTopic(nurse_retch, 305);
-            ActivateTopic(worthless, 301);
             "^A tall menacing gentleman is here. You're reminded of a movie that came out earlier this year called ~Scarface~. You only saw the trailer 
-            since gangsters aren't your thing. But if there are real hit-men out there, this guy certainly would fit the description.  
+            since gangsters aren't your thing. But if there are real hit men out there, this guy certainly would fit the description.  
             He's wearing an ill-fitting hospital maintenance uniform that doesn't appear to be his. Pinned to his shirt there's an ID badge 
             that actually appears to be a ~Chuck E. Cheese~ employee ID with the name ~Vic~ crudely drawn over it in black marker. ";
         ],
@@ -464,6 +462,7 @@ Object mabel "Mabel" main_lobby
             print"^Mabel is here, occupying the information desk. ";
             if(self has encountered) "";
             ActivateTopic(buzz, 300);
+            give self encountered;
             "She's an elderly lady who volunteers at St. Asterix. Currently, she's manning the information desk. She would have gone 
             home hours ago but the blizzard left her stuck here. She sees you enter and waves with a smile. ";
         ],
@@ -481,7 +480,6 @@ Object mabel "Mabel" main_lobby
                 shrimp: "~Ooh, girl. You need to throw that rotten thing away before somebody gets sick.~";
                 ledger: "She flips through the pages. ~You be careful now, girl. I don't know what this means but I 
                     have a feeling somebody might come after it.~";
-                book_cart: "~Girl, you know I like perusing the romance books.~";
                 default:
                     "Bemused, she smiles at ",(the)noun,".";
             }
@@ -505,7 +503,6 @@ Object becky "Becky" station_a
             give self encountered;
             ActivateTopic(mabel, 304);
             ActivateTopic(elliot, 300);
-            ActivateTopic(worthless, 300);
             "She's the nurse on duty tonight on Ward A. ";
         ],
         life [;
@@ -519,7 +516,6 @@ Object becky "Becky" station_a
                 swipe_card: "~That's a security swipe card. I don't think they give those to the candy stripers.~";
                 thriller: "~Oh, I LOVE that album.~";
                 shrimp: "She holds her nose. ~Oh, get that away.~";
-                book_cart: "She takes a quick peek at the books and magazines. ~No thanks. I think I'm caught up.~";
                 default:
                     "She politely feigns interest in ",(the)noun,".";
             }
@@ -582,13 +578,14 @@ Object nurse_retch "Nurse Retch" station_b
                 finish out your time here.~";
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;
-            }
                 StartDaemon(nurse_retch);
+                rtrue;
+            }
             switch(noun)
             {
                 swipe_card: "She eyes you suspiciously. ~Where did you get that? You're not supposed to have that.~"; 
                 shrimp: "She grimaces and waves her hand. ";
-                book_cart: "~Yes, you should stick to your duties, candy striper.~";
+                form: "She shakes her head. ~No, I think you need to get someone else to sign that.~";
                 default:
                 print_ret"Annoyed, she ignores ",(the)noun,".";
             }
@@ -597,7 +594,7 @@ Object nurse_retch "Nurse Retch" station_b
             if (_d == northrup_door)
             {
                 self.hide = 1;
-                print"passes through the door to the south and closes it behind her. It locks with a ~click~";
+                print"Retch unlocks the door and enters the office. ";
             }
         ],
         npc_arrived [;
@@ -615,6 +612,7 @@ Object nurse_retch "Nurse Retch" station_b
                 give northrup_door locked;
                 move self to northrup_office;
                 scope_modified = true;
+                print"^She closes the door behind her and you hear a 'click'.^";
                 rtrue;
             }
         ],
@@ -626,7 +624,8 @@ Object nurse_retch "Nurse Retch" station_b
                 He must be getting sloppy. I don't think she knows anything else, though.~ She pauses and there's a 
                 voice on the other end. ~Yeah, I know. Just in case, I've stashed the potassium until the storm passes and the 
                 cops leave. I'll have a chat with our careless associate later.~^^
-                She hangs up the phone and turns, surprised, to see you. She nods curtly and leaves the room to the south.^"; 
+                She hangs up the phone and seems to put something in the cabinet. She then turns, surprised, to see you. She nods curtly and 
+                leaves the room to the south.^"; 
                 move self to hallway_b2;
                 move kcl_bottle to storage_cabinet;
                 nurse_retch.move_mode = TARGET_PATH;
@@ -664,26 +663,41 @@ Object winston "Mr. Winston" hallway_2_3
                 form: add_signature(self); rtrue;
                 walkman: "~Yeah, my wife has one of those for her Wayne Newton tapes.~";
                 shrimp: "~I think your dinner has turned.~";
-                book_cart: "~Naw, I don't think there's anything left on that cart for me.~";
                 default:
                 "He nods at ",(the)noun," but otherwise seems utterly disinterested. ";
             }
         ],
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 5,
+        npc_wander_delay 6,
         npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
 
 Object winston_pole "IV pole" winston
-    with name 'iv' 'i.v.' 'pole',
+    with name 'iv' 'pole',
         description"It's a wheeled metal pole with a hook at the top for hanging IV fluids. There's a clear bag of 
             saline hooked to it. ",
         before [;
             take:
                 if (noun == self) "You should leave Winston's IV alone. ";
             ], 
-    has static;
+    has static container open transparent;
+
+Object iv_bag "bag of saline" winston_pole 
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = Nextword();
+            if (w1 == 'saline' && w2 == 'bag') return 2;
+            if (w1 == 'iv' && w2 == 'bag') return 2;
+            if (w1 == 'saline' or 'bag') return 1;
+        ],
+        description "It's a clear bag of saline. ",
+    before [;
+        take:
+            "You don't need Mr. Winston's bag of salt water. ";
+    ],
+has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ms_parsons "Ms. Parsons" room_22
@@ -736,7 +750,6 @@ Object larry "Larry" room_33
             {
                 form: add_signature(self); rtrue;
                 walkman, mixtape, thriller, air_supply_tape: "~Yeah, I'm not really much into music.~";
-                book_cart: "~No thanks. I'm just gonna listen to the game.~";
                 ledger: "~Hm. That looks like something the police may be interested in.~";
                 default:
                 "~Sorry, I'm not really interested in that.~";
@@ -762,7 +775,7 @@ Object mrs_chen "Mrs. Chen" room_21
             "^Mrs. Chen is lying in the bed. ";
         ],
         signature_desc [;
-            "She seems unsure what you want from her but she takes the pen and scrawls something, anyway. Smiling sweetly, 
+            "She seems unsure what you want from her but she takes the pen and scrawls something anyway. Smiling sweetly, 
             she hands it back and nods. ";
         ],
         before [;
@@ -778,161 +791,26 @@ Object mrs_chen "Mrs. Chen" room_21
     has animate female proper transparent; 
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object worthless "Lt. Worthless" room_23 
-    with 
-        name 'worthless' 'cop' 'lieutenant' 'patient',
-        description"He's a paunchy man in his 40s with surprisingly well-coifed black hair. He's wearing 
-        a blue patient gown. Somewhow he's attached his badge to the front of it. ",
-        hide,
-        evidence_count 0,
-        describe [;
-            if (self has encountered)
-            {
-                "^Lt. Worthless is here, reclining in the bed. ";
-            }
-            else
-            {
-                give self encountered;
-                "^Lt. Worthless is here, lounging in the bed. He's a local homicide detective who happened to be 
-                admitted earlier today for a medical procedure and he's enjoying the attention and intermittent morphine.
-                Around the station, he's known for his multiple divorces and not for his acumen as an investigator. ";
-            }
-        ],
-        signature_desc [;
-            "~Sure, I'll sign. If you promise to leave me alone and let me enjoy my morphine.~";
-        ],
-        before [;
-            talk:
-            if (FlagIsSet(F_ENDGAME)) "He simply hums to himself and smiles. ";
-        ],
-        life [;
-            give, show:
-            if (FlagIsSet(F_ENDGAME)) "He's seems more interested in his hands. ";
-            if (noun == walkman)
-            {
-                if (FlagIsSet(F_HEADPHONES_ARE_UNPLUGGED)) print"He plugs in the headphones. ";
-                if (walkman has open) { print"He closes the tape compartment. "; give walkman ~open; }
-                if (~~walkman_playing) { print "He presses the 'play' button. "; walkman_playing = true; }
-                print"He puts on the headphones and starts to listen. ";
-                if (jorry_tape in walkman)
-                {
-                    SetFlag(F_LT_HAS_HEARD_TAPE);
-                    "His eyes flicker as the tape plays, silently to you. After a moment, he stops the walkman and hands it back. 
-                    ~Yeah, right. Somebody recorded themselves reporting a crime. As if. That only happens on TV.~";
-                } else {
-                    "~I don't think this is the tape you want me to hear.~ He hands the walkman back. ";
-                }
-            }
-            if (noun == ledger)
-            {
-                SetFlag(F_LT_HAS_SEEN_LEDGER);
-                "He takes the ledger and thumbs through it. ~Oh, what is this? Math? I'll let the nerds back at the station deal with it.~
-                He hands it back to you. ";
-            }
-            if (noun == syringe)
-            {
-                SetFlag(F_LT_HAS_SEEN_SYRINGE);
-                "~Oh, what a surprise,~ he snorts sarcastically. ~Somebody found a syringe in a hospital. Maybe you're onto something but I 
-                doubt it.~ He hands it back to you. ~You should show it to the head nurse, see if she knows anything about it.~";  
-            }
-            if (noun == kcl_bottle)
-            {
-                SetFlag(F_LT_HAS_SEEN_KCL);
-                "~You found a bottle of medicine? So what. I've been taking awesome medicine all day. There may be something fishy going on 
-                but I think you're way off. If it makes you feel better I'd show it to one of the nurses.~";
-            }
-            switch(noun)
-            {                    
-                coaster: "~No thanks. I've got plenty of coasters from the cop bar across the street.~";
-                shrimp: "~Aw, man. That's rank. Get that outta here.~";
-                form: add_signature(self);
-                default:
-                "The good Lieutenant is completely disinterested in ",(the)noun,".";
-            }
-            rtrue;
-        ],
-        talk_array talk_array_worthless,
-        each_turn [;
-            if (FlagIsSet(F_LT_HAS_HEARD_TAPE) && FlagIsSet(F_LT_HAS_SEEN_KCL) && FlagIsSet(F_LT_HAS_SEEN_LEDGER) 
-                && FlagIsSet(F_LT_HAS_SEEN_SYRINGE))
-            {
-                print"^Just then, Lt. Rodriguez, a plain-clothes office with a competent air enters the room, flanked by
-                two uniformed officers. All three are dusted with snow.^^
-                Lt. Worthless yawns and scratches as Lt. Rodriguez examines the evidence you've collected and listens to your
-                story:^
-                Sid Jorry realized that Dr. Northup was bleeding money from the hospital so that he could cash out when the 
-                facility went under. Jorry recorded his findings in a ledger which, apparently, Northup found out about.^
-                Northrup, abetted by his loyal assistant Nurse Retch, hired Retch's brother Vic, a mafia hitman to do the deed. 
-                Retch passed him a syringe of potassium chloride, which stops the heart but isn't picked up on 
-                toxicology testing.^
-                Unfortunately for Vic, the blizzard trapped him in the hospital and he was forced to hide in the sub-basement. 
-                Retch sabotaged the service elevator so no one would find him down there, intending to restart the elevator after the
-                police had left.^^";
-                remove syringe;
-                remove ledger;
-                remove jorry_tape;
-                remove kcl_bottle;
-                you_win();
-            }
-        ],
-    has animate transparent proper;
-
-Object worthless_badge "badge" worthless
-    with 
-        name 'badge',
-        description "It's a gold shield incongruously stuck to the front of Lt. Worthless' hospital gown. ",
-        before [;
-            take:
-            "You shouldn't take a cop's badge.";
-        ],
-        mass 2;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object rodriguez "Lt. Rodriguez"
-    with 
-        name 'rodriguez' 'cop' 'lieutenant',
-        description "He's a short, trim, dark-skinned gentleman with shirt brown hair
-        and piercing dark eyes. ",
-        before [;
-            talk:
-            "He seems a man of few words. ";
-        ],
-        hide true,
-        life [;
-            give, show:
-            "He's already seen what he needs to see. ";
-        ],
-    has animate proper transparent;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object cop_duo "uniformed officers"
-    with 
-        name 'cops' 'police' 'uniformed' 'officers',
-        description "They're a pair of uniformed officers, one tall red-head with a bright bushy mustache, one 
-        short, squat, and bald. ",
-        hide true,
-        before [;
-            talk:
-            "They don't seem very talkative. ";
-        ],
-        life [;
-            "They're pretty much just here for show. ";
-        ],
-    has pluralname animate transparent;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object trio "Retch, Northrup, and Vic" 
     with 
         id 0, ! 1 = northrup, 2 = retch, 3 = vic
         parse_name [ w1 w2;
             w1 = NextWord();
             w2 = NextWord();
-            if ((w1 == 'northrup' or 'doctor') && w2 == 0) { self.id = 1; return 1; }
             if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
-            if ((w1 == 'retch' or 'nurse') && w2 == 0) { self.id = 2; return 1; }
             if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
-            if (w1 == 'vic' && w2 == 0) { self.id = 3; return 1; }
+            if (w1 == 'nurse' or 'retch') { self.id = 2; return 1; }
+            if (w1 == 'vic') { self.id = 3; return 1; }
+            if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
         ],
+        npc_open_door [ _d;
+            if (_d == scanner_door)
+            {
+                self.hide = 1;
+                print"You see Vic open the door and poke his head through. ";
+            }
+        ],
+        npc_is_following true,
         hide,
         before [;
             talk:
@@ -950,14 +828,97 @@ Object trio "Retch, Northrup, and Vic"
         description [;
             switch (self.id)
             {
-                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by wide eyes 
-                and a red face. ";
-                2: "Her eyes seem to almost be glowing like hateful embers and you can clearly see prominent 
-                veins lining her temples. ";
-                3: "He's staring at his feet. ";
+                1: "His carefully coifed hair is disheveled and his patrician manner is betrayed by his red face 
+                and bulging forehead veins. ";
+                2: "She's breathing heavily and has crazy eyes. ";
+                3: "He's smiling creepily and has one hand ominously thrust into a pocket. ";
             }
         ],
+        npc_post_follow [;
+            if (self in real_location)
+            {
+                trio_catch();
+            }
+        ],
+        npc_post_move [ rm;
+            rm = parent(self);
+            
+            if (ledger in rm) 
+            {
+                move ledger to trio;
+            }   
+        ],
+    class Mover
+    has animate proper pluralname transparent; 
 
+Object trio_follow_timer 
+    with 
+        time_left,
+        time_out [;
+            if (FlagIsClear(F_TRIO_IS_FOLLOWING))
+            {
+                print"^From down the hall you hear Vic holler something about ~getting her~.^";
+                trio.move_mode = FOLLOW_PATH;
+                SetFlag(F_TRIO_IS_FOLLOWING);
+                StartDaemon(trio);  
+            }
+        ];
+
+Object trio_contact_daemon
+    with 
+        daemon [;
+            if (trio in real_location)
+            {
+                trio_catch();
+                rtrue;
+            }
+        ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object injured_trio "Retch, Northrup, and Vic" 
+    with 
+        id 0, ! 1 = northrup, 2 = retch, 3 = vic
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = NextWord();
+            if (w1 == 'doctor' && w2 == 'northrup') { self.id = 1; return 2; }
+            if (w1 == 'nurse' && w2 == 'retch') { self.id = 2; return 2; }
+            if (w1 == 'nurse' or 'retch') { self.id = 2; return 1; }
+            if (w1 == 'vic') { self.id = 3; return 1; }
+            if (w1 == 'northrup' or 'doctor') { self.id = 1; return 1; }
+        ],
+        describe [; rtrue; ],
+        description [;
+            switch (self.id)
+            {
+                1: "His carefully coifed hair is wildly disheveled as he lies, moaning, on the floor. ";
+                2: "She's groaning and curled up in a fetal position. ";
+                3: "He's lying motionless, eyes closed, groaning in pain. ";
+            }
+        ],
+        before [;
+            search:
+            switch (self.id) {
+                1: 
+                    if(parent(letter) == nothing)
+                    {
+                        move letter to parent(self);
+                        print"^You search the incapacitated physician. In an inner pocket you come across a letter. ";
+                        <take letter>;
+                        rtrue;
+                    }
+                2:
+                    "You pat down the moaning nurse but find nothing of interest. ";
+                3:
+                    if(parent(switchblade) == nothing)
+                    {
+                        move switchblade to parent(self);
+                        "Cautiously, you search the semi-conscious hit man and find a switchblade knife. ";
+                    }
+            }
+                rtrue;
+        ],
+    class Mover
     has animate proper pluralname transparent; 
 
 

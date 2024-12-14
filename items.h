@@ -642,11 +642,11 @@ Tape jorry_tape "green cassette tape" rock
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;
-    if (FlagIsClear(F_SAFE_COMBO_IS_SET))
-    {
-        init_safe();
-        SetFlag(F_SAFE_COMBO_IS_SET);
-    }
+    !if (FlagIsClear(F_SAFE_COMBO_IS_SET))
+    !{
+    init_safe();
+    !    SetFlag(F_SAFE_COMBO_IS_SET);
+    !}
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
     into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I plan to mail this to you 
     because I have information you may find interesting pertaining to possible financial misdealings perpetrated by 
@@ -846,7 +846,7 @@ Object syringe "syringe" jacket_pocket
     class Floatable Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object ladder "ladder" central_supply
+Object ladder "ladder" environmental_services
     with name 'ladder' 'metal' 'folding',
     mass 25,
         description [;
@@ -857,8 +857,33 @@ Object ladder "ladder" central_supply
             climb, enter:
             if (parent(self) == player) "You can't climb it if you're carrying it. ";
             if (self hasnt open) "You need to unfold the ladder first. ";
+            if (real_location == hallway_m2)
+            {
+                print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
+                grab onto some sturdy pipes that you see through the gap in the tiling and pull yourself into the ceiling above. 
+                Breathing heavily but victorious, you think back to P.E. class freshman year when you couldn't climb a knotted 
+                rope in gym class and Becky Harris laughed at you. Eat it Becky!^^";
+                PlayerTo(ceiling_01);
+                rtrue;
+            } 
             PlayerTo(self, 1);
             "You climb up onto the aluminum ladder. ";
+        ],
+        react_before [;
+            go:
+            if(selected_direction == u_to && player in self)
+            {
+                if (real_location == hallway_m2)
+                {
+                    print"You climb the creaky metal ladder nearly to the top. Once there, you are able to 
+                    grab onto some sturdy pipes that you see through the gap in the tiling and pull yourself into the ceiling above. 
+                    Breathing heavily but victorious, you think back to P.E. class freshman year when you couldn't climb a knotted 
+                    rope in gym class and Becky Harris laughed at you. Eat it Becky!^^";
+                    PlayerTo(ceiling_01);
+                    rtrue;
+                } 
+                "There's nowhere to go upward. ";
+            } 
         ],
     class Item
     has openable supporter enterable;
@@ -886,7 +911,7 @@ Object ledger "ledger" northrup_safe
         separated into columns and full of numbers written in fine handwritten ink. The whole think reeks
         of math and totally bores you. ",
         before [;
-            open:
+            open, read:
             "You flip through the pages of numbers and are immediately reminded of your algebra class freshman year and
             that weird guy you sat next to who would only shower, like, twice a week?";
         ],
@@ -928,23 +953,30 @@ Object form "signature form"
     class Item;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object letter "piece of paper" 
+Object letter "piece of paper"
     with 
         name 'letter' 'paper',
         description "It's a letter signed by Sid Jorry confirming your successful participation in 
         and completion of your volunteer experience at St. Asterix. ",
         mass 1,
+        describe [;
+            if (self in mri_scanner && self.fluttering == 1) { self.fluttering = 0; rtrue; }
+        ],
+        fluttering,
         before [;
             take:
-            Achieved(16);
-
+            Achieved(17);
             examine:
             if (self notin player) "You can't make out what's on the paper from here. ";
         ],
         after [;
             take:
             print"^You take the letter and see, to your joy and excitement, that it is indeed your signed letter of completion. 
-            You feel like you could kiss Mr. Jorry, if he weren't dead.^";
+            You feel like you could kiss Mr. Jorry, if he weren't already dead.^^ 
+            Just then, to your relief, several shivering police officers dusted with snow enter the room. The one in charge stops cold 
+            at the sight in front of her but you quickly bring her up to speed and, armed with the evidence you've collected, 
+            the mangled trio on the floor are read their rights and hustled away.^";
+
             if (SIGNATURE_COUNT > 7)
             {
                 print"^And having obtained all your necessary signatures, you happily end your time as a candy striper and 
@@ -959,6 +991,13 @@ Object letter "piece of paper"
                 rtrue;
         ],
     class Item;
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Object switchblade "switchblade knife"
+    with 
+        name 'knife' 'switchblade',
+        description "It's a nasty knife. ",
+        mass 1;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object pen "ballpoint pen" 
@@ -1056,6 +1095,7 @@ Object plastic "round piece of plastic" engineering
                 scope_modified = true;
                 ActivateTopic(nurse_retch, 306);
                 ActivateTopic(vic, 301);
+                Achieved(16);
                 rtrue;
             }
         ], 
@@ -1103,7 +1143,7 @@ Object balloon "helium balloon" room_22
         before [;
             tie:
             if (self.tied_to == second) "It's already tied to ",(the)second,".";
-            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".^";
+            if (~~second ofclass Item) "There's no good place to tie onto ",(the)second,".";
             if (self.tied_to ~= 0 && self.tied_to ~= player) "You would first need to untie it from ",(the)self.tied_to,".";
             if (self.tied_to == 0 && self.tied_to ~= player) { print"(first taking the balloon)^"; move self to player; }
             self.tied_to = second;
@@ -1164,29 +1204,13 @@ Object darkroom_flashlight "flashlight" darkroom_counter
         after [;
             switchon:
                 give self light;
+                print"^";
             switchoff:
                 give self ~light;
+                print"^";
 	    take:
 		Achieved(0);
         ],
     class Item
     has switchable;
-
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Object vans "vans"
-    with 
-        name 'vans' 'shoes',
-        description "They're your cool canvas shoes that you got last christmas. ",
-        mass 0,
-        before [;
-            disrobe:
-                "It's too cold to go around barefoot. ";
-        ],
-    has clothing pluralname;
-
-
-
-
-
-
 
