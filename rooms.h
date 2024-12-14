@@ -1467,7 +1467,7 @@ Object louanne "Louanne" aquarium
             "Nope. Not gonna happen. ";
 
             take:
-            "When you were six you were terrified by the goofy snake in 'Jungle Book'and it scarred you for life. So, no. ";
+            "When you were six you were terrified by the goofy snake in 'Jungle Book' and it scarred you for life. So, no. ";
         ],
         life [;
             show, give:
