@@ -668,20 +668,36 @@ Object winston "Mr. Winston" hallway_2_3
             }
         ],
         npc_walk [; print"pushes his IV pole";],
-        npc_wander_delay 5,
+        npc_wander_delay 6,
         npc_avoid winston_avoid_array, 
     class Mover MyNPC
     has animate proper transparent; 
 
 Object winston_pole "IV pole" winston
-    with name 'iv' 'i.v.' 'pole',
+    with name 'iv' 'pole',
         description"It's a wheeled metal pole with a hook at the top for hanging IV fluids. There's a clear bag of 
             saline hooked to it. ",
         before [;
             take:
                 if (noun == self) "You should leave Winston's IV alone. ";
             ], 
-    has static;
+    has static container open transparent;
+
+Object iv_bag "bag of saline" winston_pole 
+    with 
+        parse_name [ w1 w2;
+            w1 = NextWord();
+            w2 = Nextword();
+            if (w1 == 'saline' && w2 == 'bag') return 2;
+            if (w1 == 'iv' && w2 == 'bag') return 2;
+            if (w1 == 'saline' or 'bag') return 1;
+        ],
+        description "It's a clear bag of saline. ",
+    before [;
+        take:
+            "You don't need Mr. Winston's bag of salt water. ";
+    ],
+has static;
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Object ms_parsons "Ms. Parsons" room_22

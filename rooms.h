@@ -1603,10 +1603,7 @@ Object file_cabinet "file cabinet" northrup_office
             go:
             if(selected_direction == u_to && player in self)
             {
-                print"Tiptoeing carefully on the file cabin, you are able to reach up through the gap in the ceiling
-                tiles. Grabbing hold of a sturdy pipe, you pull yourself up and into the dark space above the office,^^";
-                PlayerTo(ceiling_05);
-                rtrue;
+                "Even syanding on the file cabinet you can't reach the opening in the ceiling. ";
             }
             if(player in self) 
             {
