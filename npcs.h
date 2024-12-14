@@ -578,9 +578,9 @@ Object nurse_retch "Nurse Retch" station_b
                 finish out your time here.~";
                 nurse_retch.move_mode = TARGET_PATH;
 	            nurse_retch.target_room = northrup_office;
+                StartDaemon(nurse_retch);
                 rtrue;
             }
-                StartDaemon(nurse_retch);
             switch(noun)
             {
                 swipe_card: "She eyes you suspiciously. ~Where did you get that? You're not supposed to have that.~"; 

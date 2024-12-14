@@ -322,7 +322,7 @@ Room mri_scanner "MRI Scanner"
             to the scanner. It sits on a platform and allows the bed to slide in and out of the bore of the scanner. A 
             tangle of pipes and conduits exits the machine and traverses the walls and ceiling. There's a narrow open doorway
             leading east and the doorway back to the control room lies to the west. A large red warning sign is posted
-            next to the exit.^^";
+            next to the exit.^";
             if (self.room_is_trashed == true) 
             {
                 print"Currently, the room is in shambles. Metal oxygen cannisters litter the floor and there are gaping holes 
@@ -533,7 +533,7 @@ Room central_supply "Central Supply"
     class Tiles
     has light;
 
-Object oxygen_cart "oxygen cart" mri_scanner !central_supply
+Object oxygen_cart "oxygen cart" central_supply
     with 
         name 'metal' 'wheeled' 'cart',
         article "an",
@@ -1349,7 +1349,7 @@ Room admin_hallway "Administration"
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor jorry_door "plain wooden door" 
-    with name 'door' 'wooden' 'plain',
+    with name 'door' 'wooden' 'plain' 'north',
         description [;
             print"It's a plain wooden office door, currently ";
             open_or_closed(self);
@@ -1477,7 +1477,7 @@ Object louanne "Louanne" aquarium
 
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  myDoor northrup_door "fancy mahogany door" 
-    with name 'fancy' 'mahogany' 'door',
+    with name 'fancy' 'mahogany' 'door' 'south',
         description [;
             print"It's a thick dark wooden door, currently ";
             open_or_closed(self);

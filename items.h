@@ -601,6 +601,7 @@ Object rock "rock" aquarium
                 give aquarium container;
                 give aquarium open;
                 move jorry_tape to aquarium;
+                init_safe();
                 "You lift the rock and find a green cassette tape lying under it. ";
             }
         ],
@@ -867,7 +868,7 @@ Object ladder "ladder" environmental_services
                 rtrue;
             } 
             PlayerTo(self, 1);
-            "You climb up ontooooo the aluminum ladder. ";
+            "You climb up onto the aluminum ladder. ";
         ],
         react_before [;
             go:
