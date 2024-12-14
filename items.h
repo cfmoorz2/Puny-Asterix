@@ -601,7 +601,6 @@ Object rock "rock" aquarium
                 give aquarium container;
                 give aquarium open;
                 move jorry_tape to aquarium;
-                init_safe();
                 "You lift the rock and find a green cassette tape lying under it. ";
             }
         ],
@@ -643,11 +642,11 @@ Tape jorry_tape "green cassette tape" rock
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;
-    if (FlagIsClear(F_SAFE_COMBO_IS_SET))
-    {
-        !init_safe();
-        SetFlag(F_SAFE_COMBO_IS_SET);
-    }
+    !if (FlagIsClear(F_SAFE_COMBO_IS_SET))
+    !{
+    init_safe();
+    !    SetFlag(F_SAFE_COMBO_IS_SET);
+    !}
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
     into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I plan to mail this to you 
     because I have information you may find interesting pertaining to possible financial misdealings perpetrated by 
@@ -966,7 +965,7 @@ Object letter "piece of paper"
         fluttering,
         before [;
             take:
-            Achieved(16);
+            Achieved(17);
             examine:
             if (self notin player) "You can't make out what's on the paper from here. ";
         ],
