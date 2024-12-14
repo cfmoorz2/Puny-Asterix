@@ -456,7 +456,7 @@ Include "VerbLib";
                     pummeled by the oxygen cannisters now turned into high-speed projectiles in the powerful 
                     magnetic field.^^";
                 } else {
-                    print"You throw your arms up in a vain attempt to sheild yourself from the flying missiles but
+                    print"You throw your arms up in a vain attempt to shield yourself from the flying missiles but
                     it's no use as they pummel you mercillessly.^^";
                 }
                 print"You are knocked unconsious but survive your ordeal. However, you require several weeks to recover, 
