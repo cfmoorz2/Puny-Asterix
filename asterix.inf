@@ -60,7 +60,7 @@ Attribute valuable;
 Attribute encountered;
 
 Release 1;
-Serial "241130";
+Serial "241217";
 
 Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
 !Constant INITIAL_LOCATION_VALUE = admin_hallway;
@@ -508,12 +508,5 @@ Object player_trio_daemon
             {
                 trio_discover();
             }
-    ];
+        ];
         
-#Ifdef USEINFORM;
-Include "Grammar";
-#Endif;
-
-!Verb 'hang'	 * held 'on' noun	-> PutOn;
-
-! ============================================================================ !

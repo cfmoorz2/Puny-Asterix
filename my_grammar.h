@@ -273,3 +273,15 @@ Extend 'pull' first
 [ pulldirsub; 
     "You can't pull ",(the)noun,".";
 ];
+
+!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!   ABOUT/CREDITS
+Verb meta 'about'
+	*                                           -> Credits;
+Verb meta 'credits'
+	*                                           -> Credits;
+
+[ creditssub ;
+    Banner();
+    "^Many thanks to Garry Francis, Mel Jason, and Javier Garza for input and playtesting.";
+];
