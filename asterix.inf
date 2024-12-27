@@ -60,7 +60,7 @@ Attribute valuable;
 Attribute encountered;
 
 Release 1;
-Serial "241217";
+Serial "241227";
 
 Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
 !Constant INITIAL_LOCATION_VALUE = admin_hallway;
@@ -391,7 +391,7 @@ Include "VerbLib";
     !SAFE_1 = 1;
     !SAFE_2 = 2;
     !SAFE_3 = 3;
-    "^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
+    !"^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;
