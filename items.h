@@ -644,7 +644,7 @@ Tape jorry_tape "green cassette tape" rock
     jorry_tape.current_track = 2;
     !if (FlagIsClear(F_SAFE_COMBO_IS_SET))
     !{
-    init_safe();
+    
     !    SetFlag(F_SAFE_COMBO_IS_SET);
     !}
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly

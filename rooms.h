@@ -279,9 +279,10 @@ Object red_button "red button" control_desk
         description "It's a red button. ",
         before [;
             push:
-            if (control_desk.time_left > 0)
+            if (mri_start_daemon.count > 0)
             {
-                StopTimer(control_desk);
+                StopDaemon(mri_start_daemon);
+                mri_start_daemon.count = 0;
                 "The monitor screen goes blank and the mechanical whining from the next room spins down to it's 
                 previous level. ";
             }
@@ -1173,7 +1174,7 @@ Room hallway_m2 "Main Hallway @@64 Dumbwaiter"
         ],
         after [;
             go:
-            if (real_location == self && selected_direction == e_to && ledger in player)
+            if (real_location == self && selected_direction == e_to && IndirectlyContains(player, ledger))
             {
                 move trio to admin_hallway;
                 StartTimer(trio_follow_timer, 2);

@@ -219,7 +219,7 @@ Include "puny.h";
 
 [ Initialise r temp;
     intro();
-    !init_safe();
+    init_safe();
     LookModeLongSub();
     r = random(10);
     SetTime(21 * 60 + r, 1); ! 1:05 am, each turn 5 minutes
