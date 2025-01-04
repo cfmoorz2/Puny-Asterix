@@ -441,6 +441,8 @@ Include "VerbLib";
                 { 
                     "You can't help but feel that you've perhaps done irreversible harm to your cause.^";
                 }
+            } else {
+            "^^In a moment, the noise abates and returns to its previous chirping and thumping.";
             }
         mri_scanner:
             print"The mechanical whining from the MRI scanner quickly changes in pitch and becomes louder.

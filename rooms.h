@@ -245,6 +245,8 @@ Object mri_start_daemon
             }
             if (self.count == 5)
             {
+                StopDaemon(self);
+                self.count = 0;
                 mri_handler();
             }
         ];
