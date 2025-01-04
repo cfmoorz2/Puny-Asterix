@@ -60,7 +60,7 @@ Attribute valuable;
 Attribute encountered;
 
 Release 1;
-Serial "241227";
+Serial "250104";
 
 Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
 !Constant INITIAL_LOCATION_VALUE = admin_hallway;
