@@ -18,7 +18,7 @@ Constant CUSTOM_ABBREVIATIONS;
 
 
 #Endif;
-
+Include "abbreviations.h";
 Constant Story	  "The Candy Striper of St. Asterix";
 Constant Headline   "^A Totally Tubular 80s IF Game by Charles Moore, Jr.^";
 #Ifv5;
