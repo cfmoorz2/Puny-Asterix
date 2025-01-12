@@ -16,7 +16,6 @@ Constant USEINFORM;
 Constant MANUAL_PRONOUNS;
 Constant CUSTOM_ABBREVIATIONS;
 
-
 #Endif;
 Include "abbreviations.h";
 Constant Story	  "The Candy Striper of St. Asterix";
@@ -55,6 +54,11 @@ Constant FREDDY_WAKES "^Freddy stirs and wakes in a daze.^^~Dude, what happened?
     He hands back your walkman.^";
 Constant BATHROOM_OCCUPIED "There's a small red sign embedded above the doorknob reading ~Occupied~.";
 Constant BATHROOM_VACANT "There's a small green sign embedded above the doorknob reading ~Vacant~.";
+Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
+!Constant INITIAL_LOCATION_VALUE = admin_hallway;
+Constant CUSTOM_PLAYER_OBJECT selfobj;
+
+Include "globals.h";
 
 Attribute valuable;
 Attribute encountered;
@@ -62,14 +66,8 @@ Attribute encountered;
 Release 1;
 Serial "250104";
 
-Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-!Constant INITIAL_LOCATION_VALUE = admin_hallway;
-
-Constant CUSTOM_PLAYER_OBJECT selfobj;
-
 #Ifndef USEINFORM;
 
-Include "globals.h";
 Global elevator_level = 0;
 Global elevator_call_level;
 Global elevator_active = false;
@@ -256,7 +254,6 @@ Include "elevator.h";
 Include "dumbwaiter.h";
 Include "service_elevator.h";
 Include "ext_flags.h";
-
 
 Object selfobj "you"
 	with
