@@ -13,7 +13,8 @@ Class Item
             !if (balloon in player) "You're already holding the balloon it's tied to. ";
             move balloon to player;
             scope_modified = true;
-            "Taken. ";
+            !"Taken. ";
+            <<untie balloon self>>;
         }
 
         insert:
