@@ -1592,8 +1592,10 @@ Object northrup_desk "mahogany desk" northrup_office
         before [;
             take:
             "You're just begging for a hernia. ";
+            unlock:
+            "You don't seem to have the proper key. ";
         ],
-    has scenery supporter;
+    has scenery supporter ~open lockable locked;
 
 Object file_cabinet "file cabinet" northrup_office
     with 

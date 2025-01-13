@@ -63,7 +63,16 @@ Object service_elevator "Service Elevator"
     has light;
 
 Object service_elevator_door "service elevator door"
-    with name 'door',
+    with 
+        parse_name [w1 w2 w3;
+            w1 = NextWord();
+            w2 = NextWord();
+            w3 = NextWord();
+            if (w1 == 'elevator' && w2 == 'door') return 2;
+            if (w1 == 'service' && w2 == 'elevator' && w3 == 'door') return 3;
+            if (w1 == 'door' && w2 == 0) return 1;
+        ],
+        name 'door',
         description [;
             print"It's a single metal sliding door. It's currently ";
             open_or_closed(self);". ";
