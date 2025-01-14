@@ -20,6 +20,7 @@ Constant CUSTOM_ABBREVIATIONS;
 Include "abbreviations.h";
 Constant Story	  "The Candy Striper of St. Asterix";
 Constant Headline   "^A Totally Tubular 80s IF Game by Charles Moore, Jr.^";
+
 #Ifv5;
 Constant OPTIONAL_PROVIDE_UNDO;
 #Endif;
@@ -63,8 +64,8 @@ Include "globals.h";
 Attribute valuable;
 Attribute encountered;
 
-Release 1;
-Serial "250113";
+Release 2;
+Serial "250114";
 
 #Ifndef USEINFORM;
 
