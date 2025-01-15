@@ -2354,6 +2354,9 @@ Object ceiling_05 "In The Ceiling"
             examine:
             if (selected_direction == d_to) "You notice one of the large tiles in the drop-ceiling here out of alignment. 
                 Through the gap you can see an office and a file cabinet below. ";
+            talk, shoutat, shout:
+                if (northrup in northrup_office)
+                    "You reconsider and decide to remain hidden instead. ";
         ],
 
         each_turn [;

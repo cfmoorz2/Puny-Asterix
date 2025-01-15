@@ -56,7 +56,7 @@ Constant FREDDY_WAKES "^Freddy stirs and wakes in a daze.^^~Dude, what happened?
 Constant BATHROOM_OCCUPIED "There's a small red sign embedded above the doorknob reading ~Occupied~.";
 Constant BATHROOM_VACANT "There's a small green sign embedded above the doorknob reading ~Vacant~.";
 Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-!Constant INITIAL_LOCATION_VALUE = admin_hallway;
+!Constant INITIAL_LOCATION_VALUE = ceiling_05;
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
 Include "globals.h";
@@ -65,7 +65,7 @@ Attribute valuable;
 Attribute encountered;
 
 Release 2;
-Serial "250114";
+Serial "250115";
 
 #Ifndef USEINFORM;
 
