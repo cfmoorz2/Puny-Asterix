@@ -3,10 +3,7 @@ Class MyContainer
         holding [counter i;
             objectloop(i in self)   {
                 counter = counter + i.mass;
-                !print"counter = ",counter,".^";
-                !print"added ",i.mass," to counter.^";
             }
-            !print"final counter = ",counter,"^";
             return counter;
         ],
         before [ x;
@@ -361,7 +358,6 @@ Room mri_scanner "MRI Scanner"
             }
             if (selected_direction == e_to && real_location == self && FlagIsSet(F_TRIO_IS_FOLLOWING))
             {
-                !StopDaemon(trio);
                 StopDaemon(anteroom_timer);
                 StopDaemon(trio_contact_daemon);
                 trio.move_mode = 0;
@@ -554,13 +550,11 @@ Object oxygen_cart "oxygen cart" central_supply
                 if (real_location.selected_direction == 0) "You can't go that way. ";
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't push it up or down stairs. ";
                 print"Wheels grinding and squeaking, you push the cart ";
-                !print"Wheels grinding and squeaking, you push the cart to the ";
                 x = selected_direction_index;
                 if (x == 7) print"inside";
                 if (x == 8) print"out";
                 if(x ~= 7 && x ~= 8)
                 {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
                     print (string) direction_name_array-->selected_direction_index;
                 }
                 print".^^";
@@ -572,13 +566,11 @@ Object oxygen_cart "oxygen cart" central_supply
                 if (real_location.selected_direction == 0) "You can't go that way. ";
                 if (dirobj ==  FAKE_U_OBJ or FAKE_D_OBJ) "You can't pull it up or down stairs. ";
                 print"Wheels grinding and squeaking, you pull the cart ";
-                !print"Wheels grinding and squeaking, you pull the cart to the ";
                 x = selected_direction_index;
                 if (x == 7) print"inside";
                 if (x == 8) print"out";
                 if(x ~= 7 && x ~= 8)
                 {
-                    !print (string) direction_name_array-->selected_direction_index; print" has index ",x,"^";
                     print (string) direction_name_array-->selected_direction_index;
                 }
                 print".^^";
@@ -1319,7 +1311,6 @@ Room main_lobby "Main Lobby"
             w1 = NextWord();
             w2 = NextWord();
             if (w1 == 'lobby' or 'double' or 'glass' && w2 == 'doors') return 2;
-            !if (w1 == 'lobby') return 1;
             if (w1 == 'doors') return 1;
             if (w1 == 'entrance') return 1;
         ],
@@ -1724,7 +1715,6 @@ Room elevator_lobby_2 "Second Floor Elevator Lobby"
     'sign' 'arrow' "The sign reads ~Ward B~ and the arrow points east. ",
     n_to stairwell_2,
     e_to hallway_2_3,
-    !e_to radiology,
     s_to elevator_doors,
     in_to elevator_doors,
     w_to hallway_2_1,

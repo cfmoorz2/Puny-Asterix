@@ -9,12 +9,9 @@ Class Button
             push:
                 if (self has on) "Pressing it again won't speed things up. "; 
                 if (elevator_active) "Nothing seems to happen. ";
-                !if (elevator_doors has open) "The elevator is already open and waiting. ";
                 switch(real_location)   {
                     elevator_lobby_m: self.call_level = 1;
                     elevator_lobby_2: self.call_level = 2;
-                    !elevator_lobby_3: self.call_level = 3;
-                    !print "^here elevator call level = ",elevator_call_level," self.call.level = ",self.elevator_call_level,"";
                 }
                 if (elevator_level == self.call_level)   {
                     give elevator_doors open;
@@ -206,8 +203,6 @@ Object main_elevator_daemon
             }
         if (elevator_call_level < elevator_level)   { elevator_level--;}
         if (elevator_call_level > elevator_level)   { elevator_level++;}
-        !print"^elevator level =",elevator_level;
-        !print"^call level = ",elevator_call_level,"^";
         ];
 
 Object close_door_timer 

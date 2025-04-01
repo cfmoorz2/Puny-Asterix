@@ -113,11 +113,9 @@ Extend 'turn'
     objectloop (direction in compass)
     {
         one_out = real_location.(direction.door_dir);
-        !print"one_out start = ",(name)one_out,"^";
         if (one_out ofclass myDoor)
         {
             one_out = one_out.door_to(direction.door_dir);
-            !print"one_out DOOR = ",(name)one_out,"^";
         } 
         if (one_out ofclass Room)
         {
@@ -131,16 +129,13 @@ Verb 'follow'
     * scope=FollowScope -> Follow;
 
 [FollowSub direction one_out; 
-    !print"here noun = ",(name)noun,"^";
     if(noun in real_location) { print(The)noun," is already here.^"; rtrue; }
     objectloop (direction in compass)
     {
         one_out = real_location.(direction.door_dir);
-        !print"one_out start = ",(name)one_out,"^";
         if (one_out ofclass myDoor)
         {
             one_out = one_out.door_to(direction.door_dir);
-            !print"one_out DOOR = ",(name)one_out,"^";
         } 
         if (one_out ofclass Room)
         {

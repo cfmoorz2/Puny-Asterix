@@ -56,7 +56,6 @@ Constant FREDDY_WAKES "^Freddy stirs and wakes in a daze.^^~Dude, what happened?
 Constant BATHROOM_OCCUPIED "There's a small red sign embedded above the doorknob reading ~Occupied~.";
 Constant BATHROOM_VACANT "There's a small green sign embedded above the doorknob reading ~Vacant~.";
 Constant INITIAL_LOCATION_VALUE = elevator_lobby_2;
-!Constant INITIAL_LOCATION_VALUE = ceiling_05;
 Constant CUSTOM_PLAYER_OBJECT selfobj;
 
 Include "globals.h";
@@ -152,7 +151,6 @@ Constant MSG_FULLSCORE_ACTIONS 1001;
         if (obj has scenery) return 2;
         if (action == ##take && obj in player) return 2;
         if (action == ##take && obj == player) return 2;
-        !if (action ==##take && parent(obj) has container) return 2;
         if(action == ##drop or ##insert or ##puton or ##drop) if(obj notin actor) return 2;
     }
 ];
@@ -194,7 +192,6 @@ Global following = false;
     }
     objectloop(direction in compass)
     {
-        !if (k = location.(direction.door_dir))
         k = real_location.(direction.door_dir);
         if (k == 0) continue;
         if (k has door) final = DoorTo(k); else final = k;
@@ -319,14 +316,12 @@ Include "VerbLib";
 ];
 
 [ add_signature npc i o; 
-    !print"SIGNATURE_COUNT = ",SIGNATURE_COUNT,"^";
     if (SIGNATURE_COUNT == 8) "Your signature form is already complete. ";
     if (pen notin player) "You need a pen. ";
     if (check_signature(npc) == true) rtrue;
     for (i=5 : i < 13: i++)
     {
         o = signatures-->i;
-        !print"LAST SIGNATURE = ",(name)o," AT INDEX ",i,"^";
         if (o == 0) 
         {
             npc.signature_desc();
@@ -354,8 +349,6 @@ Include "VerbLib";
     objectloop(i in player && i hasnt worn) {
         count = count + i.mass;
     }
-    !print"carrying = ",count,"^";
-    !print"mass = ",x,"^";
     if((count + x) > MAX_CARRIED) "That's too much for you to carry. ";
     rfalse;
 ];
@@ -386,10 +379,6 @@ Include "VerbLib";
     SAFE_2 = random(35);
     SAFE_3 = random(35);
     SAFE_CURRENT = random(35);
-    !SAFE_1 = 1;
-    !SAFE_2 = 2;
-    !SAFE_3 = 3;
-    !"^combo = ",SAFE_1,", ",SAFE_2,", ",SAFE_3,".^";
 ];
 
 [ DialPhone ;

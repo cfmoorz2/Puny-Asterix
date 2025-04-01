@@ -19,10 +19,8 @@ Array position_narrate_array --> 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     {
         if (position_narrate_array-->x == 0)
         {
-            !print"adding ",(name)obj," at index ",x,", ";
             position_narrate_array-->x = obj;
             y = x + 1;
-            !print"adding ",(name)dir," at index ",y,"^";
             position_narrate_array-->y = dir;
             rtrue;
         }
@@ -39,17 +37,14 @@ Class Room
             objectloop (direction in compass)
             {
                 one_out = real_location.(direction.door_dir);
-                !print"one_out start = ",(name)one_out,"^";
                 if (one_out ofclass myDoor && one_out has open)
                 {
                     one_out = one_out.door_to(direction.door_dir);
-                    !print"one_out DOOR = ",(name)one_out,"^";
                 } 
                 if (one_out ofclass Room)
                 {
                     objectloop (obj in one_out)
                     {
-                        !print"obj = ",(the)obj,", hide = ",obj.hide,"^";
                         if(obj has animate && obj.hide == false)
                         {
                             add_to_position_array(obj, direction);
@@ -75,7 +70,6 @@ Class Room
             objectloop (npc && npc ofclass Mover)
             {
                 npc.hide = false;
-                !print"giving hide = false to ",(name)npc,"^";
             }
          ],
 	has light;
@@ -83,8 +77,6 @@ Class Room
 Class myDoor 
     with hop,
         hop_direction,
-        !npc_open [;
-        !],
     has door;
 
 Class Mover 
@@ -113,7 +105,6 @@ Class Mover
                 self.target_room = real_location;
                 if (self notin real_location) path_move(parent(self), self.target_room);
                 if (self provides npc_arrived) self.npc_arrived(self.target_room); 
-                    !print"moving to ",(name)self.target_room,"^";
             }
             if(self.move_mode == WANDER_PATH)
             {
@@ -123,19 +114,7 @@ Class Mover
                 wander_move();
             }
             objectloop (i in parent(self))  {
-                !if(FlagIsSet(F_BADDIES_FOLLOWING) && (self == trio) && i == ledger)
-                !{
-                !    if(IndirectlyContains(mri_scanner, self))
-                !    {
-                !        print"THEY PAUSE I NTHE MRI SUITE.";
-                !    } else
-                !    {   
-                !        print"THEY TAKE THE LEDGER AND YOU LOSE.^";
-                !        deadflag = true;
-                !        rtrue;
-                !    }
-                !}
-                if(i has valuable) {
+                 if(i has valuable) {
                     move i to self;
                     if(self in real_location) print"^",(The)self," picks up ",(the)i,".^";
                 }
@@ -161,8 +140,6 @@ Class Mover
         { 
             queue-->i = obj;
             give obj touched;
-            !print(name)obj," has touched.^";
-            !print"queueing ",(name)obj," at index ",i,"^";
             rtrue;
         }
             i++;
@@ -200,23 +177,19 @@ Class Mover
     reset_queue();
     reset_touched();
     enqueue(start_room);
-    !print"start room = ",(name)start_room,", end_room = ",(name)end_room,"^";
     obj = start_room;
     while (obj)
     {
         obj = dequeue();
-        !print"here obj = ",(name)obj,"^";
         if(obj == end_room) rtrue;
         eval_node(obj);
     }
 ];
 
 [eval_node current_node direction k temp;
-    !print"evalling node ",(name)current_node,"^";
     objectloop (direction in compass)
     {
         k = current_node.(direction.door_dir);
-        !print"k = ",(name)k,"^";
         if (k ofclass Room) 
         {
             if(enqueue (k))
@@ -245,13 +218,10 @@ Class Mover
     prev = self.target_room;
     while (prev)
     {
-        !print"prev = ",(name)prev,", prev.hop = ",(name)prev.hop,", direction = ",(name)prev.hop_direction,"^";
         if(prev.hop == parent(self))
         {
             final = prev.hop_direction;
-            !print"final = ",(name)final,"^";
             way = parent(self).(final.door_dir);
-            !print"[way = ",(the)way,"]^";
             if (way has door)
             {
                 if (way in real_location && self provides npc_open_door && way hasnt open) 
@@ -259,18 +229,14 @@ Class Mover
                     self.npc_open_door(way);
 
                 }
-                !print"pre_way = ",(name)way,"^";
                 move way to parent(self);
                 scope_modified = true;
                 temp = way;
                 way = way.door_to(final.door_dir);
-                !print"here way = ",(name)way,"^";
-                !print"here parent(self)= ",(name)parent(self),"^";
                 remove temp;
                 MoveFloatingObjects();
             }
-!!!!!!!!!!!!!!!!!!!!!!
-            !print"^[moving ",(name)self," to the ",(name)final,"]^";
+
             eval_one_away(self, final);
             if (self in real_location && self.move_mode == TARGET_PATH) { self.hide = true; narrate_move(self, final); }
             move self to way;
@@ -282,8 +248,6 @@ Class Mover
                 print(The)self;
                 if(self has pluralname) { print" are ";}  else { print " is "; }
                 print"here.^";
-                !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
-                !self.describe();
             }
             !self.hide = false;
             if (way == self.target_room && self.move_mode == TARGET_PATH) 
@@ -291,10 +255,8 @@ Class Mover
                 StopDaemon(self);
                 self.move_mode = 0;
                 if (self provides npc_arrived) self.npc_arrived(self.target_room); 
-                !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
                 rtrue;
             } else
-            !if (self.move_mode == FOLLOW_PATH && self provides npc_post_follow) { self.npc_post_follow(); }
             break;
         }
 		prev = prev.hop;
@@ -341,67 +303,52 @@ Class Mover
 
 [wander_move npc_at test_room direction i x;
     npc_at = parent(self);
-    !print"avoid direction = ",(name)self.npc_last_wander,"^";
     objectloop (direction in compass)
     {
-        !if (direction == self.npc_last_wander) continue;
         test_room = npc_at.(direction.door_dir);
         if (~~test_room ofclass Room) continue;
         if(assess_no_go(self, test_room)) continue;
-        !print"test_room HERE = ",(name)test_room,"^";
         i++;
     }
-    !print"i == ",i,"^";
     if (i == 0 ) rfalse;
     if (i == 1) self.npc_last_wander = 0;
     i = 0;
-    !print"after first pass avoid direction = ",(name)self.npc_last_wander,"^";
     objectloop (direction in compass)
     {
         if (direction == self.npc_last_wander) continue;
         test_room = npc_at.(direction.door_dir);
-        !print"test_room = ",(name)test_room,"^";
         if (~~test_room ofclass Room) continue;
         if(assess_no_go(self, test_room)) continue;
-        !print"test_room HERE = ",(name)test_room,"^";
         i++;
     }
-    !print"after second check i = ",i,"^";
     x = random(i);
-    !print"random x = ",x,"^";
     i = 0;
     objectloop (direction in compass)
     {
         if (direction == self.npc_last_wander) continue;
         test_room = npc_at.(direction.door_dir);
-        !print"test_room 2 = ",(name)test_room,"^";
         if (~~test_room ofclass Room) continue;
         if(assess_no_go(self, test_room)) continue;
-        !print"test_room 2 HERE = ",(name)test_room,"^";
         i++;
         if (i == x) 
         { 
-            !print"[moving ",(name)self," to ",(name)test_room,"]^";
             eval_one_away(self, direction);
             if (self in real_location) { self.hide = true; narrate_move(self, direction); }
             move self to test_room;
             scope_modified = true;
             if (self in real_location && self.move_mode == FOLLOW_PATH) { self.hide = true; narrate_move(self, direction); }
             self.npc_last_wander = reverse_dir(direction);
-            !print"after final pass avoid direction = ",(name)self.npc_last_wander,"^";
-            if (self in real_location) self.describe();!print"^",(name)self," is here.^";
+            if (self in real_location) self.describe();
            rtrue;
         }
     }
 ];
 
 [assess_no_go npc test_room i x;
-    !print"in assess_no_go TEST ROOM = ",(name)test_room,"^";
     for ( i=0: i < 12: i++)
     {
         x = npc.npc_avoid-->i;
         if (x == 0) continue;
-        !print"avoiding ",(name)x,"^";
         if (x == test_room) rtrue; 
     }
     rfalse;        
@@ -419,8 +366,6 @@ Class Mover
 ];       
 
 [narrate_move npc direction rev_dir;
-    !print"[in narrate move npc = ",(name)npc,"]^";
-    !print"^hide = ",npc.hide,"^";
     if(npc.move_mode == TARGET_PATH or WANDER_PATH)
     {
         if(direction == u_obj) { print"^",(The)npc," "; npc.npc_walk(); " upstairs. "; } else

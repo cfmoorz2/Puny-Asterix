@@ -10,10 +10,8 @@ Class Item
         take:
         if (balloon.tied_to == self)
         {
-            !if (balloon in player) "You're already holding the balloon it's tied to. ";
             move balloon to player;
             scope_modified = true;
-            !"Taken. ";
             <<untie balloon self>>;
         }
 
@@ -47,9 +45,6 @@ Class Item
     after [;
         examine:
         if (balloon.tied_to == self) "There's a helium ballon tied to it currently. ";
-
-        !drop:
-        !if (balloon.tied_to == self) move balloon to real_location;
     ];
 
 Class Floatable
@@ -121,7 +116,6 @@ Object dummy_headphones "headphones"
             {
                 print"(into the walkman)^";
             }
-            !if (t_obj ~= 0) move t_obj to walkman;
             if (self has worn) { give walkman worn; }  else { give walkman ~worn; }
             remove dummy_headphones;
             ClearFlag(F_HEADPHONES_ARE_UNPLUGGED);
@@ -431,7 +425,6 @@ Class Tape
         i = self.current_track;
         i++;
         self.current_track = i;
-        !print"in FF new track = ",i,"^";
         if (self ~= thriller && self.current_track == SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
             With a ~click~ you reach the end of the side. "; 
         if (self == thriller && self.current_track == THRILLER_SIDE_END) "You press the button down and with a ~whir~ the little spools spin rapidly.
@@ -446,11 +439,6 @@ Class Tape
         print"With a satisfying ~click~ the play button engages.^";
         walkman_playing = true;
         ],
-    !play [;
-    !    if (self.current_track == SIDE_END) "The tape seems to be at the end of the side. ";
-    !    if (self.current_track == SIDE_START) self.current_track = FIRST_TRACK;
-    !    self.playback();
-    !],
     advance [;
         self.current_track++;
         if ((self ~= thriller && self.current_track == SIDE_END) || (self == thriller && self.current_track == THRILLER_SIDE_END))
@@ -463,13 +451,10 @@ Class Tape
     ],
     before [ x ;
         flip:
-            !print"flipping ",(name)self,"^";
             walkman_playing = false;
             ClearFlag(F_WALKMAN_BLOCKING);
             if (self.current_side == SIDE_A) self.current_side = SIDE_B; else self.current_side = SIDE_A;
-            !print"now side = ",self.current_side,"^";
             x = self.current_track;
-            !print"current track = ",x,"^";
             give walkman ~open;
             print"You pop out the tape, flip it over, put it back in, and snap the cassette compartment closed.^"; 
             self.tape_advance = 0;
@@ -485,7 +470,6 @@ Class Tape
             self.current_track = x;
             give walkman ~open;
             rtrue;
-            !print_ret"now current track = ",self.current_track,".";
     ],
     rewind [ i;
         walkman_playing = false;
@@ -497,8 +481,8 @@ Class Tape
         self.current_track = i;
         if (self.current_track == SIDE_START) "You press the button down and with a ~whir~ the little spools spin rapidly
             backwards. With a ~click~ you reach the beginning of the side. "; 
-        "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
-        release the button. ";
+            "You press the button down and with a ~whir~ the little spools spin rapidly backwards. After a moment you 
+            release the button. ";
     ],
     class Floatable Item;
 
@@ -643,11 +627,6 @@ Tape jorry_tape "green cassette tape" rock
 
 [ jorry_confession ;
     jorry_tape.current_track = 2;
-    !if (FlagIsClear(F_SAFE_COMBO_IS_SET))
-    !{
-    
-    !    SetFlag(F_SAFE_COMBO_IS_SET);
-    !}
     print"the sounds of a tape-recorder motor and then a voice, distorted and speaking a bit too excitedly
     into the microphone.^^~Hello, my name is Sid Jorry. I am CFO of St. Asterix hospital. I plan to mail this to you 
     because I have information you may find interesting pertaining to possible financial misdealings perpetrated by 
@@ -1175,16 +1154,13 @@ Object balloon "helium balloon" room_22
             take:
             if (self.tied_to == 0) 
             {
-                !self.tied_to = player;
                 move self to player;
                 scope_modified = true;
                 "Taken. ";
             }
             move self to player;
-            !move self.tied_to to player;
             scope_modified = true;
             "Taken.";
-            !print"(first untying the balloon)^";
         ],
         after [;
             take:

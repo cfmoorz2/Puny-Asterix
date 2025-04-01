@@ -2,7 +2,6 @@ Class MyNPC
     with 
         holding [counter i;
             objectloop(i in self && i hasnt worn)   {
-                !counter = counter + i.mass;
             }
             return counter;
         ],
@@ -24,8 +23,6 @@ Class MyNPC
             {
                 if(noun == u_obj) { print"You head up the stairs.^"; rfalse; }
                 if(noun == d_obj) { print"You head down the stairs.^"; rfalse; }
-                !if(noun == in_obj) { print"You head inside.^"; rfalse; }
-                !if(noun == out_obj) { print"You head out.^"; rfalse; }
                 print"You head off to the ",(name)noun,".^";
             }
         ],
@@ -562,7 +559,6 @@ Object nurse_retch "Nurse Retch" station_b
                 relax into a saccharine smile. ~Wherever did you find that, dear? Do be careful, can't 
                 have you sticking yourself now, can we?~^";
                 self.hide = false;
-                !print"^hide = ",self.hide,"^";
                 nurse_retch.move_mode = TARGET_PATH;
                 nurse_retch.target_room = environmental_services;
                 StartDaemon(nurse_retch);

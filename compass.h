@@ -1,11 +1,5 @@
 Class   CompassDirection
   with  number 0, article "the",
-        !description [;
-        !    if (location provides compass_look && location.compass_look(self)) rtrue;
-        !    if (self.compass_look()) rtrue;
-        !    L__M(##Look, 7, self);
-        !],
-        !compass_look false,
         parse_name [; return -1; ]
   has   scenery;
 
@@ -24,5 +18,3 @@ CompassDirection -> u_obj  with short_name "up above",  door_dir u_to,
 CompassDirection -> d_obj  with short_name "ground",    door_dir d_to,
                                 name 'd//' 'down' 'floor' 'below';
 
-!CompassDirection -> in_obj  with short_name "inside",  door_dir in_to;
-!CompassDirection -> out_obj with short_name "outside", door_dir out_to;
